@@ -105,13 +105,29 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .the h3{font-family:"Playfair Display",serif;font-weight:500;font-size:28px;line-height:1.3;margin-top:22px}
 .the p{color:var(--chu-toi);margin-top:12px;font-size:15.5px}
 
-/* ---------- Chặng đường nghề ---------- */
-.moc{list-style:none;margin-top:10px}
-.moc li{display:grid;grid-template-columns:230px 1fr;gap:36px;padding:30px 0;border-bottom:1px solid var(--ke-sang);transition:background .25s}
-.moc .nam{font-family:"Playfair Display",serif;font-size:28px;line-height:1.2;color:var(--muc)}
-.moc .nganh{display:block;margin-top:8px;font-family:"Josefin Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam)}
-.moc b{font-weight:500;font-size:17px}
-.moc p{color:var(--nhat);font-size:15.5px;margin-top:6px}
+/* ---------- Chặng đường nghề: con đường uốn lượn ---------- */
+.giay{background-color:#E8E1D4;background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.55),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(120,100,70,.14),transparent 55%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .29 0 0 0 0 .22 0 0 0 .10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.giay .dau-muc{border-bottom-color:rgba(47,59,74,.14)}
+.duong-nghe{position:relative;margin-top:36px}
+.con-duong{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.con-duong path{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round;filter:drop-shadow(6px 12px 7px rgba(90,72,48,.28))}
+.duong-nghe.cho-ve .con-duong path{stroke-dasharray:1;stroke-dashoffset:1}
+.duong-nghe.ve .con-duong path{animation:ve-duong 2.6s cubic-bezier(.45,0,.2,1) both}
+@keyframes ve-duong{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.vi-tri{position:absolute;left:22%;top:12.5%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--cat);border:3px solid #fff;box-shadow:0 0 0 0 rgba(182,163,131,.55);z-index:1}
+@media(prefers-reduced-motion:no-preference){.vi-tri{animation:nhip 2.4s ease-out infinite}}
+@keyframes nhip{0%{box-shadow:0 0 0 0 rgba(182,163,131,.6)}70%{box-shadow:0 0 0 18px rgba(182,163,131,0)}100%{box-shadow:0 0 0 0 rgba(182,163,131,0)}}
+.moc{list-style:none;position:relative;display:grid;grid-auto-rows:minmax(260px,1fr)}
+.moc li{align-self:center;width:42%;position:relative}
+.moc li.trai{justify-self:start;text-align:right}
+.moc li.phai{justify-self:end;width:44%;text-align:left}
+.moc .nam{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(40px,4.6vw,58px);line-height:1.05;color:var(--muc);transition:color .3s}
+.moc li:hover .nam{color:var(--cat-dam)}
+.moc .nganh{display:block;margin-top:10px;font-family:"Josefin Sans",sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--cat-dam)}
+.moc b{display:block;margin-top:10px;font-weight:500;font-size:17px;color:var(--muc)}
+.moc p{color:#4F5966;font-size:15.5px;margin-top:4px}
+.moc li.trai p{margin-left:auto;max-width:420px}
+.moc li.phai p{max-width:440px}
 
 /* ---------- Đang đồng hành ---------- */
 .dong-hanh{background:var(--kem)}
@@ -175,10 +191,6 @@ footer small{display:block;margin-top:26px;font-family:"Josefin Sans",sans-serif
 .the{position:relative}
 .the::after{content:"";position:absolute;left:40px;right:40px;bottom:0;height:1px;background:var(--cat);transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
 .the:hover::after{transform:scaleX(1)}
-.moc .nam{transition:color .25s}
-.moc li>div:last-child{transition:transform .3s ease}
-.moc li:hover .nam{color:var(--cat-dam)}
-.moc li:hover>div:last-child{transform:translateX(6px)}
 .viec{transition:transform .3s ease,box-shadow .3s ease}
 .viec:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(47,59,74,.1)}
 .nang-luc li{transition:padding-left .25s ease}
@@ -205,7 +217,11 @@ footer small{display:block;margin-top:26px;font-family:"Josefin Sans",sans-serif
   .so div{padding:36px 8px}
   .so span{font-size:11px;letter-spacing:.14em}
   .nang-luc{grid-template-columns:1fr}
-  .moc li{grid-template-columns:1fr;gap:8px}
+  .con-duong,.vi-tri{display:none}
+  .moc{grid-auto-rows:auto;border-left:4px solid #fff;margin-left:6px;filter:drop-shadow(3px 6px 5px rgba(90,72,48,.18))}
+  .moc li,.moc li.trai,.moc li.phai{width:auto;justify-self:stretch;text-align:left;padding:26px 0 26px 26px}
+  .moc li::before{content:"";position:absolute;left:-13px;top:40px;width:14px;height:14px;border-radius:50%;background:var(--cat);border:3px solid #fff}
+  .moc li.trai p{margin-left:0}
   .dau-muc{flex-direction:column;align-items:flex-start;gap:14px}
   .chuong{order:-1}
   .lien-he{padding:96px 0}
@@ -356,7 +372,7 @@ footer small{display:block;margin-top:26px;font-family:"Josefin Sans",sans-serif
 </section>
 
 <!-- CHẶNG ĐƯỜNG NGHỀ -->
-<section id="chang-duong">
+<section class="giay" id="chang-duong">
   <div class="khung">
     <div class="dau-muc">
       <div>
@@ -365,28 +381,38 @@ footer small{display:block;margin-top:26px;font-family:"Josefin Sans",sans-serif
       </div>
       <span class="chuong" aria-hidden="true">03</span>
     </div>
-    <ul class="moc">
-      <li>
-        <div class="nam">Hiện nay<span class="nganh">Chăm sóc sức khỏe</span></div>
-        <div><b>Trưởng phòng Nhân sự</b><p>Công ty nhập khẩu và phân phối vật tư, thiết bị y tế chuyên ngành Tim mạch can thiệp cho các bệnh viện khu vực phía Nam.</p></div>
-      </li>
-      <li>
-        <div class="nam">2021 - 2025<span class="nganh">Xây dựng và kiến trúc</span></div>
-        <div><b>Trưởng phòng Nhân sự</b><p>Công ty thiết kế thi công nội thất văn phòng hơn 20 năm cho các tập đoàn và tổ chức lớn.</p></div>
-      </li>
-      <li>
-        <div class="nam">2020 - 2021<span class="nganh">Hàng tiêu dùng</span></div>
-        <div><b>Phụ trách nhân sự chi nhánh miền Nam, K&amp;G Việt Nam</b><p>Hệ thống cửa hàng và siêu thị từ Đà Nẵng đến Cà Mau.</p></div>
-      </li>
-      <li>
-        <div class="nam">2019<span class="nganh">Hàng tiêu dùng</span></div>
-        <div><b>Quản lý nhân sự bộ phận QS-QC, dự án khởi nghiệp Yêu là đủ</b><p>Tự tay phát triển đội ngũ 3 - 5 nhân sự GenZ từ tư duy, kỹ năng tới kiến thức.</p></div>
-      </li>
-      <li>
-        <div class="nam">2015 - 2019<span class="nganh">Hàng tiêu dùng</span></div>
-        <div><b>Quản lý nhân sự vận hành, dự án khởi nghiệp Monkey in Black</b><p>Ban tổ chức chương trình MIB Mentoring nội bộ hàng tháng.</p></div>
-      </li>
-    </ul>
+    <div class="duong-nghe">
+      <svg class="con-duong" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M500,1010 C520,950 780,960 780,875 S220,720 220,625 S780,470 780,375 S220,220 220,125"/>
+      </svg>
+      <span class="vi-tri" aria-hidden="true"></span>
+      <ol class="moc">
+        <li class="phai">
+          <div class="nam">Hiện nay</div>
+          <span class="nganh">Chăm sóc sức khỏe</span>
+          <b>Trưởng phòng Nhân sự</b>
+          <p>Công ty nhập khẩu và phân phối vật tư, thiết bị y tế chuyên ngành Tim mạch can thiệp cho các bệnh viện khu vực phía Nam.</p>
+        </li>
+        <li class="trai">
+          <div class="nam">2021 - 2025</div>
+          <span class="nganh">Xây dựng và kiến trúc</span>
+          <b>Trưởng phòng Nhân sự</b>
+          <p>Công ty thiết kế thi công nội thất văn phòng hơn 20 năm cho các tập đoàn và tổ chức lớn.</p>
+        </li>
+        <li class="phai">
+          <div class="nam">2020 - 2021</div>
+          <span class="nganh">Hàng tiêu dùng</span>
+          <b>Phụ trách nhân sự chi nhánh miền Nam, K&amp;G Việt Nam</b>
+          <p>Hệ thống cửa hàng và siêu thị từ Đà Nẵng đến Cà Mau.</p>
+        </li>
+        <li class="trai">
+          <div class="nam">2015 - 2020</div>
+          <span class="nganh">Hàng tiêu dùng</span>
+          <b>Quản lý nhân sự vận hành, dự án khởi nghiệp Monkey in Black</b>
+          <p>Ban tổ chức chương trình MIB Mentoring nội bộ hàng tháng.</p>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -466,6 +492,14 @@ footer small{display:block;margin-top:26px;font-family:"Josefin Sans",sans-serif
   }
   addEventListener('scroll',function(){if(!cho){cho=true;requestAnimationFrame(capNhat)}},{passive:true});
   capNhat();
+  /* Con đường tự vẽ khi cuộn tới; quá 6 giây thì hiện luôn. Chữ các mốc không bao giờ bị ẩn */
+  var duong=document.querySelector('.duong-nghe');
+  if(duong&&!giam&&('IntersectionObserver' in window)){
+    duong.classList.add('cho-ve');
+    var hienDuong=function(){duong.classList.add('ve')};
+    var io2=new IntersectionObserver(function(ds){ds.forEach(function(d){if(d.isIntersecting){hienDuong();io2.disconnect();}})},{threshold:.15});
+    io2.observe(duong); setTimeout(hienDuong,6000);
+  }
   /* Đếm số: chữ trong trang đã là số cuối, hiệu ứng chỉ chạy thêm khi thấy dải số */
   if(giam||!('IntersectionObserver' in window))return;
   var io=new IntersectionObserver(function(ds){
