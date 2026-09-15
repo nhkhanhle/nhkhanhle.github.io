@@ -103,7 +103,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .ngoac-lon{font-family:"Playfair Display",serif;font-size:230px;line-height:.62;height:150px;color:var(--cat);text-align:center;padding-right:34px;border-right:1px solid var(--ke-toi);align-self:stretch;display:flex;align-items:flex-start;justify-content:center;padding-top:34px}
 @supports(-webkit-text-stroke:1px black){.ngoac-lon{color:transparent;-webkit-text-stroke:1.2px var(--cat)}}
 .trich blockquote{padding:10px 0 10px 60px}
-.trich q{display:block;quotes:none;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:clamp(30px,3.8vw,48px);line-height:1.28}
+.trich q{display:block;quotes:none;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:clamp(24px,2.8vw,36px);line-height:1.35}
 .trich .gach{display:block;width:64px;height:2px;background:var(--cat);margin-top:30px}
 
 @media(max-width:900px){

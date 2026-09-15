@@ -41,6 +41,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .toi .dau-muc{border-bottom-color:var(--ke-toi)}
 .chuong{font-family:"Playfair Display",serif;font-size:15px;color:var(--cat-dam);letter-spacing:.1em;white-space:nowrap}
 .toi .chuong{color:var(--cat)}
+.ve-toi h2.mot-dong{white-space:nowrap;font-size:clamp(28px,3.2vw,42px)}
 .chuong::before{content:"";display:inline-block;width:40px;height:1px;background:currentColor;vertical-align:middle;margin-right:12px;opacity:.7}
 
 /* ---------- Thanh điều hướng ---------- */
@@ -81,7 +82,6 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .hero .ke{height:1px;background:var(--ke-toi);margin:26px 0 22px;width:calc(100% + 80px)}
 .hero .dinh-vi{margin-top:18px;font-size:clamp(18px,2vw,21px);color:var(--cat-nhat);font-weight:300}
 .hero .gioi-thieu{margin-top:22px;color:var(--chu-toi);max-width:580px}
-.hero .gioi-thieu .cau-chot{display:block;margin-top:14px;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:21px;color:var(--cat-nhat)}
 .nut-hang{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
 .nut{display:inline-block;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:16px 28px 14px;transition:background .25s,color .25s,border-color .25s}
 .nut.chinh{background:var(--cat);color:var(--navy);border:1px solid var(--cat)}
@@ -116,11 +116,22 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .ve-toi .than{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;margin-top:52px}
 .ve-toi p{color:var(--nhat);margin-top:18px;font-size:16.5px}
 .ve-toi p:first-of-type{margin-top:0}
-.ve-toi p:first-of-type::first-letter{float:left;font-family:"Playfair Display",serif;font-weight:600;font-size:74px;line-height:.82;color:var(--muc);padding:8px 12px 0 0}
+.ve-toi .nang-luc details p{margin-top:0}
+.ve-toi .than>div>p:first-of-type::first-letter{float:left;font-family:"Playfair Display",serif;font-weight:600;font-size:74px;line-height:.82;color:var(--muc);padding:8px 12px 0 0}
 .nang-luc-tieu-de{margin-top:44px}
-.nang-luc{list-style:none;margin-top:14px;display:grid;grid-template-columns:1fr 1fr;column-gap:32px;counter-reset:nl}
-.nang-luc li{counter-increment:nl;padding:12px 0;border-bottom:1px solid var(--ke-sang);font-size:15px;color:var(--muc);display:flex;gap:14px;align-items:baseline}
-.nang-luc li::before{content:counter(nl,decimal-leading-zero);font-family:"Playfair Display",serif;font-size:13px;color:var(--cat-dam)}
+.nang-luc-tieu-de .goi-y{font-family:"Be Vietnam Pro",sans-serif;font-weight:300;font-size:13px;letter-spacing:0;text-transform:none;color:var(--nhat)}
+.nhom-nl{margin-top:28px}
+.nhom-nl-ten{font-size:12px;color:var(--muc);padding-bottom:10px;border-bottom:1px solid var(--muc)}
+.nang-luc{list-style:none;counter-reset:nl}
+.nang-luc li{counter-increment:nl;border-bottom:1px solid var(--ke-sang)}
+.nang-luc summary{list-style:none;cursor:pointer;display:flex;gap:14px;align-items:baseline;padding:12px 30px 12px 0;position:relative;font-size:15px;color:var(--muc);transition:color .2s}
+.nang-luc summary::-webkit-details-marker{display:none}
+.nang-luc summary::before{content:counter(nl,decimal-leading-zero);font-family:"Playfair Display",serif;font-size:13px;color:var(--cat-dam);flex:none}
+.nang-luc summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:18px;line-height:1;color:var(--cat-dam);transition:transform .3s}
+.nang-luc details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.nang-luc summary:hover{color:var(--cat-dam)}
+.nang-luc summary:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
+.nang-luc details p{margin:0 0 14px 41px;font-size:14.5px;line-height:1.7;color:var(--nhat)}
 .hop-nhan{position:relative;border:1px solid var(--ke-sang);padding:34px 28px 18px;margin-top:26px}
 .hop-nhan:first-child{margin-top:10px}
 .hop-nhan h3{position:absolute;top:-.8em;left:22px;background:var(--giay);padding:0 12px;font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--cat-dam)}
@@ -213,7 +224,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .ngoac-lon{font-family:"Playfair Display",serif;font-size:230px;line-height:.62;height:150px;color:var(--cat);text-align:center;padding-right:34px;border-right:1px solid var(--ke-toi);align-self:stretch;display:flex;align-items:flex-start;justify-content:center;padding-top:34px}
 @supports(-webkit-text-stroke:1px black){.ngoac-lon{color:transparent;-webkit-text-stroke:1.2px var(--cat)}}
 .trich blockquote{padding:10px 0 10px 60px}
-.trich q{display:block;quotes:none;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:clamp(30px,3.8vw,48px);line-height:1.28;letter-spacing:-.005em}
+.trich q{display:block;quotes:none;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:clamp(24px,2.8vw,36px);line-height:1.35;letter-spacing:-.005em}
 .trich .gach{display:block;width:64px;height:2px;background:var(--cat);margin-top:30px}
 
 /* ---------- Nền núi mờ ---------- */
@@ -242,8 +253,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .nav.cuon .khung{height:58px}
 
 /* ---------- Rê chuột ---------- */
-.nang-luc li{transition:padding-left .25s ease}
-.nang-luc li:hover{padding-left:6px}
 
 @media(max-width:960px){
   section{padding:88px 0}
@@ -256,6 +265,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .so{margin-top:-10px}
   .hero .ke{width:100%}
   .bang-viec li{grid-template-columns:90px minmax(0,1fr);gap:28px}
+  .ve-toi h2.mot-dong{white-space:normal}
   .bang-viec p{grid-column:2;margin-top:0}
   .nav ul{gap:20px}
   .kien-truc{right:-260px;top:-160px}
@@ -285,7 +295,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .the-so .icon{width:42px;height:42px;margin-bottom:10px}
   .the-so .icon svg{width:20px;height:20px}
   .the-so .nhan-so{font-size:10.5px;letter-spacing:.1em}
-  .nang-luc{grid-template-columns:1fr}
   .con-duong,.vi-tri{display:none}
   .moc{grid-auto-rows:auto;border-left:4px solid #fff;margin-left:6px;filter:drop-shadow(3px 6px 5px rgba(90,72,48,.18))}
   .moc li,.moc li.trai,.moc li.phai{width:auto;justify-self:stretch;text-align:left;padding:26px 0 26px 26px}
@@ -408,7 +417,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
       <div class="chao">Chào bạn, tôi là</div>
       <h2 class="ten-hero">Lê Nhật Khánh</h2>
       <div class="ke"></div>
-      <p class="dinh-vi">Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</p>
+      <p class="dinh-vi">Năng lực có thể rèn, kỹ năng có thể học, riêng ngọn lửa đi xa thì chỉ bạn tự thắp lên được.</p>
       <p class="gioi-thieu">
         Điều gì khiến một người trẻ bứt lên sau vài năm đi làm? Nhiều người nghĩ đó là một tấm bằng đẹp,
         một nơi làm việc tốt, hay chút may mắn lúc khởi đầu. Sau 12 năm làm nghề nhân sự, theo những gì tôi thấy,
@@ -416,7 +425,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         để mỗi sáng thức dậy biết mình đang đi về đâu. Tấm bằng mở cho bạn cánh cửa đầu tiên, còn hoài bão
         giữ bạn bước tiếp khi con đường bắt đầu dốc. Nếu bạn đang chông chênh ở những năm đầu đi làm,
         hãy tự hỏi mình một câu: điều gì mình khát khao đủ nhiều để chịu khó vì nó mỗi ngày?
-        <strong class="cau-chot">Năng lực có thể rèn, kỹ năng có thể học, riêng ngọn lửa đi xa thì chỉ bạn tự thắp lên được.</strong>
       </p>
       <div class="nut-hang">
         <a class="nut chinh" href="#chang-duong">Xem chặng đường nghề</a>
@@ -455,41 +463,66 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
     <div class="dau-muc">
       <div>
         <div class="nhan">Về tôi</div>
-        <h2>12 năm <em>“Trải”</em> và <em>“Nghiệm”</em> với nghề nhân sự</h2>
+        <h2 class="mot-dong">Hành trình <em>“Trải”</em> và <em>“Nghiệm”</em> với ngành Nhân sự Việt</h2>
       </div>
       <span class="chuong" aria-hidden="true">02</span>
     </div>
     <div class="than">
       <div>
         <p>
-          Hành trình ấy đưa tôi qua nhiều phân khúc kinh doanh: F&amp;B, hàng tiêu dùng nhanh,
-          kiến trúc và thiết kế nội thất, chăm sóc sức khỏe.
+          Suốt 12 năm làm nhân sự, hành trình đã đi qua các ngành như F&amp;B, hàng tiêu dùng nhanh, kiến trúc nội thất, chăm sóc sức khỏe thì điều giữ tôi ở lại với nghề là được nhìn thấy con người trưởng thành lên từng ngày. Tôi từng huấn luyện một đội ngũ trẻ từ cách nghĩ, cách làm đến những kiến thức nền tảng về nhân sự. Niềm vui lớn nhất là ngày các bạn tự đứng vững trên đôi chân của mình.
         </p>
         <p>
-          Ở mỗi nơi, tôi phụ trách chiến lược nhân sự gắn với mục tiêu phát triển của tổ chức.
-          Việc của tôi là dựng hệ thống để doanh nghiệp chạy được, và giữ cho con người trong hệ thống ấy
-          thấy mình được lắng nghe.
+          Đâu đó tôi vẫn tin trong mỗi người luôn có sẵn một phiên bản tốt hơn, chỉ chờ một môi trường đủ sự tin tưởng để được đánh thức. Ở mỗi nơi tôi đi qua thì di sản để lại đó là những hệ thống quản trị nhân sự để doanh nghiệp vận hành được, giữ cho con người trong hệ thống được thấu hiểu, được thử, được sai và được lớn. Bạn cũng vậy, đừng ngại những lần chưa đúng và lo sợ những lần thất bại. Người được lắng nghe thì dám lớn, người dám lớn thì cùng với cả tổ chức lớn theo.
         </p>
-        <div class="nhan nang-luc-tieu-de">Năng lực chính</div>
-        <ul class="nang-luc">
-          <li>Hệ thống quản trị chiến lược</li>
-          <li>Chiến lược nhân sự</li>
-          <li>Quản trị hiệu suất</li>
-          <li>Thu hút nhân tài</li>
-          <li>Khung năng lực</li>
-          <li>Tổng đãi ngộ</li>
-          <li>Quan hệ lao động</li>
-          <li>Pháp luật lao động</li>
-          <li>Văn hóa doanh nghiệp</li>
-          <li>Training · Coaching · Mentoring · Consulting</li>
-        </ul>
+        <div class="nang-luc-tieu-de nhan">Năng lực chính <span class="goi-y">· bấm vào từng năng lực để xem diễn giải</span></div>
+        <div class="nhom-nl">
+          <div class="nhan nhom-nl-ten">Năng lực lãnh đạo</div>
+          <ol class="nang-luc">
+            <li><details><summary>Hoạch định chiến lược nhân sự</summary><p>Đọc chiến lược kinh doanh rồi dịch ra con người: cần bao nhiêu người, ở vị trí nào, với năng lực gì, vào lúc nào. Nhân sự đi trước một bước thì kinh doanh không bị hụt người.</p></details></li>
+            <li><details><summary>Xây dựng hệ thống quản trị chiến lược</summary><p>Tham gia dựng khung mục tiêu, thẻ điểm và nhịp rà soát cho cả tổ chức, để mọi phòng ban cùng nhìn về một hướng và biết mình đang ở đâu trên đường đi.</p></details></li>
+            <li><details><summary>Dẫn dắt văn hóa doanh nghiệp</summary><p>Biến những giá trị treo trên tường thành thói quen làm việc mỗi ngày. Văn hóa được giữ bằng hành động của người dẫn đầu, chứ không bằng khẩu hiệu.</p></details></li>
+            <li><details><summary>Phát triển đội ngũ kế cận</summary><p>Tìm người có tiềm năng, giao việc vừa sức thử thách và ở bên họ lúc họ vấp. Việc của người dẫn dắt là làm cho người khác lớn lên.</p></details></li>
+            <li><details><summary>Coaching cho lãnh đạo và đội ngũ</summary><p>Đặt câu hỏi đủ đúng để người đối diện tự tìm ra câu trả lời của họ. Nghe hết rồi mới hỏi, hỏi thẳng nhưng không phán xét.</p></details></li>
+          </ol>
+        </div>
+        <div class="nhom-nl">
+          <div class="nhan nhom-nl-ten">Năng lực chuyên môn</div>
+          <ol class="nang-luc">
+            <li><details><summary>Quản trị hiệu suất</summary><p>Thiết kế mục tiêu, chỉ số và cách đánh giá để người làm tốt được nhìn thấy, người chưa tốt biết mình cần sửa gì. Đo được thì quản được, và người được đo cần hiểu vì sao mình được đo như vậy.</p></details></li>
+            <li><details><summary>Khung năng lực</summary><p>Định nghĩa rõ mỗi vị trí cần biết gì, làm được gì và hành xử ra sao, để tuyển dụng, đào tạo và thăng tiến cùng dùng một thước đo.</p></details></li>
+            <li><details><summary>Thu hút nhân tài</summary><p>Tìm đúng người cho đúng việc, và kể cho ứng viên nghe sự thật về công việc trước khi họ nhận lời. Tuyển chậm một chút vẫn hơn tuyển sai.</p></details></li>
+            <li><details><summary>Tổng đãi ngộ</summary><p>Dựng cấu trúc lương, thưởng, phúc lợi vừa cạnh tranh với thị trường vừa công bằng trong nội bộ, và nói được với nhân viên vì sao họ nhận con số đó.</p></details></li>
+            <li><details><summary>Quan hệ lao động và pháp luật lao động</summary><p>Giữ doanh nghiệp đứng đúng luật trong hợp đồng, nội quy, kỷ luật, và gỡ những va chạm giữa người lao động với tổ chức trước khi chúng thành tranh chấp.</p></details></li>
+            <li><details><summary>Đào tạo và tư vấn nhân sự</summary><p>Thiết kế chương trình học từ khoảng trống năng lực thật của đội ngũ, và cùng doanh nghiệp nhỏ dựng những phần nền nhân sự đầu tiên.</p></details></li>
+          </ol>
+        </div>
+        <div class="nhom-nl">
+          <div class="nhan nhom-nl-ten">Năng lực cá nhân</div>
+          <ol class="nang-luc">
+            <li><details><summary>Lắng nghe không phán xét</summary><p>Nghe hết rồi mới hỏi, để người nói thấy an toàn khi nói thật. Lắng nghe là cách tôn trọng rõ nhất tôi có thể trao cho một người.</p></details></li>
+            <li><details><summary>Chính trực và giữ chữ tín</summary><p>Nói điều mình làm, làm điều mình nói, và giữ kín những câu chuyện người khác đã tin mà kể cho mình.</p></details></li>
+            <li><details><summary>Tư duy hệ thống</summary><p>Nhìn một vấn đề nhân sự trong mối liên hệ với chiến lược, quy trình và con người, để sửa tận gốc chứ không vá từng chỗ.</p></details></li>
+            <li><details><summary>Thích nghi đa ngành</summary><p>Qua F&B, hàng tiêu dùng, kiến trúc nội thất và chăm sóc sức khỏe, tôi quen học nhanh luật chơi của ngành mới và hiểu con người ở đó trước khi thay đổi điều gì.</p></details></li>
+            <li><details><summary>Học hỏi không ngừng</summary><p>Vẫn ngồi vào lớp học sau 12 năm đi làm, vì nghề nhân sự đổi theo con người, mà con người thì luôn thay đổi.</p></details></li>
+          </ol>
+        </div>
       </div>
       <aside>
+        <div class="hop-nhan">
+          <h3>Giá trị cốt lõi</h3>
+          <ul>
+            <li>Tầm nhìn<small>Nhìn đủ xa để biết hôm nay mình cần bắt đầu từ đâu.</small></li>
+            <li>Tự chủ<small>Tự đứng trên đôi chân mình, tự chọn và tự chịu trách nhiệm với lựa chọn ấy.</small></li>
+            <li>Linh hoạt<small>Như nước: dẻo dai khi cần uốn mình, lặng như mặt hồ khi cần tĩnh, cứng như băng khi cần giữ vững.</small></li>
+          </ul>
+        </div>
         <div class="hop-nhan">
           <h3>Học vấn</h3>
           <ul>
             <li>Cử nhân Kế toán doanh nghiệp<small>Đại học Kinh tế TP.HCM</small></li>
-            <li>Chứng chỉ Giám đốc nhân sự<small>Học viện PACE</small></li>
+            <li>Chứng nhận Giám đốc nhân sự<small>Học viện Quản lý PACE</small></li>
+            <li>Chứng nhận Năng lực “Coaching” dành cho lãnh đạo<small>Học viện Quản lý PACE</small></li>
           </ul>
         </div>
         <div class="hop-nhan">
@@ -583,7 +616,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   <div class="khung trich">
     <span class="ngoac-lon" aria-hidden="true">“</span>
     <blockquote>
-      <q>Hành trình vạn dặm đều bắt đầu từ những bước chân</q>
+      <q>Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</q>
       <span class="gach" aria-hidden="true"></span>
     </blockquote>
   </div>
