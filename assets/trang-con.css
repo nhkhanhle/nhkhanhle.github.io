@@ -21,7 +21,7 @@ img{max-width:100%;display:block}
 .nav.cuon .khung{height:58px}
 .nav .ten{font-family:"Playfair Display",serif;font-size:21px;text-decoration:none}
 .nav ul{list-style:none;display:flex;gap:34px}
-.nav ul a{position:relative;display:inline-block;padding:6px 0;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:500;text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);transition:color .2s}
+.nav ul a{position:relative;display:inline-block;padding:6px 0;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:400;text-decoration:none;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9);transition:color .2s}
 .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--cat);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .nav ul a:hover{color:var(--cat)}
 .nav ul a:hover::after{transform:scaleX(1)}

@@ -48,10 +48,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .nav .khung{display:flex;align-items:center;justify-content:flex-end;height:70px}
 .nav .ten{font-family:"Playfair Display",serif;font-size:21px;text-decoration:none;letter-spacing:.01em}
 .nav ul{list-style:none;display:flex;gap:34px}
-.nav ul a{position:relative;display:inline-block;padding:6px 0;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:500;text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);transition:color .2s}
+.nav ul a{position:relative;display:inline-block;padding:6px 0;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:400;text-decoration:none;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9);transition:color .2s}
 .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--cat);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
-.nav ul a:hover,.nav ul a[aria-current="page"]{color:var(--cat)}
-.nav ul a:hover::after,.nav ul a[aria-current="page"]::after{transform:scaleX(1)}
+.nav ul a:hover{color:var(--cat)}
+.nav ul a:hover::after{transform:scaleX(1)}
 
 /* ---------- Mở đầu toàn màn hình ---------- */
 .mo-dau{position:relative;overflow:hidden;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);display:flex;align-items:center;justify-content:center;text-align:center;padding:96px 0 140px}
@@ -80,7 +80,8 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .hero .ten-hero{margin-top:0;white-space:nowrap;font-family:"Playfair Display",serif;font-weight:500;color:var(--cat);font-size:clamp(44px,6.2vw,80px);line-height:1.02;letter-spacing:-.01em}
 .hero .ke{height:1px;background:var(--ke-toi);margin:26px 0 22px;width:calc(100% + 80px)}
 .hero .dinh-vi{margin-top:18px;font-size:clamp(18px,2vw,21px);color:var(--cat-nhat);font-weight:300}
-.hero .gioi-thieu{margin-top:22px;color:var(--chu-toi);max-width:560px}
+.hero .gioi-thieu{margin-top:22px;color:var(--chu-toi);max-width:580px}
+.hero .gioi-thieu .cau-chot{display:block;margin-top:14px;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:21px;color:var(--cat-nhat)}
 .nut-hang{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
 .nut{display:inline-block;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:16px 28px 14px;transition:background .25s,color .25s,border-color .25s}
 .nut.chinh{background:var(--cat);color:var(--navy);border:1px solid var(--cat)}
@@ -409,9 +410,13 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
       <div class="ke"></div>
       <p class="dinh-vi">Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</p>
       <p class="gioi-thieu">
-        Tôi làm nhân sự ở vị trí đủ gần để nghe nỗi lo của nhân viên, và đủ xa để cùng ban lãnh đạo
-        đi tới mục tiêu chiến lược. 12 năm qua, con đường ấy đi qua F&amp;B, hàng tiêu dùng,
-        kiến trúc nội thất và chăm sóc sức khỏe.
+        Điều gì khiến một người trẻ bứt lên sau vài năm đi làm? Nhiều người nghĩ đó là một tấm bằng đẹp,
+        một nơi làm việc tốt, hay chút may mắn lúc khởi đầu. Sau 12 năm làm nghề nhân sự, theo những gì tôi thấy,
+        người đi xa thường mang trong mình một ước mơ đủ lớn để không bỏ cuộc sau vài lần vấp ngã, và đủ rõ
+        để mỗi sáng thức dậy biết mình đang đi về đâu. Tấm bằng mở cho bạn cánh cửa đầu tiên, còn hoài bão
+        giữ bạn bước tiếp khi con đường bắt đầu dốc. Nếu bạn đang chông chênh ở những năm đầu đi làm,
+        hãy tự hỏi mình một câu: điều gì mình khát khao đủ nhiều để chịu khó vì nó mỗi ngày?
+        <strong class="cau-chot">Năng lực có thể rèn, kỹ năng có thể học, riêng ngọn lửa đi xa thì chỉ bạn tự thắp lên được.</strong>
       </p>
       <div class="nut-hang">
         <a class="nut chinh" href="#chang-duong">Xem chặng đường nghề</a>
