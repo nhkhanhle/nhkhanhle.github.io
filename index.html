@@ -75,7 +75,9 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .anh-tran{position:absolute;bottom:0;right:max(24px,calc(50% - 560px));height:min(660px,92%);z-index:2;pointer-events:none}
 .anh-tran::before{content:"";position:absolute;left:50%;top:12%;width:92%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(182,163,131,.32),rgba(182,163,131,.06) 70%);border:1px solid rgba(182,163,131,.45);z-index:-1}
 .anh-tran::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;border:1px solid var(--cat);top:20%;left:2%}
-.anh-tran img{height:100%;width:auto;display:block;filter:drop-shadow(0 28px 36px rgba(0,0,0,.35))}
+/* Ảnh = JPEG màu + PNG mặt nạ (vùng trong suốt); bóng đổ đặt ở khung ngoài để mặt nạ không cắt mất */
+.anh-tran picture{display:block;height:100%;filter:drop-shadow(0 28px 36px rgba(0,0,0,.35))}
+.anh-tran img{height:100%;width:auto;display:block;-webkit-mask-image:url(avatar-mat-na.png);mask-image:url(avatar-mat-na.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 
 /* ---------- Dải số liệu ---------- */
 .so{position:relative;z-index:5;margin-top:-116px}
@@ -209,6 +211,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .hero{padding:56px 0 130px}
   .hero .khung{min-height:0}
   .anh-tran{position:relative;right:auto;bottom:auto;height:auto;width:min(380px,86%);margin:36px auto -130px}
+  .anh-tran picture{height:auto}
   .anh-tran img{width:100%;height:auto}
   .so{margin-top:-10px}
   .hero .ke{width:100%}
@@ -300,7 +303,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
       </div>
     </div>
   </div>
-  <div class="anh-tran"><img src="avatar-tach-nen.png" alt="Chân dung Lê Nhật Khánh"></div>
+  <div class="anh-tran"><picture><img src="avatar-chan-dung.jpg" width="1047" height="1400" alt="Chân dung Lê Nhật Khánh"></picture></div>
 </header>
 
 <!-- DẢI SỐ LIỆU -->
