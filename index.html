@@ -60,6 +60,8 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .mo-dau h1{font-family:"Playfair Display",serif;font-weight:500;text-transform:uppercase;color:#F1EADD;font-size:clamp(46px,9vw,124px);line-height:1;letter-spacing:.03em}
 .mo-dau .gach-giua{width:72px;height:1px;background:var(--cat);margin:34px auto 28px}
 .mo-dau .dinh-vi-lon{font-family:"Playfair Display",serif;font-size:clamp(19px,2.5vw,28px);color:var(--cat-nhat);letter-spacing:.01em}
+.mo-dau .dinh-vi-lon b{font-weight:700;color:#F1EADD}
+.mo-dau .dinh-vi-lon .cum{white-space:nowrap}
 .cuon-xuong{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--chu-toi);transition:color .25s}
 .cuon-xuong:hover{color:var(--cat)}
 .cuon-xuong i{position:relative;display:block;width:1px;height:58px;background:rgba(216,204,181,.35);overflow:hidden}
@@ -266,6 +268,8 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .hero .chao{font-size:12px;letter-spacing:.16em}
   .mo-dau{padding:72px 0 130px}
   .mo-dau .gach-giua{margin:26px auto 20px}
+  .mo-dau .dinh-vi-lon .cum{display:block}
+  .mo-dau .dinh-vi-lon .cham-giua{display:none}
   .truot{--rong:min(68vw,280px);margin-top:40px}
   .truot-san{grid-template-columns:1fr;padding:0 22px}
   .js .the-cd[data-vt="-1"]{transform:translateX(calc(-50% - 94%)) scale(.78)}
@@ -318,9 +322,9 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   <div class="khung">
     <h1>Lê Nhật Khánh</h1>
     <div class="gach-giua" aria-hidden="true"></div>
-    <p class="dinh-vi-lon">Người làm nhân sự · Người đồng hành</p>
+    <p class="dinh-vi-lon"><span class="cum"><b>H</b>uman <b>R</b>esources</span> <span class="cham-giua">·</span> <span class="cum"><b>H</b>appy <b>R</b>elationship</span></p>
   </div>
-  <a class="cuon-xuong" href="#chu-de"><span>Cuộn xuống</span><i aria-hidden="true"></i></a>
+  <a class="cuon-xuong" href="#chu-de"><span>Còn tiếp</span><i aria-hidden="true"></i></a>
 </header>
 
 <!-- BỐN CHỦ ĐỀ: thẻ trượt -->
@@ -329,7 +333,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
     <div class="dau-muc">
       <div>
         <div class="nhan">Chủ đề</div>
-        <h2>Bốn điều tôi làm, học và chia sẻ</h2>
+        <h2>Các nội dung bạn quan tâm</h2>
       </div>
       <span class="chuong" aria-hidden="true">01</span>
     </div>
@@ -342,7 +346,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         <span class="so-vien" aria-hidden="true">01</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M12 84h20V68h20V52h20V36h16"/><circle cx="80" cy="22" r="6"/><path d="M12 84h76" opacity=".45"/></svg></span>
         <div class="the-chu">
-          <span class="nhan">Chủ đề 01</span>
           <h3>Nghề nhân sự</h3>
           <p>Lộ trình từ thực tập sinh tới quản lý, những góc khuất nhà tuyển dụng ít kể với ứng viên, những điều trường lớp ngại chia sẻ.</p>
           <span class="doc">Đọc bài viết →</span>
@@ -353,7 +356,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         <span class="so-vien" aria-hidden="true">02</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="18" r="7"/><circle cx="20" cy="56" r="7"/><circle cx="80" cy="56" r="7"/><circle cx="50" cy="84" r="7"/><path d="M45 24 25 50M55 24l20 26M27 56h46M25 62l20 17M75 62 55 79M50 25v52"/></svg></span>
         <div class="the-chu">
-          <span class="nhan">Chủ đề 02</span>
           <h3>Hệ thống quản trị</h3>
           <p>Chiến lược, hiệu suất, khung năng lực, tổng đãi ngộ. Hệ thống tốt phải đo được, và người trong cuộc hiểu vì sao mình được đo như vậy.</p>
           <span class="doc">Đọc bài viết →</span>
@@ -364,7 +366,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         <span class="so-vien" aria-hidden="true">03</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="37" cy="50" r="25"/><circle cx="63" cy="50" r="25"/><circle cx="50" cy="50" r="2.6" fill="currentColor"/></svg></span>
         <div class="the-chu">
-          <span class="nhan">Chủ đề 03</span>
           <h3>Tâm lý học</h3>
           <p>Hiểu người trước khi quản người. Nghe hết rồi mới hỏi, hỏi thẳng nhưng không phán xét, kể cả khi người cần được nghe là chính mình.</p>
           <span class="doc">Đọc bài viết →</span>
@@ -375,7 +376,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         <span class="so-vien" aria-hidden="true">04</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 16v68M32 84h36M18 28h64"/><circle cx="50" cy="13" r="3"/><path d="M18 28 8 54M18 28l10 26M82 28 72 54M82 28l10 26"/><path d="M5 54h26a13 9 0 0 1-26 0zM69 54h26a13 9 0 0 1-26 0z"/></svg></span>
         <div class="the-chu">
-          <span class="nhan">Chủ đề 04</span>
           <h3>Pháp luật lao động</h3>
           <p>Luật là sàn chung để người lao động và doanh nghiệp cùng yên tâm, chứ không phải công cụ để hai bên thắng nhau.</p>
           <span class="doc">Đọc bài viết →</span>
