@@ -254,6 +254,20 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 
 /* ---------- Rê chuột ---------- */
 
+/* ---------- Xem chứng nhận ---------- */
+.xem-cn{display:block;text-decoration:none;color:inherit;transition:color .2s}
+.xem-cn .goi-y-cn{display:inline-block;margin-top:4px;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam);transition:transform .3s}
+.xem-cn:hover{color:var(--cat-dam)}
+.xem-cn:hover .goi-y-cn{transform:translateX(5px)}
+.xem-cn:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
+.hop-cn{border:0;padding:0;background:transparent;max-width:min(92vw,680px);max-height:94vh;margin:auto;overflow:visible}
+.hop-cn::backdrop{background:rgba(20,26,34,.84)}
+.hop-cn img{display:block;width:100%;height:auto;max-height:84vh;object-fit:contain;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.hop-cn .ten-cn{margin-top:14px;text-align:center;font-family:"Josefin Sans",sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-nhat)}
+.hop-cn .dong-cn{position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--cat);background:var(--navy);color:#fff;font-size:24px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.hop-cn .dong-cn:hover{background:var(--cat);color:var(--navy)}
+@media(max-width:640px){.hop-cn .dong-cn{top:-52px;right:0}}
+
 @media(max-width:960px){
   section{padding:88px 0}
   .hero .khung,.ve-toi .than{grid-template-columns:1fr}
@@ -521,8 +535,8 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
           <h3>Học vấn</h3>
           <ul>
             <li>Cử nhân Kế toán doanh nghiệp<small>Đại học Kinh tế TP.HCM</small></li>
-            <li>Chứng nhận Giám đốc nhân sự<small>Học viện Quản lý PACE</small></li>
-            <li>Chứng nhận Năng lực “Coaching” dành cho lãnh đạo<small>Học viện Quản lý PACE</small></li>
+            <li><a class="xem-cn" href="chung-nhan-giam-doc-nhan-su.jpg" data-cn data-tieu-de="Chứng nhận Giám đốc nhân sự · Học viện Quản lý PACE">Chứng nhận Giám đốc nhân sự<small>Học viện Quản lý PACE</small><span class="goi-y-cn">Xem chứng nhận →</span></a></li>
+            <li><a class="xem-cn" href="chung-nhan-coaching-lanh-dao.jpg" data-cn data-tieu-de="Chứng nhận Năng lực “Coaching” dành cho lãnh đạo · Học viện Quản lý PACE">Chứng nhận Năng lực “Coaching” dành cho lãnh đạo<small>Học viện Quản lý PACE</small><span class="goi-y-cn">Xem chứng nhận →</span></a></li>
           </ul>
         </div>
         <div class="hop-nhan">
@@ -622,6 +636,12 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   </div>
 </footer>
 
+<dialog class="hop-cn" id="hop-cn" aria-label="Xem chứng nhận">
+  <button type="button" class="dong-cn" aria-label="Đóng">×</button>
+  <img id="anh-cn" alt="">
+  <p class="ten-cn" id="ten-cn"></p>
+</dialog>
+
 <script>
 (function(){
   var nav=document.querySelector('.nav'), nen=document.querySelectorAll('.nen-anh');
@@ -641,6 +661,21 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   }
   addEventListener('scroll',function(){if(!cho){cho=true;requestAnimationFrame(capNhat)}},{passive:true});
   capNhat();
+  /* Xem chứng nhận: bấm mở ảnh trong hộp giữa màn hình; không có dialog thì mở thẳng file ảnh */
+  var hopCn=document.getElementById('hop-cn');
+  if(hopCn&&typeof hopCn.showModal==='function'){
+    var anhCn=document.getElementById('anh-cn'), tenCn=document.getElementById('ten-cn');
+    [].forEach.call(document.querySelectorAll('[data-cn]'),function(a){
+      a.addEventListener('click',function(ev){
+        ev.preventDefault();
+        anhCn.src=a.getAttribute('href'); anhCn.alt=a.getAttribute('data-tieu-de');
+        tenCn.textContent=a.getAttribute('data-tieu-de');
+        hopCn.showModal();
+      });
+    });
+    hopCn.querySelector('.dong-cn').addEventListener('click',function(){hopCn.close()});
+    hopCn.addEventListener('click',function(ev){if(ev.target===hopCn)hopCn.close()});
+  }
   /* Thẻ trượt chủ đề: mũi tên, chấm, vuốt, phím trái phải, bấm thẻ bên cạnh */
   var tr=document.querySelector('[data-truot]');
   if(tr){
