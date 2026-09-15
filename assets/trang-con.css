@@ -16,7 +16,7 @@ img{max-width:100%;display:block}
 
 /* ---------- Thanh điều hướng ---------- */
 .nav{position:sticky;top:0;z-index:20;background:rgba(47,59,74,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--ke-toi);color:#fff;transition:background .3s,box-shadow .3s}
-.nav .khung{display:flex;align-items:center;justify-content:space-between;height:70px;transition:height .3s}
+.nav .khung{display:flex;align-items:center;justify-content:flex-end;height:70px;transition:height .3s}
 .nav.cuon{background:rgba(38,48,60,.97);box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .nav.cuon .khung{height:58px}
 .nav .ten{font-family:"Playfair Display",serif;font-size:21px;text-decoration:none}
@@ -116,7 +116,10 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 }
 @media(max-width:640px){
   .khung{padding:0 22px}
-  .nav ul{display:none}
+  .nav .khung{justify-content:flex-start}
+  .nav ul{gap:18px;overflow-x:auto;scrollbar-width:none;max-width:100%;padding:2px 0}
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav ul a{font-size:11.5px;letter-spacing:.12em;white-space:nowrap}
   .noi-bat .chu{padding:36px 26px}
   .muc-luc .stt{font-size:30px}
   .muc-luc h3{font-size:21px}
