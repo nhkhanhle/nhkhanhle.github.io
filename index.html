@@ -48,8 +48,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .nav .khung{display:flex;align-items:center;justify-content:flex-end;height:70px}
 .nav .ten{font-family:"Playfair Display",serif;font-size:21px;text-decoration:none;letter-spacing:.01em}
 .nav ul{list-style:none;display:flex;gap:34px}
-.nav ul a{font-family:"Josefin Sans",sans-serif;text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--chu-toi);transition:color .2s}
+.nav ul a{position:relative;display:inline-block;padding:6px 0;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:500;text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);transition:color .2s}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--cat);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .nav ul a:hover,.nav ul a[aria-current="page"]{color:var(--cat)}
+.nav ul a:hover::after,.nav ul a[aria-current="page"]::after{transform:scaleX(1)}
 
 /* ---------- Mở đầu toàn màn hình ---------- */
 .mo-dau{position:relative;overflow:hidden;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);display:flex;align-items:center;justify-content:center;text-align:center;padding:96px 0 140px}
@@ -75,7 +77,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .hero .khung{display:block;min-height:520px}
 .hero .chu-hero{max-width:620px}
 .hero .chao{display:inline-block;margin-bottom:22px;padding-bottom:12px;font-family:"Josefin Sans",sans-serif;font-size:14px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#fff;background:linear-gradient(var(--cat),var(--cat)) left bottom/52px 2px no-repeat}
-.hero .ten-hero{margin-top:0;font-family:"Playfair Display",serif;font-weight:500;color:var(--cat);font-size:clamp(50px,7.4vw,96px);line-height:1.02;letter-spacing:-.01em}
+.hero .ten-hero{margin-top:0;white-space:nowrap;font-family:"Playfair Display",serif;font-weight:500;color:var(--cat);font-size:clamp(44px,6.2vw,80px);line-height:1.02;letter-spacing:-.01em}
 .hero .ke{height:1px;background:var(--ke-toi);margin:26px 0 22px;width:calc(100% + 80px)}
 .hero .dinh-vi{margin-top:18px;font-size:clamp(18px,2vw,21px);color:var(--cat-nhat);font-weight:300}
 .hero .gioi-thieu{margin-top:22px;color:var(--chu-toi);max-width:560px}
@@ -263,9 +265,10 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .nav .khung{justify-content:flex-start}
   .nav ul{gap:18px;overflow-x:auto;scrollbar-width:none;max-width:100%;padding:2px 0}
   .nav ul::-webkit-scrollbar{display:none}
-  .nav ul a{font-size:11.5px;letter-spacing:.12em;white-space:nowrap}
+  .nav ul a{font-size:12.5px;letter-spacing:.08em;white-space:nowrap}
   .hero{padding:64px 0 80px}
   .hero .chao{font-size:12px;letter-spacing:.16em}
+  .hero .ten-hero{white-space:normal}
   .mo-dau{padding:72px 0 130px}
   .mo-dau .gach-giua{margin:26px auto 20px}
   .mo-dau .dinh-vi-lon .cum{display:block}
@@ -333,7 +336,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
     <div class="dau-muc">
       <div>
         <div class="nhan">Chủ đề</div>
-        <h2>Các nội dung bạn quan tâm</h2>
+        <h2>Các góc nhìn thuộc các lĩnh vực</h2>
       </div>
       <span class="chuong" aria-hidden="true">01</span>
     </div>
@@ -401,10 +404,10 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   </svg>
   <div class="khung">
     <div class="chu-hero">
-      <div class="chao">Xin chào, tôi là một trưởng phòng nhân sự</div>
+      <div class="chao">Chào bạn, tôi là</div>
       <h2 class="ten-hero">Lê Nhật Khánh</h2>
       <div class="ke"></div>
-      <p class="dinh-vi">Human Resources, với tôi, còn là Happy Relationship.</p>
+      <p class="dinh-vi">Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</p>
       <p class="gioi-thieu">
         Tôi làm nhân sự ở vị trí đủ gần để nghe nỗi lo của nhân viên, và đủ xa để cùng ban lãnh đạo
         đi tới mục tiêu chiến lược. 12 năm qua, con đường ấy đi qua F&amp;B, hàng tiêu dùng,
