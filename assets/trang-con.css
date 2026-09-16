@@ -135,3 +135,90 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .than-bai p{font-size:17px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- Khảm chủ đề: bản đồ bài viết ---------- */
+/* Lưới 12 cột 6 hàng. Ô tròn ở giữa là bài nổi bật, càng ra rìa bài càng cũ.
+   Mỗi ô là thẻ hai mặt: mặt trước gồm khung hình và một dải chữ riêng bên dưới,
+   chữ không đè lên hình. Rê chuột thì lật sang mặt tên bài.
+   Ô trống là khoảng nghỉ, không bấm được. Xem tham-khao/bo-cuc-tap-chi.md */
+.kham{display:block;margin-top:4px}
+.kham-dau{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;margin-bottom:28px}
+.kham-dau p{color:var(--nhat);font-size:15px}
+/* Tỉ lệ 1.508 giữ ô tâm tròn đúng: bề ngang 4 cột bằng chiều cao 3 hàng */
+.kham-luoi{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));aspect-ratio:1.508;gap:10px}
+
+.o-kham{position:relative}
+.o-kham.trong-o{background:#F7F4EE;border:1px solid #EAE4D8}
+.o-kham.co-bai{perspective:1000px;text-decoration:none;color:#fff;display:block}
+.o-kham.co-bai:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
+
+.lat{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.2,.7,.2,1)}
+.o-kham.co-bai:hover .lat,.o-kham.co-bai:focus-visible .lat{transform:rotateY(180deg)}
+.mat{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+/* Mặt trước: hàng trên là hình, hàng dưới là dải chữ nền đặc */
+.mat.truoc{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;background:var(--navy-sau)}
+.anh-o{background:var(--navy) center/cover no-repeat}
+.chu-truoc{background:var(--navy-sau);border-top:1px solid var(--ke-toi);padding:13px 16px 14px}
+.mat.sau{transform:rotateY(180deg);background:linear-gradient(165deg,#3B4859 0%,#222B36 100%);border:1px solid var(--ke-toi);
+  display:grid;align-content:center;gap:14px;padding:20px 22px}
+
+.nhan-o{display:block;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat)}
+.ngay-o{display:block;margin-top:6px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;letter-spacing:.14em;color:rgba(255,255,255,.66)}
+/* Cỡ chữ tên bài bằng nhau ở mọi ô, kể cả ô tròn */
+.ten-o{font-family:"Playfair Display",serif;font-weight:500;font-size:15.5px;line-height:1.38;color:#fff;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.doc-o{display:inline-flex;align-items:center;gap:8px;font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--cat)}
+.doc-o svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.o-kham.co-bai:hover .doc-o svg{transform:translateX(3px);transition:transform .3s}
+
+/* Ô tâm hình tròn: dải chữ là một vạt cắt ngang phần dưới đường tròn */
+.o-kham.tam{grid-column:5/9;grid-row:2/5}
+.o-kham.tam .lat,.o-kham.tam .mat{border-radius:50%}
+.o-kham.tam .mat.truoc{grid-template-rows:minmax(0,1fr) auto}
+.o-kham.tam .chu-truoc{text-align:center;padding:13px 16% 22px}
+.o-kham.tam .mat.sau{padding:0 17%;justify-items:center;text-align:center;border:0}
+.o-kham.tam .vong{position:absolute;inset:-14px;border:1px solid var(--cat);border-radius:50%;z-index:3;pointer-events:none}
+
+/* Tám chỗ đặt bài, xếp từ trong ra ngoài. Mọi ô đều đủ rộng cho 4 dòng tên bài */
+.k1{grid-column:2/5;grid-row:1/3}    .k2{grid-column:9/12;grid-row:1/3}
+.k3{grid-column:2/5;grid-row:3/5}    .k4{grid-column:9/12;grid-row:3/5}
+.k5{grid-column:5/9;grid-row:5/7}    .k6{grid-column:2/5;grid-row:5/7}
+.k7{grid-column:9/12;grid-row:5/7}
+/* Sáu ô trang trí, luôn để trống */
+.d1{grid-column:1/2;grid-row:1/4}    .d2{grid-column:12/13;grid-row:1/4}
+.d3{grid-column:1/2;grid-row:4/7}    .d4{grid-column:12/13;grid-row:4/7}
+.d5{grid-column:5/7;grid-row:1/2}    .d6{grid-column:7/9;grid-row:1/2}
+
+@media(max-width:900px),(hover:none){
+  /* Không có chuột để rê thì bỏ lật. Hai mặt xếp dọc thành một thẻ thường:
+     hình, dải nhãn và ngày, rồi tên bài. Chữ vẫn không đè lên hình. */
+  .o-kham.co-bai{perspective:none}
+  .lat{transform:none!important;transform-style:flat;height:auto}
+  .mat{position:static;transform:none;backface-visibility:visible;-webkit-backface-visibility:visible}
+  .anh-o{aspect-ratio:4/3;width:100%}
+  .mat.sau{transform:none;background:var(--navy-sau);border:0;align-content:start;gap:10px;padding:14px 16px 18px}
+  .mat.sau .doc-o{display:none}
+  .o-kham.tam .lat,.o-kham.tam .mat{border-radius:0}
+  .o-kham.tam .mat.truoc{border-radius:0}
+  .o-kham.tam .anh-o{border-radius:50%;aspect-ratio:1;width:100%;max-width:280px;margin:0 auto}
+  .o-kham.tam .chu-truoc{padding:13px 16px 14px;border-top:1px solid var(--ke-toi)}
+  .o-kham.tam .mat.sau{padding:14px 16px 18px;justify-items:center;text-align:center}
+  .o-kham.tam .vong{display:none}
+}
+@media(max-width:900px){
+  .kham-luoi{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;aspect-ratio:auto;gap:14px}
+  .o-kham{aspect-ratio:auto}
+  .o-kham.co-bai{background:var(--navy-sau)}
+  .o-kham.trong-o{display:none}
+  .o-kham.tam{grid-column:1/3;grid-row:auto;justify-self:stretch}
+  .k1,.k2,.k3,.k4,.k5,.k6,.k7{grid-column:auto;grid-row:auto}
+  .ten-o{font-size:15px;-webkit-line-clamp:4}
+}
+@media(max-width:600px){
+  /* Một cột. Ô tâm phải trả grid-column về auto, nếu để nó bắc qua 2 cột thì
+     lưới tự sinh thêm một cột và ô thường bị bóp còn vài chục pixel. */
+  .kham-luoi{grid-template-columns:minmax(0,1fr);gap:12px}
+  .o-kham.tam{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){.lat{transition:none}}
