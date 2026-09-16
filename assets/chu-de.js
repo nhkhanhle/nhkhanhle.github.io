@@ -37,21 +37,18 @@
     /* Khối khảm: tâm là bài nổi bật hoặc bài mới nhất, càng ra rìa càng cũ.
        Vị trí ô xếp sẵn trong trang-con.css, xem tham-khao/bo-cuc-tap-chi.md */
     function veKham(danh){
-      /* 8 chỗ đặt bài, xếp từ trong ra ngoài. Bài thứ 9 trở đi chỉ nằm ở mục lục bên dưới. */
-      var VI_TRI=['tam','k1','k2','k3','k4','k5','k6','k7'];
-      var TRANG_TRI=['d1','d2','d3','d4','d5','d6'];
+      /* Năm ô so le trượt qua lại, ô giữa là ô đang chọn.
+         Cách chuyển động theo thẻ trượt 5 chủ đề ngoài trang chủ, bỏ vòng tròn vàng.
+         Khổ hẹp thì CSS tự chuyển về lưới thường, phần mã này vẫn chạy nhưng không ảnh hưởng. */
       var MUI_TEN='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg>';
-      var kh=q('[data-kham]'), luoi=q('[data-kham-luoi]');
+      var kh=q('[data-kham]'), luoi=q('[data-kham-luoi]'), dk=q('[data-kham-dk]'),
+          cham=q('[data-kham-cham]'), lui=q('[data-kham-lui]'), toi=q('[data-kham-toi]');
       if(!kh||!luoi)return;
       if(!danh.length){kh.hidden=true;return}
-      kh.hidden=false; luoi.innerHTML='';
+      kh.hidden=false; luoi.innerHTML=''; cham.innerHTML='';
 
-      function oTrong(vt){var e=tao('div','o-kham trong-o '+vt);e.setAttribute('aria-hidden','true');return e}
-
-      VI_TRI.forEach(function(vt,i){
-        var b=danh[i];
-        if(!b){luoi.appendChild(oTrong(vt));return}
-        var o=lienKet(b,'o-kham co-bai '+vt);
+      var o=danh.map(function(b,i){
+        var e=lienKet(b,'o-kham co-bai'+(i===0?' noi-bat-o':''));
         var lat=tao('div','lat');
 
         var truoc=tao('div','mat truoc');
@@ -59,7 +56,7 @@
         if(b.anh)anh.style.backgroundImage='url("'+encodeURI(goc+b.anh)+'")';
         truoc.appendChild(anh);
         var ct=tao('div','chu-truoc');
-        ct.appendChild(tao('span','nhan-o',vt==='tam'?'Bài nổi bật':(b.nhom||'Bài viết')));
+        ct.appendChild(tao('span','nhan-o',i===0?'Bài nổi bật':(b.nhom||'Bài viết')));
         ct.appendChild(tao('span','ngay-o',meta(b)));
         truoc.appendChild(ct);
 
@@ -71,13 +68,104 @@
           d.insertAdjacentHTML('beforeend',MUI_TEN);
           sau.appendChild(d);
         }
-
-        lat.appendChild(truoc); lat.appendChild(sau); o.appendChild(lat);
-        if(vt==='tam'){var v=tao('span','vong');v.setAttribute('aria-hidden','true');o.appendChild(v)}
-        luoi.appendChild(o);
+        lat.appendChild(truoc); lat.appendChild(sau); e.appendChild(lat);
+        luoi.appendChild(e);
+        return e;
       });
 
-      TRANG_TRI.forEach(function(vt){luoi.appendChild(oTrong(vt))});
+      var n=o.length, hien=0, keo=false, x0=null;
+      dk.hidden = n<2;
+
+      for(var i=0;i<n;i++){
+        (function(i){
+          var nut=tao('button'); nut.type='button';
+          nut.setAttribute('aria-label','Bài '+(i+1)+' trên '+n);
+          nut.addEventListener('click',function(){den(i)});
+          cham.appendChild(nut);
+        })(i);
+      }
+      var chamNut=[].slice.call(cham.querySelectorAll('button'));
+
+      function ve(){
+        o.forEach(function(e,i){
+          var d=((i-hien)%n+n)%n; if(d>n/2)d-=n;
+          e.setAttribute('data-vt',d);
+          e.tabIndex = d===0?0:-1;
+          e.setAttribute('aria-hidden', Math.abs(d)>2 ? 'true':'false');
+        });
+        chamNut.forEach(function(c,i){c.setAttribute('aria-current',i===hien?'true':'false')});
+      }
+      function den(i){hien=(i%n+n)%n;ve()}
+
+      lui.onclick=function(){den(hien-1)};
+      toi.onclick=function(){den(hien+1)};
+      /* Bấm vào ô bên cạnh là đưa nó vào giữa, chưa mở bài */
+      o.forEach(function(e,i){
+        e.addEventListener('click',function(ev){
+          if(keo){ev.preventDefault();return}
+          if(e.getAttribute('data-vt')!=='0'){ev.preventDefault();den(i)}
+        });
+      });
+      /* Vuốt ngang */
+      luoi.addEventListener('pointerdown',function(ev){x0=ev.clientX;keo=false});
+      luoi.addEventListener('pointermove',function(ev){if(x0!==null&&Math.abs(ev.clientX-x0)>8)keo=true});
+      function tha(ev){
+        if(x0===null)return;
+        var dx=ev.clientX-x0; x0=null;
+        if(Math.abs(dx)>50)den(hien+(dx<0?1:-1));
+        setTimeout(function(){keo=false},60);
+      }
+      luoi.addEventListener('pointerup',tha);
+      luoi.addEventListener('pointercancel',function(){x0=null});
+      luoi.addEventListener('dragstart',function(ev){ev.preventDefault()});
+      luoi.addEventListener('keydown',function(ev){
+        if(ev.key==='ArrowLeft'){ev.preventDefault();den(hien-1)}
+        if(ev.key==='ArrowRight'){ev.preventDefault();den(hien+1)}
+      });
+      ve();
+    }
+
+    function veBang(danh){
+      /* Danh sách dọc. Mở đầu hiện 4 bài, bấm Xem thêm thì hiện thêm 4 bài nữa.
+         Mỗi dòng có ảnh icon bên trái. Mẫu dòng theo ảnh Khánh gửi. */
+      var DAU=4, THEM=4;
+      var b=q('[data-bang]'), ds=q('[data-ds]'), dk=q('.bang-dieu-khien'),
+          nut=q('[data-them]'), chu=q('[data-them-chu]');
+      if(!b||!ds)return;
+      if(!danh.length){b.hidden=true;return}
+      b.hidden=false; ds.innerHTML='';
+
+      var dong=danh.map(function(x){
+        var d=lienKet(x,'dong-bai');
+        var h=tao('span','hinh-bai');
+        if(x.anh)h.style.backgroundImage='url("'+encodeURI(goc+x.anh)+'")';
+        h.setAttribute('aria-hidden','true');
+        d.appendChild(h);
+        var g=tao('div');
+        g.appendChild(tao('span','nhan-nho',x.nhom||'Bài viết'));
+        g.appendChild(tao('h3',null,x.tieuDe));
+        if(x.tomTat)g.appendChild(tao('p',null,x.tomTat));
+        g.appendChild(tao('span','meta',meta(x)));
+        d.appendChild(g);
+        d.appendChild(tao('span','mui-ten',x.duongDan?'→':''));
+        ds.appendChild(d);
+        return d;
+      });
+
+      var hien=Math.min(DAU,dong.length);
+      function veLai(){
+        dong.forEach(function(d,i){d.hidden = i>=hien});
+        var con=dong.length-hien;
+        dk.hidden = con<=0;
+        if(con>0)chu.textContent='Xem thêm '+Math.min(THEM,con)+' bài';
+      }
+      nut.onclick=function(){
+        var truoc=hien;
+        hien=Math.min(hien+THEM,dong.length);
+        veLai();
+        if(dong[truoc])dong[truoc].focus({preventScroll:true});
+      };
+      veLai();
     }
 
     function hienThi(nhom){
@@ -85,18 +173,7 @@
       var nb=chon.filter(function(b){return b.noiBat})[0]||chon.filter(function(b){return b.anh})[0]||chon[0];
       var thuTu=nb?[nb].concat(chon.filter(function(b){return b!==nb})):chon;
       veKham(thuTu);
-      /* Mục lục liệt kê đủ cả bài ở tâm, đánh số từ 01 */
-      var ml=q('[data-muc-luc]'); ml.innerHTML='';
-      ml.hidden=!thuTu.length;
-      thuTu.forEach(function(b,i){
-        var li=tao('li'), l=lienKet(b,'dong');
-        l.appendChild(tao('span','stt',so(i+1)));
-        var g=tao('div'); if(b.nhom||b.mau)g.appendChild(tao('span','nhan-nho',(b.mau?'Bài mẫu':'')+(b.mau&&b.nhom?' · ':'')+(b.nhom||'')));
-        g.appendChild(tao('h3',null,b.tieuDe)); if(b.tomTat)g.appendChild(tao('p',null,b.tomTat));
-        l.appendChild(g); l.appendChild(tao('span','meta',meta(b)));
-        l.appendChild(tao('span','mui-ten',b.duongDan?'→':''));
-        li.appendChild(l); ml.appendChild(li);
-      });
+      veBang(thuTu);
     }
   }
 

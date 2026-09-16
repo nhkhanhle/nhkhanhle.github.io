@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400;600&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/trang-con.css">
+<link rel="stylesheet" href="../assets/tim-kiem.css">
 </head>
 <body data-chu-de="tam-ly-hoc">
 
@@ -54,10 +55,23 @@
     <div data-bai-viet hidden>
       <div class="loc" data-loc hidden role="group" aria-label="Lọc theo nhóm"></div>
       <section class="kham" data-kham hidden aria-label="Bản đồ bài viết trong chủ đề">
-        <div class="kham-dau"><span class="nhan">Bản đồ chủ đề</span><p>Bài nổi bật và bài mới nằm ở giữa, bài cũ hơn dạt dần ra rìa.</p></div>
+        <div class="kham-dau"><span class="nhan">Bản đồ chủ đề</span><p>Bấm hai nút hoặc vuốt ngang để đổi bài. Bài nằm giữa là bài đang chọn.</p></div>
         <div class="kham-luoi" data-kham-luoi></div>
+        <div class="kham-dieu-khien" data-kham-dk>
+          <button type="button" class="mui-tron" data-kham-lui aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="cham-kham" data-kham-cham></div>
+          <button type="button" class="mui-tron" data-kham-toi aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
       </section>
-      <ol class="muc-luc" data-muc-luc></ol>
+      <div class="bang" data-bang hidden>
+        <div class="ds-bai" data-ds></div>
+        <div class="bang-dieu-khien">
+          <button type="button" class="nut-them" data-them>
+            <span data-them-chu>Xem thêm</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </main>
@@ -86,5 +100,7 @@
 
 <script src="../bai-viet.js"></script>
 <script src="../assets/chu-de.js"></script>
+<script src="../assets/tim-kiem-du-lieu.js"></script>
+<script src="../assets/tim-kiem.js"></script>
 </body>
 </html>
