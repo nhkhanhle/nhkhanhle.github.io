@@ -12,3 +12,5 @@ avatar-goc.*
 anh-goc.*
 # Ảnh chứng nhận có số hiệu và chữ ký, giữ trong máy
 *PACE-CCPL*
+# Ghi chú phiên làm việc, giữ trong máy
+session-notes.md
