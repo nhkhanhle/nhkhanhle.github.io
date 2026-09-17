@@ -139,18 +139,21 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 /* ---------- Khảm chủ đề: bản đồ bài viết ---------- */
 /* Khổ máy tính: năm ô so le trượt qua lại, ô giữa là ô đang chọn. Cách chuyển động
    lấy theo thẻ trượt 5 chủ đề ngoài trang chủ, bỏ vòng tròn vàng.
-   Khổ hẹp: bỏ trượt, các ô xếp thành lưới thường.
-   Mỗi ô là thẻ hai mặt: mặt trước icon và dải chữ riêng, rê chuột lật sang tên bài. */
+   Mỗi ô một mặt: icon nhỏ ở trên, dưới là dòng nhãn kèm thời gian đọc rồi tên bài.
+   Đưa chuột ra hai mép thì dải tự chạy, rê vào ô thì ô phóng to cho dễ đọc.
+   Khổ hẹp: bỏ trượt, các ô xếp thành lưới thường. */
 .kham{display:block;margin-top:4px}
 .kham-dau{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;margin-bottom:28px}
 .kham-dau p{color:var(--nhat);font-size:15px}
 
-.kham-luoi{--rong-o:clamp(168px,15.5vw,212px);--cao-o:calc(var(--rong-o)*1.24);
+.kham-luoi{--rong-o:clamp(170px,15.5vw,214px);--cao-o:calc(var(--rong-o)*1.54);
   position:relative;height:calc(var(--cao-o) + 86px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .o-kham{position:absolute;left:50%;top:0;width:var(--rong-o);height:var(--cao-o);
   transform:translateX(-50%) scale(.6);opacity:0;z-index:1;pointer-events:none;
   transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s,filter .7s}
-.o-kham.co-bai{text-decoration:none;color:#fff;display:block;perspective:1000px}
+.o-kham.co-bai{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;
+  text-decoration:none;color:#fff;overflow:hidden;
+  background:linear-gradient(160deg,#3B4859 0%,#26303C 100%);box-shadow:0 24px 50px rgba(38,48,60,.24)}
 /* Năm chỗ đứng: giữa, hai bên gần, hai bên xa. So le bằng cách đẩy xuống khác nhau */
 .o-kham[data-vt="0"]{transform:translateX(-50%);opacity:1;z-index:5;pointer-events:auto}
 .o-kham[data-vt="-1"],.o-kham[data-vt="1"]{opacity:.92;z-index:4;pointer-events:auto;cursor:pointer;filter:saturate(.8) brightness(.86)}
@@ -161,27 +164,28 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .o-kham[data-vt="2"]{transform:translateX(calc(-50% + 202%)) translateY(66px) scale(.8)}
 .o-kham.co-bai:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
 
-.lat{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.2,.7,.2,1)}
-/* Chỉ ô đang chọn mới lật. Ô bên cạnh bấm vào là chọn nó, chưa mở bài */
-.o-kham[data-vt="0"]:hover .lat,.o-kham[data-vt="0"]:focus-visible .lat{transform:rotateY(180deg)}
-.mat{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.mat.truoc{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;background:var(--navy-sau);
-  box-shadow:0 24px 50px rgba(38,48,60,.24)}
-.anh-o{background:var(--navy) center/cover no-repeat}
-.chu-truoc{background:var(--navy-sau);border-top:1px solid var(--ke-toi);padding:13px 15px 14px}
-.mat.sau{transform:rotateY(180deg);background:linear-gradient(165deg,#3B4859 0%,#222B36 100%);border:1px solid var(--ke-toi);
-  display:grid;align-content:center;gap:14px;padding:20px 20px}
-.o-kham.noi-bat-o .mat.truoc,.o-kham.noi-bat-o .mat.sau{border-top:2px solid var(--cat)}
+/* Rê chuột vào ô nào thì ô đó phóng to, sáng lên và nổi lên trên, để đọc chữ cho rõ */
+.o-kham.co-bai:hover,.o-kham.co-bai:focus-visible{z-index:9;opacity:1;filter:none}
+.o-kham[data-vt="0"]:hover,.o-kham[data-vt="0"]:focus-visible{transform:translateX(-50%) scale(1.12)}
+.o-kham[data-vt="-1"]:hover,.o-kham[data-vt="-1"]:focus-visible{transform:translateX(calc(-50% - 106%)) translateY(18px) scale(1.06)}
+.o-kham[data-vt="1"]:hover,.o-kham[data-vt="1"]:focus-visible{transform:translateX(calc(-50% + 106%)) translateY(18px) scale(1.06)}
+.o-kham[data-vt="-2"]:hover,.o-kham[data-vt="-2"]:focus-visible{transform:translateX(calc(-50% - 202%)) translateY(44px) scale(.98)}
+.o-kham[data-vt="2"]:hover,.o-kham[data-vt="2"]:focus-visible{transform:translateX(calc(-50% + 202%)) translateY(44px) scale(.98)}
 
-.nhan-o{display:block;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat)}
-.ngay-o{display:block;margin-top:6px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;letter-spacing:.14em;color:rgba(255,255,255,.66)}
+/* Hai mép trái phải là vùng tự chạy, con trỏ đổi hình cho người dùng biết */
+.kham-luoi.chay-trai{cursor:w-resize}
+.kham-luoi.chay-phai{cursor:e-resize}
+
+/* Icon nhỏ lại, nhường chỗ cho chữ */
+.anh-o{background:center/44% auto no-repeat;transition:background-size .5s}
+.o-kham.co-bai:hover .anh-o{background-size:40% auto}
+.chu-truoc{border-top:1px solid var(--ke-toi);padding:13px 15px 15px;background:rgba(21,27,35,.34)}
+.nhan-o{display:block;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--cat);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Cỡ chữ tên bài bằng nhau ở mọi ô */
-.ten-o{font-family:"Playfair Display",serif;font-weight:500;font-size:15.5px;line-height:1.38;color:#fff;
-  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.doc-o{display:inline-flex;align-items:center;gap:8px;font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--cat)}
-.doc-o svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.o-kham[data-vt="0"]:hover .doc-o svg{transform:translateX(3px);transition:transform .3s}
+.ten-o{display:-webkit-box;margin-top:8px;font-family:"Playfair Display",serif;font-weight:500;font-size:15.5px;
+  line-height:1.34;color:#fff;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.o-kham.noi-bat-o{border-top:2px solid var(--cat)}
 
 /* Hai nút tròn và dãy chấm của khối khảm */
 .kham-dieu-khien{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:34px}
@@ -197,25 +201,20 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .cham-kham button[aria-current="true"]{width:28px;background:var(--cat-dam)}
 .cham-kham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
 
-/* Khổ hẹp: bỏ trượt, xếp lưới thường, bỏ lật, hai mặt chồng dọc thành thẻ thường */
+/* Khổ hẹp: bỏ trượt, xếp lưới thường */
 @media(max-width:1000px),(hover:none){
   .kham-luoi{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;touch-action:auto}
   .o-kham{position:static;width:auto;height:auto;transform:none!important;opacity:1!important;filter:none!important;
     pointer-events:auto;cursor:default;transition:none}
-  .o-kham.co-bai{perspective:none;background:var(--navy-sau)}
-  .lat{transform:none!important;transform-style:flat;height:auto}
-  .mat{position:static;transform:none;backface-visibility:visible;-webkit-backface-visibility:visible}
-  .mat.truoc{box-shadow:none}
-  .anh-o{aspect-ratio:4/3;width:100%}
-  .mat.sau{transform:none;background:var(--navy-sau);border:0;align-content:start;gap:10px;padding:14px 15px 18px}
-  .mat.sau .doc-o{display:none}
-  .o-kham.noi-bat-o .mat.sau{border-top:0}
+  .o-kham.co-bai{box-shadow:none}
+  .anh-o{aspect-ratio:2/1;background-size:34% auto}
   .kham-dieu-khien{display:none}
 }
 @media(max-width:600px){
   .kham-luoi{grid-template-columns:minmax(0,1fr)}
+  .anh-o{aspect-ratio:3/1;background-size:18% auto}
 }
-@media(prefers-reduced-motion:reduce){.o-kham,.lat{transition:none}}
+@media(prefers-reduced-motion:reduce){.o-kham{transition:none}}
 
 /* ---------- Danh sách bài: các dòng xếp dọc, bấm Xem thêm để hiện tiếp ---------- */
 /* Mỗi dòng: ảnh icon bên trái, rồi nhãn nhóm, tên bài, tóm tắt, ngày tháng.
@@ -228,7 +227,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   transition:padding-left .3s}
 .dong-bai[hidden]{display:none}
 .dong-bai:hover{padding-left:10px}
-.hinh-bai{width:128px;aspect-ratio:1;background:var(--navy) center/cover no-repeat;align-self:start;
+.hinh-bai{width:128px;aspect-ratio:1;background:var(--navy) center/50% auto no-repeat;align-self:start;
   transition:transform .3s}
 .dong-bai:hover .hinh-bai{transform:scale(1.03)}
 .dong-bai .nhan-nho{color:var(--nhat);letter-spacing:.16em}
