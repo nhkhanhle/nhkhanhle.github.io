@@ -14,23 +14,38 @@
   function chay(){
     var ds=(window.BAI_VIET||[]).concat(window.BAI_VIET_MAU||[]).filter(function(b){return b.chuDe===slug&&b.tieuDe});
     ds.sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')});
-    var dem=q('[data-dem]'), vung=q('[data-bai-viet]'), trong=q('[data-trong]');
-    if(!ds.length){if(dem)dem.textContent='Bài viết đang được chuẩn bị';return}
-    dem.textContent=ds.length+' bài viết';
+    var vung=q('[data-bai-viet]'), trong=q('[data-trong]'), loc=q('[data-loc]');
+
+    if(!ds.length){
+      if(loc)loc.appendChild(tao('span','loc-cho','Ghi chép đang được chuẩn bị'));
+      return;
+    }
     trong.hidden=true; vung.hidden=false;
 
-    var cacNhom=[]; ds.forEach(function(b){if(b.nhom&&cacNhom.indexOf(b.nhom)<0)cacNhom.push(b.nhom)});
-    var loc=q('[data-loc]');
-    if(cacNhom.length>=2){
-      loc.hidden=false;
-      ['Tất cả'].concat(cacNhom).forEach(function(n,i){
-        var nut=tao('button',null,n); nut.type='button'; nut.setAttribute('aria-pressed',i===0?'true':'false');
-        nut.addEventListener('click',function(){
-          [].forEach.call(loc.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed','false')});
-          nut.setAttribute('aria-pressed','true'); hienThi(i===0?null:n);
+    /* Nút lọc nằm ngay đầu trang, mỗi nút kèm số bài của nhóm đó */
+    var cacNhom=[], soBai={};
+    ds.forEach(function(b){
+      var n=b.nhom||'Chưa xếp nhóm';
+      if(cacNhom.indexOf(n)<0){cacNhom.push(n);soBai[n]=0}
+      soBai[n]++;
+    });
+    if(loc){
+      if(cacNhom.length>=2){
+        [['Tất cả',ds.length]].concat(cacNhom.map(function(n){return [n,soBai[n]]}))
+        .forEach(function(x,i){
+          var nut=tao('button'); nut.type='button';
+          nut.setAttribute('aria-pressed',i===0?'true':'false');
+          nut.appendChild(document.createTextNode(x[0]));
+          nut.appendChild(tao('b',null,String(x[1])));
+          nut.addEventListener('click',function(){
+            [].forEach.call(loc.querySelectorAll('button'),function(y){y.setAttribute('aria-pressed','false')});
+            nut.setAttribute('aria-pressed','true'); hienThi(i===0?null:x[0]);
+          });
+          loc.appendChild(nut);
         });
-        loc.appendChild(nut);
-      });
+      } else {
+        loc.appendChild(tao('span','loc-cho',ds.length+' ghi chép'));
+      }
     }
     hienThi(null);
 
@@ -38,7 +53,7 @@
        Vị trí ô xếp sẵn trong trang-con.css, xem tham-khao/bo-cuc-tap-chi.md */
     function veKham(danh){
       /* Năm ô so le trượt qua lại, ô giữa là ô đang chọn.
-         Cách chuyển động theo thẻ trượt 5 chủ đề ngoài trang chủ, bỏ vòng tròn vàng.
+         Cách chuyển động theo thẻ trượt 5 góc nhìn ngoài trang chủ, bỏ vòng tròn vàng.
          Khổ hẹp thì CSS tự chuyển về lưới thường, phần mã này vẫn chạy nhưng không ảnh hưởng. */
       var kh=q('[data-kham]'), luoi=q('[data-kham-luoi]'), dk=q('[data-kham-dk]'),
           cham=q('[data-kham-cham]'), lui=q('[data-kham-lui]'), toi=q('[data-kham-toi]');
@@ -112,37 +127,45 @@
         if(ev.key==='ArrowRight'){ev.preventDefault();den(hien+1)}
       });
 
-      /* Đưa chuột về mép trái hoặc mép phải thì dải tự chạy về phía đó.
-         Rê vào một ô thì dừng, vì lúc đó người ta đang đọc ô đó.
-         Máy không có chuột hoặc người dùng tắt chuyển động thì bỏ hẳn phần này. */
-      var MEP=0.2, NHIP=820, dem=null, huong=0;
-      var coChuot = matchMedia('(hover:hover)').matches;
-      var giamChuyenDong = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      /* Rê chuột ở đâu trong khối cũng chạy, không cần ra sát mép.
+         Càng xa tâm càng nhanh, quanh tâm có một vùng đứng yên để đọc ô đang chọn.
+         Nhịp tính bằng bộ đếm cộng dồn nên đổi tốc độ giữa chừng không làm mất nhịp. */
+      var VUNG_CHET=0.16, CHAM=2600, NHANH=1200, TICK=80;
+      var huong=0, nhip=CHAM, tich=0, dem=null;
+      var coChuot=matchMedia('(hover:hover)').matches;
+      var giamChuyenDong=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
       function dungChay(){
+        huong=0; tich=0;
         if(dem){clearInterval(dem);dem=null}
-        huong=0;
         luoi.classList.remove('chay-trai','chay-phai');
       }
-      function batChay(h){
-        if(h===huong)return;
-        dungChay(); huong=h;
-        luoi.classList.add(h<0?'chay-trai':'chay-phai');
-        den(hien+h);
-        dem=setInterval(function(){den(hien+h)},NHIP);
+      function datHuong(h,nh){
+        if(h===0){dungChay();return}
+        nhip=nh;
+        if(h!==huong){
+          huong=h; tich=0;
+          luoi.classList.remove('chay-trai','chay-phai');
+          luoi.classList.add(h<0?'chay-trai':'chay-phai');
+        }
+        if(!dem)dem=setInterval(function(){
+          if(!huong)return;
+          tich+=TICK/nhip;
+          if(tich>=1){tich=0;den(hien+huong)}
+        },TICK);
       }
       if(coChuot && !giamChuyenDong){
         luoi.addEventListener('pointermove',function(ev){
           if(ev.pointerType!=='mouse'){dungChay();return}
-          if(ev.target.closest('.o-kham')){dungChay();return}   /* đang rê vào một ô */
-          var b=luoi.getBoundingClientRect(), t=(ev.clientX-b.left)/b.width;
-          if(t<MEP)batChay(-1);
-          else if(t>1-MEP)batChay(1);
-          else dungChay();
+          var b=luoi.getBoundingClientRect();
+          var t=(ev.clientX-b.left)/b.width*2-1;          /* -1 ở mép trái, 0 ở tâm, 1 ở mép phải */
+          var d=Math.abs(t);
+          if(d<VUNG_CHET){dungChay();return}
+          var manh=(d-VUNG_CHET)/(1-VUNG_CHET);            /* 0 tới 1 */
+          datHuong(t<0?-1:1, CHAM-(CHAM-NHANH)*manh);
         });
         luoi.addEventListener('pointerleave',dungChay);
         luoi.addEventListener('pointerdown',dungChay);
-        /* Chuyển tab hoặc thu nhỏ cửa sổ thì đừng chạy ngầm */
         document.addEventListener('visibilitychange',function(){if(document.hidden)dungChay()});
       }
 

@@ -17,7 +17,7 @@
   <div class="khung">
     <ul>
       <li><a href="../">Trang chủ</a></li>
-      <li><a href="../#chu-de">Chủ đề</a></li>
+      <li><a href="../#chu-de">Góc nhìn</a></li>
       <li><a href="../#ve-toi">Về tôi</a></li>
       <li><a href="../#chang-duong">Chặng đường</a></li>
       <li><a href="../#lien-he">Liên hệ</a></li>
@@ -31,14 +31,13 @@
     <line x1="0" y1="255" x2="760" y2="255"/><line x1="110" y1="80" x2="760" y2="700"/><line x1="430" y1="0" x2="430" y2="760"/>
   </svg>
   <div class="khung">
-    <div class="duong-dan"><a href="../">Trang chủ</a> <span aria-hidden="true">/</span> <a href="../#chu-de">Chủ đề</a></div>
+    <div class="duong-dan"><a href="../">Trang chủ</a> <span aria-hidden="true">/</span> <a href="../#chu-de">Góc nhìn</a></div>
     <div class="dau-trang-luoi">
       <span class="so-chu-de" aria-hidden="true">02</span>
       <div>
-        <div class="nhan">Chủ đề 02</div>
         <h1>Trí tuệ nhân tạo</h1>
         <p class="mo-ta">AI gánh phần việc lặp lại trong tuyển dụng và dữ liệu nhân sự, còn người giữ phần phán đoán. Cùng một ngày làm được nhiều việc hơn mà không phải tăng người.</p>
-        <span class="dem" data-dem>Bài viết đang được chuẩn bị</span>
+        <div class="loc-dau" data-loc role="group" aria-label="Lọc theo nhóm"></div>
       </div>
     </div>
   </div>
@@ -50,12 +49,10 @@
       <div class="nhan">Sắp ra mắt</div>
       <h2>Bài viết đang được chuẩn bị</h2>
       <p>Những ghi chép đầu tiên về AI trong nghề nhân sự sẽ sớm có mặt ở đây.</p>
-      <a class="nut-ve" href="../#chu-de">← Quay lại các chủ đề</a>
+      <a class="nut-ve" href="../#chu-de">← Quay lại các góc nhìn</a>
     </div>
     <div data-bai-viet hidden>
-      <div class="loc" data-loc hidden role="group" aria-label="Lọc theo nhóm"></div>
-      <section class="kham" data-kham hidden aria-label="Bản đồ bài viết trong chủ đề">
-        <div class="kham-dau"><span class="nhan">Bản đồ chủ đề</span><p>Bấm hai nút hoặc vuốt ngang để đổi bài. Bài nằm giữa là bài đang chọn.</p></div>
+      <section class="kham" data-kham hidden aria-label="Bản đồ bài viết trong góc nhìn">
         <div class="kham-luoi" data-kham-luoi></div>
         <div class="kham-dieu-khien" data-kham-dk>
           <button type="button" class="mui-tron" data-kham-lui aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -76,15 +73,15 @@
   </div>
 </main>
 
-<section class="chu-de-khac">
-  <div class="khung">
-    <div class="nhan">Chủ đề khác</div>
-    <div class="luoi-khac">
-        <a class="the-khac" href="nghe-nhan-su.html"><span class="stt">01</span><h3>Nghề nhân sự</h3><span class="doc">Xem chủ đề →</span></a>
-        <a class="the-khac" href="tam-ly-hoc.html"><span class="stt">03</span><h3>Tâm lý học</h3><span class="doc">Xem chủ đề →</span></a>
-        <a class="the-khac" href="he-thong-quan-tri.html"><span class="stt">04</span><h3>Hệ thống quản trị</h3><span class="doc">Xem chủ đề →</span></a>
-        <a class="the-khac" href="phap-luat-lao-dong.html"><span class="stt">05</span><h3>Pháp luật lao động</h3><span class="doc">Xem chủ đề →</span></a>
-    </div>
+<section class="khac">
+  <div class="khung khac-hang">
+    <span class="nhan">Góc nhìn khác</span>
+    <nav class="khac-ds" aria-label="Các góc nhìn khác">
+      <a href="nghe-nhan-su.html"><i aria-hidden="true">01</i>Nghề nhân sự</a>
+      <a href="tam-ly-hoc.html"><i aria-hidden="true">03</i>Tâm lý học</a>
+      <a href="he-thong-quan-tri.html"><i aria-hidden="true">04</i>Hệ thống quản trị</a>
+      <a href="phap-luat-lao-dong.html"><i aria-hidden="true">05</i>Pháp luật lao động</a>
+    </nav>
   </div>
 </section>
 

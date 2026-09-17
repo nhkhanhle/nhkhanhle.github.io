@@ -34,7 +34,7 @@
     '<div class="hop-tim">'
     + '<div class="o-nhap">'
     +   '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>'
-    +   '<input type="search" autocomplete="off" spellcheck="false" placeholder="Tìm bài viết, chủ đề, nội dung trang" aria-label="Từ khoá tìm kiếm">'
+    +   '<input type="search" autocomplete="off" spellcheck="false" placeholder="Tìm bài viết, góc nhìn, nội dung trang" aria-label="Từ khoá tìm kiếm">'
     +   '<button type="button" class="nut-dong">Đóng</button>'
     + '</div>'
     + '<div class="ket-qua" data-kq></div>'
@@ -45,7 +45,7 @@
 
   function goiY(){
     kq.innerHTML='';
-    var p = tao('p','goi-y','Gõ vài chữ để tìm trong 5 chủ đề, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
+    var p = tao('p','goi-y','Gõ vài chữ để tìm trong 5 góc nhìn, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
     kq.appendChild(p);
   }
 
@@ -87,7 +87,7 @@
       var kt = tao('p','khong-thay');
       kt.appendChild(document.createTextNode('Không tìm thấy '));
       kt.appendChild(tao('b',null,'"'+o.value.trim()+'"'));
-      kt.appendChild(document.createTextNode('. Thử từ ngắn hơn, hoặc gõ tên chủ đề.'));
+      kt.appendChild(document.createTextNode('. Thử từ ngắn hơn, hoặc gõ tên góc nhìn.'));
       kq.appendChild(kt);
       return;
     }

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Dựng bộ dữ liệu cho ô tìm kiếm: chủ đề, bài viết, các phần của trang chủ.
+"""Dựng bộ dữ liệu cho ô tìm kiếm: góc nhìn, bài viết, các phần của trang chủ.
 Chạy lại mỗi khi đổi chữ trên trang."""
 import io, re, os, json, glob
 
@@ -16,13 +16,13 @@ def bochu(html):
 
 muc = []
 
-# ---------- Chủ đề ----------
+# ---------- Góc nhìn ----------
 for p in sorted(glob.glob('chu-de/*.html')):
     s = io.open(p, encoding='utf-8').read()
     ten = re.search(r'<h1>(.*?)</h1>', s, re.S).group(1).strip()
-    stt = re.search(r'<div class="nhan">Chủ đề (\d+)</div>', s).group(1)
+    stt = re.search(r'<span class="so-chu-de" aria-hidden="true">(\d+)</span>', s).group(1)
     mo = bochu(re.search(r'<p class="mo-ta">(.*?)</p>', s, re.S).group(1))
-    muc.append({'loai':'Chủ đề','nhan':'Chủ đề '+stt,'tieuDe':ten,'mo':mo,
+    muc.append({'loai':'Góc nhìn','nhan':'Góc nhìn '+stt,'tieuDe':ten,'mo':mo,
                 'duongDan':p,'chu':ten+' '+mo})
 
 # ---------- Bài viết ----------
@@ -53,8 +53,8 @@ ra = ('/* Dữ liệu cho ô tìm kiếm. File này do scripts dựng lại, đ�
       '   Dựng lại sau mỗi lần đổi chữ trên trang. */\n'
       'window.TIM_KIEM = ' + json.dumps(muc, ensure_ascii=False, indent=0).replace('\n', '') + ';\n')
 io.open('assets/tim-kiem-du-lieu.js', 'w', encoding='utf-8').write(ra)
-print('Đã dựng %d mục: %d chủ đề, %d bài viết, %d phần trang chủ. Kích thước %.1f KB'
-      % (len(muc), sum(1 for x in muc if x['loai']=='Chủ đề'),
+print('Đã dựng %d mục: %d góc nhìn, %d bài viết, %d phần trang chủ. Kích thước %.1f KB'
+      % (len(muc), sum(1 for x in muc if x['loai']=='Góc nhìn'),
          sum(1 for x in muc if x['loai']=='Bài viết'),
          sum(1 for x in muc if x['loai']=='Trang chủ'),
          os.path.getsize('assets/tim-kiem-du-lieu.js')/1024))
