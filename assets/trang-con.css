@@ -20,6 +20,10 @@ img{max-width:100%;display:block}
 /* Thu gọn menu bằng transform (70px còn 58px nhìn thấy) thay cho đổi height: không làm xô bố cục khi cuộn */
 .nav.cuon{background:rgba(38,48,60,.97);box-shadow:0 8px 24px rgba(0,0,0,.18);transform:translateY(-12px)}
 .nav.cuon .khung{transform:translateY(6px)}
+/* Tiêu đề xuống dòng cân hai dòng, tránh một chữ lẻ ở dòng cuối */
+h1,h2,h3,h4{text-wrap:balance}
+/* Chạm trên điện thoại: bỏ độ trễ chạm hai lần, vệt chạm màu vàng cát nhạt */
+a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-color:rgba(182,163,131,.25)}
 /* Đường tắt bỏ qua menu (tạo trong assets/menu.js), chỉ hiện khi chọn bằng bàn phím */
 .bo-qua{position:fixed;left:16px;top:12px;z-index:100;padding:12px 20px 10px;background:var(--cat);color:var(--navy);font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transform:translateY(-160%)}
 .bo-qua:focus-visible{transform:none;outline:2px solid #fff;outline-offset:2px}
