@@ -174,7 +174,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .mui:focus-visible,.cham button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
 .mui svg{width:18px;height:18px;fill:currentColor}
 .cham{display:flex;gap:10px;align-items:center}
-.cham button{width:8px;height:8px;border-radius:8px;border:0;padding:0;background:rgba(122,106,79,.35);cursor:pointer;transition:width .35s,background .35s}
+.cham button{width:8px;height:8px;border-radius:8px;border:0;padding:0;background:rgba(122,106,79,.35);cursor:pointer;transition:background .35s}
 .cham button[aria-current="true"]{width:28px;background:var(--cat-dam)}
 
 /* ---------- Chặng đường nghề: con đường uốn lượn ---------- */
@@ -265,10 +265,11 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 #noi-dung-chinh:focus{outline:0}
 
 /* ---------- Thanh điều hướng khi cuộn ---------- */
-.nav{transition:background .3s,box-shadow .3s}
-.nav .khung{transition:height .3s}
-.nav.cuon{background:rgba(38,48,60,.97);box-shadow:0 8px 24px rgba(0,0,0,.18)}
-.nav.cuon .khung{height:58px}
+/* Thu gọn menu bằng transform (70px còn 58px nhìn thấy) thay cho đổi height: không làm xô bố cục khi cuộn */
+.nav{transition:background .3s,box-shadow .3s,transform .3s}
+.nav .khung{transition:transform .3s}
+.nav.cuon{background:rgba(38,48,60,.97);box-shadow:0 8px 24px rgba(0,0,0,.18);transform:translateY(-12px)}
+.nav.cuon .khung{transform:translateY(6px)}
 
 /* Bật giảm chuyển động: tắt mọi chuyển tiếp (kể cả thẻ trượt 0.7s) và cuộn mượt, giống trang con */
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

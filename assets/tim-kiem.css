@@ -14,7 +14,7 @@
 .o-nhap:focus-within{box-shadow:inset 0 -2px 0 #7A6A4F}
 .o-nhap input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-family:"Be Vietnam Pro",system-ui,sans-serif;
   font-size:17px;font-weight:300;color:#2F3B4A}
-.o-nhap input::placeholder{color:#9AA2AD}
+.o-nhap input::placeholder{color:#5E6875}
 .o-nhap input::-webkit-search-cancel-button{display:none}
 .nut-dong{flex:none;border:1px solid #E3DDD2;background:transparent;color:#5E6875;cursor:pointer;
   font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:9px 12px 7px;
@@ -22,7 +22,7 @@
 .nut-dong:hover{border-color:#B6A383;color:#7A6A4F}
 .nut-dong:focus-visible{outline:2px solid #B6A383;outline-offset:2px}
 
-.ket-qua{max-height:min(56vh,480px);overflow-y:auto}
+.ket-qua{max-height:min(56vh,480px);overflow-y:auto;overscroll-behavior:contain}
 .ket-qua .goi-y,.ket-qua .khong-thay{padding:22px;color:#5E6875;font-size:15px;line-height:1.7}
 .ket-qua .khong-thay b{color:#2F3B4A;font-weight:500}
 .dong-kq{display:block;padding:18px 22px;border-bottom:1px solid #EFEAE1;text-decoration:none;color:inherit;transition:background .2s}
