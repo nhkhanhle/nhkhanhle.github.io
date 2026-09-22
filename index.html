@@ -169,10 +169,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .the-cd:not([data-vt="0"]) p,.js .the-cd:not([data-vt="0"]) .doc{opacity:0}
 .js .vong-vang{display:block;position:absolute;left:50%;top:50%;width:calc(var(--rong)*1.28);height:calc(var(--cao)*1.12);transform:translate(-50%,-50%) rotate(-7deg);fill:none;stroke:var(--cat-dam);stroke-width:1.4;z-index:4;pointer-events:none;overflow:visible}
 .js .truot-dieu-khien{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:44px}
-.mui{width:48px;height:48px;border-radius:50%;border:1px solid rgba(122,106,79,.45);background:transparent;color:var(--cat-dam);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
-.mui:hover{background:var(--cat-dam);border-color:var(--cat-dam);color:#fff}
-.mui:focus-visible,.cham button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
-.mui svg{width:18px;height:18px;fill:currentColor}
+.cham button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
 .cham{display:flex;gap:10px;align-items:center}
 .cham button{width:8px;height:8px;border-radius:8px;border:0;padding:0;background:rgba(122,106,79,.35);cursor:pointer;transition:background .35s}
 .cham button[aria-current="true"]{width:28px;background:var(--cat-dam)}
@@ -446,9 +443,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       </a>
     </div>
     <div class="truot-dieu-khien">
-      <button type="button" class="mui" data-lui aria-label="Góc nhìn trước"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
       <div class="cham"><button type="button" aria-label="Góc nhìn 01: Nghề nhân sự"></button><button type="button" aria-label="Góc nhìn 02: Trí tuệ nhân tạo"></button><button type="button" aria-label="Góc nhìn 03: Tâm lý học"></button><button type="button" aria-label="Góc nhìn 04: Hệ thống quản trị"></button><button type="button" aria-label="Góc nhìn 05: Pháp luật lao động"></button></div>
-      <button type="button" class="mui" data-toi aria-label="Góc nhìn sau"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button>
     </div>
   </div>
 </section>
@@ -711,8 +706,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       cham.forEach(function(c,i){c.setAttribute('aria-current',i===hien?'true':'false')});
     }
     function den(i){hien=(i+n)%n;ve()}
-    tr.querySelector('[data-lui]').addEventListener('click',function(){den(hien-1)});
-    tr.querySelector('[data-toi]').addEventListener('click',function(){den(hien+1)});
     cham.forEach(function(c,i){c.addEventListener('click',function(){den(i)})});
     the.forEach(function(t,i){t.addEventListener('click',function(ev){
       if(keo){ev.preventDefault();return}

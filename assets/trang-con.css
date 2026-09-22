@@ -202,11 +202,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 /* Hai nút tròn và dãy chấm của khối khảm */
 .kham-dieu-khien{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:34px}
 .kham-dieu-khien[hidden]{display:none}
-.mui-tron{width:50px;height:50px;border-radius:50%;border:1px solid rgba(122,106,79,.45);background:transparent;color:var(--cat-dam);
-  display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
-.mui-tron:hover{background:var(--cat-dam);border-color:var(--cat-dam);color:#fff}
-.mui-tron:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
-.mui-tron svg{width:18px;height:18px;fill:currentColor}
 .cham-kham{display:flex;align-items:center;gap:9px}
 .cham-kham button{width:8px;height:8px;border-radius:8px;border:0;padding:0;background:rgba(122,106,79,.34);cursor:pointer;
   transition:background .35s}

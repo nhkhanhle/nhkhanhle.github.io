@@ -52,7 +52,7 @@
          Cách chuyển động theo thẻ trượt 5 góc nhìn ngoài trang chủ, bỏ vòng tròn vàng.
          Khổ hẹp thì CSS tự chuyển về lưới thường, phần mã này vẫn chạy nhưng không ảnh hưởng. */
       var kh=q('[data-kham]'), luoi=q('[data-kham-luoi]'), dk=q('[data-kham-dk]'),
-          cham=q('[data-kham-cham]'), lui=q('[data-kham-lui]'), toi=q('[data-kham-toi]');
+          cham=q('[data-kham-cham]');
       if(!kh||!luoi)return;
       if(!danh.length){kh.hidden=true;return}
       kh.hidden=false; luoi.innerHTML=''; cham.innerHTML='';
@@ -97,8 +97,6 @@
       }
       function den(i){hien=(i%n+n)%n;ve()}
 
-      lui.onclick=function(){den(hien-1)};
-      toi.onclick=function(){den(hien+1)};
       /* Bấm vào ô bên cạnh là đưa nó vào giữa, chưa mở bài */
       o.forEach(function(e,i){
         e.addEventListener('click',function(ev){
