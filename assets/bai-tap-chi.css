@@ -68,7 +68,7 @@
 .tc-luoi.ba{grid-template-columns:repeat(3,minmax(0,1fr))}
 .tc-luoi.bon{grid-template-columns:repeat(4,minmax(0,1fr))}
 .tc-luoi .o{background:var(--kem);padding:26px 24px 28px;border-top:1px solid var(--ke-sang)}
-.tc-luoi .o .stt{font-family:"Playfair Display",serif;font-size:34px;line-height:1;color:var(--cat)}
+.tc-luoi .o .stt{font-family:"Playfair Display",serif;font-size:34px;line-height:1;color:var(--cat-dam)}
 .tc-luoi .o h3{font-family:"Playfair Display",serif;font-weight:500;font-size:19px;margin-top:12px;line-height:1.3}
 .tc-luoi .o p{font-size:15px;line-height:1.75;color:#4A5462;margin-top:10px}
 

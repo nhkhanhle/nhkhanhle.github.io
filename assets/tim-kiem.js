@@ -24,7 +24,7 @@
   nut.type='button';
   nut.setAttribute('aria-label','Tìm kiếm trong trang');
   nut.setAttribute('aria-expanded','false');
-  nut.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>';
+  nut.innerHTML='<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>';
   li.appendChild(nut); ul.appendChild(li);
 
   /* Lớp phủ */
@@ -33,18 +33,19 @@
   lop.innerHTML =
     '<div class="hop-tim">'
     + '<div class="o-nhap">'
-    +   '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>'
+    +   '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>'
     +   '<input type="search" autocomplete="off" spellcheck="false" placeholder="Tìm bài viết, góc nhìn, nội dung trang" aria-label="Từ khoá tìm kiếm">'
     +   '<button type="button" class="nut-dong">Đóng</button>'
     + '</div>'
     + '<div class="ket-qua" data-kq></div>'
+    + '<p class="an-doc" role="status" aria-live="polite" data-doc-kq></p>'
     + '</div>';
   document.body.appendChild(lop);
 
-  var o = lop.querySelector('input'), kq = lop.querySelector('[data-kq]'), dong = lop.querySelector('.nut-dong');
+  var o = lop.querySelector('input'), kq = lop.querySelector('[data-kq]'), docKq = lop.querySelector('[data-doc-kq]'), dong = lop.querySelector('.nut-dong');
 
   function goiY(){
-    kq.innerHTML='';
+    kq.innerHTML=''; docKq.textContent='';
     var p = tao('p','goi-y','Gõ vài chữ để tìm trong 5 góc nhìn, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
     kq.appendChild(p);
   }
@@ -89,9 +90,11 @@
       kt.appendChild(tao('b',null,'"'+o.value.trim()+'"'));
       kt.appendChild(document.createTextNode('. Thử từ ngắn hơn, hoặc gõ tên góc nhìn.'));
       kq.appendChild(kt);
+      docKq.textContent='Không tìm thấy kết quả';
       return;
     }
-    kq.appendChild(tao('div','dem-kq', thay.length + (thay.length===1?' kết quả':' kết quả')));
+    kq.appendChild(tao('div','dem-kq', thay.length + ' kết quả'));
+    docKq.textContent=thay.length + ' kết quả';
     thay.forEach(function(t){
       var x = t.x, a = tao('a','dong-kq');
       a.href = goc + x.duongDan;

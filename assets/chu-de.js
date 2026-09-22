@@ -7,10 +7,6 @@
   function lienKet(b,cls){var e;if(b.duongDan){e=tao('a',cls);e.href=goc+b.duongDan}else{e=tao('div',cls)}return e}
   function so(n){return (n<10?'0':'')+n}
 
-  /* Thanh điều hướng thu gọn khi cuộn */
-  var nav=q('.nav');
-  addEventListener('scroll',function(){nav&&nav.classList.toggle('cuon',scrollY>40)},{passive:true});
-
   function chay(){
     var ds=(window.BAI_VIET||[]).concat(window.BAI_VIET_MAU||[]).filter(function(b){return b.chuDe===slug&&b.tieuDe});
     ds.sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')});

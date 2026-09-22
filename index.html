@@ -16,7 +16,7 @@
   --cat:#B6A383;        /* vàng cát, màu nhấn trên nền tối */
   --cat-nhat:#D8CCB5;
   --cat-dam:#7A6A4F;    /* vàng cát đậm, chữ nhấn trên nền sáng */
-  --giay:#FFFFFF;
+  --giay:#FBFAF7;
   --kem:#F4F1EB;        /* nền sáng phụ */
   --muc:#2F3B4A;        /* chữ trên nền sáng */
   --nhat:#5E6875;       /* chữ phụ trên nền sáng */
@@ -55,7 +55,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .nav ul a:hover::after{transform:scaleX(1)}
 
 /* ---------- Mở đầu toàn màn hình ---------- */
-.mo-dau{position:relative;overflow:hidden;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);display:flex;align-items:center;justify-content:center;text-align:center;padding:96px 0 140px}
+.mo-dau{position:relative;overflow:hidden;overflow:clip;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);display:flex;align-items:center;justify-content:center;text-align:center;padding:96px 0 140px}
 .mo-dau::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(47,59,74,.62) 0%,rgba(38,48,60,.94) 78%);pointer-events:none}
 .mo-dau .nen-anh{opacity:.34}
 .mo-dau .kien-truc{right:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:min(980px,130vw);height:auto;aspect-ratio:1;z-index:1}
@@ -73,7 +73,9 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 @media(prefers-reduced-motion:no-preference){.cuon-xuong i::after{animation:chay-xuong 1.8s ease-in-out infinite}}
 
 /* ---------- Đầu trang ---------- */
-.hero{padding:84px 0 176px;overflow:hidden;position:relative}
+/* overflow:clip thay cho hidden: vẫn cắt phần tràn nhưng không thành khung cuộn riêng.
+   Với hidden, bấm menu Liên hệ (#lien-he nằm trong khối này) làm trình duyệt cuộn ruột khối lên, ảnh bị kéo lơ lửng. */
+.hero{padding:128px 0 176px;overflow:hidden;overflow:clip;position:relative}
 .kien-truc{position:absolute;right:-120px;top:-60px;width:760px;height:760px;fill:none;stroke:var(--ke-toi);stroke-width:1;pointer-events:none}
 .hero .khung{display:block;min-height:520px}
 .hero .chu-hero{max-width:620px}
@@ -93,7 +95,6 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .ket-noi .icon-hang{justify-content:flex-start;gap:14px;margin-top:14px}
 .ket-noi .icon-nut{width:54px;height:54px;background:rgba(47,59,74,.4)}
 .ket-noi .icon-nut svg{width:22px;height:22px}
-.ket-noi .icon-nut svg[viewBox="0 0 32 32"]{width:28px;height:28px}
 .anh-tran{position:absolute;bottom:0;right:max(24px,calc(50% - 560px));height:min(520px,82%);z-index:2;pointer-events:none}
 .anh-tran::before{content:"";position:absolute;left:50%;top:12%;width:92%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(182,163,131,.32),rgba(182,163,131,.06) 70%);border:1px solid rgba(182,163,131,.45);z-index:-1}
 .anh-tran::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;border:1px solid var(--cat);top:20%;left:2%}
@@ -141,7 +142,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .hop-nhan small{display:block;font-weight:300;color:var(--nhat);font-size:14px}
 
 /* ---------- Bốn góc nhìn: thẻ trượt ---------- */
-.chu-de{background:var(--kem);overflow:hidden}
+.chu-de{background:var(--kem);overflow:hidden;overflow:clip}
 .truot{position:relative;margin-top:56px;--rong:clamp(250px,29vw,350px);--cao:calc(var(--rong)*4/3)}
 .truot-san{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:1120px;margin:0 auto;padding:0 32px}
 .the-cd{position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(160deg,#3B4859 0%,#26303C 100%);color:#fff;text-decoration:none;padding:30px 30px 32px;box-shadow:0 30px 60px rgba(38,48,60,.28)}
@@ -171,7 +172,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .mui{width:48px;height:48px;border-radius:50%;border:1px solid rgba(122,106,79,.45);background:transparent;color:var(--cat-dam);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
 .mui:hover{background:var(--cat-dam);border-color:var(--cat-dam);color:#fff}
 .mui:focus-visible,.cham button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
-.mui svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mui svg{width:18px;height:18px;fill:currentColor}
 .cham{display:flex;gap:10px;align-items:center}
 .cham button{width:8px;height:8px;border-radius:8px;border:0;padding:0;background:rgba(122,106,79,.35);cursor:pointer;transition:width .35s,background .35s}
 .cham button[aria-current="true"]{width:28px;background:var(--cat-dam)}
@@ -194,7 +195,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .moc li.phai{justify-self:end;width:44%;text-align:left}
 .moc .nam{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(40px,4.6vw,58px);line-height:1.05;color:var(--muc);transition:color .3s}
 .moc li:hover .nam{color:var(--cat-dam)}
-.moc .nganh{display:block;margin-top:10px;font-family:"Josefin Sans",sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--cat-dam)}
+.moc .nganh{display:block;margin-top:10px;font-family:"Josefin Sans",sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E5F46}
 .moc b{display:block;margin-top:10px;font-weight:500;font-size:17px;color:var(--muc)}
 .moc p{color:#4F5966;font-size:15.5px;margin-top:4px}
 .moc li.trai p{margin-left:auto;max-width:420px}
@@ -216,7 +217,6 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .icon-nut:hover{background:var(--cat);color:var(--navy);transform:translateY(-3px)}
 .icon-nut:focus-visible{outline:2px solid var(--cat);outline-offset:5px}
 .icon-nut svg{width:30px;height:30px}
-.icon-nut svg[viewBox="0 0 32 32"]{width:36px;height:36px}
 
 /* ---------- Chân trang: câu quote chia đôi ---------- */
 footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px solid var(--ke-toi)}
@@ -232,6 +232,19 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(47,59,74,.97) 0%,rgba(47,59,74,.84) 48%,rgba(47,59,74,.5) 100%);pointer-events:none}
 .hero .kien-truc{z-index:1}
 .hero .khung{z-index:3}
+/* Nền núi trôi chậm theo vị trí khối trên màn hình, cùng biên độ bản JS cũ: lệch ±(6vh + 6% chiều cao khối),
+   chặn ở 15% chiều cao khối để ảnh không hở mép (lớp ảnh cao 140% khối nên 6% khối = 4.286%, 15% khối = 10.714%).
+   Trình duyệt chưa hỗ trợ animation-timeline thì ảnh đứng yên. */
+@keyframes nen-troi{
+  from{transform:translate3d(0,max(calc(-6vh - 4.286%),-10.714%),0)}
+  to{transform:translate3d(0,min(calc(6vh + 4.286%),10.714%),0)}
+}
+@supports (animation-timeline:view()){
+  @media(prefers-reduced-motion:no-preference){
+    .mo-dau,.hero.toi{view-timeline:--khoi block}
+    .nen-anh{animation:nen-troi linear both;animation-timeline:--khoi;animation-range:cover}
+  }
+}
 
 /* ---------- Hiệu ứng khi mở trang ---------- */
 @keyframes len{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -246,11 +259,19 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .mo-dau .kien-truc circle,.mo-dau .kien-truc line{stroke-dasharray:1;animation:ve-net 2.6s ease-in-out both .2s}
 }
 
+/* Đường tắt bỏ qua menu (tạo trong assets/menu.js), chỉ hiện khi chọn bằng bàn phím */
+.bo-qua{position:fixed;left:16px;top:12px;z-index:100;padding:12px 20px 10px;background:var(--cat);color:var(--navy);font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transform:translateY(-160%)}
+.bo-qua:focus-visible{transform:none;outline:2px solid #fff;outline-offset:2px}
+#noi-dung-chinh:focus{outline:0}
+
 /* ---------- Thanh điều hướng khi cuộn ---------- */
 .nav{transition:background .3s,box-shadow .3s}
 .nav .khung{transition:height .3s}
 .nav.cuon{background:rgba(38,48,60,.97);box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .nav.cuon .khung{height:58px}
+
+/* Bật giảm chuyển động: tắt mọi chuyển tiếp (kể cả thẻ trượt 0.7s) và cuộn mượt, giống trang con */
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 /* ---------- Rê chuột ---------- */
 
@@ -269,7 +290,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 @media(max-width:960px){
   section{padding:88px 0}
   .hero .khung,.ve-toi .than{grid-template-columns:1fr}
-  .hero{padding:56px 0 130px}
+  .hero{padding:96px 0 130px}
   .hero .khung{min-height:0}
   .anh-tran{position:relative;right:auto;bottom:auto;height:auto;width:min(340px,80%);margin:36px auto -130px}
   .anh-tran picture{height:auto}
@@ -289,7 +310,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   .nav ul{gap:18px;overflow-x:auto;scrollbar-width:none;max-width:100%;padding:2px 0}
   .nav ul::-webkit-scrollbar{display:none}
   .nav ul a{font-size:12.5px;letter-spacing:.08em;white-space:nowrap}
-  .hero{padding:64px 0 80px}
+  .hero{padding:88px 0 80px}
   .hero .chao{font-size:12px;letter-spacing:.16em}
   .hero .ten-hero{white-space:normal}
   .mo-dau{padding:72px 0 130px}
@@ -419,9 +440,9 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
       </a>
     </div>
     <div class="truot-dieu-khien">
-      <button type="button" class="mui" data-lui aria-label="Góc nhìn trước"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" class="mui" data-lui aria-label="Góc nhìn trước"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
       <div class="cham"><button type="button" aria-label="Góc nhìn 01: Nghề nhân sự"></button><button type="button" aria-label="Góc nhìn 02: Trí tuệ nhân tạo"></button><button type="button" aria-label="Góc nhìn 03: Tâm lý học"></button><button type="button" aria-label="Góc nhìn 04: Hệ thống quản trị"></button><button type="button" aria-label="Góc nhìn 05: Pháp luật lao động"></button></div>
-      <button type="button" class="mui" data-toi aria-label="Góc nhìn sau"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="mui" data-toi aria-label="Góc nhìn sau"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button>
     </div>
   </div>
 </section>
@@ -457,10 +478,10 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
         <div class="nhan">Kết nối với tôi</div>
         <div class="icon-hang">
       <a class="icon-nut" href="mailto:nhkhanhle@gmail.com" title="Gửi email" aria-label="Gửi email cho Lê Nhật Khánh">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.8 6.8 12 13l8.2-6.2"/></svg>
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>
       </a>
       <a class="icon-nut" href="https://zalo.me/0902767039" target="_blank" rel="noopener" title="Kết nối qua Zalo" aria-label="Kết nối với Lê Nhật Khánh qua Zalo">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5C8.8 3.5 3 8.2 3 14.1c0 3.2 1.7 6 4.4 8L6.6 28l5.6-2.8c1.2.3 2.5.4 3.8.4 7.2 0 13-4.7 13-10.6S23.2 3.5 16 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><text x="16" y="17.4" text-anchor="middle" font-size="8.4" font-weight="700" letter-spacing="-.2" font-family="Arial, Helvetica, sans-serif" fill="currentColor">Zalo</text></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.49 10.2722v-.4496h1.3467v6.3218h-.7704a.576.576 0 01-.5763-.5729l-.0006.0005a3.273 3.273 0 01-1.9372.6321c-1.8138 0-3.2844-1.4697-3.2844-3.2823 0-1.8125 1.4706-3.2822 3.2844-3.2822a3.273 3.273 0 011.9372.6321l.0006.0005zM6.9188 7.7896v.205c0 .3823-.051.6944-.2995 1.0605l-.03.0343c-.0542.0615-.1815.206-.2421.2843L2.024 14.8h4.8948v.7682a.5764.5764 0 01-.5767.5761H0v-.3622c0-.4436.1102-.6414.2495-.8476L4.8582 9.23H.1922V7.7896h6.7266zm8.5513 8.3548a.4805.4805 0 01-.4803-.4798v-7.875h1.4416v8.3548H15.47zM20.6934 9.6C22.52 9.6 24 11.0807 24 12.9044c0 1.8252-1.4801 3.306-3.3066 3.306-1.8264 0-3.3066-1.4808-3.3066-3.306 0-1.8237 1.4802-3.3044 3.3066-3.3044zm-10.1412 5.253c1.0675 0 1.9324-.8645 1.9324-1.9312 0-1.065-.865-1.9295-1.9324-1.9295s-1.9324.8644-1.9324 1.9295c0 1.0667.865 1.9312 1.9324 1.9312zm10.1412-.0033c1.0737 0 1.945-.8707 1.945-1.9453 0-1.073-.8713-1.9436-1.945-1.9436-1.0753 0-1.945.8706-1.945 1.9436 0 1.0746.8697 1.9453 1.945 1.9453z"/></svg>
       </a>
         </div>
       </div>
@@ -473,9 +494,9 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 <div class="so">
   <div class="khung">
     <div class="the-so">
-      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></svg></i><b>12+</b><span class="nhan-so">năm nghề nhân sự</span></div>
-      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M16 14.6c2.3.1 4 1.7 4.5 4.4"/></svg></i><b>6+</b><span class="nhan-so">năm quản lý</span></div>
-      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 21 7.5l-9 4.5-9-4.5L12 3z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg></i><b>4+</b><span class="nhan-so">ngành đã đi qua</span></div>
+      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"/></svg></i><b>12+</b><span class="nhan-so">năm nghề nhân sự</span></div>
+      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></i><b>6+</b><span class="nhan-so">năm quản lý</span></div>
+      <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg></i><b>4+</b><span class="nhan-so">ngành đã đi qua</span></div>
     </div>
   </div>
 </div>
@@ -653,23 +674,8 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 
 <script>
 (function(){
-  var nav=document.querySelector('.nav'), nen=document.querySelectorAll('.nen-anh');
-  var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, cho=false;
-  function capNhat(){
-    cho=false;
-    nav.classList.toggle('cuon',window.scrollY>40);
-    if(giam)return;
-    nen.forEach(function(n){
-      var r=n.parentNode.getBoundingClientRect();
-      if(r.bottom<0||r.top>innerHeight)return;
-      /* lệch so với giữa màn hình, giới hạn 15% chiều cao khối để ảnh không hở mép (lớp ảnh dư 20% mỗi đầu) */
-      var gioiHan=r.height*.15, d=(r.top+r.height/2-innerHeight/2)*-.12;
-      d=Math.max(-gioiHan,Math.min(gioiHan,d));
-      n.style.transform='translate3d(0,'+d.toFixed(1)+'px,0)';
-    });
-  }
-  addEventListener('scroll',function(){if(!cho){cho=true;requestAnimationFrame(capNhat)}},{passive:true});
-  capNhat();
+  /* Thu gọn menu nằm ở assets/menu.js, nền núi trôi bằng CSS (animation-timeline) */
+  var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* Xem chứng nhận: bấm mở ảnh trong hộp giữa màn hình; không có dialog thì mở thẳng file ảnh */
   var hopCn=document.getElementById('hop-cn');
   if(hopCn&&typeof hopCn.showModal==='function'){
@@ -749,6 +755,7 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
   document.querySelectorAll('.so b').forEach(function(b){io.observe(b)});
 })();
 </script>
+<script src="assets/menu.js"></script>
 <script src="assets/tim-kiem-du-lieu.js"></script>
 <script src="assets/tim-kiem.js"></script>
 </body>
