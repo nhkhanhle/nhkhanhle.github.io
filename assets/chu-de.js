@@ -130,7 +130,7 @@
       /* Rê chuột ở đâu trong khối cũng chạy, không cần ra sát mép.
          Càng xa tâm càng nhanh, quanh tâm có một vùng đứng yên để đọc ô đang chọn.
          Nhịp tính bằng bộ đếm cộng dồn nên đổi tốc độ giữa chừng không làm mất nhịp. */
-      var VUNG_CHET=0.16, CHAM=2600, NHANH=1200, TICK=80;
+      var VUNG_CHET=0.16, CHAM=2000, NHANH=1000, TICK=80;
       var huong=0, nhip=CHAM, tich=0, dem=null;
       var coChuot=matchMedia('(hover:hover)').matches;
       var giamChuyenDong=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -147,6 +147,7 @@
           huong=h; tich=0;
           luoi.classList.remove('chay-trai','chay-phai');
           luoi.classList.add(h<0?'chay-trai':'chay-phai');
+          den(hien+h);   /* nhảy ngay một nấc, không thì người dùng tưởng nó đứng im */
         }
         if(!dem)dem=setInterval(function(){
           if(!huong)return;
@@ -223,6 +224,51 @@
       veBang(thuTu);
     }
   }
+
+
+  /* Canh số thứ tự cỡ lớn: đỉnh số ngang đỉnh chữ của tên góc nhìn,
+     chân số ngang đường chân chữ của dòng diễn giải cuối cùng.
+     Canh theo nét chữ thật chứ không theo khung chữ, vì khung chữ chừa khoảng trống trên dưới.
+     Các hệ số dưới đây đo bằng pixel trên chính phông web của trang (cỡ 200px, line-height 1).
+     Số dùng chữ số thẳng hàng (lining-nums); để kiểu mặc định thì Playfair ra số kiểu cổ,
+     số 5 thò xuống dưới dòng, không canh được.
+       Playfair Display 500: đỉnh nét lên của chữ (như chữ h, l) 0.13em, đường chân chữ 0.915em
+       Đỉnh của từng số (nét cao nhất): 01 tới 04 là 0.19em, 05 là 0.155em vì số 5 có cái cờ nhô lên
+       Be Vietnam Pro 300: đường chân chữ 0.86em
+     Đổi phông hoặc thêm số mới thì phải đo lại, cách đo ghi trong tham-khao/bo-cuc-tap-chi.md mục 10. */
+  var PF_DINH=0.13, PF_CHAN=0.915, BVP_CHAN=0.86;
+  var SO_DINH={'01':.19,'02':.19,'03':.19,'04':.19,'05':.155};
+  function canhSo(){
+    var o=document.querySelector('[data-so]');
+    var h1=document.querySelector('.dau-trang h1'), mo=document.querySelector('.dau-trang .mo-ta');
+    if(!o||!h1||!mo)return;
+    /* Màn hẹp thì số nằm trên khối chữ, bỏ canh */
+    if(innerWidth<=900){o.style.fontSize='';o.style.lineHeight='';o.style.marginTop='';return}
+    var soDinh=SO_DINH[(o.textContent||'').trim()]||.19;
+
+    var g1=getComputedStyle(h1), g2=getComputedStyle(mo);
+    var F1=parseFloat(g1.fontSize), L1=parseFloat(g1.lineHeight)||F1*1.2;
+    var F2=parseFloat(g2.fontSize), L2=parseFloat(g2.lineHeight)||F2*1.2;
+    var b1=h1.getBoundingClientRect(), b2=mo.getBoundingClientRect();
+    var soDong=Math.max(1,Math.round(b2.height/L2));
+
+    var dinh=b1.top+(L1-F1)/2+PF_DINH*F1;                          /* đỉnh chữ của tên */
+    var chan=b2.top+(soDong-1)*L2+(L2-F2)/2+BVP_CHAN*F2;           /* chân chữ dòng diễn giải cuối */
+    var cao=chan-dinh;
+    if(!(cao>40))return;
+
+    var F=cao/(PF_CHAN-soDinh);                                    /* cỡ số để nét số cao đúng bằng khoảng đó */
+    o.style.fontSize=F+'px';
+    o.style.lineHeight='1';
+    o.style.marginTop='0px';
+    var hop=o.getBoundingClientRect().top;
+    o.style.marginTop=(dinh-soDinh*F-hop)+'px';
+  }
+  function canhSoLai(){clearTimeout(canhSo._h);canhSo._h=setTimeout(canhSo,60)}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(canhSoLai);
+  addEventListener('load',canhSoLai);
+  addEventListener('resize',canhSoLai);
+  setTimeout(canhSoLai,600);
 
   /* ?mau=1 chỉ dùng trên máy để xem bố cục bằng bài mẫu; file bài mẫu không có trên web */
   if(/[?&]mau=1\b/.test(location.search)){

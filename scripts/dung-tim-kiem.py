@@ -20,7 +20,7 @@ muc = []
 for p in sorted(glob.glob('chu-de/*.html')):
     s = io.open(p, encoding='utf-8').read()
     ten = re.search(r'<h1>(.*?)</h1>', s, re.S).group(1).strip()
-    stt = re.search(r'<span class="so-chu-de" aria-hidden="true">(\d+)</span>', s).group(1)
+    stt = re.search(r'<span class="so-chu-de"[^>]*>(\d+)</span>', s).group(1)
     mo = bochu(re.search(r'<p class="mo-ta">(.*?)</p>', s, re.S).group(1))
     muc.append({'loai':'Góc nhìn','nhan':'Góc nhìn '+stt,'tieuDe':ten,'mo':mo,
                 'duongDan':p,'chu':ten+' '+mo})
