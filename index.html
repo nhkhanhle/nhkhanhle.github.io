@@ -160,11 +160,16 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .vong-vang,.truot-dieu-khien{display:none}
 /* Có JavaScript: xếp thành dải trượt */
 .js .truot-san{display:block;position:relative;height:var(--cao);max-width:none;padding:0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.js .the-cd{position:absolute;left:50%;top:0;width:var(--rong);height:var(--cao);transform:translateX(-50%) scale(.6);opacity:0;z-index:1;pointer-events:none;transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s,filter .7s}
+.js .the-cd{position:absolute;left:50%;top:0;width:var(--rong);height:var(--cao);transform:translateX(-50%) scale(.6);opacity:0;z-index:1;pointer-events:none;transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s;will-change:transform}
 .js .the-cd[data-vt="0"]{transform:translateX(-50%);opacity:1;z-index:3;pointer-events:auto}
 .js .the-cd[data-vt="-1"],.js .the-cd[data-vt="1"]{opacity:.8;z-index:2;pointer-events:auto;cursor:pointer;filter:saturate(.75) brightness(.8)}
 .js .the-cd[data-vt="-1"]{transform:translateX(calc(-50% - 104%)) scale(.8)}
 .js .the-cd[data-vt="1"]{transform:translateX(calc(-50% + 104%)) scale(.8)}
+/* Thẻ ở xa xếp tiếp ra hai bên, mờ dần. Nhờ vậy khi tới lượt chúng trôi vào từ mép thay vì phóng ra từ giữa. */
+.js .the-cd[data-vt="-2"]{transform:translateX(calc(-50% - 196%)) scale(.66);opacity:.32;z-index:1}
+.js .the-cd[data-vt="2"]{transform:translateX(calc(-50% + 196%)) scale(.66);opacity:.32;z-index:1}
+.js .the-cd[data-vt="-3"]{transform:translateX(calc(-50% - 272%)) scale(.56);opacity:0;z-index:0}
+.js .the-cd[data-vt="3"]{transform:translateX(calc(-50% + 272%)) scale(.56);opacity:0;z-index:0}
 .js .the-cd:not([data-vt="0"]) p,.js .the-cd:not([data-vt="0"]) .doc{opacity:0}
 .js .vong-vang{display:block;position:absolute;left:50%;top:50%;width:calc(var(--rong)*1.28);height:calc(var(--cao)*1.12);transform:translate(-50%,-50%) rotate(-7deg);fill:none;stroke:var(--cat-dam);stroke-width:1.4;z-index:4;pointer-events:none;overflow:visible}
 .js .truot-dieu-khien{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:44px}
@@ -323,6 +328,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .truot-san{grid-template-columns:1fr;padding:0 22px}
   .js .the-cd[data-vt="-1"]{transform:translateX(calc(-50% - 94%)) scale(.78)}
   .js .the-cd[data-vt="1"]{transform:translateX(calc(-50% + 94%)) scale(.78)}
+  .js .the-cd[data-vt="-2"]{transform:translateX(calc(-50% - 178%)) scale(.64)}
+  .js .the-cd[data-vt="2"]{transform:translateX(calc(-50% + 178%)) scale(.64)}
   .the-cd{padding:24px 22px 26px}
   .so-vien{font-size:52px;left:20px;top:16px}
   .the-so{padding:22px 4px;border-radius:14px}
@@ -735,10 +742,19 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     var VUNG_CHET=0.16, CHAM=2000, NHANH=1000, TICK=80;
     var huong=0, nhip=CHAM, tich=0, dem=null;
     var coChuot=matchMedia('(hover:hover)').matches;
-    function dungChay(){huong=0;tich=0;if(dem){clearInterval(dem);dem=null}}
+    function nhipThe(ms,deu){
+      /* Tự chạy: chuyển tiếp kéo dài trọn một nhịp và đi đều, nên thẻ trôi liên tục.
+         Bấm chấm, vuốt hay bấm phím: trả về nhịp 0.7s có gia tốc như cũ. */
+      the.forEach(function(t){
+        t.style.transitionDuration = deu ? (ms/1000)+'s, '+(ms/1000)+'s' : '';
+        t.style.transitionTimingFunction = deu ? 'linear' : '';
+      });
+    }
+    function dungChay(){huong=0;tich=0;if(dem){clearInterval(dem);dem=null}nhipThe(0,false)}
     function datHuong(h,nh){
       if(h===0){dungChay();return}
       nhip=nh;
+      nhipThe(nh,true);
       if(h!==huong){huong=h;tich=0;den(hien+h)}   /* đổi hướng thì nhảy ngay một nấc */
       if(!dem)dem=setInterval(function(){
         if(!huong)return;
