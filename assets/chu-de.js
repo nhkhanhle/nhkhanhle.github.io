@@ -8,7 +8,11 @@
   function so(n){return (n<10?'0':'')+n}
 
   function chay(){
-    var ds=(window.BAI_VIET||[]).concat(window.BAI_VIET_MAU||[]).filter(function(b){return b.chuDe===slug&&b.tieuDe});
+    /* Chỉ hiện bài đã tới ngày đăng. Bài của những tuần sau nằm sẵn trong bai-viet.js nhưng tự ẩn. */
+    var d=new Date(), homNay=d.getFullYear()+'-'+so(d.getMonth()+1)+'-'+so(d.getDate());
+    var ds=(window.BAI_VIET||[]).concat(window.BAI_VIET_MAU||[]).filter(function(b){
+      return b.chuDe===slug && b.tieuDe && (!b.ngay || b.ngay<=homNay);
+    });
     ds.sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')});
     var vung=q('[data-bai-viet]'), trong=q('[data-trong]'), loc=q('[data-loc]');
 
@@ -231,7 +235,7 @@
        Be Vietnam Pro 300: đường chân chữ 0.86em
      Đổi phông hoặc thêm số mới thì phải đo lại, cách đo ghi trong tham-khao/bo-cuc-tap-chi.md mục 10. */
   var PF_DINH=0.13, PF_CHAN=0.915, BVP_CHAN=0.86;
-  var SO_DINH={'01':.19,'02':.19,'03':.19,'04':.19,'05':.155};
+  var SO_DINH={'01':.19,'02':.19,'03':.19,'04':.19,'05':.155,'06':.19};
   function canhSo(){
     var o=document.querySelector('[data-so]');
     var h1=document.querySelector('.dau-trang h1'), mo=document.querySelector('.dau-trang .mo-ta');

@@ -46,7 +46,7 @@
 
   function goiY(){
     kq.innerHTML=''; docKq.textContent='';
-    var p = tao('p','goi-y','Gõ vài chữ để tìm trong 5 góc nhìn, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
+    var p = tao('p','goi-y','Gõ vài chữ để tìm trong 6 góc nhìn, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
     kq.appendChild(p);
   }
 
