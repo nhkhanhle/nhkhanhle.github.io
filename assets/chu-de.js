@@ -8,12 +8,16 @@
   function so(n){return (n<10?'0':'')+n}
 
   function chay(){
-    /* Chỉ hiện bài đã tới ngày đăng. Bài của những tuần sau nằm sẵn trong bai-viet.js nhưng tự ẩn. */
+    /* CHI_HIEN_DA_DANG=true thì chỉ hiện bài đã tới ngày đăng, bài của những tuần sau tự ẩn.
+       Đang để false để xem trước bố cục cả 26 bài; bài chưa viết trỏ về trang "đang được thực hiện". */
+    var CHI_HIEN_DA_DANG=false;
     var d=new Date(), homNay=d.getFullYear()+'-'+so(d.getMonth()+1)+'-'+so(d.getDate());
     var ds=(window.BAI_VIET||[]).concat(window.BAI_VIET_MAU||[]).filter(function(b){
-      return b.chuDe===slug && b.tieuDe && (!b.ngay || b.ngay<=homNay);
+      return b.chuDe===slug && b.tieuDe && (!CHI_HIEN_DA_DANG || !b.ngay || b.ngay<=homNay);
     });
-    ds.sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')});
+    /* Chạy thật: bài mới nhất lên đầu. Xem trước cả kế hoạch: bài sắp đăng gần nhất lên đầu. */
+    ds.sort(function(x,y){return CHI_HIEN_DA_DANG ? (y.ngay||'').localeCompare(x.ngay||'')
+                                                  : (x.ngay||'').localeCompare(y.ngay||'')});
     var vung=q('[data-bai-viet]'), trong=q('[data-trong]'), loc=q('[data-loc]');
 
     if(!ds.length){

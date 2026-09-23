@@ -27,7 +27,7 @@ for p in sorted(glob.glob('chu-de/*.html')):
 
 # ---------- Bài viết ----------
 for p in sorted(glob.glob('bai-viet/*.html')):
-    if p.endswith('mau-bai-viet.html'): continue
+    if p.endswith(('mau-bai-viet.html','dang-thuc-hien.html')): continue
     s = io.open(p, encoding='utf-8').read()
     ten = bochu(re.search(r'<title>(.*?)</title>', s, re.S).group(1)).split(' · ')[0]
     mo = re.search(r'<meta name="description" content="([^"]*)"', s).group(1)

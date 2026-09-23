@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2F3B4A">
+<title>Bài viết đang được thực hiện · Lê Nhật Khánh</title>
+<meta name="description" content="Bài viết đang được thực hiện.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400;600&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/trang-con.css">
+<link rel="stylesheet" href="../assets/bai-tap-chi.css">
+<link rel="stylesheet" href="../assets/tim-kiem.css">
+<style>
+/* Tiêu đề trong kế hoạch dài hơn tiêu đề bài thật, hạ cỡ chữ cho vừa khung */
+.tc-mo h1{font-size:clamp(30px,4.2vw,58px);line-height:1.1}
+.hinh .ve-bai{position:relative;z-index:2;width:56%;aspect-ratio:1;background:center/contain no-repeat}
+.hinh .nen-bai{position:absolute;inset:0;background:center/cover no-repeat;pointer-events:none}
+.dang-lam{max-width:720px;margin:0 auto;padding:90px 32px 110px;text-align:center}
+.dang-lam .nhan{color:var(--cat-dam);justify-content:center}
+.dang-lam h2{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(28px,3.4vw,40px);line-height:1.25;margin-top:14px}
+.dang-lam p{color:var(--nhat);margin-top:16px;font-size:17px;line-height:1.9}
+.dang-lam .vach{display:block;width:64px;height:2px;background:var(--cat);margin:34px auto 0}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="khung">
+    <ul>
+      <li><a href="../">Trang chủ</a></li>
+      <li><a href="../#chu-de">Góc nhìn</a></li>
+      <li><a href="../#ve-toi">Về tôi</a></li>
+      <li><a href="../#chang-duong">Chặng đường</a></li>
+      <li><a href="../#lien-he">Liên hệ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="tc-mo">
+  <div class="trong-mo">
+    <div>
+      <div class="duong-dan"><a href="../">Trang chủ</a> <span aria-hidden="true">/</span> <a href="../#chu-de" data-ve-goc-nhin>Góc nhìn</a></div>
+      <div class="nhan" data-nhan>Góc nhìn</div>
+      <h1 data-tieu-de>Bài viết</h1>
+      <p class="sapo" data-sapo></p>
+      <div class="meta-bai"><span data-ngay></span><span class="vach" aria-hidden="true"></span><span data-phut></span></div>
+    </div>
+    <div class="hinh">
+      <span class="nen-bai" data-nen aria-hidden="true"></span>
+      <span class="so-hinh" aria-hidden="true" data-so-hinh></span>
+      <span class="ve-bai" data-hinh aria-hidden="true"></span>
+    </div>
+  </div>
+</header>
+
+<main class="dang-lam">
+  <div class="nhan">Đang viết</div>
+  <h2>Bài viết đang được thực hiện</h2>
+  <p>Bài này nằm trong kế hoạch nội dung sáu tháng và đang được viết. Tới ngày ghi phía trên, bản hoàn chỉnh sẽ có mặt ở đây.</p>
+  <span class="vach" aria-hidden="true"></span>
+  <p><a class="nut-ve" href="../#chu-de" data-quay-lai>← Các bài cùng góc nhìn</a></p>
+</main>
+
+<footer>
+  <div class="khung trich">
+    <span class="ngoac-lon" aria-hidden="true">“</span>
+    <blockquote>
+      <q>Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</q>
+      <span class="gach" aria-hidden="true"></span>
+    </blockquote>
+  </div>
+</footer>
+
+<script src="../bai-viet.js"></script>
+<script src="../assets/dang-thuc-hien.js"></script>
+<script src="../assets/menu.js"></script>
+<script src="../assets/tim-kiem-du-lieu.js"></script>
+<script src="../assets/tim-kiem.js"></script>
+</body>
+</html>
