@@ -728,6 +728,38 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       if(ev.key==='ArrowLeft'){ev.preventDefault();den(hien-1)}
       if(ev.key==='ArrowRight'){ev.preventDefault();den(hien+1)}
     });
+
+    /* Rê chuột vào dải là thẻ tự xoay. Cùng cách và cùng nhịp với bản đồ bài trong trang góc nhìn:
+       lệch trái thì chạy trái, lệch phải thì chạy phải, càng xa tâm càng nhanh, quanh tâm có vùng đứng yên.
+       Nhịp tính bằng bộ đếm cộng dồn nên đổi tốc độ giữa chừng không mất nhịp. */
+    var VUNG_CHET=0.16, CHAM=2000, NHANH=1000, TICK=80;
+    var huong=0, nhip=CHAM, tich=0, dem=null;
+    var coChuot=matchMedia('(hover:hover)').matches;
+    function dungChay(){huong=0;tich=0;if(dem){clearInterval(dem);dem=null}}
+    function datHuong(h,nh){
+      if(h===0){dungChay();return}
+      nhip=nh;
+      if(h!==huong){huong=h;tich=0;den(hien+h)}   /* đổi hướng thì nhảy ngay một nấc */
+      if(!dem)dem=setInterval(function(){
+        if(!huong)return;
+        tich+=TICK/nhip;
+        if(tich>=1){tich=0;den(hien+huong)}
+      },TICK);
+    }
+    if(coChuot && !giam){
+      tr.addEventListener('pointermove',function(ev){
+        if(ev.pointerType!=='mouse'){dungChay();return}
+        var b=tr.getBoundingClientRect();
+        var t=(ev.clientX-b.left)/b.width*2-1;      /* -1 ở mép trái, 0 ở tâm, 1 ở mép phải */
+        var d=Math.abs(t);
+        if(d<VUNG_CHET){dungChay();return}
+        var manh=(d-VUNG_CHET)/(1-VUNG_CHET);
+        datHuong(t<0?-1:1, CHAM-(CHAM-NHANH)*manh);
+      });
+      tr.addEventListener('pointerleave',dungChay);
+      tr.addEventListener('pointerdown',dungChay);
+      document.addEventListener('visibilitychange',function(){if(document.hidden)dungChay()});
+    }
     ve();
   }
   /* Con đường tự vẽ khi cuộn tới; quá 6 giây thì hiện luôn. Chữ các mốc không bao giờ bị ẩn */
