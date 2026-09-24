@@ -26,4 +26,5 @@
   /* Họa tiết nền riêng của từng bài, cùng hệ nét kẻ với đồ họa của trang */
   q('[data-nen]').style.backgroundImage='url("../anh-bai/nen-'+b.ma.replace('.','-')+'.svg")';
   q('[data-quay-lai]').href='../chu-de/'+b.chuDe+'.html';
+  var dn=q('[data-dau-ngay]'); if(dn&&b.ngay)dn.textContent=b.ngay.split('-').reverse().join(' · ');
 })();

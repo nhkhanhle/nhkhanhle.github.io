@@ -218,6 +218,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
   pointer-events:none;transition:--goc .8s cubic-bezier(.2,.7,.2,1);will-change:transform}
 .js .the-cd .mat{background:linear-gradient(160deg,var(--mat1) 0%,var(--mat2) 100%);box-shadow:inset 0 0 0 1px var(--vien);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:filter .6s}
 .js .the-cd .lop{display:block;position:absolute;inset:0;border-radius:var(--bo);background:var(--canh);transform:translateZ(calc(var(--day) * var(--k) / -8));transition:filter .6s}
+/* Chống nhấp nháy mất chữ (Khánh báo 24/09, thấy trên Safari, Chrome, điện thoại): các lớp nằm sát nhau dưới 1px
+   (mặt trước với lớp 1, mặt sau với lớp 8) có lúc bị trình duyệt xếp nhầm thứ tự trong vài khung, lớp giấy trơn che mặt trước.
+   Chỉ giữ lớp giữa bề dày (k:4); mặt trước ở 0, lớp giữa ở -day/2, mặt sau ở -day, cách nhau ít nhất 2px. */
+.js .the-cd .lop:not([style="--k:4"]){display:none}
 .js .the-cd .lop[style="--k:1"]{background:var(--canh1)}
 .js .the-cd .lop[style="--k:8"]{background:linear-gradient(160deg,var(--lung1),var(--lung2));box-shadow:inset 0 0 0 1px var(--vien)}
 .js .the-cd[data-vt="0"]{pointer-events:auto}
@@ -585,7 +589,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .mat-sau{display:none}
 .js .mo-dau .the-cd .mat-sau{display:flex;flex-direction:column;justify-content:center;position:absolute;inset:0;padding:0 14%;border-radius:var(--bo);
   background:var(--van-giay),linear-gradient(160deg,var(--lung1),var(--lung2));box-shadow:inset 0 0 0 1px var(--vien);
-  transform:translateZ(calc(var(--day) * -1 - .5px)) rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:left}
+  transform:translateZ(calc(var(--day) * -1)) rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:left}
 .ms-so{font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--cat-dam)}
 .ms-ten{margin-top:12px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(22px,2.1vw,28px);line-height:1.2;color:var(--muc)}
 .ms-mo{margin-top:14px;font-size:14.5px;line-height:1.65;color:var(--nhat)}

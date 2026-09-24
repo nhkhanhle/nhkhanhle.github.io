@@ -17,15 +17,37 @@
 <link rel="stylesheet" href="../assets/nen.css">
 <link rel="stylesheet" href="../assets/tim-kiem.css">
 <style>
-/* Tiêu đề trong kế hoạch dài hơn tiêu đề bài thật, hạ cỡ chữ cho vừa khung */
-.tc-mo h1{font-size:clamp(30px,4.2vw,58px);line-height:1.1}
-.hinh .ve-bai{position:relative;z-index:2;width:56%;aspect-ratio:1;background:center/contain no-repeat}
-.hinh .nen-bai{position:absolute;inset:0;background:center/cover no-repeat;pointer-events:none}
-.dang-lam{max-width:720px;margin:0 auto;padding:90px 32px 110px;text-align:center}
-.dang-lam .nhan{color:var(--cat-dam);justify-content:center}
-.dang-lam h2{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(28px,3.4vw,40px);line-height:1.25;margin-top:14px}
-.dang-lam p{color:var(--nhat);margin-top:16px;font-size:17px;line-height:1.9}
-.dang-lam .vach{display:block;width:64px;height:2px;background:var(--cat);margin:34px auto 0}
+/* Trang chờ dạng sổ tay mở đôi (24/09), cùng giấy và cùng vân với sổ tay ở trang góc nhìn.
+   Trái: hình bài vẽ nét mực trên nền đường cong của bài. Phải: thông tin bài và lời báo đang viết.
+   Một bài nên không lật trang. Điện thoại: hai trang xếp chồng, hình trên chữ dưới. */
+.cho-so{max-width:1120px;margin:0 auto;padding:36px 32px 96px}
+.cho-so .duong-dan{text-align:center;margin-bottom:34px}
+.so-mo{position:relative;display:grid;grid-template-columns:1fr 1fr;max-width:960px;margin:0 auto;filter:drop-shadow(0 30px 40px rgba(47,59,74,.2))}
+.so-mo::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(rgba(47,59,74,.18),rgba(47,59,74,.28),rgba(47,59,74,.18))}
+.trang{position:relative;min-height:560px;background:var(--van-giay),var(--to-giay);overflow:hidden}
+.trang-trai{border-radius:12px 0 0 12px;box-shadow:inset -26px 0 30px -18px rgba(47,59,74,.22);display:grid;place-items:center}
+.trang-phai{border-radius:0 12px 12px 0;box-shadow:inset 26px 0 30px -18px rgba(47,59,74,.22);display:flex;flex-direction:column;justify-content:center;padding:56px 12% 56px 13%}
+.trang-trai .nen-bai{position:absolute;inset:0;background:center/cover no-repeat;opacity:.9}
+.trang-trai .ve-bai{position:relative;width:48%;aspect-ratio:1;background:var(--muc);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.trang-trai .so-hinh{position:absolute;top:26px;left:30px;font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:52px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--cat-dam)}
+.trang-trai .dau-ngay{position:absolute;right:8%;bottom:6%;font-family:"Josefin Sans",sans-serif;font-size:11px;letter-spacing:.2em;color:var(--cat-dam)}
+.trang-phai .nhan{font-size:11.5px;color:var(--cat-dam)}
+.trang-phai h1{margin-top:14px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(26px,2.8vw,36px);line-height:1.25;color:var(--muc)}
+.trang-phai .sapo{margin-top:16px;font-size:16px;line-height:1.75;color:var(--nhat)}
+.trang-phai .meta-bai{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam)}
+.trang-phai .meta-bai .vach{width:28px;height:1px;background:rgba(47,59,74,.25)}
+.trang-phai .dang-viet{margin-top:30px;padding-top:22px;border-top:1px solid rgba(47,59,74,.14)}
+.trang-phai .dang-viet b{display:block;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:19px;color:var(--muc)}
+.trang-phai .dang-viet p{margin-top:8px;font-size:14.5px;line-height:1.75;color:var(--nhat)}
+.trang-phai .nut-ve{align-self:flex-start;margin-top:24px}
+@media(max-width:760px){
+  .cho-so{padding:24px 16px 72px}
+  .so-mo{grid-template-columns:1fr}
+  .so-mo::after{left:0;right:0;top:auto;width:auto;height:2px;margin:0;bottom:auto;top:clamp(260px,72vw,340px)}
+  .trang{min-height:0}
+  .trang-trai{height:clamp(260px,72vw,340px);border-radius:12px 12px 0 0;box-shadow:inset 0 -26px 30px -18px rgba(47,59,74,.22)}
+  .trang-phai{border-radius:0 0 12px 12px;box-shadow:inset 0 26px 30px -18px rgba(47,59,74,.22);padding:34px 24px 36px}
+}
 </style>
 </head>
 <body class="giay-cu">
@@ -43,29 +65,27 @@
   </div>
 </nav>
 
-<header class="tc-mo">
-  <div class="trong-mo">
-    <div>
-      <div class="duong-dan"><a href="../">Trang chủ</a> <span aria-hidden="true">/</span> <a href="../#chu-de" data-ve-goc-nhin>Góc nhìn</a></div>
+<main class="cho-so">
+  <div class="duong-dan"><a href="../">Trang chủ</a> <span aria-hidden="true">/</span> <a href="../#chu-de" data-ve-goc-nhin>Góc nhìn</a></div>
+  <div class="so-mo">
+    <div class="trang trang-trai" aria-hidden="true">
+      <span class="nen-bai" data-nen></span>
+      <span class="so-hinh" data-so-hinh></span>
+      <span class="ve-bai" data-hinh></span>
+      <span class="dau-ngay" data-dau-ngay></span>
+    </div>
+    <div class="trang trang-phai">
       <div class="nhan" data-nhan>Góc nhìn</div>
       <h1 data-tieu-de>Bài viết</h1>
       <p class="sapo" data-sapo></p>
       <div class="meta-bai"><span data-ngay></span><span class="vach" aria-hidden="true"></span><span data-phut></span></div>
-    </div>
-    <div class="hinh">
-      <span class="nen-bai" data-nen aria-hidden="true"></span>
-      <span class="so-hinh" aria-hidden="true" data-so-hinh></span>
-      <span class="ve-bai" data-hinh aria-hidden="true"></span>
+      <div class="dang-viet">
+        <b>Bài viết đang được thực hiện</b>
+        <p>Bài này nằm trong kế hoạch nội dung sáu tháng và đang được viết. Tới ngày ghi phía trên, bản hoàn chỉnh sẽ có mặt ở đây.</p>
+      </div>
+      <a class="nut-ve" href="../#chu-de" data-quay-lai>← Các bài cùng góc nhìn</a>
     </div>
   </div>
-</header>
-
-<main class="dang-lam">
-  <div class="nhan">Đang viết</div>
-  <h2>Bài viết đang được thực hiện</h2>
-  <p>Bài này nằm trong kế hoạch nội dung sáu tháng và đang được viết. Tới ngày ghi phía trên, bản hoàn chỉnh sẽ có mặt ở đây.</p>
-  <span class="vach" aria-hidden="true"></span>
-  <p><a class="nut-ve" href="../#chu-de" data-quay-lai>← Các bài cùng góc nhìn</a></p>
 </main>
 
 <footer class="chan">
