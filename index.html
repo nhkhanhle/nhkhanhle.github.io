@@ -532,9 +532,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
    Trái gần: to, gần như thẳng, lùi sau. Trái xa: thấp hơn, nghiêng, nhô ra trước.
    Phải gần: nghiêng xoay -12°, lùi sau. Phải xa: thấp, nhô ra trước, nghiêng nhẹ.
    Đơn vị theo bề ngang (--rong) và bề cao (--cao) của thẻ nên co giãn theo khổ màn hình. */
-/* Tự xoay: trôi 1.6 giây rồi dừng khoảng 2 giây ở mỗi thẻ. Trôi đều liên tục làm khe giữa hai thẻ nằm ở chính diện
-   gần 1 giây, nhìn như chữ và hình biến mất (Khánh báo 24/09). */
-.js .truot.tu-chay .the-cd{transition:--goc 1.6s cubic-bezier(.45,0,.2,1)}
+/* Tự xoay liên tục (Khánh chọn 24/09, bỏ kiểu dừng 2 giây): mỗi nấc kéo dài trọn nhịp 3.6s nên vòng không lúc nào đứng. */
+.js .truot.tu-chay .the-cd{transition:--goc 3.6s cubic-bezier(.3,.075,.7,.925)}
 /* Không để chính diện trống (Khánh báo 24/09, lần 2): thẻ đi vào chạy nhanh lúc đầu rồi chậm dần,
    thẻ rời đi nán lại lúc đầu rồi mới trôi. Giữa chặng thẻ mới đã gần tới giữa và nằm trước thẻ cũ,
    nên chính diện luôn có một thẻ. Áp cho cả tự xoay lẫn bấm chấm, phím, vuốt (trừ lúc tỏa). */
@@ -547,6 +546,11 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .js .truot:not(.toa) .the-cd.toi{animation:nhac-toi 1.6s ease-in-out}
 .js .truot:not(.toa) .the-cd.roi{animation:nhac-roi 1.6s ease-in-out}
 @media(max-width:640px){@keyframes nhac-toi{0%{--noi:0px}45%{--noi:90px}100%{--noi:0px}}}
+/* Khi tự xoay: mọi đường cong đều bắt đầu và kết thúc với cùng tốc độ (dốc .25), nên qua ranh giới hai nấc
+   không thẻ nào đổi tốc đột ngột, vòng chạy liên tục. Thẻ vào dẫn trước, thẻ ra lùi sau để chính diện luôn có thẻ.
+   Hiệu ứng nhấc thẻ kéo dài bằng nhịp. */
+.js .truot.tu-chay:not(.toa) .the-cd.toi{transition-timing-function:cubic-bezier(.1,.025,.4,.85);animation-duration:3.6s}
+.js .truot.tu-chay:not(.toa) .the-cd.roi{transition-timing-function:cubic-bezier(.6,.15,.9,.975);animation-duration:3.6s}
 /* Tỏa chậm (1.4 giây) cho kịp thấy động tác bung ra; hai thẻ ngoài bung sau hai thẻ trong 0.15 giây */
 .truot.toa .the-cd,.truot.ve .the-cd{transition:transform 1.4s cubic-bezier(.22,.61,.24,1),--goc 1.4s cubic-bezier(.22,.61,.24,1)}
 .truot.toa .the-cd[data-o="trai-2"],.truot.toa .the-cd[data-o="phai-2"]{transition-delay:.15s}
@@ -1076,13 +1080,15 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     });
 
     /* Tự xoay liên tục (Khánh muốn vòng tự chạy, không cần chạm): cứ NHIP ms xoay một nấc, và lớp "tu-chay"
-       cho mỗi nấc trôi 1.6s êm dần rồi dừng ở thẻ chính diện phần còn lại của nhịp.
+       kéo chuyển tiếp góc dài đúng một nhịp nên vòng chạy liên tục, không dừng.
        Chỉ dừng khi đang tỏa hoặc tab bị ẩn. Máy bật giảm chuyển động thì không tự chạy.
        Bấm chấm, phím, vuốt: tạm bỏ "tu-chay" để thẻ chạy nhanh tới chỗ mới, rồi nối lại. */
     var NHIP=3600, toa=false, hen=null, henChay=null;
     if(!giam){
       tr.classList.add('tu-chay');
-      setInterval(function(){if(!toa&&!document.hidden&&tr.classList.contains('tu-chay'))den(hien+1)},NHIP);
+      var buocTu=function(){if(!toa&&!document.hidden&&tr.classList.contains('tu-chay'))den(hien+1)};
+      setTimeout(buocTu,400);   /* vào trang là chạy ngay, không đứng chờ trọn nhịp đầu */
+      setInterval(buocTu,NHIP);
     }
     function tayDieuKhien(){
       if(giam)return;
