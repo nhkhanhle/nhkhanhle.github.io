@@ -164,6 +164,8 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 /* ---------- Sáu góc nhìn: vòng thẻ 3D ở màn mở đầu ---------- */
 /* Góc của từng thẻ trên vòng elip. Khai báo kiểu góc để trình duyệt chuyển tiếp được, nhờ vậy thẻ trôi theo đường elip */
 @property --goc{syntax:"<angle>";inherits:false;initial-value:0deg}
+/* --noi: nhấc thẻ về phía người xem trong lúc chuyển, để thẻ đi vào không xuyên qua thẻ đang rời đi */
+@property --noi{syntax:"<length>";inherits:false;initial-value:0px}
 .truot{position:relative;width:100%;--rong:clamp(250px,23vw,300px);--cao:calc(var(--rong)*4/3);--A:calc(var(--rong)*1.32);--B:calc(var(--rong)*1.01);--day:18px;--bo:18px}
 /* Nét kiến trúc ẩn ở màn này, thêm nét nữa sau vòng thẻ thì rối */
 .mo-dau .kien-truc{display:none}
@@ -212,7 +214,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .truot{perspective:1500px;perspective-origin:50% -70%}
 .js .truot-san{display:block;position:relative;height:var(--cao);max-width:none;padding:0;touch-action:pan-y;user-select:none;-webkit-user-select:none;transform-style:preserve-3d}
 .js .the-cd{position:absolute;left:50%;top:0;width:var(--rong);height:var(--cao);overflow:visible;background:none;box-shadow:none;border-radius:var(--bo);transform-style:preserve-3d;
-  transform:translateX(-50%) translate3d(calc(sin(var(--goc)) * var(--A)),0,calc((cos(var(--goc)) - 1) * var(--B))) rotateY(atan2(calc(sin(var(--goc)) * var(--B)),calc(cos(var(--goc)) * var(--A))));
+  transform:translateX(-50%) translate3d(calc(sin(var(--goc)) * var(--A)),0,calc((cos(var(--goc)) - 1) * var(--B) + var(--noi))) rotateY(atan2(calc(sin(var(--goc)) * var(--B)),calc(cos(var(--goc)) * var(--A))));
   pointer-events:none;transition:--goc .8s cubic-bezier(.2,.7,.2,1);will-change:transform}
 .js .the-cd .mat{background:linear-gradient(160deg,var(--mat1) 0%,var(--mat2) 100%);box-shadow:inset 0 0 0 1px var(--vien);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:filter .6s}
 .js .the-cd .lop{display:block;position:absolute;inset:0;border-radius:var(--bo);background:var(--canh);transform:translateZ(calc(var(--day) * var(--k) / -8));transition:filter .6s}
@@ -533,6 +535,18 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Tự xoay: trôi 1.6 giây rồi dừng khoảng 2 giây ở mỗi thẻ. Trôi đều liên tục làm khe giữa hai thẻ nằm ở chính diện
    gần 1 giây, nhìn như chữ và hình biến mất (Khánh báo 24/09). */
 .js .truot.tu-chay .the-cd{transition:--goc 1.6s cubic-bezier(.45,0,.2,1)}
+/* Không để chính diện trống (Khánh báo 24/09, lần 2): thẻ đi vào chạy nhanh lúc đầu rồi chậm dần,
+   thẻ rời đi nán lại lúc đầu rồi mới trôi. Giữa chặng thẻ mới đã gần tới giữa và nằm trước thẻ cũ,
+   nên chính diện luôn có một thẻ. Áp cho cả tự xoay lẫn bấm chấm, phím, vuốt (trừ lúc tỏa). */
+.js .truot:not(.toa) .the-cd.toi{transition-timing-function:cubic-bezier(.15,.75,.35,1)}
+.js .truot:not(.toa) .the-cd.roi{transition-timing-function:cubic-bezier(.65,0,.85,.25)}
+/* Hai thẻ lướt qua nhau lúc chuyển thì xuyên qua nhau trong 3D, giấy thẻ cũ che mất chữ và hình thẻ mới.
+   Thẻ đi vào được nhấc lên trước tối đa 140px rồi hạ về, thẻ rời đi lùi sau 60px rồi về. */
+@keyframes nhac-toi{0%{--noi:0px}45%{--noi:140px}100%{--noi:0px}}
+@keyframes nhac-roi{0%{--noi:0px}45%{--noi:-60px}100%{--noi:0px}}
+.js .truot:not(.toa) .the-cd.toi{animation:nhac-toi 1.6s ease-in-out}
+.js .truot:not(.toa) .the-cd.roi{animation:nhac-roi 1.6s ease-in-out}
+@media(max-width:640px){@keyframes nhac-toi{0%{--noi:0px}45%{--noi:90px}100%{--noi:0px}}}
 /* Tỏa chậm (1.4 giây) cho kịp thấy động tác bung ra; hai thẻ ngoài bung sau hai thẻ trong 0.15 giây */
 .truot.toa .the-cd,.truot.ve .the-cd{transition:transform 1.4s cubic-bezier(.22,.61,.24,1),--goc 1.4s cubic-bezier(.22,.61,.24,1)}
 .truot.toa .the-cd[data-o="trai-2"],.truot.toa .the-cd[data-o="phai-2"]{transition-delay:.15s}
@@ -1034,7 +1048,13 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       var CHO={'0':'giua','-1':'trai-1','-2':'trai-2','1':'phai-1','2':'phai-2','3':'an','-3':'an'};
       the.forEach(function(t){t.setAttribute('data-o',CHO[t.getAttribute('data-vt')])});
     }
-    function den(i){hien=(i+n)%n;ve()}
+    /* Mỗi lần chuyển: đánh dấu thẻ đi vào chính diện (toi) và thẻ rời đi (roi) để CSS cho hai thẻ hai nhịp khác nhau */
+    function den(i){
+      var cu=hien; hien=(i+n)%n;
+      the.forEach(function(t){t.classList.remove('toi','roi')});
+      if(cu!==hien){the[hien].classList.add('toi');the[cu].classList.add('roi')}
+      ve();
+    }
     cham.forEach(function(c,i){c.addEventListener('click',function(){den(i)})});
     the.forEach(function(t,i){t.addEventListener('click',function(ev){
       if(keo){ev.preventDefault();return}
