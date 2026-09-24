@@ -41,3 +41,65 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .canh-tren{left:0;top:70px}
 .canh-duoi{right:0;bottom:0}
 @media(max-width:640px){.canh-la{width:110px;opacity:.4}}
+
+/* ============ Menu theo Noa Vale (24/09), dùng chung trang chủ, 6 trang góc nhìn, trang chờ ============
+   Trái: chữ ký nk. + tên + dòng nhỏ. Giữa: dải bo tròn các mục có biểu tượng Phosphor, mục đang xem nổi thành viên giấy
+   (đánh dấu bằng aria-current, đổi theo phần đang cuộn tới). Phải: nút Liên hệ navy, ô biểu tượng vàng cát. */
+.nav-dai{background:rgba(241,234,229,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(47,59,74,.08)}
+.nav-dai .nav-khung{display:flex;align-items:center;justify-content:space-between;gap:24px;height:70px;max-width:1240px}
+.ky-ten{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--muc);flex:none}
+.ky-chu{font-family:"Playfair Display",serif;font-weight:600;font-size:27px;letter-spacing:-.05em;line-height:1}
+.ky-chu i{font-style:normal;color:var(--cat)}
+.ky-ten-chu b{display:block;font-weight:500;font-size:14px;line-height:1.25}
+.ky-ten-chu small{display:block;margin-top:2px;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--nhat)}
+.ky-ten:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px;border-radius:6px}
+.nav-dai .nav-vien{display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 6px 20px rgba(47,59,74,.06)}
+.giay-cu .nav-dai .nav-vien a{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-size:13px;letter-spacing:.01em;text-transform:none;color:var(--nhat);transition:background .25s,color .25s,box-shadow .25s,transform .25s}
+.giay-cu .nav-dai .nav-vien a::after{display:none}
+.nav-vien svg{width:16px;height:16px;fill:currentColor;flex:none}
+.giay-cu .nav-dai .nav-vien a:hover{color:var(--muc)}
+.giay-cu .nav-dai .nav-vien a[aria-current="true"]{background:var(--to-giay);color:var(--muc);box-shadow:0 8px 18px rgba(47,59,74,.13),inset 0 1px 0 rgba(255,255,255,.8);transform:translateY(3px)}
+.giay-cu .nav-dai .nav-vien a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
+.nav-dai .nav-vien .nut-tim{width:34px;height:34px;margin-left:0}
+.nut-lien-he{display:inline-flex;align-items:center;gap:12px;padding:5px 5px 5px 18px;border-radius:10px;background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 8px 18px rgba(47,59,74,.25),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .25s,box-shadow .25s;flex:none}
+.nut-lien-he i{display:grid;place-items:center;width:32px;height:32px;border-radius:7px;background:var(--cat);color:var(--navy)}
+.nut-lien-he svg{width:16px;height:16px;fill:currentColor}
+.nut-lien-he:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(47,59,74,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.nut-lien-he:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+.nav-dai.cuon{transform:none;background:rgba(241,234,229,.94)}
+.nav-dai.cuon .khung{transform:none}
+
+/* ============ Chân trang theo thanh dưới của Noa Vale (24/09), dùng chung ============
+   Trái: hai dòng chữ nhỏ in hoa. Giữa: bốn mục đánh số, mục đang xem có vạch vàng cát đậm ở trên.
+   Phải: địa chỉ email và dòng chú thích nhỏ. Câu trích cũ giữ nguyên phía trên thanh. */
+.chan-thanh{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:32px;margin-top:88px;padding-top:0;border-top:1px solid rgba(47,59,74,.12);max-width:1240px}
+.ct-trai{padding-top:22px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:1.9;text-transform:uppercase;color:var(--nhat)}
+.ct-giua{display:flex;gap:clamp(24px,4vw,64px)}
+.ct-giua a{position:relative;display:block;padding-top:20px;text-decoration:none;color:var(--nhat);font-size:14px;transition:color .2s}
+.ct-giua a b{display:block;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;color:var(--nhat);margin-bottom:4px}
+.ct-giua a::before{content:"";position:absolute;left:0;top:-1px;width:44px;height:2px;background:var(--cat-dam);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.ct-giua a:hover,.ct-giua a[aria-current="true"]{color:var(--muc)}
+.ct-giua a[aria-current="true"]::before{transform:scaleX(1)}
+.ct-giua a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
+.ct-phai{padding-top:20px;text-align:right}
+.ct-phai a{font-size:14.5px;color:var(--muc);text-decoration:none;border-bottom:1px solid rgba(47,59,74,.2)}
+.ct-phai a:hover{border-color:var(--cat-dam)}
+.ct-phai small{display:block;margin-top:6px;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--nhat)}
+footer.chan{padding:104px 0 36px}
+
+@media(max-width:960px){
+  .ky-ten-chu{display:none}
+  .giay-cu .nav-dai .nav-vien a{padding:8px 12px}
+}
+@media(max-width:640px){
+  .nav-dai .nav-khung{gap:10px}
+  .nut-lien-he{padding:4px}
+  .nut-lien-he span,.nav-vien .nh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .giay-cu .nav-dai .nav-vien a{padding:9px}
+  .nav-dai .nav-vien{overflow:visible}
+  .chan-thanh{grid-template-columns:1fr;gap:6px;margin-top:64px}
+  .ct-giua{flex-wrap:wrap;gap:8px 28px}
+  .ct-phai{text-align:left}
+  footer.chan{padding:72px 0 30px}
+}
+
