@@ -217,9 +217,9 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .the-cd .lop[style="--k:8"]{background:linear-gradient(160deg,var(--lung1),var(--lung2));box-shadow:inset 0 0 0 1px var(--vien)}
 .js .the-cd[data-vt="0"]{pointer-events:auto}
 .js .the-cd[data-vt="-1"],.js .the-cd[data-vt="1"]{pointer-events:auto;cursor:pointer}
-.js .the-cd[data-vt="-1"]>span,.js .the-cd[data-vt="1"]>span{filter:brightness(.93)}
-.js .the-cd[data-vt="-2"]>span,.js .the-cd[data-vt="2"]>span{filter:brightness(.82)}
-.js .the-cd[data-vt="3"]>span,.js .the-cd[data-vt="-3"]>span{filter:brightness(.74)}
+.js .the-cd[data-vt="-1"]>span,.js .the-cd[data-vt="1"]>span{filter:brightness(.97)}
+.js .the-cd[data-vt="-2"]>span,.js .the-cd[data-vt="2"]>span{filter:none}
+.js .the-cd[data-vt="3"]>span,.js .the-cd[data-vt="-3"]>span{filter:none}
 .js .the-cd:not([data-vt="0"]) p,.js .the-cd:not([data-vt="0"]) .doc{opacity:0}
 .js .md-dieu-khien .cham{display:flex}
 .truot:focus{outline:0}
@@ -438,7 +438,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .truot{--rong:min(62vw,240px);--cao:calc(var(--rong)*1.5);--A:calc(var(--rong)*.98);--B:calc(var(--rong)*.75);--day:12px;--bo:14px}
   /* Thẻ hẹp: thẻ giữa nhường chỗ biểu tượng cho đoạn mô tả, thẻ bên vẫn giữ biểu tượng */
   .js .mo-dau .the-cd .bieu-tuong{transition:opacity .4s}
-  .js .mo-dau .the-cd[data-vt="0"] .bieu-tuong{opacity:0}
   .truot-san{grid-template-columns:1fr;padding:0 22px}
   .md-duoi{grid-template-columns:minmax(0,1fr) auto;gap:18px 12px}
   .md-dieu-khien{grid-column:1/-1;grid-row:1;flex-direction:row;justify-content:space-between}
@@ -522,22 +521,131 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .giay{background:transparent}
 @media(max-width:640px){.mo-dau .truot{--day:4px}}
 
+
+/* ============ Tỏa thẻ khi rê chuột (24/09), bố cục theo khung hình Noa Vale Khánh gửi ============
+   .truot.toa: thẻ đang chọn ra giữa (mặt navy), 2 thẻ trước tỏa trái, 2 thẻ sau tỏa phải, thẻ đối diện nấp sau.
+   Trái gần: to, gần như thẳng, lùi sau. Trái xa: thấp hơn, nghiêng, nhô ra trước.
+   Phải gần: nghiêng xoay -12°, lùi sau. Phải xa: thấp, nhô ra trước, nghiêng nhẹ.
+   Đơn vị theo bề ngang (--rong) và bề cao (--cao) của thẻ nên co giãn theo khổ màn hình. */
+.truot.toa .the-cd,.truot.ve .the-cd{transition:transform .8s cubic-bezier(.2,.7,.2,1),--goc .8s cubic-bezier(.2,.7,.2,1)}
+.js .truot.toa .the-cd[data-o="giua"]{transform:translateX(-50%) translate3d(0,0,70px)}
+.js .truot.toa .the-cd[data-o="trai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -.92),calc(var(--cao) * -.12),-60px) rotateY(8deg) scale(.96)}
+.js .truot.toa .the-cd[data-o="trai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.5),calc(var(--cao) * .1),-10px) rotateY(24deg) rotateZ(-5deg) scale(.8)}
+.js .truot.toa .the-cd[data-o="phai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * .95),calc(var(--cao) * -.14),-70px) rotateY(-10deg) rotateZ(-12deg) scale(.94)}
+.js .truot.toa .the-cd[data-o="phai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * 1.52),calc(var(--cao) * .12),0px) rotateY(-20deg) rotateZ(-3deg) scale(.8)}
+.js .truot.toa .the-cd[data-o="an"]{transform:translateX(-50%) translate3d(0,calc(var(--cao) * .06),-320px) scale(.72)}
+.js .truot.toa .the-cd:not([data-o="an"]){pointer-events:auto}
+.js .truot.toa .the-cd>span{filter:none}
+/* Thẻ giữa khi tỏa: mặt navy, chữ kem, điểm nhấn vàng cát (vàng cát đạt 4.6:1 trên navy) */
+.js .truot.toa .the-cd[data-o="giua"] .mat{background:var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%);box-shadow:inset 0 0 0 1px rgba(216,204,181,.22),0 40px 70px -24px rgba(26,32,40,.55)}
+.js .truot.toa .the-cd[data-o="giua"] .lop{background:#26303C}
+.js .truot.toa .the-cd[data-o="giua"] h3{color:#F1EADD}
+.js .truot.toa .the-cd[data-o="giua"] p{color:rgba(255,255,255,.78)}
+.js .truot.toa .the-cd[data-o="giua"] .doc,.js .truot.toa .the-cd[data-o="giua"] .bieu-tuong{color:var(--cat)}
+.js .truot.toa .the-cd[data-o="giua"] .so-vien{-webkit-text-stroke-color:var(--cat)}
+.js .truot.toa .the-cd .mat,.js .truot.toa .the-cd .lop{transition:background .5s,filter .6s}
+
+/* ============ Menu trang chủ theo Noa Vale (24/09) ============
+   Trái: chữ ký nk. + tên + dòng nhỏ. Giữa: dải bo tròn các mục có biểu tượng Phosphor, mục đang xem nổi thành viên giấy
+   (đánh dấu bằng aria-current, đổi theo phần đang cuộn tới). Phải: nút Liên hệ navy, ô biểu tượng vàng cát. */
+.nav-dai{background:rgba(241,234,229,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(47,59,74,.08)}
+.nav-dai .nav-khung{display:flex;align-items:center;justify-content:space-between;gap:24px;height:70px;max-width:1240px}
+.ky-ten{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--muc);flex:none}
+.ky-chu{font-family:"Playfair Display",serif;font-weight:600;font-size:27px;letter-spacing:-.05em;line-height:1}
+.ky-chu i{font-style:normal;color:var(--cat)}
+.ky-ten-chu b{display:block;font-weight:500;font-size:14px;line-height:1.25}
+.ky-ten-chu small{display:block;margin-top:2px;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--nhat)}
+.ky-ten:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px;border-radius:6px}
+.nav-dai .nav-vien{display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 6px 20px rgba(47,59,74,.06)}
+.giay-cu .nav-dai .nav-vien a{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-size:13px;letter-spacing:.01em;text-transform:none;color:var(--nhat);transition:background .25s,color .25s,box-shadow .25s,transform .25s}
+.giay-cu .nav-dai .nav-vien a::after{display:none}
+.nav-vien svg{width:16px;height:16px;fill:currentColor;flex:none}
+.giay-cu .nav-dai .nav-vien a:hover{color:var(--muc)}
+.giay-cu .nav-dai .nav-vien a[aria-current="true"]{background:var(--to-giay);color:var(--muc);box-shadow:0 8px 18px rgba(47,59,74,.13),inset 0 1px 0 rgba(255,255,255,.8);transform:translateY(3px)}
+.giay-cu .nav-dai .nav-vien a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
+.nav-dai .nav-vien .nut-tim{width:34px;height:34px;margin-left:0}
+.nut-lien-he{display:inline-flex;align-items:center;gap:12px;padding:5px 5px 5px 18px;border-radius:10px;background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 8px 18px rgba(47,59,74,.25),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .25s,box-shadow .25s;flex:none}
+.nut-lien-he i{display:grid;place-items:center;width:32px;height:32px;border-radius:7px;background:var(--cat);color:var(--navy)}
+.nut-lien-he svg{width:16px;height:16px;fill:currentColor}
+.nut-lien-he:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(47,59,74,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.nut-lien-he:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+.nav-dai.cuon{transform:none;background:rgba(241,234,229,.94)}
+.nav-dai.cuon .khung{transform:none}
+
+/* ============ Chân trang theo thanh dưới của Noa Vale (24/09) ============
+   Trái: hai dòng chữ nhỏ in hoa. Giữa: bốn mục đánh số, mục đang xem có vạch vàng cát đậm ở trên.
+   Phải: địa chỉ email và dòng chú thích nhỏ. Câu trích cũ giữ nguyên phía trên thanh. */
+.chan-thanh{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:32px;margin-top:88px;padding-top:0;border-top:1px solid rgba(47,59,74,.12);max-width:1240px}
+.ct-trai{padding-top:22px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:1.9;text-transform:uppercase;color:var(--nhat)}
+.ct-giua{display:flex;gap:clamp(24px,4vw,64px)}
+.ct-giua a{position:relative;display:block;padding-top:20px;text-decoration:none;color:var(--nhat);font-size:14px;transition:color .2s}
+.ct-giua a b{display:block;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;color:var(--nhat);margin-bottom:4px}
+.ct-giua a::before{content:"";position:absolute;left:0;top:-1px;width:44px;height:2px;background:var(--cat-dam);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.ct-giua a:hover,.ct-giua a[aria-current="true"]{color:var(--muc)}
+.ct-giua a[aria-current="true"]::before{transform:scaleX(1)}
+.ct-giua a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
+.ct-phai{padding-top:20px;text-align:right}
+.ct-phai a{font-size:14.5px;color:var(--muc);text-decoration:none;border-bottom:1px solid rgba(47,59,74,.2)}
+.ct-phai a:hover{border-color:var(--cat-dam)}
+.ct-phai small{display:block;margin-top:6px;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--nhat)}
+footer.chan{padding:104px 0 36px}
+
+@media(max-width:960px){
+  .ky-ten-chu{display:none}
+  .giay-cu .nav-dai .nav-vien a{padding:8px 12px}
+}
+@media(max-width:640px){
+  .nav-dai .nav-khung{gap:10px}
+  .nut-lien-he{padding:4px}
+  .nut-lien-he span,.nav-vien .nh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .giay-cu .nav-dai .nav-vien a{padding:9px}
+  .nav-dai .nav-vien{overflow:visible}
+  .chan-thanh{grid-template-columns:1fr;gap:6px;margin-top:64px}
+  .ct-giua{flex-wrap:wrap;gap:8px 28px}
+  .ct-phai{text-align:left}
+  footer.chan{padding:72px 0 30px}
+}
+
+/* ============ Mặt trước gọn, mặt sau có chữ, nền vòng cung chung (24/09) ============
+   Mặt trước chỉ còn số, hình góc nhìn (to hơn) và "Đọc bài viết". Tên và diễn giải vẫn nằm trong thẻ cho trình đọc màn hình
+   và làm tên liên kết, nhưng ẩn khỏi mắt; bản hiện ra nằm ở mặt sau (.mat-sau), thấy khi thẻ quay lưng ở nửa sau vòng.
+   Nền chung: một vòng elip trên mặt sàn (.san-vong) trùng quỹ đạo thẻ đi, vòng ngoài mờ và lớp bóng nhẹ trong lòng,
+   nằm trong cùng không gian 3D nên nghiêng theo góc nhìn. Không có đế riêng cho từng thẻ. */
+.mo-dau .the-cd h3,.mo-dau .the-cd p{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mo-dau .bieu-tuong{top:44%;width:56%}
+.mo-dau .the-cd .doc{margin-top:0}
+.mat-sau{display:none}
+.js .mo-dau .the-cd .mat-sau{display:flex;flex-direction:column;justify-content:center;position:absolute;inset:0;padding:0 14%;border-radius:var(--bo);
+  background:var(--van-giay),linear-gradient(160deg,var(--lung1),var(--lung2));box-shadow:inset 0 0 0 1px var(--vien);
+  transform:translateZ(calc(var(--day) * -1 - .5px)) rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:left}
+.ms-so{font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--cat-dam)}
+.ms-ten{margin-top:12px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(22px,2.1vw,28px);line-height:1.2;color:var(--muc)}
+.ms-mo{margin-top:14px;font-size:14.5px;line-height:1.65;color:var(--nhat)}
+.mo-dau{--lung1:#F4EEE3;--lung2:#EAE1D0}
+/* Vòng cung chung trên mặt sàn: rộng 2A, sâu 2B, tâm lùi B, nằm ngang dưới chân thẻ */
+.san-vong{display:none}
+.js .mo-dau .san-vong{display:block;position:absolute;left:50%;top:var(--cao);width:calc(var(--A) * 2);height:calc(var(--B) * 2);margin:calc(var(--B) * -1) 0 0 calc(var(--A) * -1);
+  transform:translateZ(calc(var(--B) * -1)) rotateX(90deg);border-radius:50%;border:1.5px solid rgba(95,82,64,.42);
+  background:radial-gradient(closest-side,rgba(47,59,74,.10),rgba(47,59,74,.04) 70%,transparent 100%);pointer-events:none;transition:opacity .5s}
+.js .mo-dau .san-vong i{position:absolute;inset:-9%;border-radius:50%;border:1px solid rgba(95,82,64,.2)}
+.js .mo-dau .truot.toa .san-vong{opacity:0}
+@media(max-width:640px){.ms-mo{font-size:12.5px}.mo-dau .bieu-tuong{top:42%;width:52%}}
 </style>
 <link rel="stylesheet" href="assets/tim-kiem.css">
 <link rel="stylesheet" href="assets/nen.css">
 </head>
 <body class="giay-cu">
 
-<nav class="nav">
-  <div class="khung">
-    <ul>
-      <li><a href="#" aria-current="page">Trang chủ</a></li>
-      <li><a href="#ve-toi">Xưởng</a></li>
-      <li><a href="#cach-lam">Cách tôi làm</a></li>
-      <li><a href="#bai-viet">Bài viết</a></li>
-      <li><a href="#chang-duong">Chặng đường</a></li>
-      <li><a href="#lien-he">Liên hệ</a></li>
+<nav class="nav nav-dai" aria-label="Menu chính">
+  <div class="khung nav-khung">
+    <a class="ky-ten" href="#" aria-label="Lê Nhật Khánh, về đầu trang"><span class="ky-chu" aria-hidden="true">nk<i>.</i></span><span class="ky-ten-chu"><b>Lê Nhật Khánh</b><small>Human Resources</small></span></a>
+    <ul class="nav-vien">
+      <li><a href="#ve-toi" data-muc="ve-toi"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H48V120l80-80,80,80Z"/></svg><span class="nh">Xưởng</span></a></li>
+      <li><a href="#cach-lam" data-muc="cach-lam"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,97.89,158.11,118,118l40.15-20.07Z"/></svg><span class="nh">Cách tôi làm</span></a></li>
+      <li><a href="#bai-viet" data-muc="bai-viet"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></svg><span class="nh">Bài viết</span></a></li>
+      <li><a href="#chang-duong" data-muc="chang-duong"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></svg><span class="nh">Chặng đường</span></a></li>
     </ul>
+    <a class="nut-lien-he" href="#lien-he"><span>Liên hệ</span><i aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></i></a>
   </div>
 </nav>
 
@@ -558,6 +666,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   <div class="md-giua">
     <div class="truot" data-truot role="region" aria-roledescription="carousel" aria-label="Sáu góc nhìn" tabindex="0">
       <div class="truot-san">
+        <span class="san-vong" aria-hidden="true"><i></i></span>
       <a class="the-cd" href="chu-de/nghe-nhan-su.html" data-i="0">
           <span class="mat">
         <span class="so-vien" aria-hidden="true">01</span>
@@ -568,7 +677,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 01</span><span class="ms-ten">Nghề nhân sự</span><span class="ms-mo">Lộ trình từ thực tập sinh tới quản lý, những góc khuất nhà tuyển dụng ít kể với ứng viên, những điều trường lớp ngại chia sẻ.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/tri-tue-nhan-tao.html" data-i="1">
           <span class="mat">
@@ -580,7 +689,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 02</span><span class="ms-ten">Trí tuệ nhân tạo</span><span class="ms-mo">Tôi để AI làm phần việc lặp đi lặp lại trong tuyển dụng và dữ liệu, giữ lại cho mình phần phán đoán về con người. Cùng một ngày làm được nhiều việc hơn mà không cần thêm người.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/tam-ly-hoc.html" data-i="2">
           <span class="mat">
@@ -592,7 +701,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 03</span><span class="ms-ten">Tâm lý học</span><span class="ms-mo">Hiểu người trước khi quản người. Nghe hết rồi mới hỏi, hỏi thẳng nhưng không phán xét, kể cả khi người cần được nghe là chính mình.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/he-thong-quan-tri.html" data-i="3">
           <span class="mat">
@@ -604,7 +713,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 04</span><span class="ms-ten">Hệ thống quản trị</span><span class="ms-mo">Chiến lược, hiệu suất, khung năng lực, tổng đãi ngộ. Hệ thống tốt phải đo được, và người trong cuộc hiểu vì sao mình được đo như vậy.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/phap-luat-lao-dong.html" data-i="4">
           <span class="mat">
@@ -616,7 +725,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 05</span><span class="ms-ten">Pháp luật lao động</span><span class="ms-mo">Luật là sàn chung để người lao động và doanh nghiệp cùng yên tâm, chứ không phải công cụ để hai bên thắng nhau.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/chuyen-cong-so.html" data-i="5">
           <span class="mat">
@@ -628,7 +737,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="doc">Đọc bài viết →</span>
         </div>
           </span>
-          <span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
+          <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 06</span><span class="ms-ten">Chuyện công sở</span><span class="ms-mo">Những chuyện xảy ra giữa người với người ở chỗ làm: chuyện tôi gặp, chuyện tôi từng xử sai, và những gì còn lại sau đó.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       </div>
     </div>
@@ -899,13 +1008,23 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   </div>
 </section>
 
-<footer>
+<footer class="chan">
   <div class="khung trich">
     <span class="ngoac-lon" aria-hidden="true">“</span>
     <blockquote>
       <q>Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</q>
       <span class="gach" aria-hidden="true"></span>
     </blockquote>
+  </div>
+  <div class="khung chan-thanh">
+    <p class="ct-trai">Human Resources ·<br>Happy Relationship</p>
+    <nav class="ct-giua" aria-label="Các phần trang chủ">
+      <a href="#ve-toi" data-muc="ve-toi"><b>01</b>Xưởng</a>
+      <a href="#cach-lam" data-muc="cach-lam"><b>02</b>Cách tôi làm</a>
+      <a href="#bai-viet" data-muc="bai-viet"><b>03</b>Bài viết</a>
+      <a href="#chang-duong" data-muc="chang-duong"><b>04</b>Chặng đường</a>
+    </nav>
+    <div class="ct-phai"><a href="mailto:nhkhanhle@gmail.com">nhkhanhle@gmail.com</a><small>Kết nối với tôi</small></div>
   </div>
 </footer>
 
@@ -960,6 +1079,10 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       if(mdSo)mdSo.textContent=('0'+(hien+1)).slice(-2)+' / '+('0'+n).slice(-2)+' · Góc nhìn';
       if(mdTen)mdTen.textContent=hh.querySelector('h3').textContent;
       if(mdXem)mdXem.href=hh.getAttribute('href');
+      /* Đang tỏa: thẻ đang chọn ở giữa, 2 thẻ liền trước tỏa sang trái, 2 thẻ liền sau tỏa sang phải,
+         thẻ đối diện nấp sau thẻ giữa. Chỗ đứng và độ nghiêng từng ô ở CSS (data-o). */
+      var CHO={'0':'giua','-1':'trai-1','-2':'trai-2','1':'phai-1','2':'phai-2','3':'an','-3':'an'};
+      the.forEach(function(t){t.setAttribute('data-o',CHO[t.getAttribute('data-vt')])});
     }
     function den(i){hien=(i+n)%n;ve()}
     cham.forEach(function(c,i){c.addEventListener('click',function(){den(i)})});
@@ -982,47 +1105,51 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       if(ev.key==='ArrowRight'){ev.preventDefault();den(hien+1)}
     });
 
-    /* Rê chuột vào dải là thẻ tự xoay. Cùng cách và cùng nhịp với bản đồ bài trong trang góc nhìn:
-       lệch trái thì chạy trái, lệch phải thì chạy phải, càng xa tâm càng nhanh, quanh tâm có vùng đứng yên.
-       Nhịp tính bằng bộ đếm cộng dồn nên đổi tốc độ giữa chừng không mất nhịp. */
-    var VUNG_CHET=0.16, CHAM=2000, NHANH=1000, TICK=80;
-    var huong=0, nhip=CHAM, tich=0, dem=null;
+    /* Tự xoay: cứ NHIP ms vòng xoay một nấc. Dừng khi con trỏ nằm trong vùng thẻ, khi đang tỏa,
+       khi tab bị ẩn, và không chạy khi máy bật giảm chuyển động. */
+    var NHIP=3200, trong=false, toa=false, hen=null;
+    if(!giam)setInterval(function(){if(!trong&&!toa&&!document.hidden)den(hien+1)},NHIP);
+
+    /* Tỏa thẻ (chỉ máy có chuột): rê lên thẻ nào (chưa bấm) thì thẻ đó ra giữa, 4 thẻ gần nhất tỏa hai bên.
+       Chờ một nhịp ngắn trước khi đổi thẻ để con trỏ lướt ngang không làm thẻ nhảy liên tục.
+       Rời vùng thẻ thì các thẻ trôi về vòng elip (lớp "ve" giữ chuyển tiếp transform trong lúc về). */
     var coChuot=matchMedia('(hover:hover)').matches;
-    function nhipThe(ms,deu){
-      /* Tự chạy: chuyển tiếp kéo dài trọn một nhịp và đi đều, nên thẻ trôi liên tục.
-         Bấm chấm, vuốt hay bấm phím: trả về nhịp 0.7s có gia tốc như cũ. */
-      the.forEach(function(t){
-        t.style.transitionDuration = deu ? (ms/1000)+'s, '+(ms/1000)+'s' : '';
-        t.style.transitionTimingFunction = deu ? 'linear' : '';
+    if(coChuot){
+      tr.addEventListener('pointerenter',function(ev){if(ev.pointerType==='mouse')trong=true});
+      the.forEach(function(t,i){
+        t.addEventListener('pointerenter',function(ev){
+          if(ev.pointerType!=='mouse')return;
+          clearTimeout(hen);
+          hen=setTimeout(function(){
+            if(!toa){toa=true;tr.classList.remove('ve');tr.classList.add('toa')}
+            if(i!==hien)den(i); else ve();
+          },toa?260:140);
+        });
       });
-    }
-    function dungChay(){huong=0;tich=0;if(dem){clearInterval(dem);dem=null}nhipThe(0,false)}
-    function datHuong(h,nh){
-      if(h===0){dungChay();return}
-      nhip=nh;
-      nhipThe(nh,true);
-      if(h!==huong){huong=h;tich=0;den(hien+h)}   /* đổi hướng thì nhảy ngay một nấc */
-      if(!dem)dem=setInterval(function(){
-        if(!huong)return;
-        tich+=TICK/nhip;
-        if(tich>=1){tich=0;den(hien+huong)}
-      },TICK);
-    }
-    if(coChuot && !giam){
-      tr.addEventListener('pointermove',function(ev){
-        if(ev.pointerType!=='mouse'){dungChay();return}
-        var b=tr.getBoundingClientRect();
-        var t=(ev.clientX-b.left)/b.width*2-1;      /* -1 ở mép trái, 0 ở tâm, 1 ở mép phải */
-        var d=Math.abs(t);
-        if(d<VUNG_CHET){dungChay();return}
-        var manh=(d-VUNG_CHET)/(1-VUNG_CHET);
-        datHuong(t<0?-1:1, CHAM-(CHAM-NHANH)*manh);
+      tr.addEventListener('pointerleave',function(){
+        trong=false; clearTimeout(hen);
+        hen=setTimeout(function(){
+          if(!toa)return;
+          toa=false; tr.classList.remove('toa'); tr.classList.add('ve');
+          setTimeout(function(){if(!toa)tr.classList.remove('ve')},850);
+        },320);
       });
-      tr.addEventListener('pointerleave',dungChay);
-      tr.addEventListener('pointerdown',dungChay);
-      document.addEventListener('visibilitychange',function(){if(document.hidden)dungChay()});
     }
     ve();
+  }
+  /* Menu và chân trang: đánh dấu phần đang xem (aria-current) khi cuộn tới, bằng IntersectionObserver, không nghe sự kiện cuộn.
+     Một phần được coi là đang xem khi nó cắt ngang dải giữa màn hình. Ở màn mở đầu thì không mục nào sáng. */
+  if('IntersectionObserver' in window){
+    var lienKet=[].slice.call(document.querySelectorAll('[data-muc]'));
+    var io3=new IntersectionObserver(function(ds){
+      ds.forEach(function(d){
+        if(!d.isIntersecting)return;
+        lienKet.forEach(function(a){a.setAttribute('aria-current',a.getAttribute('data-muc')===d.target.id?'true':'false')});
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ['ve-toi','cach-lam','bai-viet','chang-duong'].forEach(function(id){var e=document.getElementById(id);if(e)io3.observe(e)});
+    var dau=document.querySelector('.mo-dau');
+    if(dau)new IntersectionObserver(function(ds){if(ds[0].isIntersecting)lienKet.forEach(function(a){a.setAttribute('aria-current','false')})},{rootMargin:'-45% 0px -50% 0px'}).observe(dau);
   }
   /* Cách tôi làm: ba thẻ chuyển nhóm năng lực. Không có JavaScript thì ba nhóm hiện liền nhau. */
   var tl=document.querySelector('.cl-the');
