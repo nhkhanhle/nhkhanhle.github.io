@@ -530,7 +530,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
    Trái gần: to, gần như thẳng, lùi sau. Trái xa: thấp hơn, nghiêng, nhô ra trước.
    Phải gần: nghiêng xoay -12°, lùi sau. Phải xa: thấp, nhô ra trước, nghiêng nhẹ.
    Đơn vị theo bề ngang (--rong) và bề cao (--cao) của thẻ nên co giãn theo khổ màn hình. */
-.js .truot.tu-chay .the-cd{transition:--goc 3.6s linear}
+/* Tự xoay: trôi 1.6 giây rồi dừng khoảng 2 giây ở mỗi thẻ. Trôi đều liên tục làm khe giữa hai thẻ nằm ở chính diện
+   gần 1 giây, nhìn như chữ và hình biến mất (Khánh báo 24/09). */
+.js .truot.tu-chay .the-cd{transition:--goc 1.6s cubic-bezier(.45,0,.2,1)}
 /* Tỏa chậm (1.4 giây) cho kịp thấy động tác bung ra; hai thẻ ngoài bung sau hai thẻ trong 0.15 giây */
 .truot.toa .the-cd,.truot.ve .the-cd{transition:transform 1.4s cubic-bezier(.22,.61,.24,1),--goc 1.4s cubic-bezier(.22,.61,.24,1)}
 .truot.toa .the-cd[data-o="trai-2"],.truot.toa .the-cd[data-o="phai-2"]{transition-delay:.15s}
@@ -1054,7 +1056,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     });
 
     /* Tự xoay liên tục (Khánh muốn vòng tự chạy, không cần chạm): cứ NHIP ms xoay một nấc, và lớp "tu-chay"
-       kéo chuyển tiếp góc dài đúng một nhịp, đi đều, nên vòng trôi liền không giật từng nấc.
+       cho mỗi nấc trôi 1.6s êm dần rồi dừng ở thẻ chính diện phần còn lại của nhịp.
        Chỉ dừng khi đang tỏa hoặc tab bị ẩn. Máy bật giảm chuyển động thì không tự chạy.
        Bấm chấm, phím, vuốt: tạm bỏ "tu-chay" để thẻ chạy nhanh tới chỗ mới, rồi nối lại. */
     var NHIP=3600, toa=false, hen=null, henChay=null;
