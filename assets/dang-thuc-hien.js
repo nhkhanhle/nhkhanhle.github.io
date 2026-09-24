@@ -21,7 +21,8 @@
   q('[data-ngay]').textContent='Dự kiến đăng '+ngayVN(b.ngay);
   q('[data-phut]').textContent=(b.phutDoc||'')+' phút đọc';
   q('[data-so-hinh]').textContent=g.stt;
-  if(b.anh)q('[data-hinh]').style.backgroundImage='url("../'+b.anh+'")';
+  /* Hình bài tô màu mực navy qua mặt nạ (nền sáng, xem assets/nen.css) */
+  if(b.anh){var h=q('[data-hinh]'), u='url("../'+b.anh+'")'; h.style.webkitMaskImage=u; h.style.maskImage=u}
   /* Họa tiết nền riêng của từng bài, cùng hệ nét kẻ với đồ họa của trang */
   q('[data-nen]').style.backgroundImage='url("../anh-bai/nen-'+b.ma.replace('.','-')+'.svg")';
   q('[data-quay-lai]').href='../chu-de/'+b.chuDe+'.html';
