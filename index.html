@@ -531,6 +531,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 @media(max-width:640px){.mo-dau .truot{--day:4px}}
 
 
+/* Bố cục tỏa (Khánh chỉnh 24/09): năm thẻ không chồng nhau, hai bên không đối xứng.
+   Trái trên: nghiêng nhẹ -7°. Trái dưới: nhỏ, lệch ra mép và khuất một phần. Phải trên: ngả ra sau (rotateX 24°).
+   Phải dưới: ngả sang trái -20°. Thẻ đối diện ẩn hẳn. Đã đo không chồng lấn ở khổ 1024, 1280, 1440. */
 /* ============ Tỏa thẻ khi rê chuột (24/09), bố cục theo khung hình Noa Vale Khánh gửi ============
    .truot.toa: thẻ đang chọn ra giữa (mặt navy), 2 thẻ trước tỏa trái, 2 thẻ sau tỏa phải, thẻ đối diện nấp sau.
    Trái gần: to, gần như thẳng, lùi sau. Trái xa: thấp hơn, nghiêng, nhô ra trước.
@@ -558,14 +561,31 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Tỏa chậm (1.4 giây) cho kịp thấy động tác bung ra; hai thẻ ngoài bung sau hai thẻ trong 0.15 giây */
 .truot.toa .the-cd,.truot.ve .the-cd{transition:transform 1.4s cubic-bezier(.22,.61,.24,1),--goc 1.4s cubic-bezier(.22,.61,.24,1)}
 .truot.toa .the-cd[data-o="trai-2"],.truot.toa .the-cd[data-o="phai-2"]{transition-delay:.15s}
-.js .truot.toa .the-cd[data-o="giua"]{transform:translateX(-50%) translate3d(0,0,70px)}
-.js .truot.toa .the-cd[data-o="trai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -.92),calc(var(--cao) * -.12),-60px) rotateY(8deg) scale(.96)}
-.js .truot.toa .the-cd[data-o="trai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.5),calc(var(--cao) * .1),-10px) rotateY(24deg) rotateZ(-5deg) scale(.8)}
-.js .truot.toa .the-cd[data-o="phai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * .95),calc(var(--cao) * -.14),-70px) rotateY(-10deg) rotateZ(-12deg) scale(.94)}
-.js .truot.toa .the-cd[data-o="phai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * 1.52),calc(var(--cao) * .12),0px) rotateY(-20deg) rotateZ(-3deg) scale(.8)}
-.js .truot.toa .the-cd[data-o="an"]{transform:translateX(-50%) translate3d(0,calc(var(--cao) * .06),-320px) scale(.72)}
+.js .truot.toa .the-cd[data-o="giua"]{transform:translateX(-50%) translate3d(0,0,40px)}
+.js .truot.toa .the-cd[data-o="trai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.0),calc(var(--cao) * -.24),10px) rotateX(-10deg) rotateY(20deg) rotateZ(-8deg) scale(.74)}
+.js .truot.toa .the-cd[data-o="trai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.9),calc(var(--cao) * .24),0) rotateX(16deg) rotateY(28deg) rotateZ(10deg) scale(.72)}
+.js .truot.toa .the-cd[data-o="phai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * .95),calc(var(--cao) * -.24),-30px) rotateX(38deg) rotateY(-16deg) rotateZ(7deg) scale(.74)}
+.js .truot.toa .the-cd[data-o="phai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * 1.84),calc(var(--cao) * .25),0) rotateX(-12deg) rotateY(-24deg) rotateZ(-20deg) scale(.68)}
+.js .truot.toa .the-cd[data-o="an"]{transform:translateX(-50%) translate3d(0,0,-400px) scale(.6);opacity:0}
 .js .truot.toa .the-cd:not([data-o="an"]){pointer-events:auto}
 .js .truot.toa .the-cd>span{filter:none}
+/* Lúc tỏa hạ góc nhìn về ngang tầm mắt để độ nghiêng 3D đọc ra (từ trên cao thẻ ngả sau trông phẳng) */
+.js .truot{transition:perspective-origin 1.4s cubic-bezier(.22,.61,.24,1)}
+.js .truot.toa{perspective-origin:50% 42%}
+/* Lơ lửng (Khánh muốn 24/09): khi đã tỏa, mỗi thẻ trôi nhẹ lên xuống và lắc khẽ theo nhịp riêng.
+   Dùng thuộc tính translate và rotate riêng (không phải transform) nên không đụng chuyển tiếp tỏa ra.
+   Bóng đổ rơi xa và mờ để thấy thẻ cách mặt sàn. Máy bật giảm chuyển động thì đứng yên. */
+@keyframes bay-1{0%,100%{translate:0 0;rotate:0 0 1 0deg}50%{translate:0 -14px;rotate:0 0 1 1.6deg}}
+@keyframes bay-2{0%,100%{translate:0 0;rotate:1 0 0 0deg}50%{translate:0 -10px;rotate:1 0 0 4deg}}
+@keyframes bay-3{0%,100%{translate:0 -6px;rotate:0 1 0 0deg}50%{translate:0 8px;rotate:0 1 0 -4deg}}
+@media(prefers-reduced-motion:no-preference){
+  .js .truot.toa .the-cd[data-o="giua"]{animation:bay-1 7s ease-in-out infinite}
+  .js .truot.toa .the-cd[data-o="trai-1"]{animation:bay-2 6.2s ease-in-out -1.4s infinite}
+  .js .truot.toa .the-cd[data-o="trai-2"]{animation:bay-3 7.6s ease-in-out -3s infinite}
+  .js .truot.toa .the-cd[data-o="phai-1"]{animation:bay-3 6.8s ease-in-out -.6s infinite}
+  .js .truot.toa .the-cd[data-o="phai-2"]{animation:bay-2 8.2s ease-in-out -4.2s infinite}
+}
+.js .truot.toa .the-cd:not([data-o="giua"]) .mat{box-shadow:inset 0 0 0 1px var(--vien),0 60px 70px -34px rgba(47,59,74,.34),0 14px 22px -14px rgba(47,59,74,.18)}
 /* Thẻ giữa khi tỏa: mặt navy, chữ kem, điểm nhấn vàng cát (vàng cát đạt 4.6:1 trên navy) */
 .js .truot.toa .the-cd[data-o="giua"] .mat{background:var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%);box-shadow:inset 0 0 0 1px rgba(216,204,181,.22),0 40px 70px -24px rgba(26,32,40,.55)}
 .js .truot.toa .the-cd[data-o="giua"] .lop{background:#26303C}
