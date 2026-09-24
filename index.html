@@ -220,10 +220,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .the-cd .lop[style="--k:8"]{background:linear-gradient(160deg,var(--lung1),var(--lung2));box-shadow:inset 0 0 0 1px var(--vien)}
 .js .the-cd[data-vt="0"]{pointer-events:auto}
 .js .the-cd[data-vt="-1"],.js .the-cd[data-vt="1"]{pointer-events:auto;cursor:pointer}
-.js .the-cd[data-vt="-1"]>span,.js .the-cd[data-vt="1"]>span{filter:brightness(.97)}
+/* Khánh không muốn chớp tắt khi xoay (24/09): thẻ nào cũng giữ nguyên độ sáng và nội dung suốt lúc xoay,
+   không đổi theo vị trí; chỉ trạng thái tỏa (.toa) mới đổi mặt thẻ giữa. */
 .js .the-cd[data-vt="-2"]>span,.js .the-cd[data-vt="2"]>span{filter:none}
 .js .the-cd[data-vt="3"]>span,.js .the-cd[data-vt="-3"]>span{filter:none}
-.js .the-cd:not([data-vt="0"]) p,.js .the-cd:not([data-vt="0"]) .doc{opacity:0}
 .js .md-dieu-khien .cham{display:flex}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
