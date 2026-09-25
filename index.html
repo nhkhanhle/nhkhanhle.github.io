@@ -143,16 +143,6 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .ve-toi p{color:var(--nhat);margin-top:18px;font-size:16.5px}
 .ve-toi p:first-of-type{margin-top:0}
 .ve-toi .than>div>p:first-of-type::first-letter{float:left;font-family:"Playfair Display",serif;font-weight:600;font-size:74px;line-height:.82;color:var(--muc);padding:8px 12px 0 0}
-.nang-luc{list-style:none;counter-reset:nl}
-.nang-luc li{counter-increment:nl;border-bottom:1px solid var(--ke-sang)}
-.nang-luc summary{list-style:none;cursor:pointer;display:flex;gap:14px;align-items:baseline;padding:12px 30px 12px 0;position:relative;font-size:15px;color:var(--muc);transition:color .2s}
-.nang-luc summary::-webkit-details-marker{display:none}
-.nang-luc summary::before{content:counter(nl,decimal-leading-zero);font-family:"Playfair Display",serif;font-size:13px;color:var(--cat-dam);flex:none}
-.nang-luc summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:18px;line-height:1;color:var(--cat-dam);transition:transform .3s}
-.nang-luc details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
-.nang-luc summary:hover{color:var(--cat-dam)}
-.nang-luc summary:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
-.nang-luc details p{margin:0 0 14px 41px;font-size:14.5px;line-height:1.7;color:var(--nhat)}
 .hop-nhan{position:relative;border:1px solid var(--ke-sang);padding:34px 28px 18px;margin-top:26px}
 .hop-nhan:first-child{margin-top:10px}
 .hop-nhan h3{position:absolute;top:-.8em;left:22px;background:var(--giay);padding:0 12px;font-family:"Josefin Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--cat-dam)}
@@ -324,55 +314,57 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .moc li.trai p{margin-left:auto;max-width:420px}
 .moc li.phai p{max-width:440px}
 
-/* ---------- Cách tôi làm: ba nhóm năng lực thành ba thẻ chuyển ---------- */
+/* ---------- Năng lực: mục lục bên trái, trang đọc bên phải (Khánh chọn phương án B 25/09) ----------
+   Trái: 16 năng lực đánh số 01 tới 16, chia 3 nhóm; dòng đang chọn nền navy.
+   Phải: tờ giấy lớn khung chỉ, hiện năng lực đang chọn (nhóm, số viền rỗng, tên, diễn giải, hình nhóm), hai nút lật.
+   Không có JavaScript thì cả 16 trang hiện liền nhau. Điện thoại: trang đọc xếp trên, mục lục dưới. */
 .cach-lam{background:var(--kem);overflow:hidden;overflow:clip}
-.cl-nhom{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:64px;align-items:start;margin-top:56px}
-.cl-nhom+.cl-nhom{padding-top:56px;border-top:1px solid var(--ke-sang)}
-.js .cl-nhom+.cl-nhom{padding-top:0;border-top:0}
-.cl-nhom[hidden]{display:none}
-.cl-nhom:focus-visible{outline:2px solid var(--cat-dam);outline-offset:8px}
-.cl-chu .nhan{font-size:12px}
-.cl-lon{margin-top:10px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(44px,5.4vw,76px);line-height:1.1;letter-spacing:-.02em;color:var(--muc);white-space:nowrap}
-.cl-lon i{font-style:normal;color:var(--cat-dam)}
-.cl-chu .nang-luc{margin-top:26px;border-top:1px solid var(--muc)}
-.cl-hinh{position:relative;aspect-ratio:1/0.92;max-width:560px;justify-self:end;width:100%}
-.o-hinh{position:absolute;display:grid;place-items:center;background:linear-gradient(160deg,#3B4859 0%,#26303C 100%);box-shadow:0 30px 60px rgba(38,48,60,.28);color:var(--cat)}
-.o-hinh svg{width:52%;height:auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.o-hinh.lon{left:20%;top:0;width:58%;aspect-ratio:3/4}
-.o-hinh.nho1{left:0;bottom:4%;width:32%;aspect-ratio:1;transform:rotate(-4deg);z-index:1}
-.o-hinh.nho2{right:0;top:14%;width:30%;aspect-ratio:3/4;transform:rotate(4deg)}
-.o-hinh.nho1 svg,.o-hinh.nho2 svg{width:58%}
-.cl-the{display:none}
-.js .cl-the{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:64px;border-top:1px solid rgba(47,59,74,.16)}
-.cl-the button{position:relative;text-align:left;background:none;border:0;padding:18px 18px 4px 0;cursor:pointer;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:15px;font-weight:400;color:var(--nhat);transition:color .2s}
-.cl-the button::before{content:"";position:absolute;left:0;top:-1px;width:44px;height:2px;background:var(--cat-dam);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
-.cl-the button b{display:block;font-family:"Playfair Display",serif;font-weight:500;font-size:13px;letter-spacing:.1em;color:var(--cat-dam);margin-bottom:4px}
-.cl-the button:hover,.cl-the button[aria-selected="true"]{color:var(--muc)}
-.cl-the button[aria-selected="true"]::before{transform:scaleX(1)}
-.cl-the button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
-@media(prefers-reduced-motion:no-preference){
-  .js .cl-nhom.moi .cl-chu{animation:len .6s ease both}
-  .js .cl-nhom.moi .o-hinh.lon{animation:len .7s ease both .08s}
-  .js .cl-nhom.moi .o-hinh.nho1,.js .cl-nhom.moi .o-hinh.nho2{animation:hien .7s ease both .16s}
+.nl{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,64px);align-items:start;margin-top:48px}
+.nl-nhom+.nl-nhom{margin-top:30px}
+.nl-nhom .nhan{display:flex;align-items:center;gap:14px;font-size:12px}
+.nl-nhom .nhan::after{content:"";flex:1;height:1px;background:rgba(95,82,64,.25)}
+.nl-nhom ol{list-style:none;margin-top:10px}
+.nl-dong{display:grid;grid-template-columns:34px minmax(0,1fr);width:100%;padding:9px 12px;border:0;border-radius:var(--bo-nut);background:none;text-align:left;cursor:pointer;
+  font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:15.5px;line-height:1.5;color:var(--nhat);transition:background .25s,color .25s}
+.nl-dong span{font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:13px;color:var(--cat-dam);padding-top:2px;transition:color .25s}
+.nl-dong:hover{background:rgba(47,59,74,.06);color:var(--muc)}
+.nl-dong[aria-current="true"]{background:var(--navy);color:#F1EADD}
+.nl-dong[aria-current="true"] span{color:var(--cat)}
+.nl-dong:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
+/* Trang đọc nền navy (Khánh đổi 25/09): cùng kiểu thẻ góc nhìn, khung chỉ vàng nhạt; chữ kem, nhãn và số vàng cát (4.64:1 trên navy) */
+.nl-doc{position:relative;padding:54px clamp(28px,4vw,50px) 50px;background:var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%);color:#F1EADD;box-shadow:0 30px 56px -20px rgba(26,32,40,.5)}
+.nl-doc .khung-chi i{background:#303B49}
+.nl-trang{position:relative}
+.nl-trang+.nl-trang{margin-top:40px;padding-top:40px;border-top:1px solid var(--ke-sang)}
+.js .nl-trang{display:none}
+.js .nl-trang.hien{display:block}
+.js .nl-trang+.nl-trang{margin-top:0;padding-top:0;border-top:0}
+.nl-hinh{position:absolute;right:0;top:-6px;width:clamp(64px,8vw,92px);color:var(--cat)}
+.nl-hinh svg{width:100%;height:auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nl-trang .nhan{font-size:12px;padding-right:110px;color:var(--cat)}
+.nl-so{margin-top:14px;font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:clamp(64px,7vw,92px);line-height:1;color:var(--cat)}
+@supports(-webkit-text-stroke:1px black){.nl-so{color:transparent;-webkit-text-stroke:1px var(--cat)}}
+.nl-trang h3{margin-top:18px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(28px,3vw,38px);line-height:1.2;color:#F1EADD;text-wrap:balance}
+.nl-trang p{margin-top:22px;font-size:16.5px;line-height:1.85;color:rgba(241,234,221,.82)}
+.nl-lat{display:none;gap:10px;margin-top:34px}
+.js .nl-lat{display:flex}
+.nl-lat button{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid rgba(216,204,181,.4);background:transparent;color:#F1EADD;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.nl-lat button::before{content:"";position:absolute;inset:3px;border-radius:50%;border:1px dashed rgba(216,204,181,.35)}
+.nl-lat svg{width:15px;height:15px}
+.nl-lat button:hover{background:var(--cat);color:var(--navy);border-color:var(--cat)}
+.nl-lat button:focus-visible{outline:2px solid var(--cat);outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){.js .nl-trang.hien{animation:len .5s ease both}}
+@media(max-width:860px){
+  .nl{grid-template-columns:1fr;gap:36px}
+  .nl-doc{order:-1;scroll-margin-top:90px}
 }
-@keyframes hien{from{opacity:0}to{opacity:1}}
+@media(max-width:640px){
+  .nl-doc{padding:40px 26px 34px}
+  .nl-trang .nhan{padding-right:76px}
+  .nl-trang p{font-size:15.5px}
+}
 
 /* ---------- Bài chọn lọc: 4 bài mới nhất hoặc sắp đăng ---------- */
-.bv-luoi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin-top:52px}
-.bv-the{display:block;text-decoration:none;color:inherit}
-.bv-anh{position:relative;aspect-ratio:4/5;background:linear-gradient(160deg,#3B4859 0%,#26303C 100%) center/cover;box-shadow:0 24px 44px rgba(38,48,60,.22);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
-.bv-anh img{position:absolute;left:50%;top:50%;width:46%;height:auto;transform:translate(-50%,-50%)}
-.bv-the:hover .bv-anh{transform:translateY(-6px);box-shadow:0 34px 56px rgba(38,48,60,.3)}
-.bv-the:focus-visible{outline:2px solid var(--cat-dam);outline-offset:6px}
-.bv-nhan{display:block;margin-top:20px;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam)}
-.bv-the h3{margin-top:8px;font-family:"Playfair Display",serif;font-weight:500;font-size:20px;line-height:1.35;transition:color .2s}
-.bv-the:hover h3{color:var(--cat-dam)}
-.bv-the p{margin-top:8px;font-size:14.5px;line-height:1.65;color:var(--nhat)}
-.bv-ngay{display:block;margin-top:12px;font-size:13px;color:var(--nhat)}
-.bv-ngay b{font-weight:500;color:var(--cat-dam)}
-.bv-cuoi{margin-top:44px}
-.bv-cuoi a{font-family:"Josefin Sans",sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-dam);text-decoration:none;border-bottom:1px solid rgba(122,106,79,.4);padding-bottom:4px}
-.bv-cuoi a:hover{border-color:var(--cat-dam)}
 
 
 /* ---------- Liên hệ ---------- */
@@ -472,9 +464,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .kien-truc{right:-260px;top:-160px}
   .hero .chu-hero{margin:0 auto;transform:none}
   .anh-tran{left:auto}
-  .cl-nhom{grid-template-columns:1fr;gap:44px}
-  .cl-hinh{justify-self:center;max-width:460px}
-  .bv-luoi{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 24px}
 }
 @media(max-width:640px){
   section{padding:72px 0}
@@ -503,11 +492,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .the-cd{padding:24px 22px 26px}
   .hero .chu-hero{padding:34px 24px 32px}
   .hero .chu-hero::after{left:24px;right:24px}
-  .cl-lon{font-size:clamp(46px,14vw,64px)}
-  .js .cl-the{margin-top:44px}
-  .cl-the button{font-size:13.5px;padding-right:8px}
-  .bv-luoi{grid-template-columns:1fr;gap:40px}
-  .bv-anh{aspect-ratio:16/10}
   .so-vien{font-size:52px;left:20px;top:16px}
   .the-so{padding:22px 4px}
   .the-so>div{padding:2px 6px}
@@ -562,7 +546,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Xưởng: thẻ lời chào là tờ giấy sáng; bỏ vòng tròn vàng sau chân dung */
 .hero .chu-hero{background:var(--van-giay),var(--to-giay);box-shadow:0 34px 60px rgba(47,59,74,.18),0 2px 0 rgba(255,255,255,.6) inset}
 /* Bo góc đồng bộ (Khánh muốn 25/09): thẻ lời chào, ô đồ họa Năng lực, ô hình Bài chọn lọc cùng --bo-the như thẻ góc nhìn, ô số, trang sổ; nút chữ nhật --bo-nut */
-.hero .chu-hero,.o-hinh,.bv-anh,.hop-nhan{border-radius:var(--bo-the)}
+.hero .chu-hero,.hop-nhan,.nl-doc{border-radius:var(--bo-the)}
 .nut{border-radius:var(--bo-nut)}
 /* Thẻ lời chào đứng chính diện, không nghiêng (Khánh đổi 25/09; trước nghiêng rotateY(-8deg) rotateX(2deg)) */
 .hero .chu-hero{transform:none}
@@ -572,12 +556,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .the-so{background:var(--van-giay),var(--to-giay);box-shadow:0 26px 60px rgba(47,59,74,.14)}
 .the-so .icon{background:var(--giay-cu)}
 .hop-nhan h3{background:var(--giay-cu)}
-/* Cách tôi làm: ô đồ họa là tờ giấy sáng, nét mực navy */
+/* Năng lực: nền trong suốt, lộ nền giấy */
 .cach-lam{background:transparent}
-.o-hinh{background:var(--van-giay),var(--to-giay);color:var(--muc);box-shadow:0 24px 44px rgba(47,59,74,.15),inset 0 0 0 1px rgba(110,95,70,.14)}
-/* Bài chọn lọc (Khánh đổi 25/09): ô hình là tờ giấy navy phủ vân giấy mịn, khung chỉ vàng nhạt, hình bài màu vàng cát (4.64:1 trên navy). Bỏ sóng nền. */
-.bv-anh{background-color:#26303C;background-size:auto,auto;background-position:0 0,center;background-repeat:repeat,no-repeat;box-shadow:0 22px 40px rgba(38,48,60,.24),inset 0 0 0 1px rgba(216,204,181,.18)}
-.bv-net{position:absolute;left:50%;top:50%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%);background:var(--cat);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 /* Chặng đường và chân trang trên giấy */
 .giay{background:transparent}
 @media(max-width:640px){.mo-dau .truot{--day:4px}}
@@ -716,7 +696,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     <ul class="nav-vien">
       <li><a href="#ve-toi" data-muc="ve-toi"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H48V120l80-80,80,80Z"/></svg><span class="nh">Về tôi</span></a></li>
       <li><a href="#cach-lam" data-muc="cach-lam"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,97.89,158.11,118,118l40.15-20.07Z"/></svg><span class="nh">Năng lực</span></a></li>
-      <li><a href="#bai-viet" data-muc="bai-viet"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></svg><span class="nh">Bài viết</span></a></li>
       <li><a href="#chang-duong" data-muc="chang-duong"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></svg><span class="nh">Chặng đường</span></a></li>
     </ul>
     <a class="nut-lien-he" href="#lien-he"><span>Liên hệ</span><i aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></i></a>
@@ -939,77 +918,157 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       </div>
       <span class="chuong" aria-hidden="true">02</span>
     </div>
-    <div class="cl-nhom" id="cl-lanh-dao" role="tabpanel" aria-labelledby="the-lanh-dao">
-      <div class="cl-chu">
-        <div class="nhan">Năng lực lãnh đạo</div>
-        <div class="cl-lon" aria-hidden="true">Lãnh đạo<i>.</i></div>
-        <ol class="nang-luc">
-          <li><details><summary>Hoạch định chiến lược nhân sự</summary><p>Mỗi kế hoạch kinh doanh đều có một phần viết bằng con người, chỉ là ít khi được viết ra. Tôi đọc kỹ con đường công ty muốn đi, rồi cùng ban lãnh đạo tính xem năm tới cần thêm bao nhiêu người, ở vị trí nào, giỏi việc gì và cần có mặt từ lúc nào. Chuẩn bị người từ sớm là cách để khi cơ hội tới, đội ngũ đã đứng sẵn ở đó.</p></details></li>
-          <li><details><summary>Xây dựng hệ thống quản trị chiến lược</summary><p>Một mục tiêu lớn chỉ thật sự sống khi từng người trong công ty nhìn thấy mình trong đó. Tôi cùng ban lãnh đạo chia mục tiêu chung thành mục tiêu cho từng phòng ban, chọn vài con số chính để cùng theo dõi và hẹn nhau rà lại định kỳ. Khi ai cũng biết việc mình làm góp vào đâu, người ta làm việc bằng sự hiểu chứ không chỉ bằng mệnh lệnh.</p></details></li>
-          <li><details><summary>Dẫn dắt văn hóa doanh nghiệp</summary><p>Văn hóa của một công ty hiện ra rõ nhất vào những ngày bình thường, trong cách mọi người góp ý với nhau hay cách họ đối xử khi có ai đó lỡ sai. Tôi giúp những giá trị đã viết ra đi dần vào từng thói quen nhỏ như thế, và bắt đầu từ chính người quản lý. Nhân viên luôn nhìn cách người đi trước làm, rồi mới tin vào điều được nói.</p></details></li>
-          <li><details><summary>Phát triển đội ngũ kế cận</summary><p>Niềm vui lớn của nghề này là được nhìn một người lớn lên từng ngày. Tôi tìm những bạn có tiềm năng, trao cho họ việc khó hơn sức hiện tại một chút, rồi ở bên cạnh những lúc họ vấp để cùng nhìn lại và đứng dậy. Đến ngày một vị trí quản lý cần người, công ty đã có người trong nhà đủ vững để bước lên.</p></details></li>
-          <li><details><summary>Huấn luyện cho đội ngũ</summary><p>Nhiều khi người ta đã có sẵn câu trả lời, chỉ là chưa có ai hỏi đúng câu để họ tự nhìn ra. Tôi ngồi xuống cùng người quản lý và nhân viên, nghe hết câu chuyện rồi mới hỏi, hỏi thẳng vào chỗ đang vướng mà không phán xét. Lời giải người ta tự tìm thấy thường đi xa hơn lời giải được trao sẵn.</p></details></li>
+    <div class="nl">
+    <div class="nl-muc">
+      <div class="nl-nhom">
+        <h3 class="nhan">Năng lực lãnh đạo</h3>
+        <ol>
+          <li><button type="button" class="nl-dong" data-i="0" aria-controls="nl-doc"><span aria-hidden="true">01</span>Hoạch định chiến lược nhân sự</button></li>
+          <li><button type="button" class="nl-dong" data-i="1" aria-controls="nl-doc"><span aria-hidden="true">02</span>Xây dựng hệ thống quản trị chiến lược</button></li>
+          <li><button type="button" class="nl-dong" data-i="2" aria-controls="nl-doc"><span aria-hidden="true">03</span>Dẫn dắt văn hóa doanh nghiệp</button></li>
+          <li><button type="button" class="nl-dong" data-i="3" aria-controls="nl-doc"><span aria-hidden="true">04</span>Phát triển đội ngũ kế cận</button></li>
+          <li><button type="button" class="nl-dong" data-i="4" aria-controls="nl-doc"><span aria-hidden="true">05</span>Huấn luyện cho đội ngũ</button></li>
         </ol>
       </div>
-      <div class="cl-hinh" aria-hidden="true">
-        <span class="o-hinh lon"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-        <span class="o-hinh nho1"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><path d="M50 24l7 26-7 26-7-26z"/></svg></span>
-        <span class="o-hinh nho2"><svg viewBox="0 0 100 100"><path d="M18 76 50 50 82 24"/><circle cx="18" cy="76" r="6"/><circle cx="50" cy="50" r="6"/><circle cx="82" cy="24" r="6"/></svg></span>
-      </div>
-    </div>
-    <div class="cl-nhom" id="cl-chuyen-mon" role="tabpanel" aria-labelledby="the-chuyen-mon">
-      <div class="cl-chu">
-        <div class="nhan">Năng lực chuyên môn</div>
-        <div class="cl-lon" aria-hidden="true">Chuyên môn<i>.</i></div>
-        <ol class="nang-luc">
-          <li><details><summary>Quản trị hiệu suất</summary><p>Ai đi làm cũng muốn biết mình đang làm tốt tới đâu và cần sửa ở chỗ nào. Tôi cùng từng phòng ban đặt mục tiêu rõ ràng, thống nhất cách đo và cách đánh giá ngay từ đầu kỳ, để cuối kỳ không ai phải bất ngờ với kết quả của mình. Người làm tốt được ghi nhận đúng công sức, người chưa tốt nhận được một lời góp ý cụ thể, và cả hai đều hiểu vì sao.</p></details></li>
-          <li><details><summary>Khung năng lực</summary><p>Tôi viết ra mỗi vị trí cần biết gì, làm được gì và cư xử ra sao ở từng cấp độ, bằng những câu mà người trong cuộc đọc là nhận ra công việc hằng ngày của mình. Từ đó tuyển người, đào tạo và xét thăng tiến cùng nhìn vào một thước đo, và mỗi người biết rõ bước tiếp theo trên con đường nghề của mình nằm ở đâu.</p></details></li>
-          <li><details><summary>Thu hút nhân tài</summary><p>Tuyển một người là mời họ gửi vài năm tuổi trẻ vào công ty mình, nên tôi muốn lời mời ấy thật lòng. Tôi tìm người vừa làm được việc vừa hợp với cách làm của đội, và trước khi họ nhận lời, tôi kể thật về công việc, cả phần dễ lẫn phần khó. Tuyển chậm một chút vẫn hơn tuyển sai.</p></details></li>
-          <li><details><summary>Tổng đãi ngộ</summary><p>Con số trên phiếu lương chạm tới cả một gia đình phía sau người nhận. Tôi dựng bảng lương, thưởng và phúc lợi sao cho không thua mặt bằng thị trường và công bằng giữa những người trong công ty. Mỗi nhân viên đều được giải thích vì sao mình nhận mức thu nhập ấy, và cần làm gì để nó tăng lên.</p></details></li>
-          <li><details><summary>Quan hệ lao động và pháp luật lao động</summary><p>Luật lao động là tấm lưới giữ cho cả người lao động lẫn doanh nghiệp cùng yên tâm. Tôi rà hợp đồng, nội quy và quy trình kỷ luật để công ty làm đúng Bộ luật Lao động. Khi có va chạm, tôi ngồi lại nghe cả hai phía để gỡ sớm, giữ được sự tôn trọng giữa đôi bên trước khi chuyện thành tranh chấp.</p></details></li>
-          <li><details><summary>Đào tạo và tư vấn nhân sự</summary><p>Một lớp học có ích khi nó bắt đầu từ đúng chỗ đội ngũ đang thiếu. Tôi quan sát công việc hằng ngày, trò chuyện với người quản lý để tìm ra năng lực còn hụt, rồi mới thiết kế chương trình học để lấp vào đó. Với doanh nghiệp nhỏ chưa có phòng nhân sự, tôi cùng chủ doanh nghiệp làm những việc nền đầu tiên, từng bước một.</p></details></li>
+      <div class="nl-nhom">
+        <h3 class="nhan">Năng lực chuyên môn</h3>
+        <ol>
+          <li><button type="button" class="nl-dong" data-i="5" aria-controls="nl-doc"><span aria-hidden="true">06</span>Quản trị hiệu suất</button></li>
+          <li><button type="button" class="nl-dong" data-i="6" aria-controls="nl-doc"><span aria-hidden="true">07</span>Khung năng lực</button></li>
+          <li><button type="button" class="nl-dong" data-i="7" aria-controls="nl-doc"><span aria-hidden="true">08</span>Thu hút nhân tài</button></li>
+          <li><button type="button" class="nl-dong" data-i="8" aria-controls="nl-doc"><span aria-hidden="true">09</span>Tổng đãi ngộ</button></li>
+          <li><button type="button" class="nl-dong" data-i="9" aria-controls="nl-doc"><span aria-hidden="true">10</span>Quan hệ lao động và pháp luật lao động</button></li>
+          <li><button type="button" class="nl-dong" data-i="10" aria-controls="nl-doc"><span aria-hidden="true">11</span>Đào tạo và tư vấn nhân sự</button></li>
         </ol>
       </div>
-      <div class="cl-hinh" aria-hidden="true">
-        <span class="o-hinh lon"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-        <span class="o-hinh nho1"><svg viewBox="0 0 100 100"><path d="M28 16h32l12 12v56H28z"/><path d="M60 16v12h12"/><path d="M38 48h24M38 58h24M38 68h14"/></svg></span>
-        <span class="o-hinh nho2"><svg viewBox="0 0 100 100"><path d="M50 18v64M32 82h36M18 30h64"/><path d="M18 30 8 54h20zM82 30 72 54h20z"/></svg></span>
-      </div>
-    </div>
-    <div class="cl-nhom" id="cl-ca-nhan" role="tabpanel" aria-labelledby="the-ca-nhan">
-      <div class="cl-chu">
-        <div class="nhan">Năng lực cá nhân</div>
-        <div class="cl-lon" aria-hidden="true">Cá nhân<i>.</i></div>
-        <ol class="nang-luc">
-          <li><details><summary>Lắng nghe không phán xét</summary><p>Tôi để người đối diện nói hết, không ngắt lời, không vội kết luận, kể cả khi câu chuyện khó nghe. Khi thấy mình được nghe mà không bị đánh giá, người ta mới dám nói thật điều đang vướng trong lòng. Với tôi, lắng nghe là cách tôn trọng rõ nhất mình có thể trao cho một người.</p></details></li>
-          <li><details><summary>Chính trực và giữ chữ tín</summary><p>Điều gì đã hứa, tôi làm cho bằng được; chưa làm được thì tôi báo sớm và nói rõ lý do. Những câu chuyện người khác tin mà kể riêng với tôi, tôi giữ kín. Niềm tin xây rất lâu mà mất chỉ trong một lần, nên tôi giữ nó cẩn thận như giữ tên mình.</p></details></li>
-          <li><details><summary>Tư duy hệ thống</summary><p>Một vấn đề về người hiếm khi chỉ có một nguyên nhân. Khi một phòng có nhiều người nghỉ việc, tôi nhìn cả cách giao việc, cách quản lý lẫn mức lương, rồi mới đề xuất cách sửa. Sửa tận gốc thì chậm hơn một chút, nhưng vết cũ không quay lại.</p></details></li>
-          <li><details><summary>Thích nghi đa ngành</summary><p>Tôi đã làm nhân sự trong ngành ẩm thực, hàng tiêu dùng, kiến trúc nội thất và giờ là chăm sóc sức khỏe. Mỗi lần sang ngành mới, tôi dành thời gian học cách ngành đó vận hành và lắng nghe người ở đó trước, rồi mới đề xuất thay đổi. Đi qua nhiều ngành, tôi thấy luật chơi mỗi nơi một khác, còn điều con người cần thì khá giống nhau.</p></details></li>
-          <li><details><summary>Học hỏi không ngừng</summary><p>Sau 12 năm đi làm, tôi vẫn giữ thói quen ngồi vào lớp học. Riêng năm 2026, tôi theo học hai chương trình chứng nhận của Học viện Quản lý PACE. Nghề nhân sự đi cùng con người, mà con người thì luôn đổi thay, nên người làm nghề cũng không thể đứng yên.</p></details></li>
+      <div class="nl-nhom">
+        <h3 class="nhan">Năng lực cá nhân</h3>
+        <ol>
+          <li><button type="button" class="nl-dong" data-i="11" aria-controls="nl-doc"><span aria-hidden="true">12</span>Lắng nghe không phán xét</button></li>
+          <li><button type="button" class="nl-dong" data-i="12" aria-controls="nl-doc"><span aria-hidden="true">13</span>Chính trực và giữ chữ tín</button></li>
+          <li><button type="button" class="nl-dong" data-i="13" aria-controls="nl-doc"><span aria-hidden="true">14</span>Tư duy hệ thống</button></li>
+          <li><button type="button" class="nl-dong" data-i="14" aria-controls="nl-doc"><span aria-hidden="true">15</span>Thích nghi đa ngành</button></li>
+          <li><button type="button" class="nl-dong" data-i="15" aria-controls="nl-doc"><span aria-hidden="true">16</span>Học hỏi không ngừng</button></li>
         </ol>
       </div>
-      <div class="cl-hinh" aria-hidden="true">
-        <span class="o-hinh lon"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-        <span class="o-hinh nho1"><svg viewBox="0 0 100 100"><rect x="28" y="46" width="44" height="36"/><path d="M36 46V36a14 14 0 0 1 28 0v10"/><circle cx="50" cy="62" r="4"/><path d="M50 66v6"/></svg></span>
-        <span class="o-hinh nho2"><svg viewBox="0 0 100 100"><path d="M50 30C40 24 24 24 14 28v48c10-4 26-4 36 2 10-6 26-6 36-2V28c-10-4-26-4-36 2zM50 30v48"/></svg></span>
-      </div>
     </div>
-    <div class="cl-the" role="tablist" aria-label="Nhóm năng lực"><button type="button" role="tab" id="the-lanh-dao" aria-controls="cl-lanh-dao"><b>01</b>Năng lực lãnh đạo</button><button type="button" role="tab" id="the-chuyen-mon" aria-controls="cl-chuyen-mon"><b>02</b>Năng lực chuyên môn</button><button type="button" role="tab" id="the-ca-nhan" aria-controls="cl-ca-nhan"><b>03</b>Năng lực cá nhân</button></div>
-  </div>
-</section>
-
-<!-- BÀI CHỌN LỌC: 4 bài mới nhất, chưa có bài thì 4 bài sắp đăng -->
-<section class="bai-chon" id="bai-viet">
-  <div class="khung">
-    <div class="dau-muc">
-      <div>
-        <div class="nhan">Bài viết</div>
-        <h2>Bài chọn lọc</h2>
-      </div>
-      <span class="chuong" aria-hidden="true">03</span>
+    <div class="nl-doc" id="nl-doc" aria-live="polite">
+      <span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <div class="nl-trang" data-i="0">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
+          <div class="nhan">Năng lực lãnh đạo</div>
+          <div class="nl-so" aria-hidden="true">01</div>
+          <h3>Hoạch định chiến lược nhân sự</h3>
+          <p>Mỗi kế hoạch kinh doanh đều có một phần viết bằng con người, chỉ là ít khi được viết ra. Tôi đọc kỹ con đường công ty muốn đi, rồi cùng ban lãnh đạo tính xem năm tới cần thêm bao nhiêu người, ở vị trí nào, giỏi việc gì và cần có mặt từ lúc nào. Chuẩn bị người từ sớm là cách để khi cơ hội tới, đội ngũ đã đứng sẵn ở đó.</p>
+        </div>
+        <div class="nl-trang" data-i="1">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
+          <div class="nhan">Năng lực lãnh đạo</div>
+          <div class="nl-so" aria-hidden="true">02</div>
+          <h3>Xây dựng hệ thống quản trị chiến lược</h3>
+          <p>Một mục tiêu lớn chỉ thật sự sống khi từng người trong công ty nhìn thấy mình trong đó. Tôi cùng ban lãnh đạo chia mục tiêu chung thành mục tiêu cho từng phòng ban, chọn vài con số chính để cùng theo dõi và hẹn nhau rà lại định kỳ. Khi ai cũng biết việc mình làm góp vào đâu, người ta làm việc bằng sự hiểu chứ không chỉ bằng mệnh lệnh.</p>
+        </div>
+        <div class="nl-trang" data-i="2">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
+          <div class="nhan">Năng lực lãnh đạo</div>
+          <div class="nl-so" aria-hidden="true">03</div>
+          <h3>Dẫn dắt văn hóa doanh nghiệp</h3>
+          <p>Văn hóa của một công ty hiện ra rõ nhất vào những ngày bình thường, trong cách mọi người góp ý với nhau hay cách họ đối xử khi có ai đó lỡ sai. Tôi giúp những giá trị đã viết ra đi dần vào từng thói quen nhỏ như thế, và bắt đầu từ chính người quản lý. Nhân viên luôn nhìn cách người đi trước làm, rồi mới tin vào điều được nói.</p>
+        </div>
+        <div class="nl-trang" data-i="3">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
+          <div class="nhan">Năng lực lãnh đạo</div>
+          <div class="nl-so" aria-hidden="true">04</div>
+          <h3>Phát triển đội ngũ kế cận</h3>
+          <p>Niềm vui lớn của nghề này là được nhìn một người lớn lên từng ngày. Tôi tìm những bạn có tiềm năng, trao cho họ việc khó hơn sức hiện tại một chút, rồi ở bên cạnh những lúc họ vấp để cùng nhìn lại và đứng dậy. Đến ngày một vị trí quản lý cần người, công ty đã có người trong nhà đủ vững để bước lên.</p>
+        </div>
+        <div class="nl-trang" data-i="4">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
+          <div class="nhan">Năng lực lãnh đạo</div>
+          <div class="nl-so" aria-hidden="true">05</div>
+          <h3>Huấn luyện cho đội ngũ</h3>
+          <p>Nhiều khi người ta đã có sẵn câu trả lời, chỉ là chưa có ai hỏi đúng câu để họ tự nhìn ra. Tôi ngồi xuống cùng người quản lý và nhân viên, nghe hết câu chuyện rồi mới hỏi, hỏi thẳng vào chỗ đang vướng mà không phán xét. Lời giải người ta tự tìm thấy thường đi xa hơn lời giải được trao sẵn.</p>
+        </div>
+        <div class="nl-trang" data-i="5">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">06</div>
+          <h3>Quản trị hiệu suất</h3>
+          <p>Ai đi làm cũng muốn biết mình đang làm tốt tới đâu và cần sửa ở chỗ nào. Tôi cùng từng phòng ban đặt mục tiêu rõ ràng, thống nhất cách đo và cách đánh giá ngay từ đầu kỳ, để cuối kỳ không ai phải bất ngờ với kết quả của mình. Người làm tốt được ghi nhận đúng công sức, người chưa tốt nhận được một lời góp ý cụ thể, và cả hai đều hiểu vì sao.</p>
+        </div>
+        <div class="nl-trang" data-i="6">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">07</div>
+          <h3>Khung năng lực</h3>
+          <p>Tôi viết ra mỗi vị trí cần biết gì, làm được gì và cư xử ra sao ở từng cấp độ, bằng những câu mà người trong cuộc đọc là nhận ra công việc hằng ngày của mình. Từ đó tuyển người, đào tạo và xét thăng tiến cùng nhìn vào một thước đo, và mỗi người biết rõ bước tiếp theo trên con đường nghề của mình nằm ở đâu.</p>
+        </div>
+        <div class="nl-trang" data-i="7">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">08</div>
+          <h3>Thu hút nhân tài</h3>
+          <p>Tuyển một người là mời họ gửi vài năm tuổi trẻ vào công ty mình, nên tôi muốn lời mời ấy thật lòng. Tôi tìm người vừa làm được việc vừa hợp với cách làm của đội, và trước khi họ nhận lời, tôi kể thật về công việc, cả phần dễ lẫn phần khó. Tuyển chậm một chút vẫn hơn tuyển sai.</p>
+        </div>
+        <div class="nl-trang" data-i="8">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">09</div>
+          <h3>Tổng đãi ngộ</h3>
+          <p>Con số trên phiếu lương chạm tới cả một gia đình phía sau người nhận. Tôi dựng bảng lương, thưởng và phúc lợi sao cho không thua mặt bằng thị trường và công bằng giữa những người trong công ty. Mỗi nhân viên đều được giải thích vì sao mình nhận mức thu nhập ấy, và cần làm gì để nó tăng lên.</p>
+        </div>
+        <div class="nl-trang" data-i="9">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">10</div>
+          <h3>Quan hệ lao động và pháp luật lao động</h3>
+          <p>Luật lao động là tấm lưới giữ cho cả người lao động lẫn doanh nghiệp cùng yên tâm. Tôi rà hợp đồng, nội quy và quy trình kỷ luật để công ty làm đúng Bộ luật Lao động. Khi có va chạm, tôi ngồi lại nghe cả hai phía để gỡ sớm, giữ được sự tôn trọng giữa đôi bên trước khi chuyện thành tranh chấp.</p>
+        </div>
+        <div class="nl-trang" data-i="10">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
+          <div class="nhan">Năng lực chuyên môn</div>
+          <div class="nl-so" aria-hidden="true">11</div>
+          <h3>Đào tạo và tư vấn nhân sự</h3>
+          <p>Một lớp học có ích khi nó bắt đầu từ đúng chỗ đội ngũ đang thiếu. Tôi quan sát công việc hằng ngày, trò chuyện với người quản lý để tìm ra năng lực còn hụt, rồi mới thiết kế chương trình học để lấp vào đó. Với doanh nghiệp nhỏ chưa có phòng nhân sự, tôi cùng chủ doanh nghiệp làm những việc nền đầu tiên, từng bước một.</p>
+        </div>
+        <div class="nl-trang" data-i="11">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
+          <div class="nhan">Năng lực cá nhân</div>
+          <div class="nl-so" aria-hidden="true">12</div>
+          <h3>Lắng nghe không phán xét</h3>
+          <p>Tôi để người đối diện nói hết, không ngắt lời, không vội kết luận, kể cả khi câu chuyện khó nghe. Khi thấy mình được nghe mà không bị đánh giá, người ta mới dám nói thật điều đang vướng trong lòng. Với tôi, lắng nghe là cách tôn trọng rõ nhất mình có thể trao cho một người.</p>
+        </div>
+        <div class="nl-trang" data-i="12">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
+          <div class="nhan">Năng lực cá nhân</div>
+          <div class="nl-so" aria-hidden="true">13</div>
+          <h3>Chính trực và giữ chữ tín</h3>
+          <p>Điều gì đã hứa, tôi làm cho bằng được; chưa làm được thì tôi báo sớm và nói rõ lý do. Những câu chuyện người khác tin mà kể riêng với tôi, tôi giữ kín. Niềm tin xây rất lâu mà mất chỉ trong một lần, nên tôi giữ nó cẩn thận như giữ tên mình.</p>
+        </div>
+        <div class="nl-trang" data-i="13">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
+          <div class="nhan">Năng lực cá nhân</div>
+          <div class="nl-so" aria-hidden="true">14</div>
+          <h3>Tư duy hệ thống</h3>
+          <p>Một vấn đề về người hiếm khi chỉ có một nguyên nhân. Khi một phòng có nhiều người nghỉ việc, tôi nhìn cả cách giao việc, cách quản lý lẫn mức lương, rồi mới đề xuất cách sửa. Sửa tận gốc thì chậm hơn một chút, nhưng vết cũ không quay lại.</p>
+        </div>
+        <div class="nl-trang" data-i="14">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
+          <div class="nhan">Năng lực cá nhân</div>
+          <div class="nl-so" aria-hidden="true">15</div>
+          <h3>Thích nghi đa ngành</h3>
+          <p>Tôi đã làm nhân sự trong ngành ẩm thực, hàng tiêu dùng, kiến trúc nội thất và giờ là chăm sóc sức khỏe. Mỗi lần sang ngành mới, tôi dành thời gian học cách ngành đó vận hành và lắng nghe người ở đó trước, rồi mới đề xuất thay đổi. Đi qua nhiều ngành, tôi thấy luật chơi mỗi nơi một khác, còn điều con người cần thì khá giống nhau.</p>
+        </div>
+        <div class="nl-trang" data-i="15">
+          <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
+          <div class="nhan">Năng lực cá nhân</div>
+          <div class="nl-so" aria-hidden="true">16</div>
+          <h3>Học hỏi không ngừng</h3>
+          <p>Sau 12 năm đi làm, tôi vẫn giữ thói quen ngồi vào lớp học. Riêng năm 2026, tôi theo học hai chương trình chứng nhận của Học viện Quản lý PACE. Nghề nhân sự đi cùng con người, mà con người thì luôn đổi thay, nên người làm nghề cũng không thể đứng yên.</p>
+        </div>
+      <div class="nl-lat"><button type="button" data-nl-lui aria-label="Năng lực trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button><button type="button" data-nl-toi aria-label="Năng lực sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button></div>
     </div>
-    <div class="bv-luoi" data-bai-chon></div>
-    <p class="bv-cuoi"><a href="#chu-de">Xem sáu góc nhìn →</a></p>
+    </div>
   </div>
 </section>
 
@@ -1021,7 +1080,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
         <div class="nhan">Chặng đường nghề</div>
         <h2>Mỗi ngành một bài học về con người</h2>
       </div>
-      <span class="chuong" aria-hidden="true">04</span>
+      <span class="chuong" aria-hidden="true">03</span>
     </div>
     <div class="duong-nghe">
       <svg class="con-duong" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
@@ -1071,14 +1130,12 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     <nav class="ct-giua" aria-label="Các phần trang chủ">
       <a href="#ve-toi" data-muc="ve-toi"><b>01</b>Về tôi</a>
       <a href="#cach-lam" data-muc="cach-lam"><b>02</b>Năng lực</a>
-      <a href="#bai-viet" data-muc="bai-viet"><b>03</b>Bài viết</a>
-      <a href="#chang-duong" data-muc="chang-duong"><b>04</b>Chặng đường</a>
+      <a href="#chang-duong" data-muc="chang-duong"><b>03</b>Chặng đường</a>
     </nav>
     <p class="ct-phai">Happy Relationship</p>
   </div>
 </footer>
 
-<script src="bai-viet.js"></script>
 <dialog class="hop-cn" id="hop-cn" aria-label="Xem chứng nhận">
   <button type="button" class="dong-cn" aria-label="Đóng">×</button>
   <img id="anh-cn" alt="" width="1000" height="1415">
@@ -1220,57 +1277,24 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
         lienKet.forEach(function(a){a.setAttribute('aria-current',a.getAttribute('data-muc')===d.target.id?'true':'false')});
       });
     },{rootMargin:'-45% 0px -50% 0px'});
-    ['ve-toi','cach-lam','bai-viet','chang-duong'].forEach(function(id){var e=document.getElementById(id);if(e)io3.observe(e)});
+    ['ve-toi','cach-lam','chang-duong'].forEach(function(id){var e=document.getElementById(id);if(e)io3.observe(e)});
     var dau=document.querySelector('.mo-dau');
     if(dau)new IntersectionObserver(function(ds){if(ds[0].isIntersecting)lienKet.forEach(function(a){a.setAttribute('aria-current','false')})},{rootMargin:'-45% 0px -50% 0px'}).observe(dau);
   }
-  /* Cách tôi làm: ba thẻ chuyển nhóm năng lực. Không có JavaScript thì ba nhóm hiện liền nhau. */
-  var tl=document.querySelector('.cl-the');
-  if(tl){
-    var nut=[].slice.call(tl.querySelectorAll('[role="tab"]')), bang=nut.map(function(b){return document.getElementById(b.getAttribute('aria-controls'))});
-    function chon(k,focus){
-      nut.forEach(function(b,i){
-        var co=i===k;
-        b.setAttribute('aria-selected',co?'true':'false'); b.tabIndex=co?0:-1;
-        bang[i].hidden=!co; bang[i].classList.toggle('moi',co);
-      });
-      if(focus)nut[k].focus();
+  /* Năng lực: bấm dòng trong mục lục (hoặc hai nút lật) thì trang đọc hiện năng lực đó. Điện thoại: bấm xong cuộn lên trang đọc. */
+  var nlDoc=document.getElementById('nl-doc');
+  if(nlDoc){
+    var nlDong=[].slice.call(document.querySelectorAll('.nl-dong')), nlTrang=[].slice.call(nlDoc.querySelectorAll('.nl-trang')), nlHien=0;
+    function nlChon(k,cuon){
+      nlHien=(k+nlTrang.length)%nlTrang.length;
+      nlTrang.forEach(function(t,i){t.classList.toggle('hien',i===nlHien)});
+      nlDong.forEach(function(b,i){b.setAttribute('aria-current',i===nlHien?'true':'false')});
+      if(cuon&&window.matchMedia('(max-width:860px)').matches)nlDoc.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     }
-    nut.forEach(function(b,i){
-      b.addEventListener('click',function(){chon(i)});
-      b.addEventListener('keydown',function(ev){
-        var k=ev.key==='ArrowRight'?i+1:ev.key==='ArrowLeft'?i-1:ev.key==='Home'?0:ev.key==='End'?nut.length-1:null;
-        if(k===null)return; ev.preventDefault(); chon((k+nut.length)%nut.length,true);
-      });
-    });
-    bang.forEach(function(p){p.tabIndex=0});
-    chon(0);
-  }
-  /* Bài chọn lọc: 4 bài đã đăng mới nhất; chưa đủ thì thêm bài sắp đăng gần nhất, kèm ngày dự kiến */
-  var bc=document.querySelector('[data-bai-chon]');
-  if(bc&&window.BAI_VIET){
-    var so2=function(x){return (x<10?'0':'')+x};
-    var nd=new Date(), homNay=nd.getFullYear()+'-'+so2(nd.getMonth()+1)+'-'+so2(nd.getDate());
-    var ngayVN=function(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:''};
-    var ds=window.BAI_VIET.filter(function(b){return b.tieuDe&&b.ngay});
-    var daDang=ds.filter(function(b){return b.ngay<=homNay}).sort(function(x,y){return y.ngay.localeCompare(x.ngay)});
-    var sapDang=ds.filter(function(b){return b.ngay>homNay}).sort(function(x,y){return x.ngay.localeCompare(y.ngay)});
-    daDang.concat(sapDang).slice(0,4).forEach(function(b){
-      var cd=(window.CHU_DE||{})[b.chuDe]||{}, sap=b.ngay>homNay;
-      var a=document.createElement('a'); a.className='bv-the'; a.href=b.duongDan;
-      var anh=document.createElement('div'); anh.className='bv-anh';
-      anh.style.backgroundImage='var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%)';
-      anh.insertAdjacentHTML('beforeend','<span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>');
-      if(b.anh){var net=document.createElement('span'); net.className='bv-net'; var u='url("'+encodeURI(b.anh)+'")'; net.style.webkitMaskImage=u; net.style.maskImage=u; anh.appendChild(net)}
-      var nh=document.createElement('span'); nh.className='bv-nhan'; nh.textContent=(cd.stt?cd.stt+' · ':'')+(cd.ten||'');
-      var h=document.createElement('h3'); h.textContent=b.tieuDe;
-      var p=document.createElement('p'); p.textContent=b.tomTat||'';
-      var ng=document.createElement('span'); ng.className='bv-ngay';
-      if(sap){var bb=document.createElement('b'); bb.textContent='Sắp đăng'; ng.appendChild(bb); ng.appendChild(document.createTextNode(' · '+ngayVN(b.ngay)))}
-      else ng.textContent=ngayVN(b.ngay)+(b.phutDoc?' · '+b.phutDoc+' phút đọc':'');
-      [anh,nh,h,p,ng].forEach(function(x){a.appendChild(x)});
-      bc.appendChild(a);
-    });
+    nlDong.forEach(function(b,i){b.addEventListener('click',function(){nlChon(i,true)})});
+    nlDoc.querySelector('[data-nl-lui]').addEventListener('click',function(){nlChon(nlHien-1)});
+    nlDoc.querySelector('[data-nl-toi]').addEventListener('click',function(){nlChon(nlHien+1)});
+    nlChon(0);
   }
   /* Con đường tự vẽ khi cuộn tới; quá 6 giây thì hiện luôn. Chữ các mốc không bao giờ bị ẩn */
   var duong=document.querySelector('.duong-nghe');
