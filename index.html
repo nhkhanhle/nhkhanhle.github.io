@@ -249,6 +249,8 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .md-mui .md-toi:hover svg{transform:rotate(-90deg) translateY(3px)}
 .md-mui button:active{transform:scale(.96)}
 .md-mui button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+/* Hai nút dời lên sát dưới vòng thẻ cho dễ bấm (Khánh muốn 25/09); điện thoại giữ chỗ cũ */
+@media(min-width:641px){.js .md-mui{transform:translateY(-24px)}}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -565,8 +567,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .js .truot:not(.toa) .the-cd.toi{transition-timing-function:cubic-bezier(.15,.75,.35,1)}
 .js .truot:not(.toa) .the-cd.roi{transition-timing-function:cubic-bezier(.65,0,.85,.25)}
 /* Hai thẻ lướt qua nhau lúc chuyển thì xuyên qua nhau trong 3D, giấy thẻ cũ che mất chữ và hình thẻ mới.
-   Thẻ đi vào được nhấc lên trước tối đa 140px rồi hạ về, thẻ rời đi lùi sau 60px rồi về. */
-@keyframes nhac-toi{0%{--noi:0px}45%{--noi:140px}100%{--noi:0px}}
+   Thẻ đi vào được nhấc lên trước tối đa 70px rồi hạ về (140px làm thẻ trông to, chạm hai nút bên dưới), thẻ rời đi lùi sau 60px rồi về. */
+@keyframes nhac-toi{0%{--noi:0px}45%{--noi:70px}100%{--noi:0px}}
 @keyframes nhac-roi{0%{--noi:0px}45%{--noi:-60px}100%{--noi:0px}}
 .js .truot:not(.toa) .the-cd.toi{animation:nhac-toi 1.6s ease-in-out}
 .js .truot:not(.toa) .the-cd.roi{animation:nhac-roi 1.6s ease-in-out}
