@@ -7,7 +7,8 @@
    Chép nhiều lần nên bản trong sổ ẩn khỏi trình đọc màn hình; nội dung đọc được nằm ở mục lục và dòng thông báo.
    Gọi: window.SoTay.ve(danhSachBai, gocDuongDan). */
 (function(){
-  var N=8, GAP_MAX=9;                /* số dải mỗi tờ, góc gập tối đa mỗi dải (độ) */
+  var N=8, GAP_MAX=9, NHAC=9, CUON=0;   /* NHAC: độ nhấc trang bên trái. CUON (cong theo dải lúc nằm yên) để 0: dải lệch nhau làm đứt hình */
+  var _=0;                /* số dải mỗi tờ, góc gập tối đa mỗi dải (độ) */
   var MUC_ZOOM=[.8,1,1.25,1.5];
   var soiMoi=null, daGanResize=false;
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -52,6 +53,8 @@
       var n2=tao('div','noi'); n2.style.left=(-(N-1-j)*100)+'%'; n2.appendChild(sau.cloneNode(true)); ms.appendChild(n2);
       d.appendChild(mt); d.appendChild(ms); cha.appendChild(d); cha=d;
     }
+    /* Mặt sau liền một tấm: hiện khi tờ đã lật xong nằm yên bên trái, thay cho 8 dải (mép dải hở ra vài điểm ảnh khi nghiêng) */
+    var lien=tao('div','ms-lien'); lien.appendChild(sau.cloneNode(true)); la.appendChild(lien);
     return la;
   }
 
@@ -79,11 +82,14 @@
 
     var hien=0, chay=null;
     function datGoc(t,p){
-      /* p: 0 là tờ nằm bên phải, 1 là đã lật sang trái */
+      /* p: 0 là tờ nằm bên phải, 1 là đã lật sang trái.
+         Trang đã lật nằm bên trái không nằm phẳng mà nhấc mép ngoài lên NHAC độ quanh gáy, kèm lớp đổ sáng trong CSS,
+         nên trang trái hơi cong lên như sổ vẽ thật (Khánh muốn 25/09). Nền trang trái (.nen-trai) cong đúng như vậy trong CSS. */
       var cong=Math.sin(p*Math.PI);
-      t.style.setProperty('--a',(-180*p)+'deg');
-      t.style.setProperty('--b',(-GAP_MAX*cong)+'deg');
+      t.style.setProperty('--a',(-180*p+NHAC*p)+'deg');
+      t.style.setProperty('--b',(-GAP_MAX*cong+CUON*p)+'deg');
       t.style.setProperty('--bong',cong.toFixed(3));
+      t.classList.toggle('dang-lat',p>0&&p<1);
     }
     function xep(){
       la.forEach(function(t,k){

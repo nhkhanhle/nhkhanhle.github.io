@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F1EAE5">
+<meta name="theme-color" content="#ECE7DC">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -204,7 +204,7 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .the-cd p{color:var(--chu-toi);font-size:14.5px;line-height:1.65;margin-top:10px;transition:opacity .5s}
 .the-cd .doc{display:inline-block;margin-top:16px;font-family:"Josefin Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat);transition:transform .3s,opacity .5s}
 .the-cd:hover .doc{transform:translateX(6px)}
-.md-dieu-khien .cham{display:none}
+.md-mui{display:none}
 /* Có JavaScript: sáu thẻ nối cạnh nhau thành một vòng elip khép kín, bán trục ngang --A, bán trục sâu --B.
    Thẻ ở góc --goc: lệch ngang sin(goc)·A, lùi sâu (1 - cos(goc))·B, và nằm tiếp tuyến với elip tại đó
    (góc quay atan2(B·sin, A·cos)), nên hai thẻ liền nhau chạm mép nhau, ba thẻ phía sau quay lưng lại.
@@ -230,7 +230,25 @@ h2 em{font-style:italic;color:var(--cat-dam)}
    không đổi theo vị trí; chỉ trạng thái tỏa (.toa) mới đổi mặt thẻ giữa. */
 .js .the-cd[data-vt="-2"]>span,.js .the-cd[data-vt="2"]>span{filter:none}
 .js .the-cd[data-vt="3"]>span,.js .the-cd[data-vt="-3"]>span{filter:none}
-.js .md-dieu-khien .cham{display:flex}
+/* Hai nút cách điệu (Khánh muốn 25/09): nút tròn giấy nhám có vòng chỉ trong như con dấu,
+   nối bằng một đường kẻ mảnh có hình thoi vàng cát ở giữa, như họa tiết trang trí sổ vẽ.
+   Rê chuột: nút chuyển navy, mũi tên vàng cát nhích ra ngoài. */
+.js .md-mui{display:flex;align-items:center;gap:0;position:relative}
+.md-mui::before{content:"";width:64px;height:1px;background:rgba(95,82,64,.4);order:1}
+.md-mui::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:var(--cat);transform:rotate(45deg)}
+.md-mui .md-lui{order:0}.md-mui .md-toi{order:2}
+.md-mui button{position:relative;width:52px;height:52px;border-radius:50%;border:1px solid rgba(95,82,64,.35);background:var(--van-giay),var(--to-giay);color:var(--muc);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 8px 16px -8px rgba(47,59,74,.35);transition:background .3s,color .3s,border-color .3s,box-shadow .3s}
+.md-mui button::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(95,82,64,.35);transition:border-color .3s,transform .6s}
+.md-mui svg{width:18px;height:18px;fill:currentColor;transition:transform .3s}
+.md-mui .md-lui svg{transform:rotate(90deg)}
+.md-mui .md-toi svg{transform:rotate(-90deg)}
+.md-mui button:hover{background:var(--navy);color:var(--cat);border-color:var(--navy);box-shadow:0 12px 22px -10px rgba(47,59,74,.55)}
+.md-mui button:hover::before{border-color:rgba(182,163,131,.55);transform:rotate(45deg)}
+.md-mui .md-lui:hover svg{transform:rotate(90deg) translateY(3px)}
+.md-mui .md-toi:hover svg{transform:rotate(-90deg) translateY(3px)}
+.md-mui button:active{transform:scale(.96)}
+.md-mui button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -481,7 +499,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 }
 
 /* ============ Nền sáng (24/09): đồng bộ trang chủ, nền phẳng kiểu Noa Vale, cành lá nét kiểu Sketchbook ============
-   Nền #F1EAE5 và cành lá ở assets/nen.css, assets/canh-la.js. Vết loang nước đã thử và bỏ (Khánh: không hợp).
+   Nền #ECE7DC (màu giấy của mẫu Sketchbook) và cành lá ở assets/nen.css, assets/canh-la.js. Vết loang nước đã thử và bỏ (Khánh: không hợp).
    Bỏ các khối nền navy lớn: menu, mở đầu, Xưởng, chân trang đều nằm trên giấy, chữ mực navy.
    Màu chữ, menu, chân trang, vân giấy nhám dùng chung ở assets/nen.css. Khối này chỉ giữ phần riêng của trang chủ.
    Các "tờ giấy" (thẻ, thẻ lời chào, ô số, ô đồ họa, ô hình bài) phủ vân giấy nhám --van-giay. */
@@ -532,7 +550,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 
 
 /* Bố cục tỏa (Khánh chỉnh 24/09): năm thẻ không chồng nhau, hai bên không đối xứng.
-   Trái trên: nghiêng nhẹ -7°. Trái dưới: nhỏ, lệch ra mép và khuất một phần. Phải trên: ngả ra sau (rotateX 24°).
+   Trái trên: nghiêng nhẹ -7°. Trái dưới: nhỏ, lệch ra mép và khuất một phần. Phải trên: xoay ngang -25° quay mặt vào giữa, nghiêng phải 40° (Khánh đổi 25/09: bỏ ngả sau, rồi nghiêng thêm 30°).
    Phải dưới: ngả sang trái -20°. Thẻ đối diện ẩn hẳn. Đã đo không chồng lấn ở khổ 1024, 1280, 1440. */
 /* ============ Tỏa thẻ khi rê chuột (24/09), bố cục theo khung hình Noa Vale Khánh gửi ============
    .truot.toa: thẻ đang chọn ra giữa (mặt navy), 2 thẻ trước tỏa trái, 2 thẻ sau tỏa phải, thẻ đối diện nấp sau.
@@ -564,7 +582,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .js .truot.toa .the-cd[data-o="giua"]{transform:translateX(-50%) translate3d(0,0,40px)}
 .js .truot.toa .the-cd[data-o="trai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.0),calc(var(--cao) * -.24),10px) rotateX(-10deg) rotateY(20deg) rotateZ(-8deg) scale(.74)}
 .js .truot.toa .the-cd[data-o="trai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * -1.9),calc(var(--cao) * .24),0) rotateX(16deg) rotateY(28deg) rotateZ(10deg) scale(.72)}
-.js .truot.toa .the-cd[data-o="phai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * .95),calc(var(--cao) * -.24),-30px) rotateX(38deg) rotateY(-16deg) rotateZ(7deg) scale(.74)}
+.js .truot.toa .the-cd[data-o="phai-1"]{transform:translateX(-50%) translate3d(calc(var(--rong) * 1.12),calc(var(--cao) * -.24),-20px) rotateY(-25deg) rotateZ(40deg) scale(.7)}
 .js .truot.toa .the-cd[data-o="phai-2"]{transform:translateX(-50%) translate3d(calc(var(--rong) * 1.84),calc(var(--cao) * .25),0) rotateX(-12deg) rotateY(-24deg) rotateZ(-20deg) scale(.68)}
 .js .truot.toa .the-cd[data-o="an"]{transform:translateX(-50%) translate3d(0,0,-400px) scale(.6);opacity:0}
 .js .truot.toa .the-cd:not([data-o="an"]){pointer-events:auto}
@@ -737,7 +755,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   <div class="khung md-duoi">
     <div class="md-dang" aria-hidden="true"><span class="md-so" data-md-so>01 / 06 · Góc nhìn</span><span class="md-ten" data-md-ten>Nghề nhân sự</span></div>
     <div class="md-dieu-khien">
-      <div class="cham"><button type="button" aria-label="Góc nhìn 01: Nghề nhân sự"></button><button type="button" aria-label="Góc nhìn 02: Trí tuệ nhân tạo"></button><button type="button" aria-label="Góc nhìn 03: Tâm lý học"></button><button type="button" aria-label="Góc nhìn 04: Hệ thống quản trị"></button><button type="button" aria-label="Góc nhìn 05: Pháp luật lao động"></button><button type="button" aria-label="Góc nhìn 06: Chuyện công sở"></button></div>
+      <div class="md-mui"><button type="button" class="md-lui" aria-label="Góc nhìn trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button><button type="button" class="md-toi" aria-label="Góc nhìn sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>
       <a class="md-xem" href="chu-de/nghe-nhan-su.html" data-md-xem>Xem góc nhìn →</a>
     </div>
     <a class="cuon-xuong" href="#ve-toi"><span>Còn tiếp</span><i aria-hidden="true"></i></a>
@@ -1119,7 +1137,10 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       tr.classList.remove('tu-chay'); clearTimeout(henChay);
       henChay=setTimeout(function(){tr.classList.add('tu-chay')},NHIP);
     }
-    cham.forEach(function(c){c.addEventListener('click',tayDieuKhien)});
+    /* Hai nút trái phải thay cho sáu chấm (Khánh đổi 25/09) */
+    var nutLui=md.querySelector('.md-lui'), nutToi=md.querySelector('.md-toi');
+    if(nutLui)nutLui.addEventListener('click',function(){den(hien-1);tayDieuKhien()});
+    if(nutToi)nutToi.addEventListener('click',function(){den(hien+1);tayDieuKhien()});
     tr.addEventListener('keydown',function(ev){if(ev.key==='ArrowLeft'||ev.key==='ArrowRight')tayDieuKhien()});
     san.addEventListener('pointerup',function(){if(keo)tayDieuKhien()});
 
