@@ -537,10 +537,14 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .md-tren h2{color:var(--cat-dam)}
 .md-tren h2::before{background:var(--cat-dam)}
 /* Tiêu đề màn mở đầu (Khánh chọn phương án C 25/09, không liệt kê sáu góc nhìn; bỏ nhãn "Góc nhìn" vì trùng): tiêu đề Playfair một dòng (Khánh đổi 25/09), vế sau nghiêng màu nâu */
-.md-tren{display:block}
+/* Hàng dưới màn mở đầu chỉ còn "Còn tiếp" ở góc phải (Khánh bỏ tên góc nhìn đang chọn và "Xem góc nhìn" 25/09) */
+.md-duoi{display:flex;justify-content:flex-end;margin-top:auto}
+@media(max-width:640px){.md-giua{flex:none}}
+/* Tiêu đề nằm giữa, ngay dưới hai nút trái phải của vòng thẻ (Khánh đổi 25/09) */
+.md-tren{display:block;position:relative;z-index:3;text-align:center;margin-bottom:10px}
 .md-tren h2{margin-top:0;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(26px,2.5vw,36px);letter-spacing:0;text-transform:none;line-height:1.1;color:var(--muc)}
-@media(min-width:641px){.mo-dau{padding-top:22px}}
-@media(max-width:640px){.md-tren h2{font-size:clamp(20px,6.9vw,28px);white-space:nowrap}}
+@media(min-width:641px){.mo-dau{padding-top:22px;padding-bottom:16px}}
+@media(max-width:640px){.md-tren{margin:6px 0 22px}.md-tren h2{font-size:clamp(20px,6.9vw,28px);white-space:nowrap}}
 .md-tren h2::before{content:none}
 .md-tren h2 em{font-style:italic;color:var(--cat-dam)}
 .mo-dau .dinh-vi-lon{color:var(--nhat)}
@@ -627,7 +631,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
    và phía dưới cho hai nút, để vòng không đè dòng chữ trên và nút không đè "Xem góc nhìn". Màn mở đầu cao thêm nếu cần. */
 @media(min-width:641px){
   .md-giua{padding:8px 0 0}
-  .truot{padding:calc(var(--cao) * .2 + 12px) 0 calc(var(--cao) * .12 + 36px)}
+  .truot{padding:calc(var(--cao) * .2 + 12px) 0 calc(var(--cao) * .12 + 68px)}
   .js .md-mui{top:calc(var(--cao) * 1.32 + 16px)}
   /* Điểm nhìn giữ nguyên như trước khi chừa chỗ: -70% và 42% chiều cao thẻ, tính từ mép trên hàng thẻ */
   .js .truot{perspective-origin:50% calc(var(--cao) * -.5 + 12px)}
@@ -731,9 +735,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     <line pathLength="1" x1="430" y1="0" x2="430" y2="760"/><line pathLength="1" x1="660" y1="0" x2="660" y2="760"/>
   </svg>
   <h1>Lê Nhật Khánh</h1>
-  <div class="khung md-tren">
-    <h2>Những góc nhìn <em>tôi hay viết.</em></h2>
-  </div>
   <div class="md-giua">
     <div class="truot" data-truot role="region" aria-roledescription="carousel" aria-label="Sáu góc nhìn" tabindex="0">
       <div class="truot-san">
@@ -814,11 +815,10 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       <div class="md-mui"><button type="button" class="md-lui" aria-label="Góc nhìn trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button><button type="button" class="md-toi" aria-label="Góc nhìn sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>
     </div>
   </div>
+  <div class="khung md-tren">
+    <h2>Những góc nhìn <em>tôi hay viết.</em></h2>
+  </div>
   <div class="khung md-duoi">
-    <div class="md-dang" aria-hidden="true"><span class="md-so" data-md-so>01 / 06 · Góc nhìn</span><span class="md-ten" data-md-ten>Nghề nhân sự</span></div>
-    <div class="md-dieu-khien">
-      <a class="md-xem" href="chu-de/nghe-nhan-su.html" data-md-xem>Xem góc nhìn →</a>
-    </div>
     <a class="cuon-xuong" href="#ve-toi"><span>Còn tiếp</span><i aria-hidden="true"></i></a>
   </div>
 </header>
