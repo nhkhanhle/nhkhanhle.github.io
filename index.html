@@ -337,8 +337,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .nl-doc .khung-chi i{background:#303B49}
 .nl-trang{position:static}
 .nl-trang>*:not(.nl-hinh){position:relative;z-index:1}
-.js .nl-trang{display:none}
-.js .nl-trang.hien{display:block}
+/* Mọi trang xếp chồng trong cùng một ô lưới, trang không chọn chỉ ẩn đi: thẻ luôn cao bằng trang dài nhất, chọn năng lực nào khung cũng đều nhau (Khánh muốn 25/09) */
+.js .nl-doc{display:grid}
+.js .nl-trang{grid-area:1/1;visibility:hidden}
+.js .nl-trang.hien{visibility:visible}
 /* Hình đại diện nhóm (Khánh đổi 25/09): phóng lớn làm nền chìm sau nền navy của cả thẻ */
 .nl-hinh{position:absolute;right:-6%;bottom:-8%;width:78%;color:var(--cat);opacity:.12;pointer-events:none;z-index:0}
 .nl-hinh svg{width:100%;height:auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -391,7 +393,6 @@ footer{background:var(--navy-sau);color:#fff;padding:104px 0;border-top:1px soli
 @supports(-webkit-text-stroke:1px black){.ngoac-lon{color:transparent;-webkit-text-stroke:1.2px var(--cat)}}
 .trich blockquote{padding:10px 0 10px 60px}
 .trich q{display:block;quotes:none;font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:clamp(24px,2.8vw,36px);line-height:1.35;letter-spacing:-.005em}
-.trich .gach{display:block;width:64px;height:2px;background:var(--cat);margin-top:30px}
 
 /* ---------- Nền núi mờ ---------- */
 .nen-anh{position:absolute;left:0;right:0;top:-20%;bottom:-20%;background:url(nen-nui-web.jpg) center 62%/cover no-repeat;opacity:.24;filter:grayscale(.35) contrast(1.05);pointer-events:none;will-change:transform}
@@ -535,10 +536,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Màn mở đầu */
 .md-tren h2{color:var(--cat-dam)}
 .md-tren h2::before{background:var(--cat-dam)}
-/* Tiêu đề màn mở đầu (Khánh chọn phương án C 25/09, không liệt kê sáu góc nhìn): nhãn nhỏ "Góc nhìn" trên, tiêu đề Playfair một dòng (Khánh đổi 25/09), vế sau nghiêng màu nâu */
+/* Tiêu đề màn mở đầu (Khánh chọn phương án C 25/09, không liệt kê sáu góc nhìn; bỏ nhãn "Góc nhìn" vì trùng): tiêu đề Playfair một dòng (Khánh đổi 25/09), vế sau nghiêng màu nâu */
 .md-tren{display:block}
-.md-tren .nhan{font-size:11.5px;color:var(--cat-dam)}
-.md-tren h2{margin-top:6px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(26px,2.5vw,36px);letter-spacing:0;text-transform:none;line-height:1.1;color:var(--muc)}
+.md-tren h2{margin-top:0;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(26px,2.5vw,36px);letter-spacing:0;text-transform:none;line-height:1.1;color:var(--muc)}
 @media(min-width:641px){.mo-dau{padding-top:22px}}
 @media(max-width:640px){.md-tren h2{font-size:clamp(20px,6.9vw,28px);white-space:nowrap}}
 .md-tren h2::before{content:none}
@@ -732,7 +732,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   </svg>
   <h1>Lê Nhật Khánh</h1>
   <div class="khung md-tren">
-    <div class="nhan">Góc nhìn</div>
     <h2>Những góc nhìn <em>tôi hay viết.</em></h2>
   </div>
   <div class="md-giua">
@@ -1109,7 +1108,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     <span class="hoa-tiet" aria-hidden="true"><svg class="ht ht-c" viewBox="0 0 140 110"><path d="M6 90H134"/><path d="M36 90a34 34 0 0 1 68 0"/><path d="M70 42V30M44 52l-8-8M96 52l8-8M28 74H16M112 74h12"/><path d="M40 102H100" opacity=".5"/></svg></span>
     <blockquote>
       <q class="ba-ve"><span>Học từ hôm qua,</span> <span>sống cho hôm nay,</span> <span>hy vọng vào ngày mai</span></q>
-      <span class="gach" aria-hidden="true"></span>
     </blockquote>
   </div>
   <div class="khung chan-thanh">

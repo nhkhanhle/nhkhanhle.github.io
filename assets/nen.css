@@ -38,7 +38,6 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .giay-cu footer{background:transparent;color:var(--muc);border-top-color:rgba(47,59,74,.12)}
 .giay-cu .ngoac-lon{color:var(--cat-dam);border-right-color:rgba(47,59,74,.14)}
 @supports(-webkit-text-stroke:1px black){.giay-cu .ngoac-lon{color:transparent;-webkit-text-stroke:1.2px var(--cat-dam)}}
-.giay-cu .trich .gach{background:var(--cat-dam)}
 .canh-la{position:fixed;z-index:0;width:clamp(150px,17vw,250px);height:auto;fill:none;stroke:var(--cat);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;opacity:.55;pointer-events:none}
 .canh-tren{left:0;top:70px}
 .canh-duoi{right:0;bottom:0}
