@@ -44,8 +44,8 @@
 .nen{position:absolute;top:0;width:50%;height:100%;z-index:1}
 .nen-trai{left:0}.nen-phai{left:50%}
 /* Mép giấy xếp chồng: trái và dưới của trang trái nhiều lớp, phải trang phải ít lớp hơn */
-.nen-trai{border-radius:12px 0 0 12px;box-shadow:-2px 2px 0 #F5EFE5,-3px 3px 0 rgba(95,82,64,.16),-5px 4px 0 #F3EDE2,-6px 5px 0 rgba(95,82,64,.15),-8px 6px 0 #F1EADE,-9px 7px 0 rgba(95,82,64,.14),-11px 8px 0 #EEE7DA,-12px 9px 0 rgba(95,82,64,.13),-14px 10px 0 #ECE4D6,-15px 11px 0 rgba(95,82,64,.12)}
-.nen-phai{border-radius:0 12px 12px 0;box-shadow:2px 2px 0 #F5EFE5,3px 3px 0 rgba(95,82,64,.14),5px 4px 0 #F2ECE0,6px 5px 0 rgba(95,82,64,.12)}
+.nen-trai{border-radius:var(--bo-the) 0 0 var(--bo-the);box-shadow:-2px 2px 0 #F5EFE5,-3px 3px 0 rgba(95,82,64,.16),-5px 4px 0 #F3EDE2,-6px 5px 0 rgba(95,82,64,.15),-8px 6px 0 #F1EADE,-9px 7px 0 rgba(95,82,64,.14),-11px 8px 0 #EEE7DA,-12px 9px 0 rgba(95,82,64,.13),-14px 10px 0 #ECE4D6,-15px 11px 0 rgba(95,82,64,.12)}
+.nen-phai{border-radius:0 var(--bo-the) var(--bo-the) 0;box-shadow:2px 2px 0 #F5EFE5,3px 3px 0 rgba(95,82,64,.14),5px 4px 0 #F2ECE0,6px 5px 0 rgba(95,82,64,.12)}
 /* Trang trái hơi cong lên: nhấc mép ngoài 9° quanh gáy, khớp với trang đã lật (--a = -171°),
    kèm lớp đổ sáng: mép ngoài sáng, tối dần về gáy như giấy đang cong. */
 .st-so .nen-trai{transform-origin:100% 50%;transform:rotateY(9deg)}
@@ -73,8 +73,8 @@
 /* Trang sổ là giấy vẽ màu nước: vân giấy nhám --van-giay phủ trên nền --to-giay */
 .tr{position:absolute;inset:0;background:var(--van-giay),var(--to-giay);overflow:hidden;color:var(--muc)}
 /* Trang trái bo góc ngoài bên trái, trang phải bo góc ngoài bên phải; gáy có bóng tối dần */
-.tr-hinh{border-radius:12px 0 0 12px;box-shadow:inset -26px 0 30px -18px rgba(47,59,74,.22)}
-.tr-chu{border-radius:0 12px 12px 0;box-shadow:inset 26px 0 30px -18px rgba(47,59,74,.22)}
+.tr-hinh{border-radius:var(--bo-the) 0 0 var(--bo-the);box-shadow:inset -26px 0 30px -18px rgba(47,59,74,.22)}
+.tr-chu{border-radius:0 var(--bo-the) var(--bo-the) 0;box-shadow:inset 26px 0 30px -18px rgba(47,59,74,.22)}
 .tr-nen{position:absolute;inset:0;background:center/cover no-repeat;opacity:.9}
 .tr-net{position:absolute;left:50%;top:48%;width:62%;aspect-ratio:1;transform:translate(-50%,-50%);background:var(--muc);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 .tr-dau{position:absolute;right:7%;bottom:6%;font-family:"Josefin Sans",sans-serif;font-size:clamp(8px,1.1cqw,11px);letter-spacing:.2em;color:var(--cat-dam)}

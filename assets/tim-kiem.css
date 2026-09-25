@@ -8,7 +8,7 @@
 .lop-tim{position:fixed;inset:0;z-index:60;background:rgba(24,31,40,.72);backdrop-filter:blur(3px);
   display:grid;align-items:start;justify-items:center;padding:0 22px}
 .lop-tim[hidden]{display:none}
-.hop-tim{width:min(760px,100%);margin-top:clamp(70px,12vh,140px);background:#FBFAF7;box-shadow:0 34px 80px rgba(20,26,34,.42)}
+.hop-tim{border-radius:var(--bo-the,18px);overflow:hidden;width:min(760px,100%);margin-top:clamp(70px,12vh,140px);background:#FBFAF7;box-shadow:0 34px 80px rgba(20,26,34,.42)}
 .o-nhap{display:flex;align-items:center;gap:14px;padding:20px 22px;border-bottom:1px solid #E3DDD2}
 .o-nhap svg{width:20px;height:20px;flex:none;fill:#7A6A4F}
 .o-nhap:focus-within{box-shadow:inset 0 -2px 0 #7A6A4F}
@@ -16,7 +16,7 @@
   font-size:17px;font-weight:300;color:#2F3B4A}
 .o-nhap input::placeholder{color:#5E6875}
 .o-nhap input::-webkit-search-cancel-button{display:none}
-.nut-dong{flex:none;border:1px solid #E3DDD2;background:transparent;color:#5E6875;cursor:pointer;
+.nut-dong{flex:none;border-radius:var(--bo-nut,10px);border:1px solid #E3DDD2;background:transparent;color:#5E6875;cursor:pointer;
   font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:9px 12px 7px;
   transition:border-color .2s,color .2s}
 .nut-dong:hover{border-color:#B6A383;color:#7A6A4F}

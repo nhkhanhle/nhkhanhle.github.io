@@ -5,7 +5,9 @@
    nhiễu fractal tần số 2.6, 1 lớp, ô 200px, chiếu sáng xiên (feDiffuseLighting) thành hạt lồi lõm li ti, chỗ khuất sáng in thành chấm nâu giấy mờ.
    Đặt làm lớp trên cùng của nền các "tờ giấy": thẻ, trang sổ, thẻ lời chào, ô số, ô đồ họa, ô hình bài.
    Chữ trên nền sáng: vàng cát đậm #5F5240, chữ phụ #4F5966 (đều trên 5:1). */
-:root{--giay-cu:#ECE7DC;--to-giay:#F9F4EC;--van-giay:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='2.6' numOctaves='1' seed='7' stitchTiles='stitch' result='t'/><feDiffuseLighting in='t' lighting-color='%23fff' surfaceScale='.6' result='l'><feDistantLight azimuth='45' elevation='56'/></feDiffuseLighting><feColorMatrix in='l' values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 -.55 0 0 0 .47'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>")}
+/* Bo góc đồng bộ toàn trang (Khánh muốn 25/09): --bo-the cho mọi tờ giấy, thẻ, ô hình, ô số, trang sổ, hộp tìm kiếm (18px, điện thoại 14px);
+   --bo-nut cho nút chữ nhật. Phần tử tròn (nút tròn, kính lúp, chấm) giữ nguyên. */
+:root{--bo-the:18px;--bo-nut:10px;--giay-cu:#ECE7DC;--to-giay:#F9F4EC;--van-giay:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='2.6' numOctaves='1' seed='7' stitchTiles='stitch' result='t'/><feDiffuseLighting in='t' lighting-color='%23fff' surfaceScale='.6' result='l'><feDistantLight azimuth='45' elevation='56'/></feDiffuseLighting><feColorMatrix in='l' values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 -.55 0 0 0 .47'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>")}
 body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 /* Menu trên nền sáng */
 .giay-cu .nav{background:rgba(236,231,220,.9);color:var(--muc);border-bottom-color:rgba(47,59,74,.12)}
@@ -26,7 +28,7 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .giay-cu .tc-mo .sapo{color:var(--nhat)}
 .giay-cu .tc-mo .meta-bai{color:var(--cat-dam)}
 .giay-cu .tc-mo .meta-bai .vach{background:rgba(47,59,74,.22)}
-.giay-cu .hinh{background:var(--van-giay),var(--to-giay);color:var(--muc);border-radius:12px;box-shadow:0 34px 56px -22px rgba(47,59,74,.32),inset 0 0 0 1px rgba(95,82,64,.14)}
+.giay-cu .hinh{background:var(--van-giay),var(--to-giay);color:var(--muc);border-radius:var(--bo-the);box-shadow:0 34px 56px -22px rgba(47,59,74,.32),inset 0 0 0 1px rgba(95,82,64,.14)}
 .giay-cu .hinh .net{stroke:rgba(47,59,74,.12)}
 .giay-cu .hinh .so-hinh{color:var(--cat-dam)}
 @supports(-webkit-text-stroke:1px black){.giay-cu .hinh .so-hinh{color:transparent;-webkit-text-stroke:1px var(--cat-dam)}}
@@ -40,6 +42,7 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .canh-la{position:fixed;z-index:0;width:clamp(150px,17vw,250px);height:auto;fill:none;stroke:var(--cat);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;opacity:.55;pointer-events:none}
 .canh-tren{left:0;top:70px}
 .canh-duoi{right:0;bottom:0}
+@media(max-width:640px){:root{--bo-the:14px}}
 @media(max-width:640px){.canh-la{width:110px;opacity:.4}}
 
 /* ============ Menu theo Noa Vale (24/09), dùng chung trang chủ, 6 trang góc nhìn, trang chờ ============
@@ -62,7 +65,7 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .giay-cu .nav-dai .nav-vien a[aria-current="true"]{background:var(--to-giay);color:var(--muc);box-shadow:0 8px 18px rgba(47,59,74,.13),inset 0 1px 0 rgba(255,255,255,.8);transform:translateY(3px)}
 .giay-cu .nav-dai .nav-vien a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
 .nav-dai .nav-vien .nut-tim{width:34px;height:34px;margin-left:0}
-.nut-lien-he{display:inline-flex;align-items:center;gap:12px;padding:5px 5px 5px 18px;border-radius:10px;background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 8px 18px rgba(47,59,74,.25),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .25s,box-shadow .25s;flex:none}
+.nut-lien-he{display:inline-flex;align-items:center;gap:12px;padding:5px 5px 5px 18px;border-radius:var(--bo-nut);background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;text-decoration:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 8px 18px rgba(47,59,74,.25),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .25s,box-shadow .25s;flex:none}
 .nut-lien-he i{display:grid;place-items:center;width:32px;height:32px;border-radius:7px;background:var(--cat);color:var(--navy)}
 .nut-lien-he svg{width:16px;height:16px;fill:currentColor}
 .nut-lien-he:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(47,59,74,.3),inset 0 1px 0 rgba(255,255,255,.12)}
