@@ -62,7 +62,7 @@
     var vung=q('[data-so-tay]'); if(!vung)return;
     var so_=q('[data-st-so]',vung), san=q('[data-st-san]',vung), kinh=q('[data-st-kinh]',vung),
         kinhNoi=q('[data-st-kinh-noi]',vung), bao=q('[data-st-bao]',vung), dem=q('[data-st-dem]',vung),
-        muiTruoc=q('[data-st-truoc]',vung), muiSau=q('[data-st-sau]',vung),
+        muiTruoc=[].slice.call(vung.querySelectorAll('[data-st-truoc]')), muiSau=[].slice.call(vung.querySelectorAll('[data-st-sau]')),
         docNgoai=q('[data-st-doc]',vung), zTru=q('[data-st-zoom="-"]',vung), zCong=q('[data-st-zoom="+"]',vung), zChu=q('[data-st-zoom-chu]',vung);
     var n=danh.length;
     vung.hidden=!n; if(!n)return;
@@ -100,7 +100,7 @@
       });
       var b=danh[hien];
       if(dem)dem.textContent='Bài '+so(hien+1)+' / '+so(n);
-      if(muiTruoc)muiTruoc.disabled=hien<=0; if(muiSau)muiSau.disabled=hien>=n-1;
+      muiTruoc.forEach(function(m){m.disabled=hien<=0}); muiSau.forEach(function(m){m.disabled=hien>=n-1});
       if(bao)bao.textContent='Bài '+(hien+1)+' trên '+n+': '+b.tieuDe;
       if(docNgoai){docNgoai.hidden=!b.duongDan;if(b.duongDan)docNgoai.href=goc+b.duongDan}
       [].forEach.call(document.querySelectorAll('[data-ml] .ml-dong'),function(x,i){x.setAttribute('aria-current',i===hien?'true':'false')});
@@ -162,9 +162,9 @@
       if(ev.key==='ArrowLeft'){ev.preventDefault();lui()}
     };
 
-    /* Mũi tên hai bên sổ */
-    if(muiTruoc)muiTruoc.onclick=function(){if(!chay)lui()};
-    if(muiSau)muiSau.onclick=function(){if(!chay)toi()};
+    /* Mũi tên hai bên sổ (máy tính) và hai nút dưới sổ (điện thoại) */
+    muiTruoc.forEach(function(m){m.onclick=function(){if(!chay)lui()}});
+    muiSau.forEach(function(m){m.onclick=function(){if(!chay)toi()}});
 
     /* Phóng to thu nhỏ */
     var z=1;

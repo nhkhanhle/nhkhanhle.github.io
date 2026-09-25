@@ -187,3 +187,33 @@
   .so-tay-trang .noi-dung{padding-top:0}
   .so-tay-trang .muc-luc{margin-top:72px}
 }
+
+/* Hai nút lật dưới sổ: chỉ dùng trên điện thoại (máy tính đã có mũi tên hai bên sổ).
+   Nút tròn giấy nhám có vòng chỉ nét đứt, cùng kiểu hai nút vòng thẻ trang chủ. */
+.st-lat{display:none;align-items:center;gap:10px}
+.st-lat button{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid rgba(95,82,64,.35);background:var(--van-giay),var(--to-giay);color:var(--muc);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 12px -7px rgba(47,59,74,.35);transition:background .3s,color .3s,border-color .3s,opacity .2s}
+.st-lat button::before{content:"";position:absolute;inset:3px;border-radius:50%;border:1px dashed rgba(95,82,64,.35)}
+.st-lat svg{width:15px;height:15px}
+.st-lat button:active:not(:disabled){background:var(--navy);color:var(--cat);border-color:var(--navy)}
+.st-lat button:disabled{opacity:.35;cursor:default}
+.st-lat button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+
+/* Điện thoại (Khánh chỉnh 25/09, lần 2): trang phải rộng ra, trang trái lùi một phần ra ngoài mép trái màn hình
+   như quyển sổ đặt lệch khung. Trang rộng 68% bề ngang màn hình, cao 1.25 bề ngang trang; mép phải sổ cách mép màn hình 16px.
+   --l: phần trang trái còn thấy; hình bài và dấu ngày dời vào phần đó.
+   Khoảng trống trên dưới sổ rộng ra; bỏ dòng hướng dẫn, nút "Đọc bài này" (trong trang vẫn có "Đọc bài →") và nút phóng to,
+   thay bằng hai nút lật trái phải. */
+@media(max-width:640px){
+  /* Bề ngang trang làm tròn xuống bội số 8px: mỗi trang ghép từ 8 dải, dải lẻ điểm ảnh hở khe lộ chữ trang bên dưới */
+  .so-tay{--w:calc((100vw - 16px) * .68);--ty:1.25;--l:calc(100vw - 16px - var(--w))}
+  @supports(width:round(down,10px,8px)){.so-tay{--w:round(down,calc((100vw - 16px) * .68),8px)}}
+  .so-tay-trang .so-tay{padding:40px 0 48px}
+  .so-tay-trang .st-san{overflow:visible;overflow-y:clip;overflow-x:visible}
+  .st-so{margin:0 0 0 calc(100vw - 32px - var(--w) * 2)}
+  .tr-hinh .tr-net{left:auto;right:calc(var(--l) * .14);width:calc(var(--l) * .72);transform:translateY(-50%)}
+  .so-tay-trang .st-duoi{max-width:none}
+  .so-tay-trang .st-doc-ngoai,.so-tay-trang .st-goi-y,.so-tay-trang .st-zoom{display:none}
+  .st-lat{display:flex}
+  .so-tay-trang .muc-luc{margin-top:40px}
+}

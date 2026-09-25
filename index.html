@@ -166,7 +166,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 @property --goc{syntax:"<angle>";inherits:false;initial-value:0deg}
 /* --noi: nhấc thẻ về phía người xem trong lúc chuyển, để thẻ đi vào không xuyên qua thẻ đang rời đi */
 @property --noi{syntax:"<length>";inherits:false;initial-value:0px}
-.truot{position:relative;width:100%;--rong:clamp(250px,23vw,300px);--cao:calc(var(--rong)*4/3);--A:calc(var(--rong)*1.32);--B:calc(var(--rong)*1.01);--day:18px;--bo:18px}
+/* Khánh muốn thẻ lớn hơn trên máy tính (25/09): 23vw tối đa 300px nâng lên 27vw tối đa 390px,
+   nhưng còn bị chặn theo chiều cao màn hình để vòng thẻ, hai nút và hàng dưới vẫn nằm trọn màn đầu.
+   Màn hình thấp thì giữ ít nhất cỡ cũ (23vw, tối đa 300px), không nhỏ hơn trước. */
+.truot{position:relative;width:100%;--rong:clamp(250px,max(min(23vw,300px),min(27vw,calc((100svh - 290px) * .568))),390px);--cao:calc(var(--rong)*4/3);--A:calc(var(--rong)*1.32);--B:calc(var(--rong)*1.01);--day:18px;--bo:18px}
 /* Nét kiến trúc ẩn ở màn này, thêm nét nữa sau vòng thẻ thì rối */
 .mo-dau .kien-truc{display:none}
 /* Màu thẻ vòng elip: ngà dịu (Khánh chọn phương án A ngày 24/09), ngà ấm tối một bậc để không chói trên nền navy.
@@ -255,6 +258,23 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .md-mui{position:absolute;left:50%;top:calc(var(--cao) * 1.12 + 4px);transform:translateX(-50%);z-index:5}
 /* Điện thoại: nút nằm trong dòng chảy ngay dưới vòng thẻ, không đè "Xem góc nhìn" */
 @media(max-width:640px){.js .md-mui{position:relative;left:auto;top:auto;transform:none;justify-content:center;margin-top:calc(var(--cao) * .1 + 8px)}.md-giua{padding:74px 0 6px;align-items:flex-start}}
+/* Điện thoại: hai nút trái phải nhỏ lại cho hài hòa với thẻ (Khánh muốn 25/09): 52px xuống 40px, kẻ nối ngắn lại */
+@media(max-width:640px){
+  .md-mui button{width:40px;height:40px;box-shadow:0 6px 12px -7px rgba(47,59,74,.35)}
+  .md-mui button::before{inset:3px}
+  .md-mui svg{width:15px;height:15px}
+  .md-mui::before{width:44px}
+  .md-mui::after{width:6px;height:6px;margin:-3px 0 0 -3px}
+}
+/* Điện thoại (Khánh muốn 25/09): chân dung và dải số 12+ · 6+ · 4+ lên trên thẻ lời chào.
+   Lời chào và dải số nằm ở hai khối anh em nên bọc chung trong .xuong; section trả con cho .xuong (display:contents) để xếp lại thứ tự. */
+@media(max-width:640px){
+  .xuong{position:relative;z-index:1;display:flex;flex-direction:column;padding:56px 0 8px}
+  .xuong>.hero{display:contents}
+  .xuong .anh-tran{order:1;margin:0 auto}
+  .xuong>.so{order:2;margin-top:-10px;z-index:5}
+  .xuong .hero>.khung{order:3;position:relative;z-index:3;margin-top:44px}
+}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -596,6 +616,22 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Lúc tỏa hạ góc nhìn về ngang tầm mắt để độ nghiêng 3D đọc ra (từ trên cao thẻ ngả sau trông phẳng) */
 .js .truot{transition:perspective-origin 1.4s cubic-bezier(.22,.61,.24,1)}
 .js .truot.toa{perspective-origin:50% 42%}
+/* Thẻ lớn hơn trên máy tính (25/09): khung vòng thẻ chừa chỗ phía trên cho thẻ phía sau nhô lên (khoảng 0.2 cao thẻ)
+   và phía dưới cho hai nút, để vòng không đè dòng chữ trên và nút không đè "Xem góc nhìn". Màn mở đầu cao thêm nếu cần. */
+@media(min-width:641px){
+  .md-giua{padding:8px 0 0}
+  .truot{padding:calc(var(--cao) * .2 + 12px) 0 calc(var(--cao) * .12 + 36px)}
+  .js .md-mui{top:calc(var(--cao) * 1.32 + 16px)}
+  /* Điểm nhìn giữ nguyên như trước khi chừa chỗ: -70% và 42% chiều cao thẻ, tính từ mép trên hàng thẻ */
+  .js .truot{perspective-origin:50% calc(var(--cao) * -.5 + 12px)}
+  .js .truot.toa{perspective-origin:50% calc(var(--cao) * .62 + 12px)}
+}
+/* Hai thẻ tỏa ngoài cùng: thẻ lớn hơn thì không dạt xa theo, để vẫn hiện gần trọn như trước (bề ngang tính theo tối đa 23.5vw).
+   Dưới 1100px bỏ giới hạn này vì thẻ tỏa sẽ chồng lên nhau; khi đó hai thẻ ngoài khuất khoảng một nửa ở mép. */
+@media(min-width:1100px){
+  .js .truot.toa .the-cd[data-o="trai-2"]{transform:translateX(-50%) translate3d(calc(min(var(--rong),23.5vw) * -1.9),calc(var(--cao) * .24),0) rotateX(16deg) rotateY(28deg) rotateZ(10deg) scale(.72)}
+  .js .truot.toa .the-cd[data-o="phai-2"]{transform:translateX(-50%) translate3d(calc(min(var(--rong),23.5vw) * 1.84),calc(var(--cao) * .25),0) rotateX(-12deg) rotateY(-24deg) rotateZ(-20deg) scale(.68)}
+}
 /* Lơ lửng (Khánh muốn 24/09): khi đã tỏa, mỗi thẻ trôi nhẹ lên xuống và lắc khẽ theo nhịp riêng.
    Dùng thuộc tính translate và rotate riêng (không phải transform) nên không đụng chuyển tiếp tỏa ra.
    Bóng đổ rơi xa và mờ để thấy thẻ cách mặt sàn. Máy bật giảm chuyển động thì đứng yên. */
@@ -768,8 +804,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   </div>
 </header>
 
-<!-- VỀ TÔI: giới thiệu -->
-<section class="hero toi" id="ve-toi">
+<!-- VỀ TÔI: giới thiệu. Khối .xuong bọc lời chào và dải số để điện thoại xếp lại thứ tự (ảnh, số, lời chào); máy tính không đổi -->
+<div class="xuong" id="ve-toi">
+<section class="hero toi">
   <div class="nen-anh" aria-hidden="true"></div>
   <svg class="kien-truc" viewBox="0 0 760 760" aria-hidden="true">
     <circle pathLength="1" cx="430" cy="330" r="300"/><circle pathLength="1" cx="560" cy="250" r="160"/><circle pathLength="1" cx="205" cy="255" r="18"/>
@@ -820,6 +857,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       <div><i class="icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg></i><b>4+</b><span class="nhan-so">ngành đã đi qua</span></div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- VỀ TÔI: chi tiết -->
