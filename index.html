@@ -275,6 +275,22 @@ h2 em{font-style:italic;color:var(--cat-dam)}
   .xuong>.so{order:2;margin-top:-10px;z-index:5}
   .xuong .hero>.khung{order:3;position:relative;z-index:3;margin-top:44px}
 }
+/* Khung chỉ bìa sách (Khánh chọn 25/09) trên mặt navy: 6 thẻ góc nhìn và ô hình Bài chọn lọc.
+   Hai đường chỉ vàng nhạt mảnh chạy trong mép (cách 12px và 16px), hình thoi nhỏ giữa mỗi cạnh, như bìa sổ da mạ vàng.
+   Thẻ giữa lúc tỏa chuyển mặt ngà thì chỉ đổi sang nâu giấy. */
+.khung-chi{position:absolute;inset:12px;border:1px solid rgba(216,204,181,.42);border-radius:10px;pointer-events:none}
+.khung-chi::before{content:"";position:absolute;inset:3px;border:1px solid rgba(216,204,181,.2);border-radius:7px}
+.khung-chi i{position:absolute;width:7px;height:7px;border:1px solid rgba(216,204,181,.55);background:#303B49;transform:rotate(45deg)}
+.khung-chi i:nth-child(1){left:50%;top:-4px;margin-left:-4px}
+.khung-chi i:nth-child(2){left:50%;bottom:-4px;margin-left:-4px;background:#29323F}
+.khung-chi i:nth-child(3){top:50%;left:-4px;margin-top:-4px;background:#2D3745}
+.khung-chi i:nth-child(4){top:50%;right:-4px;margin-top:-4px;background:#2D3745}
+.bv-anh .khung-chi{border-radius:4px}
+.bv-anh .khung-chi::before{border-radius:2px}
+.js .truot.toa .the-cd[data-o="giua"] .khung-chi{border-color:rgba(95,82,64,.32)}
+.js .truot.toa .the-cd[data-o="giua"] .khung-chi::before{border-color:rgba(95,82,64,.16)}
+.js .truot.toa .the-cd[data-o="giua"] .khung-chi i{border-color:rgba(95,82,64,.42);background:#F6F0E6}
+.khung-chi,.khung-chi::before,.khung-chi i{transition:border-color .9s,background .9s}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -552,8 +568,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Cách tôi làm: ô đồ họa là tờ giấy sáng, nét mực navy */
 .cach-lam{background:transparent}
 .o-hinh{background:var(--van-giay),var(--to-giay);color:var(--muc);box-shadow:0 24px 44px rgba(47,59,74,.15),inset 0 0 0 1px rgba(110,95,70,.14)}
-/* Bài chọn lọc (Khánh đổi 25/09): ô hình là tờ giấy navy phủ vân giấy mịn, sóng nền và hình bài màu vàng cát (4.64:1 trên navy) */
-.bv-anh{background-color:#26303C;background-size:auto,cover,auto;background-position:0 0,center,center;background-repeat:repeat,no-repeat,no-repeat;box-shadow:0 22px 40px rgba(38,48,60,.24),inset 0 0 0 1px rgba(216,204,181,.18)}
+/* Bài chọn lọc (Khánh đổi 25/09): ô hình là tờ giấy navy phủ vân giấy mịn, khung chỉ vàng nhạt, hình bài màu vàng cát (4.64:1 trên navy). Bỏ sóng nền. */
+.bv-anh{background-color:#26303C;background-size:auto,auto;background-position:0 0,center;background-repeat:repeat,no-repeat;box-shadow:0 22px 40px rgba(38,48,60,.24),inset 0 0 0 1px rgba(216,204,181,.18)}
 .bv-net{position:absolute;left:50%;top:50%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%);background:var(--cat);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 /* Chặng đường và chân trang trên giấy */
 .giay{background:transparent}
@@ -719,7 +735,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       <div class="truot-san">
         <span class="san-vong" aria-hidden="true"><i></i></span>
       <a class="the-cd" href="chu-de/nghe-nhan-su.html" data-i="0">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">01</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M12 84h20V68h20V52h20V36h16"/><circle cx="80" cy="22" r="6"/><path d="M12 84h76" opacity=".45"/></svg></span>
         <div class="the-chu">
@@ -731,7 +747,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 01</span><span class="ms-ten">Nghề nhân sự</span><span class="ms-mo">Lộ trình từ thực tập sinh tới quản lý, những góc khuất nhà tuyển dụng ít kể với ứng viên, những điều trường lớp ngại chia sẻ.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/tri-tue-nhan-tao.html" data-i="1">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">02</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><rect x="28" y="28" width="44" height="44" rx="8"/><rect x="42" y="42" width="16" height="16" rx="3"/><path d="M40 28V15M60 28V15M40 72v13M60 72v13M28 40H15M28 60H15M72 40h13M72 60h13"/></svg></span>
         <div class="the-chu">
@@ -743,7 +759,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 02</span><span class="ms-ten">Trí tuệ nhân tạo</span><span class="ms-mo">Tôi để AI làm phần việc lặp đi lặp lại trong tuyển dụng và dữ liệu, giữ lại cho mình phần phán đoán về con người. Cùng một ngày làm được nhiều việc hơn mà không cần thêm người.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/tam-ly-hoc.html" data-i="2">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">03</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="37" cy="50" r="25"/><circle cx="63" cy="50" r="25"/><circle cx="50" cy="50" r="2.6" fill="currentColor"/></svg></span>
         <div class="the-chu">
@@ -755,7 +771,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 03</span><span class="ms-ten">Tâm lý học</span><span class="ms-mo">Hiểu người trước khi quản người. Nghe hết rồi mới hỏi, hỏi thẳng nhưng không phán xét, kể cả khi người cần được nghe là chính mình.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/he-thong-quan-tri.html" data-i="3">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">04</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="18" r="7"/><circle cx="20" cy="56" r="7"/><circle cx="80" cy="56" r="7"/><circle cx="50" cy="84" r="7"/><path d="M45 24 25 50M55 24l20 26M27 56h46M25 62l20 17M75 62 55 79M50 25v52"/></svg></span>
         <div class="the-chu">
@@ -767,7 +783,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 04</span><span class="ms-ten">Hệ thống quản trị</span><span class="ms-mo">Chiến lược, hiệu suất, khung năng lực, tổng đãi ngộ. Hệ thống tốt phải đo được, và người trong cuộc hiểu vì sao mình được đo như vậy.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/phap-luat-lao-dong.html" data-i="4">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">05</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 16v68M32 84h36M18 28h64"/><circle cx="50" cy="13" r="3"/><path d="M18 28 8 54M18 28l10 26M82 28 72 54M82 28l10 26"/><path d="M5 54h26a13 9 0 0 1-26 0zM69 54h26a13 9 0 0 1-26 0z"/></svg></span>
         <div class="the-chu">
@@ -779,7 +795,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 05</span><span class="ms-ten">Pháp luật lao động</span><span class="ms-mo">Luật là sàn chung để người lao động và doanh nghiệp cùng yên tâm, chứ không phải công cụ để hai bên thắng nhau.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       <a class="the-cd" href="chu-de/chuyen-cong-so.html" data-i="5">
-          <span class="mat">
+          <span class="mat"><span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="so-vien" aria-hidden="true">06</span>
         <span class="bieu-tuong" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 26h50a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H32l-12 11V58h-6a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6z"/><path d="M78 40h4a6 6 0 0 1 6 6v18a6 6 0 0 1-6 6h-3v9l-10-9H50"/></svg></span>
         <div class="the-chu">
@@ -1236,7 +1252,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       var cd=(window.CHU_DE||{})[b.chuDe]||{}, sap=b.ngay>homNay;
       var a=document.createElement('a'); a.className='bv-the'; a.href=b.duongDan;
       var anh=document.createElement('div'); anh.className='bv-anh';
-      anh.style.backgroundImage='var(--van-giay),url("anh-bai/nen-'+b.ma.replace(/\./g,'-')+'.svg"),linear-gradient(160deg,#3B4859 0%,#26303C 100%)';
+      anh.style.backgroundImage='var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%)';
+      anh.insertAdjacentHTML('beforeend','<span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>');
       if(b.anh){var net=document.createElement('span'); net.className='bv-net'; var u='url("'+encodeURI(b.anh)+'")'; net.style.webkitMaskImage=u; net.style.maskImage=u; anh.appendChild(net)}
       var nh=document.createElement('span'); nh.className='bv-nhan'; nh.textContent=(cd.stt?cd.stt+' · ':'')+(cd.ten||'');
       var h=document.createElement('h3'); h.textContent=b.tieuDe;
