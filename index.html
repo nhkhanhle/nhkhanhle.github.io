@@ -674,6 +674,20 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 .ms-ten{margin-top:12px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(22px,2.1vw,28px);line-height:1.2;color:var(--muc)}
 .ms-mo{margin-top:14px;font-size:14.5px;line-height:1.65;color:var(--nhat)}
 .mo-dau{--lung1:#F4EEE3;--lung2:#EAE1D0}
+/* Đổi màu hai mặt (Khánh muốn 25/09): mặt trước (có hình) navy, mặt sau (có chữ) ngà.
+   Lúc tỏa thì ngược lại: thẻ ra giữa chuyển mặt ngà, các thẻ tỏa hai bên giữ navy. Vàng cát trên navy đạt 4.64:1. */
+.js .mo-dau .the-cd .mat{background:var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%);box-shadow:inset 0 0 0 1px rgba(216,204,181,.22),0 34px 56px -22px rgba(26,32,40,.5),0 10px 18px -10px rgba(26,32,40,.22)}
+.js .mo-dau .the-cd .lop{background:#222B36}
+.js .mo-dau .the-cd h3{color:#F1EADD}
+.js .mo-dau .the-cd .doc,.js .mo-dau .the-cd .bieu-tuong{color:var(--cat)}
+.js .mo-dau .the-cd .so-vien{color:var(--cat);-webkit-text-stroke-color:var(--cat)}
+.js .mo-dau .truot.toa .the-cd:not([data-o="giua"]) .mat{box-shadow:inset 0 0 0 1px rgba(216,204,181,.22),0 60px 70px -34px rgba(26,32,40,.5),0 14px 22px -14px rgba(26,32,40,.24)}
+.js .mo-dau .truot.toa .the-cd[data-o="giua"] .mat{background:var(--van-giay),linear-gradient(160deg,var(--mat1) 0%,var(--mat2) 100%);box-shadow:inset 0 0 0 1px var(--vien),0 40px 70px -24px rgba(47,59,74,.4)}
+.js .mo-dau .truot.toa .the-cd[data-o="giua"] .lop{background:var(--canh)}
+.js .mo-dau .truot.toa .the-cd[data-o="giua"] h3{color:var(--muc)}
+.js .mo-dau .truot.toa .the-cd[data-o="giua"] .doc,.js .mo-dau .truot.toa .the-cd[data-o="giua"] .bieu-tuong{color:var(--diem)}
+.js .mo-dau .truot.toa .the-cd[data-o="giua"] .so-vien{color:var(--diem);-webkit-text-stroke-color:var(--diem)}
+@supports(-webkit-text-stroke:1px black){.js .mo-dau .the-cd .so-vien,.js .mo-dau .truot.toa .the-cd[data-o="giua"] .so-vien{color:transparent}}
 /* Vòng cung chung trên mặt sàn: rộng 2A, sâu 2B, tâm lùi B, nằm ngang dưới chân thẻ */
 .san-vong{display:none}
 .js .mo-dau .san-vong{display:block;position:absolute;left:50%;top:var(--cao);width:calc(var(--A) * 2);height:calc(var(--B) * 2);margin:calc(var(--B) * -1) 0 0 calc(var(--A) * -1);
