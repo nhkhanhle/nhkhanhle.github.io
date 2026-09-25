@@ -40,8 +40,9 @@ for p in sorted(glob.glob('bai-viet/*.html')):
 
 # ---------- Các phần của trang chủ ----------
 s = io.open('index.html', encoding='utf-8').read()
-for m in re.finditer(r'<section[^>]*\sid="([^"]+)"[^>]*>(.*?)</section>', s, re.S):
-    ma, than = m.group(1), m.group(2)
+# Phần có id nằm trên section, hoặc trên khối bọc ngay ngoài section (như .xuong bọc lời chào và dải số, 25/09)
+for m in re.finditer(r'(?:<section[^>]*\sid="([^"]+)"[^>]*>|<div[^>]*\sid="([^"]+)"[^>]*>\s*<section[^>]*>)(.*?)</section>', s, re.S):
+    ma, than = m.group(1) or m.group(2), m.group(3)
     h = re.search(r'<h2[^>]*>(.*?)</h2>', than, re.S)
     if not h: continue
     ten = bochu(h.group(1))

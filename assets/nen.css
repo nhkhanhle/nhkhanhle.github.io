@@ -1,11 +1,11 @@
 /* Nền chung, vân giấy nhám, menu và chân trang sáng, cành lá. Dùng cho trang chủ và 6 trang góc nhìn.
    Trang nào gắn class "giay-cu" cho body thì theo hệ này. Cành lá do assets/canh-la.js chèn vào.
    Nền phẳng #ECE7DC lấy từ biến --paper của mẫu Sketchbook, không lấy vết loang (Khánh đổi 25/09; trước là #F1EAE5 của Noa Vale).
-   --van-giay: vân giấy nhám kiểu giấy vẽ màu nước (Khánh chọn 24/09 theo ảnh mẫu Sketchbook):
-   nhiễu fractal chiếu sáng xiên (feDiffuseLighting) thành gợn lồi lõm, chỗ khuất sáng in thành vệt nâu giấy mờ.
+   --van-giay: vân giấy hạt nhỏ mịn (Khánh đổi 25/09, chọn mức B; trước là gợn lớn kiểu giấy vẽ màu nước của Sketchbook, baseFrequency .11, ô 320px):
+   nhiễu fractal tần số .7, 2 lớp, ô 200px, chiếu sáng xiên (feDiffuseLighting) thành hạt lồi lõm li ti, chỗ khuất sáng in thành chấm nâu giấy mờ.
    Đặt làm lớp trên cùng của nền các "tờ giấy": thẻ, trang sổ, thẻ lời chào, ô số, ô đồ họa, ô hình bài.
    Chữ trên nền sáng: vàng cát đậm #5F5240, chữ phụ #4F5966 (đều trên 5:1). */
-:root{--giay-cu:#ECE7DC;--to-giay:#F9F4EC;--van-giay:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.11' numOctaves='3' seed='7' stitchTiles='stitch' result='t'/><feDiffuseLighting in='t' lighting-color='%23fff' surfaceScale='1.3' result='l'><feDistantLight azimuth='45' elevation='56'/></feDiffuseLighting><feColorMatrix in='l' values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 -.5 0 0 0 .46'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>")}
+:root{--giay-cu:#ECE7DC;--to-giay:#F9F4EC;--van-giay:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' seed='7' stitchTiles='stitch' result='t'/><feDiffuseLighting in='t' lighting-color='%23fff' surfaceScale='1' result='l'><feDistantLight azimuth='45' elevation='56'/></feDiffuseLighting><feColorMatrix in='l' values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 -.55 0 0 0 .5'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>")}
 body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 /* Menu trên nền sáng */
 .giay-cu .nav{background:rgba(236,231,220,.9);color:var(--muc);border-bottom-color:rgba(47,59,74,.12)}

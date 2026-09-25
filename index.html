@@ -356,18 +356,6 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .bv-cuoi a{font-family:"Josefin Sans",sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-dam);text-decoration:none;border-bottom:1px solid rgba(122,106,79,.4);padding-bottom:4px}
 .bv-cuoi a:hover{border-color:var(--cat-dam)}
 
-/* ---------- Đang đồng hành: bảng hàng ngang, nằm cuối Chặng đường ---------- */
-.dong-hanh{margin-top:96px;scroll-margin-top:90px}
-.dong-hanh .bang-viec{margin-top:0;border-top:0}
-.giay .bang-viec .doi-tuong{color:#6E5F46;border-color:rgba(110,95,70,.45)}
-.giay .bang-viec p{color:#4F5966}
-.bang-viec{list-style:none;margin-top:48px;border-top:1px solid rgba(47,59,74,.16)}
-.bang-viec li{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1.45fr);gap:44px;align-items:start;padding:42px 0;border-bottom:1px solid rgba(47,59,74,.16)}
-.bang-viec .so-lon{font-family:"Playfair Display",serif;font-size:68px;line-height:.85;color:var(--cat);transition:color .3s}
-.bang-viec li:hover .so-lon{color:var(--cat-dam)}
-.bang-viec .doi-tuong{display:inline-block;font-family:"Josefin Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--cat-dam);padding:7px 12px 5px;border:1px solid rgba(122,106,79,.4)}
-.bang-viec h3{font-family:"Playfair Display",serif;font-weight:500;font-size:27px;line-height:1.3;margin-top:16px}
-.bang-viec p{color:var(--nhat);font-size:16px;margin-top:48px}
 
 /* ---------- Liên hệ ---------- */
 .icon-hang{display:flex;justify-content:center;gap:26px;margin-top:44px}
@@ -461,9 +449,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .anh-tran img{width:100%;height:auto}
   .so{margin-top:-10px}
   .hero .ke{width:100%}
-  .bang-viec li{grid-template-columns:90px minmax(0,1fr);gap:28px}
   .ve-toi h2.mot-dong{white-space:normal}
-  .bang-viec p{grid-column:2;margin-top:0}
   .nav ul{gap:20px}
   .kien-truc{right:-260px;top:-160px}
   .hero .chu-hero{margin:0 auto;transform:none}
@@ -504,7 +490,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   .cl-the button{font-size:13.5px;padding-right:8px}
   .bv-luoi{grid-template-columns:1fr;gap:40px}
   .bv-anh{aspect-ratio:16/10}
-  .dong-hanh{margin-top:72px}
   .so-vien{font-size:52px;left:20px;top:16px}
   .the-so{padding:22px 4px;border-radius:14px}
   .the-so>div{padding:2px 6px}
@@ -567,9 +552,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Cách tôi làm: ô đồ họa là tờ giấy sáng, nét mực navy */
 .cach-lam{background:transparent}
 .o-hinh{background:var(--van-giay),var(--to-giay);color:var(--muc);box-shadow:0 24px 44px rgba(47,59,74,.15),inset 0 0 0 1px rgba(110,95,70,.14)}
-/* Bài chọn lọc: ô hình là giấy sáng, hình bài tô mực navy qua mặt nạ như trong sổ tay */
-.bv-anh{background-color:var(--to-giay);background-size:320px 320px,cover;background-position:0 0,center;background-repeat:repeat,no-repeat;box-shadow:0 22px 40px rgba(47,59,74,.14),inset 0 0 0 1px rgba(110,95,70,.14)}
-.bv-net{position:absolute;left:50%;top:50%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%);background:var(--muc);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+/* Bài chọn lọc (Khánh đổi 25/09): ô hình là tờ giấy navy phủ vân giấy mịn, sóng nền và hình bài màu vàng cát (4.64:1 trên navy) */
+.bv-anh{background-color:#26303C;background-size:auto,cover,auto;background-position:0 0,center,center;background-repeat:repeat,no-repeat,no-repeat;box-shadow:0 22px 40px rgba(38,48,60,.24),inset 0 0 0 1px rgba(216,204,181,.18)}
+.bv-net{position:absolute;left:50%;top:50%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%);background:var(--cat);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 /* Chặng đường và chân trang trên giấy */
 .giay{background:transparent}
 @media(max-width:640px){.mo-dau .truot{--day:4px}}
@@ -844,7 +829,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       </p>
       <div class="nut-hang">
         <a class="nut chinh" href="#chang-duong">Xem chặng đường nghề</a>
-        <a class="nut phu" href="#dong-hanh">Việc tôi đang đồng hành</a>
       </div>
       <div class="ket-noi" id="lien-he">
         <div class="nhan">Kết nối với tôi</div>
@@ -1045,31 +1029,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="nganh">Hàng tiêu dùng</span>
           <b>Quản lý nhân sự vận hành, dự án khởi nghiệp Monkey in Black</b>
           <p>Ban tổ chức chương trình MIB Mentoring nội bộ hàng tháng.</p>
-        </li>
-      </ol>
-    </div>
-    <div class="dong-hanh" id="dong-hanh">
-      <div class="dau-muc">
-        <div>
-          <div class="nhan">Hiện tại</div>
-          <h2>Những việc tôi đang đồng hành</h2>
-        </div>
-      </div>
-      <ol class="bang-viec">
-        <li>
-          <div class="so-lon" aria-hidden="true">01</div>
-          <div><span class="doi-tuong">Hướng nghiệp</span><h3>Dẫn&nbsp;dắt sinh&nbsp;viên HUFLIT</h3></div>
-          <p>Trong chương trình HUFLIT Mentoring, việc của tôi là ngồi xuống cùng các bạn, hỏi những câu đủ sâu và gợi vài góc nhìn mới, để bạn trẻ tự tìm câu trả lời cho con đường của mình.</p>
-        </li>
-        <li>
-          <div class="so-lon" aria-hidden="true">02</div>
-          <div><span class="doi-tuong">Tư vấn nhân sự</span><h3>Dựng nền nhân&nbsp;sự cho doanh&nbsp;nghiệp nhỏ&nbsp;và&nbsp;vừa</h3></div>
-          <p>Doanh nghiệp nhỏ thường chưa có phòng nhân sự đủ người. Tôi cùng chủ doanh nghiệp bắt tay vào những việc đầu tiên: cơ cấu và mô tả công việc, cách trả lương, hợp đồng và nội quy đúng luật.</p>
-        </li>
-        <li>
-          <div class="so-lon" aria-hidden="true">03</div>
-          <div><span class="doi-tuong">Phát triển bản thân</span><h3>Học và thực&nbsp;hành tâm&nbsp;lý&nbsp;học chuyển&nbsp;hóa</h3></div>
-          <p>Tôi theo học đều đặn để hiểu mình rõ hơn, nhờ vậy nghe người khác trọn hơn, trong phòng họp cũng như trong mỗi buổi dẫn dắt sinh viên.</p>
         </li>
       </ol>
     </div>
@@ -1277,7 +1236,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       var cd=(window.CHU_DE||{})[b.chuDe]||{}, sap=b.ngay>homNay;
       var a=document.createElement('a'); a.className='bv-the'; a.href=b.duongDan;
       var anh=document.createElement('div'); anh.className='bv-anh';
-      anh.style.backgroundImage='var(--van-giay),url("anh-bai/nen-'+b.ma.replace(/\./g,'-')+'.svg")';
+      anh.style.backgroundImage='var(--van-giay),url("anh-bai/nen-'+b.ma.replace(/\./g,'-')+'.svg"),linear-gradient(160deg,#3B4859 0%,#26303C 100%)';
       if(b.anh){var net=document.createElement('span'); net.className='bv-net'; var u='url("'+encodeURI(b.anh)+'")'; net.style.webkitMaskImage=u; net.style.maskImage=u; anh.appendChild(net)}
       var nh=document.createElement('span'); nh.className='bv-nhan'; nh.textContent=(cd.stt?cd.stt+' · ':'')+(cd.ten||'');
       var h=document.createElement('h3'); h.textContent=b.tieuDe;
