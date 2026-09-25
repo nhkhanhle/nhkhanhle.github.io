@@ -103,3 +103,19 @@ footer.chan{padding:104px 0 36px}
   footer.chan{padding:72px 0 30px}
 }
 
+
+/* Câu trích chân trang (Khánh đổi 25/09): ba vế hôm qua, hôm nay, ngày mai, mỗi vế một dòng, lùi dần sang phải như ba bậc thời gian.
+   Điện thoại bỏ lùi để câu không bị ép hẹp. */
+.trich q.ba-ve span{display:block}
+.trich q.ba-ve span:nth-child(2){padding-left:1.4em}
+.trich q.ba-ve span:nth-child(3){padding-left:2.8em;color:var(--cat-dam)}
+@media(max-width:640px){.trich q.ba-ve span:nth-child(2),.trich q.ba-ve span:nth-child(3){padding-left:0}}
+
+/* Hoa tiết cột trái câu trích: đường chân trời có nửa mặt trời nhô lên, gợi "ngày mai"
+   (Khánh bỏ dấu ngoặc và chọn phương án này trong 3 phương án ngày 25/09). Nét vàng cát đậm 1.2. */
+.hoa-tiet{display:flex;align-items:center;justify-content:center;align-self:stretch;padding-right:34px;border-right:1px solid rgba(47,59,74,.14)}
+.hoa-tiet .ht{display:block;width:120px;height:94px;fill:none;stroke:var(--cat-dam);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:640px){
+  .hoa-tiet{padding-right:16px}
+  .hoa-tiet .ht{width:62px;height:50px}
+}

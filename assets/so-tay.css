@@ -32,7 +32,7 @@
    Khu vực sổ nới ra gần hết bề ngang màn hình để hai mũi tên vẫn nằm ngoài mép sổ. */
 /* Cả đầu trang, sổ và hàng điều khiển nằm trọn một màn hình: bề ngang trang sổ còn bị chặn theo chiều cao màn hình
    (chừa 360px cho menu, đầu trang, hàng điều khiển). */
-.so-tay{--zoom:1;--w:min(clamp(150px,calc((100vw - 200px) / 2),560px),calc((100svh - 360px) / .8));--ty:.8;--h:calc(var(--w) * var(--ty));position:relative;width:min(1300px,calc(100vw - 32px));left:50%;transform:translateX(-50%)}
+.so-tay{--zoom:1;--w:min(clamp(150px,calc((100vw - 200px) / 2),560px),calc((100svh - 430px) / .8));--ty:.8;--h:calc(var(--w) * var(--ty));position:relative;width:min(1300px,calc(100vw - 32px));left:50%;transform:translateX(-50%)}
 .st-san{position:relative;height:calc(var(--h) * var(--zoom) + 90px);padding-top:30px;overflow:hidden;overflow:clip;outline:0}
 .st-san:focus-visible .st-so{outline:2px solid var(--cat-dam);outline-offset:10px}
 .st-so{position:relative;width:calc(var(--w) * 2);height:var(--h);margin:0 auto;perspective:2600px;container-type:inline-size;
@@ -177,4 +177,13 @@
   .dau-so-hang{gap:12px}
   .dau-so-khac{gap:4px 16px}
   .dau-so-khac a{font-size:14.5px}
+}
+
+/* Khoảng trống quanh sổ (Khánh muốn 25/09): khu vực sổ chiếm trọn phần màn hình còn lại dưới đầu trang,
+   sổ nằm giữa với khoảng trống trên dưới; mục lục bị đẩy xuống dưới, cuộn mới thấy.
+   Bề ngang trang sổ chừa 430px chiều cao cho menu, đầu trang, hàng điều khiển và khoảng trống. */
+@media(min-width:641px){
+  .so-tay-trang .so-tay{min-height:calc(100svh - 200px);display:flex;flex-direction:column;justify-content:center;padding:clamp(20px,5svh,56px) 0}
+  .so-tay-trang .noi-dung{padding-top:0}
+  .so-tay-trang .muc-luc{margin-top:72px}
 }

@@ -250,7 +250,11 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .md-mui button:active{transform:scale(.96)}
 .md-mui button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
 /* Hai nút dời lên sát dưới vòng thẻ cho dễ bấm (Khánh muốn 25/09); điện thoại giữ chỗ cũ */
-@media(min-width:641px){.js .md-mui{transform:translateY(-24px)}}
+/* Hai nút nằm trong khung vòng thẻ, đặt theo chiều cao thẻ: luôn sát ngay dưới thẻ giữa ở mọi khổ màn hình
+   (1.12 cao thẻ: thẻ đang được nhấc lên khi chuyển xuống thấp hơn thẻ đứng yên khoảng 11% chiều cao). Không chừa thêm chỗ: chừa làm vòng bị đẩy lên đè dòng chữ phía trên. */
+.js .md-mui{position:absolute;left:50%;top:calc(var(--cao) * 1.12 + 4px);transform:translateX(-50%);z-index:5}
+/* Điện thoại: nút nằm trong dòng chảy ngay dưới vòng thẻ, không đè "Xem góc nhìn" */
+@media(max-width:640px){.js .md-mui{position:relative;left:auto;top:auto;transform:none;justify-content:center;margin-top:calc(var(--cao) * .1 + 8px)}.md-giua{padding:74px 0 6px;align-items:flex-start}}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -572,7 +576,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 @keyframes nhac-roi{0%{--noi:0px}45%{--noi:-60px}100%{--noi:0px}}
 .js .truot:not(.toa) .the-cd.toi{animation:nhac-toi 1.6s ease-in-out}
 .js .truot:not(.toa) .the-cd.roi{animation:nhac-roi 1.6s ease-in-out}
-@media(max-width:640px){@keyframes nhac-toi{0%{--noi:0px}45%{--noi:90px}100%{--noi:0px}}}
+@media(max-width:640px){@keyframes nhac-toi{0%{--noi:0px}45%{--noi:45px}100%{--noi:0px}}}
 /* Khi tự xoay: mọi đường cong đều bắt đầu và kết thúc với cùng tốc độ (dốc .25), nên qua ranh giới hai nấc
    không thẻ nào đổi tốc đột ngột, vòng chạy liên tục. Thẻ vào dẫn trước, thẻ ra lùi sau để chính diện luôn có thẻ.
    Hiệu ứng nhấc thẻ kéo dài bằng nhịp. */
@@ -752,12 +756,12 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
           <span class="mat-sau" aria-hidden="true"><span class="ms-so">Góc nhìn 06</span><span class="ms-ten">Chuyện công sở</span><span class="ms-mo">Những chuyện xảy ra giữa người với người ở chỗ làm: chuyện tôi gặp, chuyện tôi từng xử sai, và những gì còn lại sau đó.</span></span><span class="lop" style="--k:1" aria-hidden="true"></span><span class="lop" style="--k:2" aria-hidden="true"></span><span class="lop" style="--k:3" aria-hidden="true"></span><span class="lop" style="--k:4" aria-hidden="true"></span><span class="lop" style="--k:5" aria-hidden="true"></span><span class="lop" style="--k:6" aria-hidden="true"></span><span class="lop" style="--k:7" aria-hidden="true"></span><span class="lop" style="--k:8" aria-hidden="true"></span>
         </a>
       </div>
+      <div class="md-mui"><button type="button" class="md-lui" aria-label="Góc nhìn trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button><button type="button" class="md-toi" aria-label="Góc nhìn sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>
     </div>
   </div>
   <div class="khung md-duoi">
     <div class="md-dang" aria-hidden="true"><span class="md-so" data-md-so>01 / 06 · Góc nhìn</span><span class="md-ten" data-md-ten>Nghề nhân sự</span></div>
     <div class="md-dieu-khien">
-      <div class="md-mui"><button type="button" class="md-lui" aria-label="Góc nhìn trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button><button type="button" class="md-toi" aria-label="Góc nhìn sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>
       <a class="md-xem" href="chu-de/nghe-nhan-su.html" data-md-xem>Xem góc nhìn →</a>
     </div>
     <a class="cuon-xuong" href="#ve-toi"><span>Còn tiếp</span><i aria-hidden="true"></i></a>
@@ -1022,9 +1026,9 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 
 <footer class="chan">
   <div class="khung trich">
-    <span class="ngoac-lon" aria-hidden="true">“</span>
+    <span class="hoa-tiet" aria-hidden="true"><svg class="ht ht-c" viewBox="0 0 140 110"><path d="M6 90H134"/><path d="M36 90a34 34 0 0 1 68 0"/><path d="M70 42V30M44 52l-8-8M96 52l8-8M28 74H16M112 74h12"/><path d="M40 102H100" opacity=".5"/></svg></span>
     <blockquote>
-      <q>Bằng khao khát tự do trải nghiệm tạo nên nguồn cảm hứng đồng hành cùng thế hệ trẻ vươn tới đỉnh cao sự nghiệp</q>
+      <q class="ba-ve"><span>Học từ hôm qua,</span> <span>sống cho hôm nay,</span> <span>hy vọng vào ngày mai</span></q>
       <span class="gach" aria-hidden="true"></span>
     </blockquote>
   </div>
