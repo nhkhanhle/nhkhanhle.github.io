@@ -158,8 +158,8 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 @property --noi{syntax:"<length>";inherits:false;initial-value:0px}
 /* Khánh muốn thẻ lớn hơn trên máy tính (25/09): 23vw tối đa 300px nâng lên 27vw tối đa 390px,
    nhưng còn bị chặn theo chiều cao màn hình để vòng thẻ, hai nút và hàng dưới vẫn nằm trọn màn đầu.
-   Màn hình thấp thì giữ ít nhất cỡ cũ (23vw, tối đa 300px), không nhỏ hơn trước. */
-.truot{position:relative;width:100%;--rong:clamp(250px,max(min(23vw,300px),min(27vw,calc((100svh - 290px) * .568))),390px);--cao:calc(var(--rong)*4/3);--A:calc(var(--rong)*1.32);--B:calc(var(--rong)*1.01);--day:18px;--bo:var(--bo-the)}
+   Màn hình thấp thì giữ ít nhất cỡ cũ (23vw, tối đa 300px), không nhỏ hơn trước. Chừa 320px cho menu, tiêu đề một dòng "Những góc nhìn tôi hay viết", hai nút và hàng dưới. */
+.truot{position:relative;width:100%;--rong:clamp(250px,max(min(23vw,300px),min(27vw,calc((100svh - 320px) * .568))),390px);--cao:calc(var(--rong)*4/3);--A:calc(var(--rong)*1.32);--B:calc(var(--rong)*1.01);--day:18px;--bo:var(--bo-the)}
 /* Nét kiến trúc ẩn ở màn này, thêm nét nữa sau vòng thẻ thì rối */
 .mo-dau .kien-truc{display:none}
 /* Màu thẻ vòng elip: ngà dịu (Khánh chọn phương án A ngày 24/09), ngà ấm tối một bậc để không chói trên nền navy.
@@ -327,55 +327,47 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .nl-dong{display:grid;grid-template-columns:34px minmax(0,1fr);width:100%;padding:9px 12px;border:0;border-radius:var(--bo-nut);background:none;text-align:left;cursor:pointer;
   font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:15.5px;line-height:1.5;color:var(--nhat);transition:background .25s,color .25s}
 .nl-dong span{font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:13px;color:var(--cat-dam);padding-top:2px;transition:color .25s}
-.nl-dong:hover{background:rgba(47,59,74,.06);color:var(--muc)}
-.nl-dong[aria-current="true"]{background:var(--navy);color:#F1EADD}
-.nl-dong[aria-current="true"] span{color:var(--cat)}
+.nl-dong:hover{color:var(--muc)}
+/* Dòng đang chọn: bỏ khối navy (Khánh đổi 25/09), chữ đậm màu mực, gạch vàng giữ nguyên dưới chân */
+.nl-dong[aria-current="true"]{color:var(--muc);font-weight:500;background-image:linear-gradient(var(--cat),var(--cat));background-size:calc(100% - 58px) 1px;background-position:46px calc(100% - 4px);background-repeat:no-repeat}
+.nl-dong[aria-current="true"] span{color:var(--cat-dam)}
 .nl-dong:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
 /* Trang đọc nền navy (Khánh đổi 25/09): cùng kiểu thẻ góc nhìn, khung chỉ vàng nhạt; chữ kem, nhãn và số vàng cát (4.64:1 trên navy) */
 .nl-doc{position:relative;padding:54px clamp(28px,4vw,50px) 50px;background:var(--van-giay),linear-gradient(160deg,#3B4859 0%,#26303C 100%);color:#F1EADD;box-shadow:0 30px 56px -20px rgba(26,32,40,.5)}
 .nl-doc .khung-chi i{background:#303B49}
 .nl-trang{position:static}
 .nl-trang>*:not(.nl-hinh){position:relative;z-index:1}
-.nl-trang+.nl-trang{margin-top:40px;padding-top:40px;border-top:1px solid var(--ke-sang)}
 .js .nl-trang{display:none}
 .js .nl-trang.hien{display:block}
-.js .nl-trang+.nl-trang{margin-top:0;padding-top:0;border-top:0}
 /* Hình đại diện nhóm (Khánh đổi 25/09): phóng lớn làm nền chìm sau nền navy của cả thẻ */
 .nl-hinh{position:absolute;right:-6%;bottom:-8%;width:78%;color:var(--cat);opacity:.12;pointer-events:none;z-index:0}
 .nl-hinh svg{width:100%;height:auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .nl-trang .nhan{font-size:12px;color:var(--cat)}
 /* Số và tên năng lực cùng một hàng, canh theo chân chữ */
-.nl-dau{display:flex;align-items:flex-end;gap:clamp(16px,2vw,26px);margin-top:18px}
+.nl-dau{display:flex;align-items:flex-end;gap:clamp(16px,2vw,26px)}
 .nl-so{flex:none;margin-top:0;font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:clamp(54px,5.6vw,78px);line-height:.9;color:var(--cat)}
 @supports(-webkit-text-stroke:1px black){.nl-so{color:transparent;-webkit-text-stroke:1px var(--cat)}}
 .nl-trang h3{margin-top:0;padding-bottom:.08em;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(28px,3vw,38px);line-height:1.2;color:#F1EADD;text-wrap:balance}
 .nl-trang p{margin-top:22px;font-size:16.5px;line-height:1.85;color:rgba(241,234,221,.82)}
-.nl-lat{display:none;gap:10px;margin-top:34px}
-.js .nl-lat{display:flex}
-.nl-lat button{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid rgba(216,204,181,.4);background:transparent;color:#F1EADD;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
-.nl-lat button::before{content:"";position:absolute;inset:3px;border-radius:50%;border:1px dashed rgba(216,204,181,.35)}
-.nl-lat svg{width:15px;height:15px}
-.nl-lat button:hover{background:var(--cat);color:var(--navy);border-color:var(--cat)}
-.nl-lat button:focus-visible{outline:2px solid var(--cat);outline-offset:3px}
-/* Hiệu ứng Năng lực (Khánh chọn 25/09): thẻ mở ra từ mép trái như lật trang sổ mỗi lần chọn dòng; chữ hiện theo vệt quét trái sang phải như mực thấm;
-   mục lục hiện dần từng dòng khi cuộn tới; rê chuột lên dòng thì gạch vàng mảnh chạy ra dưới chữ. Máy bật giảm chuyển động thì đứng yên. */
+/* Hiệu ứng Năng lực (Khánh đổi 25/09): thẻ ẩn cho tới khi rê chuột hoặc bấm một dòng; hiện ra từ mờ sang rõ, kèm một vòng sáng vàng tỏa ra từ giữa thẻ.
+   Mục lục hiện dần từng dòng khi cuộn tới; rê chuột lên dòng thì gạch vàng mảnh chạy ra dưới chữ. Máy bật giảm chuyển động thì thẻ hiện ngay, không chuyển động. */
+.js .nl-doc:not(.co){visibility:hidden;opacity:0}
+.nl-doc::after{content:"";position:absolute;left:50%;top:50%;width:140%;aspect-ratio:1;border-radius:50%;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.2);
+  background:radial-gradient(circle,rgba(216,204,181,.28) 0%,rgba(216,204,181,.1) 38%,transparent 62%)}
 @media(prefers-reduced-motion:no-preference){
-  .nl-doc.mo{animation:mo-trang .65s cubic-bezier(.25,.8,.25,1) both}
-  .nl-doc.mo .nl-trang.hien .nhan,.nl-doc.mo .nl-trang.hien .nl-dau,.nl-doc.mo .nl-trang.hien p{
-    -webkit-mask:linear-gradient(90deg,#000 42%,transparent 50%) 100% 0/240% 100% no-repeat;mask:linear-gradient(90deg,#000 42%,transparent 50%) 100% 0/240% 100% no-repeat;
-    animation:muc-tham .8s cubic-bezier(.4,0,.2,1) both .1s}
-  .nl-doc.mo .nl-trang.hien .nl-dau{animation-delay:.25s}
-  .nl-doc.mo .nl-trang.hien p{animation-duration:1.1s;animation-delay:.45s}
+  .nl-doc.mo{animation:hien-ro .7s cubic-bezier(.2,.7,.2,1) both}
+  .nl-doc.mo::after{animation:toa-ra 1s cubic-bezier(.2,.7,.2,1) both}
   .js .nl-muc:not(.da-hien) .nhan,.js .nl-muc:not(.da-hien) li{opacity:0;transform:translateY(12px)}
   .js .nl-muc .nhan,.js .nl-muc li{transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--k,0) * .04s)}
-  .nl-dong:not([aria-current="true"]){background-image:linear-gradient(var(--cat),var(--cat));background-size:0 1px;background-position:46px calc(100% - 4px);background-repeat:no-repeat}
-  .nl-dong:not([aria-current="true"]):hover{background-size:calc(100% - 58px) 1px;transition:background-size .4s ease,background-color .25s,color .25s}
+  .nl-dong{background-image:linear-gradient(var(--cat),var(--cat));background-size:0 1px;background-position:46px calc(100% - 4px);background-repeat:no-repeat;transition:background-size .4s ease,color .25s}
+  .nl-dong:hover{background-size:calc(100% - 58px) 1px}
 }
-@keyframes mo-trang{from{clip-path:inset(0 100% 0 0 round var(--bo-the));transform:translateX(-18px)}to{clip-path:inset(0 0 0 0 round var(--bo-the));transform:none}}
-@keyframes muc-tham{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
+@keyframes hien-ro{from{opacity:0;filter:blur(12px);transform:scale(.94)}to{opacity:1;filter:none;transform:none}}
+@keyframes toa-ra{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.15)}}
 @media(max-width:860px){
   .nl{grid-template-columns:1fr;gap:36px}
   .nl-doc{order:-1;scroll-margin-top:90px}
+  .js .nl-doc:not(.co){display:none}
 }
 @media(max-width:640px){
   .nl-doc{padding:40px 26px 34px}
@@ -543,6 +535,14 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 /* Màn mở đầu */
 .md-tren h2{color:var(--cat-dam)}
 .md-tren h2::before{background:var(--cat-dam)}
+/* Tiêu đề màn mở đầu (Khánh chọn phương án C 25/09, không liệt kê sáu góc nhìn): nhãn nhỏ "Góc nhìn" trên, tiêu đề Playfair một dòng (Khánh đổi 25/09), vế sau nghiêng màu nâu */
+.md-tren{display:block}
+.md-tren .nhan{font-size:11.5px;color:var(--cat-dam)}
+.md-tren h2{margin-top:6px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(26px,2.5vw,36px);letter-spacing:0;text-transform:none;line-height:1.1;color:var(--muc)}
+@media(min-width:641px){.mo-dau{padding-top:22px}}
+@media(max-width:640px){.md-tren h2{font-size:clamp(20px,6.9vw,28px);white-space:nowrap}}
+.md-tren h2::before{content:none}
+.md-tren h2 em{font-style:italic;color:var(--cat-dam)}
 .mo-dau .dinh-vi-lon{color:var(--nhat)}
 .mo-dau .dinh-vi-lon b{color:var(--muc)}
 .md-so{color:var(--cat-dam)}
@@ -732,7 +732,8 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   </svg>
   <h1>Lê Nhật Khánh</h1>
   <div class="khung md-tren">
-    <h2>Những mảng tôi hay viết</h2>
+    <div class="nhan">Góc nhìn</div>
+    <h2>Những góc nhìn <em>tôi hay viết.</em></h2>
   </div>
   <div class="md-giua">
     <div class="truot" data-truot role="region" aria-roledescription="carousel" aria-label="Sáu góc nhìn" tabindex="0">
@@ -975,101 +976,84 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       <span class="khung-chi" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <div class="nl-trang" data-i="0">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-          <div class="nhan">Năng lực lãnh đạo</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">01</div><h3>Hoạch định chiến lược nhân sự</h3></div>
           <p>Tôi bắt đầu kế hoạch nhân sự từ kế hoạch kinh doanh của năm tới, rồi ngồi cùng ban lãnh đạo tính xem cần thêm bao nhiêu người, ở vị trí nào và cần có mặt từ tháng nào. Những con số đó được chia thành việc tuyển, việc đào tạo và việc giữ người, mỗi phần có mốc thời gian và người chịu trách nhiệm. Nhờ chuẩn bị từ sớm, khi công ty mở thêm việc thì đội ngũ đã đứng sẵn ở đó.</p>
         </div>
         <div class="nl-trang" data-i="1">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-          <div class="nhan">Năng lực lãnh đạo</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">02</div><h3>Xây dựng hệ thống quản trị chiến lược</h3></div>
           <p>Tôi cùng ban lãnh đạo chia mục tiêu chung của công ty thành mục tiêu cho từng phòng ban, rồi chọn vài con số chính để cả nhà cùng theo dõi. Định kỳ chúng tôi ngồi lại rà, con số nào lệch thì tìm nguyên nhân trước khi tìm người chịu lỗi. Khi ai cũng thấy việc mình làm góp vào đâu, người ta tự điều chỉnh mà không cần ai nhắc.</p>
         </div>
         <div class="nl-trang" data-i="2">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-          <div class="nhan">Năng lực lãnh đạo</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">03</div><h3>Dẫn dắt văn hóa doanh nghiệp</h3></div>
           <p>Tôi đưa những giá trị viết trên tường vào thói quen nhỏ mỗi ngày: cách góp ý trong cuộc họp, cách xử lý khi có người lỡ sai. Việc này tôi bắt đầu từ người quản lý, vì nhân viên luôn nhìn cách người đi trước làm rồi mới tin vào điều được nói. Văn hóa thành hình khi cả những ngày bình thường nhất cũng giữ được cách cư xử ấy.</p>
         </div>
         <div class="nl-trang" data-i="3">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-          <div class="nhan">Năng lực lãnh đạo</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">04</div><h3>Phát triển đội ngũ kế cận</h3></div>
           <p>Tôi tìm những bạn có tiềm năng, giao cho họ việc khó hơn sức hiện tại một chút và ở bên cạnh những lúc họ vấp. Ở dự án Monkey in Black, tôi tổ chức chương trình MIB Mentoring nội bộ hàng tháng để người đi trước kèm người đi sau. Đến ngày một vị trí quản lý cần người, công ty đã có người trong nhà đủ vững để bước lên.</p>
         </div>
         <div class="nl-trang" data-i="4">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M10 82 36 50l14 12 22-32 18 52"/><path d="M72 30V12l13 5-13 5"/></svg></span>
-          <div class="nhan">Năng lực lãnh đạo</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">05</div><h3>Huấn luyện cho đội ngũ</h3></div>
           <p>Tôi ngồi xuống cùng người quản lý và nhân viên, nghe hết câu chuyện rồi mới hỏi, hỏi thẳng vào chỗ đang vướng mà không phán xét. Mỗi buổi trò chuyện đều có mục tiêu rõ và kết thúc bằng một bước làm cụ thể cho tuần sau. Lời giải người ta tự tìm ra thường đi xa hơn lời giải được trao sẵn.</p>
         </div>
         <div class="nl-trang" data-i="5">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">06</div><h3>Quản trị hiệu suất</h3></div>
           <p>Tôi cùng từng phòng ban đặt mục tiêu, thống nhất cách đo và cách đánh giá ngay từ đầu kỳ, để cuối kỳ không ai bất ngờ với kết quả của mình. Người làm tốt được ghi nhận đúng công sức, người chưa tốt nhận một lời góp ý cụ thể kèm kế hoạch cải thiện. Qua nhiều kỳ đánh giá ở 4 ngành khác nhau, tôi thấy người ta chấp nhận kết quả khi hiểu cách tính, kể cả lúc con số chưa đẹp.</p>
         </div>
         <div class="nl-trang" data-i="6">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">07</div><h3>Khung năng lực</h3></div>
           <p>Tôi viết ra mỗi vị trí cần biết gì, làm được gì và cư xử ra sao ở từng cấp độ, bằng những câu mà người trong cuộc đọc là nhận ra việc hằng ngày của mình. Từ khung đó, việc tuyển người, đào tạo và xét thăng tiến cùng nhìn vào một thước đo. Mỗi nhân viên biết rõ bước tiếp theo trên con đường nghề của mình nằm ở đâu.</p>
         </div>
         <div class="nl-trang" data-i="7">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">08</div><h3>Thu hút nhân tài</h3></div>
           <p>Tôi tìm người vừa làm được việc vừa hợp với cách làm của đội, và trước khi họ nhận lời, tôi kể thật về công việc, cả phần dễ lẫn phần khó. Ứng viên biết rõ điều mình sắp bước vào thì ở lại lâu hơn và bắt nhịp nhanh hơn. Với tôi, tuyển chậm một chút vẫn hơn tuyển sai.</p>
         </div>
         <div class="nl-trang" data-i="8">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">09</div><h3>Tổng đãi ngộ</h3></div>
           <p>Tôi dựng bảng lương, thưởng và phúc lợi dựa trên mặt bằng thị trường và sự công bằng giữa những người trong công ty. Mỗi mức thu nhập đều có lý do giải thích được, và nhân viên biết cần làm gì để nó tăng lên. Con số trên phiếu lương chạm tới cả một gia đình phía sau, nên tôi tính nó cẩn thận như tính cho nhà mình.</p>
         </div>
         <div class="nl-trang" data-i="9">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">10</div><h3>Quan hệ lao động và pháp luật lao động</h3></div>
           <p>Tôi rà hợp đồng, nội quy và quy trình kỷ luật để công ty làm đúng Bộ luật Lao động ngay từ những giấy tờ đầu tiên. Khi có va chạm, tôi ngồi nghe cả hai phía và gỡ sớm, trước khi chuyện thành tranh chấp. Làm đúng luật từ đầu giữ cho cả người lao động lẫn doanh nghiệp cùng yên tâm.</p>
         </div>
         <div class="nl-trang" data-i="10">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M14 84h72"/><path d="M22 84V64h12v20M44 84V50h12v34M66 84V34h12v50"/><path d="M20 50 42 36l16 6 24-22"/><path d="M72 20h10v10"/></svg></span>
-          <div class="nhan">Năng lực chuyên môn</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">11</div><h3>Đào tạo và tư vấn nhân sự</h3></div>
           <p>Tôi quan sát công việc hằng ngày và trò chuyện với người quản lý để tìm ra năng lực còn hụt, rồi mới thiết kế chương trình học lấp đúng chỗ đó. Với doanh nghiệp nhỏ chưa có phòng nhân sự, tôi cùng chủ doanh nghiệp dựng những việc nền đầu tiên: cơ cấu, mô tả công việc, cách trả lương và nội quy. Một lớp học có ích khi người học mang được nó vào việc ngay tuần sau.</p>
         </div>
         <div class="nl-trang" data-i="11">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-          <div class="nhan">Năng lực cá nhân</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">12</div><h3>Lắng nghe không phán xét</h3></div>
           <p>Tôi để người đối diện nói hết, không ngắt lời và không vội kết luận, kể cả khi câu chuyện khó nghe. Tôi theo học tâm lý học chuyển hóa để hiểu mình rõ hơn, nhờ vậy nghe người khác trọn hơn. Khi thấy mình được nghe mà không bị đánh giá, người ta mới dám nói thật điều đang vướng.</p>
         </div>
         <div class="nl-trang" data-i="12">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-          <div class="nhan">Năng lực cá nhân</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">13</div><h3>Chính trực và giữ chữ tín</h3></div>
           <p>Điều gì đã hứa, tôi làm cho bằng được; chưa làm được thì tôi báo sớm và nói rõ lý do. Những câu chuyện người khác tin mà kể riêng với tôi, tôi giữ kín. Niềm tin xây rất lâu mà mất chỉ trong một lần, nên tôi giữ nó cẩn thận như giữ tên mình.</p>
         </div>
         <div class="nl-trang" data-i="13">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-          <div class="nhan">Năng lực cá nhân</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">14</div><h3>Tư duy hệ thống</h3></div>
           <p>Khi một phòng có nhiều người nghỉ việc, tôi nhìn cả cách giao việc, cách quản lý lẫn mức lương rồi mới đề xuất cách sửa. Một vấn đề về người hiếm khi chỉ có một nguyên nhân, nên tôi lần tới gốc trước khi chữa ngọn. Sửa tận gốc thì chậm hơn một chút, nhưng vết cũ không quay lại.</p>
         </div>
         <div class="nl-trang" data-i="14">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-          <div class="nhan">Năng lực cá nhân</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">15</div><h3>Thích nghi đa ngành</h3></div>
           <p>Tôi đã làm nhân sự trong 4 ngành: ẩm thực, hàng tiêu dùng, kiến trúc nội thất và giờ là chăm sóc sức khỏe. Mỗi lần sang ngành mới, tôi học cách ngành đó vận hành và nghe người ở đó trước khi đề xuất thay đổi. Luật chơi mỗi nơi một khác, còn điều con người cần thì khá giống nhau.</p>
         </div>
         <div class="nl-trang" data-i="15">
           <span class="nl-hinh" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="30" cy="50" r="7"/><path d="M46 34a22 22 0 0 1 0 32M58 24a36 36 0 0 1 0 52M70 14a50 50 0 0 1 0 72"/></svg></span>
-          <div class="nhan">Năng lực cá nhân</div>
           <div class="nl-dau"><div class="nl-so" aria-hidden="true">16</div><h3>Học hỏi không ngừng</h3></div>
           <p>Sau 12 năm đi làm, tôi vẫn giữ thói quen ngồi vào lớp học. Riêng năm 2026, tôi hoàn thành hai chương trình chứng nhận của Học viện Quản lý PACE: Giám đốc nhân sự và Năng lực Coaching dành cho lãnh đạo. Con người luôn đổi thay, nên người làm nghề nhân sự cũng không thể đứng yên.</p>
         </div>
-      <div class="nl-lat"><button type="button" data-nl-lui aria-label="Năng lực trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button><button type="button" data-nl-toi aria-label="Năng lực sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button></div>
     </div>
     </div>
   </div>
@@ -1284,23 +1268,26 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     var dau=document.querySelector('.mo-dau');
     if(dau)new IntersectionObserver(function(ds){if(ds[0].isIntersecting)lienKet.forEach(function(a){a.setAttribute('aria-current','false')})},{rootMargin:'-45% 0px -50% 0px'}).observe(dau);
   }
-  /* Năng lực: bấm dòng trong mục lục (hoặc hai nút lật) thì trang đọc hiện năng lực đó. Điện thoại: bấm xong cuộn lên trang đọc. */
+  /* Năng lực: thẻ ẩn cho tới khi rê chuột (máy có chuột) hoặc bấm một dòng. Rê qua các dòng thì thẻ đổi theo sau một nhịp ngắn để khỏi chớp;
+     bấm thì giữ dòng đó. Điện thoại: bấm xong cuộn tới thẻ. */
   var nlDoc=document.getElementById('nl-doc');
   if(nlDoc){
-    var nlDong=[].slice.call(document.querySelectorAll('.nl-dong')), nlTrang=[].slice.call(nlDoc.querySelectorAll('.nl-trang')), nlHien=0;
-    var nlHen=null, nlMuc=document.querySelector('.nl-muc');
-    function nlChon(k,cuon,dong){
-      nlHien=(k+nlTrang.length)%nlTrang.length;
-      nlTrang.forEach(function(t,i){t.classList.toggle('hien',i===nlHien)});
-      /* Mỗi lần chọn: bỏ lớp mo rồi gắn lại để thẻ mở ra từ đầu; xong thì gỡ để không còn mặt nạ trên chữ */
-      if(dong&&!giam){nlDoc.classList.remove('mo');void nlDoc.offsetWidth;nlDoc.classList.add('mo');clearTimeout(nlHen);nlHen=setTimeout(function(){nlDoc.classList.remove('mo')},1700)}
-      nlDong.forEach(function(b,i){b.setAttribute('aria-current',i===nlHien?'true':'false')});
+    var nlDong=[].slice.call(document.querySelectorAll('.nl-dong')), nlTrang=[].slice.call(nlDoc.querySelectorAll('.nl-trang')), nlMuc=document.querySelector('.nl-muc');
+    var nlHien=-1, nlHen=null, nlRe=null, coChuot=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    function nlChon(k,cuon){
+      if(k===nlHien&&nlDoc.classList.contains('co'))return;
+      nlHien=k;
+      nlTrang.forEach(function(t,i){t.classList.toggle('hien',i===k)});
+      nlDong.forEach(function(b,i){b.setAttribute('aria-current',i===k?'true':'false')});
+      nlDoc.classList.add('co');
+      if(!giam){nlDoc.classList.remove('mo');void nlDoc.offsetWidth;nlDoc.classList.add('mo');clearTimeout(nlHen);nlHen=setTimeout(function(){nlDoc.classList.remove('mo')},1100)}
       if(cuon&&window.matchMedia('(max-width:860px)').matches)nlDoc.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     }
-    nlDong.forEach(function(b,i){b.addEventListener('click',function(){nlChon(i,true,true)})});
-    nlDoc.querySelector('[data-nl-lui]').addEventListener('click',function(){nlChon(nlHien-1,false,true)});
-    nlDoc.querySelector('[data-nl-toi]').addEventListener('click',function(){nlChon(nlHien+1,false,true)});
-    nlChon(0);
+    nlDong.forEach(function(b,i){
+      b.addEventListener('click',function(){clearTimeout(nlRe);nlChon(i,true)});
+      if(coChuot)b.addEventListener('mouseenter',function(){clearTimeout(nlRe);nlRe=setTimeout(function(){nlChon(i)},120)});
+    });
+    if(coChuot)nlMuc.addEventListener('mouseleave',function(){clearTimeout(nlRe)});
     /* Mục lục hiện dần từng dòng khi cuộn tới (không có IntersectionObserver thì hiện luôn) */
     [].forEach.call(nlMuc.querySelectorAll('.nhan,li'),function(e,i){e.style.setProperty('--k',i)});
     if('IntersectionObserver' in window&&!giam){var nlIo=new IntersectionObserver(function(ds){if(ds[0].isIntersecting){nlMuc.classList.add('da-hien');nlIo.disconnect()}},{threshold:.15});nlIo.observe(nlMuc)}

@@ -45,9 +45,8 @@
   var o = lop.querySelector('input'), kq = lop.querySelector('[data-kq]'), docKq = lop.querySelector('[data-doc-kq]'), dong = lop.querySelector('.nut-dong');
 
   function goiY(){
+    /* Chưa gõ gì thì để trống (Khánh bỏ dòng gợi ý 25/09) */
     kq.innerHTML=''; docKq.textContent='';
-    var p = tao('p','goi-y','Gõ vài chữ để tìm trong 6 góc nhìn, các bài viết và nội dung trang chủ. Không cần bỏ dấu.');
-    kq.appendChild(p);
   }
 
   /* Cắt một đoạn quanh chỗ khớp để người đọc thấy ngữ cảnh */
