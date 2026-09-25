@@ -50,7 +50,8 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .ky-ten{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--muc);flex:none}
 .ky-chu{font-family:"Playfair Display",serif;font-weight:600;font-size:27px;letter-spacing:-.05em;line-height:1}
 .ky-chu i{font-style:normal;color:var(--cat)}
-.ky-ten-chu b{display:block;font-weight:500;font-size:14px;line-height:1.25}
+/* Hai dòng cạnh chữ ký nk. (Khánh đổi 25/09): HAPPY RELATIONSHIP trên, HUMAN RESOURCES dưới, cùng in hoa; trước là tên Lê Nhật Khánh và Human Resources */
+.ky-ten-chu b{display:block;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:12px;letter-spacing:.2em;line-height:1.25;text-transform:uppercase}
 .ky-ten-chu small{display:block;margin-top:2px;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--nhat)}
 .ky-ten:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px;border-radius:6px}
 .nav-dai .nav-vien{display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 6px 20px rgba(47,59,74,.06)}
@@ -74,6 +75,7 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
    Phải: địa chỉ email và dòng chú thích nhỏ. Câu trích cũ giữ nguyên phía trên thanh. */
 .chan-thanh{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:32px;margin-top:88px;padding-top:0;border-top:1px solid rgba(47,59,74,.12);max-width:1240px}
 .ct-trai{padding-top:22px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:1.9;text-transform:uppercase;color:var(--nhat)}
+.ct-phai{padding-top:22px;text-align:right;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:1.9;text-transform:uppercase;color:var(--nhat)}
 .ct-giua{display:flex;gap:clamp(24px,4vw,64px)}
 .ct-giua a{position:relative;display:block;padding-top:20px;text-decoration:none;color:var(--nhat);font-size:14px;transition:color .2s}
 .ct-giua a b{display:block;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;color:var(--nhat);margin-bottom:4px}
@@ -81,10 +83,6 @@ body.giay-cu{background:var(--giay-cu);--cat-dam:#5F5240;--nhat:#4F5966}
 .ct-giua a:hover,.ct-giua a[aria-current="true"]{color:var(--muc)}
 .ct-giua a[aria-current="true"]::before{transform:scaleX(1)}
 .ct-giua a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
-.ct-phai{padding-top:20px;text-align:right}
-.ct-phai a{font-size:14.5px;color:var(--muc);text-decoration:none;border-bottom:1px solid rgba(47,59,74,.2)}
-.ct-phai a:hover{border-color:var(--cat-dam)}
-.ct-phai small{display:block;margin-top:6px;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--nhat)}
 footer.chan{padding:104px 0 36px}
 
 @media(max-width:960px){
@@ -99,7 +97,7 @@ footer.chan{padding:104px 0 36px}
   .nav-dai .nav-vien{overflow:visible}
   .chan-thanh{grid-template-columns:1fr;gap:6px;margin-top:64px}
   .ct-giua{flex-wrap:wrap;gap:8px 28px}
-  .ct-phai{text-align:left}
+  .ct-phai{text-align:left;padding-top:0}
   footer.chan{padding:72px 0 30px}
 }
 

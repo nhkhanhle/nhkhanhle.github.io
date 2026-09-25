@@ -291,6 +291,10 @@ h2 em{font-style:italic;color:var(--cat-dam)}
 .js .truot.toa .the-cd[data-o="giua"] .khung-chi::before{border-color:rgba(95,82,64,.16)}
 .js .truot.toa .the-cd[data-o="giua"] .khung-chi i{border-color:rgba(95,82,64,.42);background:#F6F0E6}
 .khung-chi,.khung-chi::before,.khung-chi i{transition:border-color .9s,background .9s}
+/* Chữ ký tay (Khánh chọn 25/09): nằm bên phải hai nút email, Zalo ở hàng Kết nối với tôi, mực navy.
+   chu-ky.png (1000x640): nét mực tách từ ảnh chữ ký gốc, làm dày 3px, kèm "L.N.K" viết tay (phông Nothing You Could Do)
+   dưới gạch chân, vẽ sẵn vào ảnh nên trang không tải thêm phông. Dùng làm mặt nạ để tô màu bằng CSS. */
+.ky-ket-noi{margin-left:auto;align-self:center;width:clamp(170px,40%,230px);aspect-ratio:1000/640;background:var(--muc);-webkit-mask:url(chu-ky.png) center/contain no-repeat;mask:url(chu-ky.png) center/contain no-repeat}
 .truot:focus{outline:0}
 .truot:focus-visible{outline:1px solid var(--cat);outline-offset:10px}
 .cham button:focus-visible{outline:2px solid var(--cat);outline-offset:4px}
@@ -705,10 +709,10 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
 
 <nav class="nav nav-dai" aria-label="Menu chính">
   <div class="khung nav-khung">
-    <a class="ky-ten" href="#" aria-label="Lê Nhật Khánh, về đầu trang"><span class="ky-chu" aria-hidden="true">nk<i>.</i></span><span class="ky-ten-chu"><b>Lê Nhật Khánh</b><small>Human Resources</small></span></a>
+    <a class="ky-ten" href="#" aria-label="Lê Nhật Khánh, về đầu trang"><span class="ky-chu" aria-hidden="true">nk<i>.</i></span><span class="ky-ten-chu"><b>Happy Relationship</b><small>Human Resources</small></span></a>
     <ul class="nav-vien">
-      <li><a href="#ve-toi" data-muc="ve-toi"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H48V120l80-80,80,80Z"/></svg><span class="nh">Xưởng</span></a></li>
-      <li><a href="#cach-lam" data-muc="cach-lam"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,97.89,158.11,118,118l40.15-20.07Z"/></svg><span class="nh">Cách tôi làm</span></a></li>
+      <li><a href="#ve-toi" data-muc="ve-toi"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H48V120l80-80,80,80Z"/></svg><span class="nh">Về tôi</span></a></li>
+      <li><a href="#cach-lam" data-muc="cach-lam"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,97.89,158.11,118,118l40.15-20.07Z"/></svg><span class="nh">Năng lực</span></a></li>
       <li><a href="#bai-viet" data-muc="bai-viet"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></svg><span class="nh">Bài viết</span></a></li>
       <li><a href="#chang-duong" data-muc="chang-duong"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></svg><span class="nh">Chặng đường</span></a></li>
     </ul>
@@ -728,7 +732,6 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
   <h1>Lê Nhật Khánh</h1>
   <div class="khung md-tren">
     <h2>Những mảng tôi hay viết</h2>
-    <p class="dinh-vi-lon"><span class="cum"><b>H</b>uman <b>R</b>esources</span> <span class="cham-giua">·</span> <span class="cum"><b>H</b>appy <b>R</b>elationship</span></p>
   </div>
   <div class="md-giua">
     <div class="truot" data-truot role="region" aria-roledescription="carousel" aria-label="Sáu góc nhìn" tabindex="0">
@@ -855,6 +858,7 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
       <a class="icon-nut" href="https://zalo.me/0902767039" target="_blank" rel="noopener" title="Kết nối qua Zalo" aria-label="Kết nối với Lê Nhật Khánh qua Zalo">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.49 10.2722v-.4496h1.3467v6.3218h-.7704a.576.576 0 01-.5763-.5729l-.0006.0005a3.273 3.273 0 01-1.9372.6321c-1.8138 0-3.2844-1.4697-3.2844-3.2823 0-1.8125 1.4706-3.2822 3.2844-3.2822a3.273 3.273 0 011.9372.6321l.0006.0005zM6.9188 7.7896v.205c0 .3823-.051.6944-.2995 1.0605l-.03.0343c-.0542.0615-.1815.206-.2421.2843L2.024 14.8h4.8948v.7682a.5764.5764 0 01-.5767.5761H0v-.3622c0-.4436.1102-.6414.2495-.8476L4.8582 9.23H.1922V7.7896h6.7266zm8.5513 8.3548a.4805.4805 0 01-.4803-.4798v-7.875h1.4416v8.3548H15.47zM20.6934 9.6C22.52 9.6 24 11.0807 24 12.9044c0 1.8252-1.4801 3.306-3.3066 3.306-1.8264 0-3.3066-1.4808-3.3066-3.306 0-1.8237 1.4802-3.3044 3.3066-3.3044zm-10.1412 5.253c1.0675 0 1.9324-.8645 1.9324-1.9312 0-1.065-.865-1.9295-1.9324-1.9295s-1.9324.8644-1.9324 1.9295c0 1.0667.865 1.9312 1.9324 1.9312zm10.1412-.0033c1.0737 0 1.945-.8707 1.945-1.9453 0-1.073-.8713-1.9436-1.945-1.9436-1.0753 0-1.945.8706-1.945 1.9436 0 1.0746.8697 1.9453 1.945 1.9453z"/></svg>
       </a>
+      <span class="ky-ket-noi" aria-hidden="true"></span>
         </div>
       </div>
     </div>
@@ -1060,14 +1064,14 @@ a,button,summary,label,input{touch-action:manipulation;-webkit-tap-highlight-col
     </blockquote>
   </div>
   <div class="khung chan-thanh">
-    <p class="ct-trai">Human Resources ·<br>Happy Relationship</p>
+    <p class="ct-trai">Human Resources</p>
     <nav class="ct-giua" aria-label="Các phần trang chủ">
-      <a href="#ve-toi" data-muc="ve-toi"><b>01</b>Xưởng</a>
-      <a href="#cach-lam" data-muc="cach-lam"><b>02</b>Cách tôi làm</a>
+      <a href="#ve-toi" data-muc="ve-toi"><b>01</b>Về tôi</a>
+      <a href="#cach-lam" data-muc="cach-lam"><b>02</b>Năng lực</a>
       <a href="#bai-viet" data-muc="bai-viet"><b>03</b>Bài viết</a>
       <a href="#chang-duong" data-muc="chang-duong"><b>04</b>Chặng đường</a>
     </nav>
-    <div class="ct-phai"><a href="mailto:nhkhanhle@gmail.com">nhkhanhle@gmail.com</a><small>Kết nối với tôi</small></div>
+    <p class="ct-phai">Happy Relationship</p>
   </div>
 </footer>
 
