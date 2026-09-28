@@ -135,6 +135,66 @@
   });
   san.addEventListener('pointercancel',function(){x0=null;keo=false});
 
+  /* ---------- Máy có chuột: tự xoay khi rê vào dàn sách, ánh sáng phép thuật khi lại gần hình trên bìa ---------- */
+  var coChuot=window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(coChuot){
+    /* Lớp ánh sáng của từng cuốn: quầng, tia, 12 hạt lấp lánh rải quanh hình */
+    o.forEach(function(li){
+      var a=li.querySelector('.sach'), p=tao('span','phep'), h='<b class="hao"></b><b class="tia"></b>';
+      for(var k=0;k<12;k++){
+        var g=(k/12+Math.random()*.06)*Math.PI*2, r=26+Math.random()*30, t=(1.5+Math.random()*1.4).toFixed(2);
+        h+='<i style="--x:calc(var(--rong) * '+(Math.cos(g)*r/100).toFixed(3)+');--y:calc(var(--rong) * '+(Math.sin(g)*r/100).toFixed(3)+');--c:'+Math.round(7+Math.random()*9)+'px;--t:'+t+'s;--d:-'+(Math.random()*t).toFixed(2)+'s"></i>';
+      }
+      p.setAttribute('aria-hidden','true'); p.innerHTML=h; a.appendChild(p);
+    });
+    function datTam(){
+      o.forEach(function(li){
+        var a=li.querySelector('.sach'), hh=li.querySelector('.bia-hinh'); if(!a.offsetWidth)return;
+        a.style.setProperty('--hx',((hh.offsetLeft+hh.offsetWidth/2)/a.offsetWidth*100).toFixed(1)+'%');
+        a.style.setProperty('--hy',((hh.offsetTop+hh.offsetHeight/2)/a.offsetHeight*100).toFixed(1)+'%');
+      });
+    }
+    datTam(); addEventListener('resize',datTam);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(datTam);
+
+    var trongDan=false, ganMax=0, cho=false, cx=0, cy=0, henXoay=null, henDau=null;
+    function tatSang(){ganMax=0;o.forEach(function(li){var a=li.querySelector('.sach');a.style.setProperty('--gan','0');a.classList.remove('phep-bat')})}
+    function doGan(){
+      cho=false;
+      if(mo){tatSang();return}
+      ganMax=0;
+      o.forEach(function(li){
+        var a=li.querySelector('.sach'), v=Math.abs(+li.getAttribute('data-vt')), gan=0;
+        if(v<=1){
+          var r=li.querySelector('.bia-hinh').getBoundingClientRect(), W=a.offsetWidth;
+          var d=Math.hypot(cx-(r.left+r.width/2),cy-(r.top+r.height/2));
+          gan=Math.max(0,Math.min(1,1-(d-W*.2)/(W*.5)));
+        }
+        a.style.setProperty('--gan',gan.toFixed(3));
+        a.classList.toggle('phep-bat',gan>.08);
+        if(gan>ganMax)ganMax=gan;
+      });
+    }
+    /* Dàn sách là dải ngang chứa năm cuốn đang hiện; chuột nằm trong dải thì sách tự xoay */
+    function trongDai(){
+      var k=ks.getBoundingClientRect(), li=o[hien], tren=k.top+li.offsetTop-10, duoi=tren+li.offsetHeight*1.22+10;
+      return cy>=tren&&cy<=duoi;
+    }
+    function buoc(){if(!mo&&trongDan&&ganMax<.25&&!document.hidden)den(hien+1)}
+    function dungXoay(){clearInterval(henXoay);clearTimeout(henDau);henXoay=henDau=null;ks.classList.remove('tu-xoay')}
+    ks.addEventListener('pointermove',function(ev){
+      if(ev.pointerType!=='mouse')return;
+      cx=ev.clientX; cy=ev.clientY;
+      if(!cho){cho=true;requestAnimationFrame(doGan)}
+      var t=!mo&&trongDai();
+      if(t===trongDan)return;
+      trongDan=t;
+      if(t&&!giam){ks.classList.add('tu-xoay');henDau=setTimeout(buoc,700);henXoay=setInterval(buoc,2600)}
+      else dungXoay();
+    });
+    ks.addEventListener('pointerleave',function(){trongDan=false;dungXoay();tatSang()});
+  }
+
   /* ---------- Lá rơi: cùng họ nét với cành lá ở góc trang ---------- */
   var la=ks.querySelector('.ks-la');
   if(la&&!giam){

@@ -10,7 +10,7 @@
      nhom:    'Hướng dẫn',             // từ 2 nhóm trở lên sẽ hiện nút lọc
      anh:     'anh-bai/ten-anh.svg',   // không bắt buộc
      noiBat:  false,                   // true để ghim làm bài nổi bật
-     duongDan:'bai-viet/ten-bai.html'  // khi chưa có bài thật thì trỏ về bai-viet/dang-thuc-hien.html?bai=<mã>
+     duongDan:'bai-viet/ten-bai.html'  // khi chưa có bài thật thì để trống '': sổ ghi "Sắp đăng" thay cho nút Đọc bài (trang chờ đã xóa 28/09)
    }
 */
 window.CHU_DE = {
@@ -33,7 +33,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-1-3.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=1.3'
+    duongDan:''
   },
   { /* bài 2.2 · tuần 2 · Bài hướng dẫn có trích luật */
     ma:      '2.2',
@@ -45,7 +45,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-2-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=2.2'
+    duongDan:''
   },
   { /* bài 3.2 · tuần 3 · Bài phân tích có dẫn nghiên cứu */
     ma:      '3.2',
@@ -57,7 +57,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-3-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=3.2'
+    duongDan:''
   },
   { /* bài 6.2 · tuần 4 · Bài kể chuyện */
     ma:      '6.2',
@@ -69,7 +69,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-6-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=6.2'
+    duongDan:''
   },
   { /* bài 5.4 · tuần 5 · Bài công cụ, có các bước */
     ma:      '5.4',
@@ -81,7 +81,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-5-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=5.4'
+    duongDan:''
   },
   { /* bài 4.2 · tuần 6 · Bài hướng dẫn có mẫu */
     ma:      '4.2',
@@ -93,7 +93,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-4-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=4.2'
+    duongDan:''
   },
   { /* bài 1.1 · tuần 7 · Bài hướng dẫn nghề */
     ma:      '1.1',
@@ -105,7 +105,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-1-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=1.1'
+    duongDan:''
   },
   { /* bài 2.1 · tuần 8 · Bài phân tích */
     ma:      '2.1',
@@ -117,7 +117,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-2-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=2.1'
+    duongDan:''
   },
   { /* bài 3.1 · tuần 9 · Bài phân tích có dẫn nghiên cứu */
     ma:      '3.1',
@@ -129,7 +129,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-3-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=3.1'
+    duongDan:''
   },
   { /* bài 6.4 · tuần 10 · Bài kể chuyện có lập trường */
     ma:      '6.4',
@@ -141,7 +141,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-6-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=6.4'
+    duongDan:''
   },
   { /* bài 5.2 · tuần 11 · Bài trích luật có các bước */
     ma:      '5.2',
@@ -153,7 +153,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-5-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=5.2'
+    duongDan:''
   },
   { /* bài 4.5 · tuần 12 · Bài quan điểm có phương pháp */
     ma:      '4.5',
@@ -165,7 +165,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-4-5.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=4.5'
+    duongDan:''
   },
   { /* bài 1.4 · tuần 13 · Bài kể chuyện có giờ giấc */
     ma:      '1.4',
@@ -177,7 +177,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-1-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=1.4'
+    duongDan:''
   },
   { /* bài 2.3 · tuần 14 · Bài quy trình có mẫu prompt */
     ma:      '2.3',
@@ -189,7 +189,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-2-3.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=2.3'
+    duongDan:''
   },
   { /* bài 3.3 · tuần 15 · Bài kịch bản hội thoại */
     ma:      '3.3',
@@ -201,7 +201,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-3-3.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=3.3'
+    duongDan:''
   },
   { /* bài 5.3 · tuần 16 · Bài trích luật có bảng */
     ma:      '5.3',
@@ -213,7 +213,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-5-3.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=5.3'
+    duongDan:''
   },
   { /* bài 6.6 · tuần 17 · Bài chiêm nghiệm */
     ma:      '6.6',
@@ -225,7 +225,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-6-6.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=6.6'
+    duongDan:''
   },
   { /* bài 4.4 · tuần 18 · Bài hướng dẫn có mẫu */
     ma:      '4.4',
@@ -237,7 +237,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-4-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=4.4'
+    duongDan:''
   },
   { /* bài 1.2 · tuần 19 · Bài công cụ tự chấm */
     ma:      '1.2',
@@ -249,7 +249,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-1-2.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=1.2'
+    duongDan:''
   },
   { /* bài 2.4 · tuần 20 · Bài lập trường */
     ma:      '2.4',
@@ -261,7 +261,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-2-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=2.4'
+    duongDan:''
   },
   { /* bài 3.4 · tuần 21 · Bài khái niệm */
     ma:      '3.4',
@@ -273,7 +273,7 @@ window.BAI_VIET = [
     nhom:    'Phân tích',
     anh:     'anh-bai/bai-3-4.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=3.4'
+    duongDan:''
   },
   { /* bài 5.1 · tuần 22 · Bài trích luật có các bước */
     ma:      '5.1',
@@ -285,7 +285,7 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-5-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=5.1'
+    duongDan:''
   },
   { /* bài 6.1 · tuần 23 · Bài kể chuyện */
     ma:      '6.1',
@@ -297,7 +297,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-6-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=6.1'
+    duongDan:''
   },
   { /* bài 4.1 · tuần 24 · Bài kể chuyện nghề có phương pháp */
     ma:      '4.1',
@@ -309,7 +309,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-4-1.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=4.1'
+    duongDan:''
   },
   { /* bài 2.5 · tuần 25 · Bài thực hành có nhật ký */
     ma:      '2.5',
@@ -321,7 +321,7 @@ window.BAI_VIET = [
     nhom:    'Kể chuyện',
     anh:     'anh-bai/bai-2-5.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=2.5'
+    duongDan:''
   },
   { /* bài 5.5 · tuần 26 · Bài trích luật có danh mục */
     ma:      '5.5',
@@ -333,6 +333,6 @@ window.BAI_VIET = [
     nhom:    'Hướng dẫn',
     anh:     'anh-bai/bai-5-5.svg',
     noiBat:  false,
-    duongDan:'bai-viet/dang-thuc-hien.html?bai=5.5'
+    duongDan:''
   }
 ];

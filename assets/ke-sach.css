@@ -39,7 +39,7 @@
   transform-origin:left center;transform:translateZ(calc(14px - var(--k) * 2px));transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .bia{display:flex!important;flex-direction:column;align-items:center;text-align:center;padding:12.5% 11% 11%;overflow:hidden;
   background:var(--van-giay),linear-gradient(160deg,var(--bia1) 0%,var(--bia2) 100%);box-shadow:inset 0 0 0 1px var(--bia-vien);
-  transform-origin:left center;transform:translateZ(16px);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  transform-origin:left center;transform:translateZ(16px) rotateY(calc(var(--gan,0) * -12deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .bia::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4.5%;background:linear-gradient(90deg,rgba(0,0,0,.26),rgba(255,255,255,.07) 60%,rgba(0,0,0,.1))}
 .bia .khung-chi{position:absolute;inset:4.2% 4.2% 4.2% 7%;border:1px solid var(--chi1);border-radius:9px;pointer-events:none}
 .bia .khung-chi::before{content:"";position:absolute;inset:3px;border:1px solid var(--chi2);border-radius:6px}
@@ -64,14 +64,43 @@
 .js .ks-o[data-vt="0"]{z-index:3}
 .js .ks-o[data-vt="-1"]{z-index:2;transform:translate(calc(var(--rong) * -.97),calc(var(--cao) * .075)) rotate(-7deg) scale(.95)}
 .js .ks-o[data-vt="1"]{z-index:2;transform:translate(calc(var(--rong) * .97),calc(var(--cao) * .075)) rotate(7deg) scale(.95)}
-.js .ks-o[data-vt="-2"]{z-index:1;transform:translate(calc(var(--rong) * -1.8),calc(var(--cao) * .24)) rotate(-15deg) scale(.88);opacity:0;pointer-events:none}
-.js .ks-o[data-vt="2"]{z-index:1;transform:translate(calc(var(--rong) * 1.8),calc(var(--cao) * .24)) rotate(15deg) scale(.88);opacity:0;pointer-events:none}
+/* Hai cuốn ngoài cùng hiện mờ, thò ra ở hai mép, để người xem biết kệ còn sách (Khánh thêm 28/09) */
+.js .ks-o[data-vt="-2"]{z-index:1;transform:translate(calc(var(--rong) * -1.8),calc(var(--cao) * .24)) rotate(-15deg) scale(.88);opacity:.38}
+.js .ks-o[data-vt="2"]{z-index:1;transform:translate(calc(var(--rong) * 1.8),calc(var(--cao) * .24)) rotate(15deg) scale(.88);opacity:.38}
 .js .ks-o[data-vt="3"]{z-index:0;transform:translateY(calc(var(--cao) * .1)) scale(.8);opacity:0;pointer-events:none}
 .js .sach{transition:transform .9s cubic-bezier(.2,.7,.2,1),translate .4s cubic-bezier(.2,.7,.2,1)}
 @media(hover:hover) and (pointer:fine){
   .js .ks:not(.mo) .ks-o[data-vt="0"] .sach:hover{translate:0 -12px}
   .js .ks:not(.mo) .ks-o:not([data-vt="0"]) .sach:hover{translate:0 -8px}
 }
+/* Tự xoay khi rê chuột vào dàn sách (Khánh thêm 28/09): mỗi 2.6 giây một nấc theo chiều kim đồng hồ nhìn từ trên xuống
+   (hàng trước trôi từ phải sang trái), mỗi nấc trôi 1.3 giây. Dừng khi chuột rời dàn sách hoặc lại gần hình trên bìa. */
+.js .ks.tu-xoay:not(.mo) .ks-o{transition:transform 1.3s cubic-bezier(.45,.05,.3,1),opacity .8s ease}
+
+/* ---------- Ánh sáng sách phép thuật (Khánh thêm 28/09) ----------
+   Chuột lại gần hình trên bìa thì --gan của cuốn đó tăng từ 0 tới 1 (assets/ke-sach.js đo khoảng cách):
+   quầng sáng vàng tỏa từ hình, tia sáng xoay chậm, hạt lấp lánh bay lên, hình sáng lên, bìa hé mở và mép giấy hắt sáng.
+   Lớp .phep do JS chèn, chỉ để trang trí. Không dùng mix-blend-mode, filter chỉ đặt trên hình svg (phần tử lá). */
+.sach>.phep{inset:auto;left:var(--hx,51.5%);top:var(--hy,57%);width:calc(var(--rong) * 1.7);height:calc(var(--rong) * 1.7);margin:calc(var(--rong) * -.85) 0 0 calc(var(--rong) * -.85);
+  border-radius:50%;pointer-events:none;transform:translateZ(100px) scale(.94);opacity:var(--gan,0);transition:opacity .4s ease}
+/* Lớp sáng đứng trước bìa 100px: bìa hé mở 12° thì mép phải nhô về phía người xem tới khoảng 90px, thấp hơn là bị bìa che */
+.phep .hao{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,246,222,.62) 0%,rgba(236,212,160,.4) 14%,rgba(182,163,131,.2) 34%,rgba(182,163,131,.06) 52%,transparent 68%);
+  transform:scale(calc(.5 + var(--gan,0) * .5));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.phep .tia{position:absolute;inset:4%;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,243,212,.3) 0deg 1.8deg,transparent 1.8deg 12deg,rgba(255,243,212,.16) 12deg 13deg,transparent 13deg 20deg);
+  -webkit-mask:radial-gradient(circle,transparent 15%,#000 23%,rgba(0,0,0,.5) 44%,transparent 66%);mask:radial-gradient(circle,transparent 15%,#000 23%,rgba(0,0,0,.5) 44%,transparent 66%)}
+.phep i{position:absolute;left:50%;top:50%;width:var(--c);height:var(--c);margin:calc(var(--c) / -2) 0 0 calc(var(--c) / -2);background:#FFF1CC;opacity:0;
+  clip-path:polygon(50% 0,59% 41%,100% 50%,59% 59%,50% 100%,41% 59%,0 50%,41% 41%);transform:translate(var(--x),var(--y)) scale(0)}
+@keyframes tia-quay{to{transform:rotate(360deg)}}
+@keyframes lap-lanh{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(0) rotate(0deg)}35%{opacity:1;transform:translate(var(--x),calc(var(--y) - 8px)) scale(1) rotate(40deg)}100%{opacity:0;transform:translate(var(--x),calc(var(--y) - 30px)) scale(.15) rotate(90deg)}}
+@media(prefers-reduced-motion:no-preference){
+  .sach.phep-bat .phep .tia{animation:tia-quay 22s linear infinite}
+  .sach.phep-bat .phep i{animation:lap-lanh var(--t) ease-in-out var(--d) infinite}
+}
+.bia-hinh svg{transition:filter .4s ease}
+.sach.phep-bat .bia-hinh{color:#F3E2B8;transition:color .4s ease}
+.sach.phep-bat .bia-hinh svg{filter:drop-shadow(0 0 5px rgba(255,238,196,.85)) drop-shadow(0 0 14px rgba(236,212,160,.55))}
+.sach.phep-bat .ruot i{box-shadow:inset 0 0 0 1px rgba(95,82,64,.16),0 0 16px rgba(255,236,190,.75)}
+
 /* Cuốn giữa thở nhẹ cho màn đầu có sức sống */
 @keyframes sach-tho{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @media(prefers-reduced-motion:no-preference){.js .ks:not(.mo) .ks-hang{animation:sach-tho 7s ease-in-out infinite}}
@@ -104,7 +133,7 @@
 .js .ks.mo .ks-o.chon{z-index:6;opacity:0;pointer-events:none;transform:translate(var(--mx,0px),var(--my,0px)) scale(var(--ms,1));
   transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .35s ease .8s}
 .ks.mo .ks-o.chon .bia{transform:translateZ(16px) rotateY(-84deg);transition:transform .65s cubic-bezier(.5,0,.75,.4) .4s}
-.ks.mo .ks-o.chon .bong-sach{opacity:0}
+.ks.mo .ks-o.chon .bong-sach,.ks.mo .phep{opacity:0}
 .bong-sach{transition:opacity .5s}
 /* Góc nhìn chưa có bài nào: không có sổ, sách mở bìa đứng trên dòng báo */
 .js .ks.mo.rong .ks-o.chon{opacity:1;transform:translate(0,calc(92px - var(--dinh))) scale(.8);transform-origin:50% 0;transition:transform .85s cubic-bezier(.2,.7,.2,1),opacity .5s}

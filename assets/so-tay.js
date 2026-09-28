@@ -16,9 +16,9 @@
   function so(n){return (n<10?'0':'')+n}
   function ngayVN(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+' · '+m[2]+' · '+m[1]:''}
   function q(s,g){return (g||document).querySelector(s)}
-  /* Bài đã viết xong là bài có trang riêng. Bài còn trỏ về trang chờ dang-thuc-hien.html thì coi là chưa viết:
-     không có liên kết "Đọc bài", thay bằng dòng ghi ngày đăng (Khánh đổi 28/09, bỏ bước qua trang chờ). */
-  function daViet(b){return !!(b&&b.duongDan&&!/dang-thuc-hien\.html/.test(b.duongDan))}
+  /* Bài đã viết xong là bài có trang riêng, tức có duongDan. Bài để trống duongDan là chưa viết:
+     không có liên kết "Đọc bài", thay bằng dòng ghi ngày đăng (Khánh đổi 28/09, trang chờ đã xóa). */
+  function daViet(b){return !!(b&&b.duongDan)}
 
   /* ---------- Mặt trang ---------- */
   function trangHinh(b,goc){
