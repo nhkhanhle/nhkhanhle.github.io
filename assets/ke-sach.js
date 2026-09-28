@@ -108,6 +108,7 @@
     /* Đang cuộn ở mục lục mà đóng sổ thì đưa kệ sách về lại màn hình */
     if(ks.getBoundingClientRect().top<-40)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     o[hien].querySelector('.sach').focus({preventScroll:true});
+    lenLich(CHO_LAI);
   }
   /* Đổi sang góc nhìn kế khi sổ đang mở: sổ mờ đi, dựng lại, rồi hiện ra */
   function doiSo(i,tuLS){
@@ -147,6 +148,7 @@
   /* Vào thẳng từ đường dẫn có #<mã góc nhìn>: mở sẵn quyển sổ đó */
   var k0=maTuDiaChi();
   if(k0>=0)requestAnimationFrame(function(){moSach(k0,true)});
+  else lenLich(CHO_LAI);
 
   /* ---------- Xoay: hai nút, phím trái phải, vuốt ---------- */
   ks.querySelector('.ks-lui').addEventListener('click',function(){den(hien-1)});
@@ -166,7 +168,45 @@
   });
   san.addEventListener('pointercancel',function(){x0=null;keo=false});
 
-  /* ---------- Máy có chuột: tự xoay khi rê vào dàn sách, ánh sáng phép thuật khi lại gần hình trên bìa ---------- */
+  /* ---------- Tự xoay khi rảnh (Khánh chọn phương án A ngày 28/09) ----------
+     Vào trang là kệ tự xoay theo chiều kim đồng hồ nhìn từ trên xuống (hàng trước trôi từ phải sang trái), cả trên điện thoại:
+     4.5 giây một nấc, mỗi nấc trôi êm 1.2 giây. Dừng ngay khi có người chạm vào kệ, rồi xoay lại sau khi họ rời ra:
+       chuột nằm trong dải dàn sách (xoay lại sau 3 giây), tay chạm kệ (sau 5 giây), chọn sách hay nút bằng bàn phím (sau 3 giây),
+       sổ đang mở, kệ khuất quá nửa màn hình, tab bị ẩn. Máy bật giảm chuyển động thì không tự xoay.
+     Không nghe sự kiện cuộn: kệ khuất hay hiện đo bằng IntersectionObserver. */
+  var NHIP=4500, CHO_LAI=3000, lyDo={}, henBuoc=null, keThay=true;
+  function dangDung(){for(var k in lyDo)if(lyDo[k])return true;return mo||!keThay||document.hidden||giam}
+  function lenLich(tre){
+    clearTimeout(henBuoc); henBuoc=null;
+    if(dangDung())return;
+    henBuoc=setTimeout(function(){
+      henBuoc=null; if(dangDung())return;
+      ks.classList.add('tu-xoay'); den(hien+1); lenLich(NHIP);
+    },tre);
+  }
+  function dung(ly){lyDo[ly]=true; clearTimeout(henBuoc); henBuoc=null; ks.classList.remove('tu-xoay')}
+  function tha(ly,tre){if(!lyDo[ly])return; lyDo[ly]=false; lenLich(tre||CHO_LAI)}
+  /* Tay chạm kệ (điện thoại, máy tính bảng) */
+  san.addEventListener('pointerdown',function(ev){if(ev.pointerType!=='mouse')dung('cham')});
+  ['pointerup','pointercancel'].forEach(function(t){san.addEventListener(t,function(ev){if(ev.pointerType!=='mouse')tha('cham',5000)})});
+  /* Bàn phím: kệ đứng khi con trỏ bàn phím nằm trên sách hay hai nút xoay. Nhận biết bằng thao tác cuối là phím hay chuột, tay
+     (lúc focusin trình duyệt chưa kịp gắn :focus-visible), để bấm chuột vào nút không làm kệ đứng mãi. */
+  var dungPhim=false;
+  document.addEventListener('keydown',function(){dungPhim=true},true);
+  document.addEventListener('pointerdown',function(){dungPhim=false},true);
+  function oTrenKe(e){return !!(e&&e.closest&&ks.contains(e)&&(e.classList.contains('sach')||e.closest('.ks-mui')))}
+  ks.addEventListener('focusin',function(ev){if(dungPhim&&oTrenKe(ev.target))dung('phim')});
+  ks.addEventListener('focusout',function(){
+    setTimeout(function(){if(!(dungPhim&&oTrenKe(document.activeElement)))tha('phim')},0);
+  });
+  /* Bấm hai nút xoay bằng chuột: tính lại nhịp từ lúc bấm */
+  [ks.querySelector('.ks-lui'),ks.querySelector('.ks-toi')].forEach(function(b){b.addEventListener('click',function(){dung('nut');tha('nut',NHIP)})});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)dung('an'); else tha('an')});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(ds){keThay=ds[0].intersectionRatio>=.5; if(keThay)lenLich(CHO_LAI); else{clearTimeout(henBuoc);henBuoc=null}},{threshold:[0,.5,1]}).observe(ks);
+  }
+
+  /* ---------- Máy có chuột: rê vào dàn sách thì kệ đứng yên, lại gần hình trên bìa thì sách tỏa hào quang ---------- */
   var coChuot=window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches;
   if(coChuot){
     /* Lớp hào quang của từng cuốn, mỗi góc nhìn một kiểu (assets/hao-quang.js, phương án A + D Khánh chọn 28/09) */
@@ -187,7 +227,7 @@
     datTam(); addEventListener('resize',datTam);
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(datTam);
 
-    var trongDan=false, ganMax=0, cho=false, cx=0, cy=0, henXoay=null, henDau=null;
+    var trongDan=false, ganMax=0, cho=false, cx=0, cy=0;
     /* Cuốn đang được chọn bằng bàn phím (Tab, phím mũi tên) cũng tỏa sáng hết mức, như khi chuột nằm trên hình (Khánh thêm 28/09) */
     function ganPhim(a){return !mo&&document.activeElement===a&&a.matches(':focus-visible')?1:0}
     function datSang(a,gan){a.style.setProperty('--gan',gan.toFixed(3));a.classList.toggle('phep-bat',gan>.08);if(gan>ganMax)ganMax=gan}
@@ -208,13 +248,11 @@
     }
     ks.addEventListener('focusin',function(ev){if(ev.target.classList&&ev.target.classList.contains('sach'))tatSang()});
     ks.addEventListener('focusout',function(ev){if(ev.target.classList&&ev.target.classList.contains('sach'))setTimeout(tatSang,0)});
-    /* Dàn sách là dải ngang chứa năm cuốn đang hiện; chuột nằm trong dải thì sách tự xoay */
+    /* Dàn sách là dải ngang chứa năm cuốn đang hiện; chuột nằm trong dải thì kệ đứng yên cho dễ bấm */
     function trongDai(){
       var k=ks.getBoundingClientRect(), li=o[hien], tren=k.top+li.offsetTop-10, duoi=tren+li.offsetHeight*1.22+10;
       return cy>=tren&&cy<=duoi;
     }
-    function buoc(){if(!mo&&trongDan&&ganMax<.25&&!document.hidden)den(hien+1)}
-    function dungXoay(){clearInterval(henXoay);clearTimeout(henDau);henXoay=henDau=null;ks.classList.remove('tu-xoay')}
     ks.addEventListener('pointermove',function(ev){
       if(ev.pointerType!=='mouse')return;
       cx=ev.clientX; cy=ev.clientY;
@@ -222,10 +260,9 @@
       var t=!mo&&trongDai();
       if(t===trongDan)return;
       trongDan=t;
-      if(t&&!giam){ks.classList.add('tu-xoay');henDau=setTimeout(buoc,700);henXoay=setInterval(buoc,2600)}
-      else dungXoay();
+      if(t)dung('chuot'); else tha('chuot');
     });
-    ks.addEventListener('pointerleave',function(){trongDan=false;dungXoay();tatSang()});
+    ks.addEventListener('pointerleave',function(){trongDan=false;tha('chuot');tatSang()});
   }
 
   /* ---------- Lá rơi: cùng họ nét với cành lá ở góc trang ---------- */
