@@ -41,23 +41,24 @@
   function den(i){hien=((i%n)+n)%n; ve(); if(mo)dien()}
 
   /* ---------- Bảng: tên góc nhìn, quyển sổ, thanh nút ---------- */
-  var vungSo=bang.querySelector('[data-so-tay]'), bangTrong=bang.querySelector('[data-b-trong]');
+  var vungSo=bang.querySelector('[data-so-tay]'), bangTrong=bang.querySelector('[data-b-trong]'), viTriSap=-1;
   function dien(){
-    var li=o[hien], ma=li.getAttribute('data-ma'), a=li.querySelector('.sach'), ds=baiCua(ma);
+    var li=o[hien], ma=li.getAttribute('data-ma'), ds=baiCua(ma);
     bang.querySelector('[data-b-so]').textContent='Góc nhìn '+so(hien+1)+' / '+so(n);
     bang.querySelector('[data-b-ten]').textContent=li.querySelector('.bia-ten').textContent;
     bang.querySelector('[data-b-mo]').textContent=li.querySelector('.ks-dien-giai').textContent;
     ks.classList.toggle('rong',!ds.length);
     bangTrong.hidden=!!ds.length;
     if(window.SoTay)window.SoTay.ve(ds,''); else vungSo.hidden=true;
-    bang.querySelector('[data-b-vao]').href=a.getAttribute('href');
-    /* Nút giữa: bài mới nhất đã đăng; chưa có bài nào tới ngày thì là bài sắp đăng gần nhất */
-    var nutBai=bang.querySelector('[data-b-bai-moi]');
-    var daDang=ds.filter(function(b){return b.ngay&&b.ngay<=homNay}).sort(function(x,y){return y.ngay.localeCompare(x.ngay)});
-    var sap=ds.filter(function(b){return !b.ngay||b.ngay>homNay}).sort(function(x,y){return (x.ngay||'').localeCompare(y.ngay||'')});
-    var chon=daDang[0]||sap[0];
-    nutBai.hidden=!chon;
-    if(chon){nutBai.href=chon.duongDan; nutBai.textContent=daDang[0]?'Bài mới nhất':'Bài sắp đăng'}
+    var ml=bang.querySelector('[data-muc-luc]'); if(!ds.length||!window.SoTay)ml.hidden=true;
+    /* Nút đầu: có bài đã viết xong và đã tới ngày đăng thì là liên kết "Bài mới nhất" tới trang bài đó;
+       chưa có thì là nút "Bài sắp đăng", bấm là sổ lật tới bài sắp đăng gần nhất (không dẫn qua trang chờ) */
+    var nutMoi=bang.querySelector('[data-b-bai-moi]'), nutSap=bang.querySelector('[data-b-sap]');
+    var daViet=(window.SoTay&&window.SoTay.daViet)||function(){return false};
+    var moi=ds.filter(function(b){return daViet(b)&&b.ngay&&b.ngay<=homNay}).sort(function(x,y){return y.ngay.localeCompare(x.ngay)})[0];
+    var sap=ds.filter(function(b){return !b.ngay||b.ngay>homNay}).sort(function(x,y){return (x.ngay||'').localeCompare(y.ngay||'')})[0];
+    nutMoi.hidden=!moi; if(moi)nutMoi.href=moi.duongDan;
+    nutSap.hidden=!!moi||!sap; viTriSap=sap?ds.indexOf(sap):-1;
   }
   /* Đo chỗ trang phải của quyển sổ rồi đặt đích cho cuốn sách: sách dời tới đó, phóng cho bằng trang sổ, mở bìa, rồi sổ hiện ra */
   function doCho(){
@@ -74,7 +75,8 @@
     mo=true; hien=i; ks.classList.add('mo'); ve(); dien(); doCho();
     o.forEach(function(li){li.querySelector('.sach').setAttribute('aria-expanded',li===o[hien]?'true':'false')});
     void bang.offsetWidth; bang.classList.add('hien');
-    if(matchMedia('(max-width:640px)').matches)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
+    /* Bảng giờ dài hơn một màn (có mục lục bên dưới): đưa đầu khu sách về sát dưới menu nếu đang lệch */
+    if(Math.abs(ks.getBoundingClientRect().top-64)>48)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     nutDong.focus({preventScroll:true});
   }
   function dongSach(){
@@ -82,6 +84,8 @@
     mo=false; ks.classList.remove('mo','rong'); bang.classList.remove('hien'); ve();
     o.forEach(function(li){li.querySelector('.sach').setAttribute('aria-expanded','false')});
     henAn=setTimeout(function(){bang.hidden=true},giam?0:520);
+    /* Đang cuộn ở mục lục mà đóng sổ thì đưa kệ sách về lại màn hình */
+    if(ks.getBoundingClientRect().top<-40)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     o[hien].querySelector('.sach').focus({preventScroll:true});
   }
   /* Đổi sang góc nhìn kế khi sổ đang mở: sổ mờ đi, dựng lại, rồi hiện ra */
@@ -105,7 +109,8 @@
     a.addEventListener('dragstart',function(ev){ev.preventDefault()});
   });
   nutDong.addEventListener('click',dongSach);
-  bang.querySelector('[data-b-ke]').addEventListener('click',function(){doiSo(hien+1)});
+  bang.querySelector('[data-b-ke]').addEventListener('click',function(){doiSo(hien+1);if(ks.getBoundingClientRect().top<-40)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'})});
+  bang.querySelector('[data-b-sap]').addEventListener('click',function(){if(viTriSap>=0&&window.SoTay&&window.SoTay.den)window.SoTay.den(viTriSap)});
   document.addEventListener('keydown',function(ev){
     if(ev.key!=='Escape'||!mo)return;
     var tim=document.querySelector('.lop-tim'); if(tim&&!tim.hidden)return;

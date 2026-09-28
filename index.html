@@ -134,6 +134,8 @@
   <div class="ks-mui"><button type="button" class="ks-lui" aria-label="Góc nhìn trước"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button><button type="button" class="ks-toi" aria-label="Góc nhìn sau"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>
 
   <section class="ks-bang" id="ks-bang" aria-labelledby="ks-bang-ten" hidden>
+    <!-- Màn đầu: tên góc nhìn, diễn giải, quyển sổ, thanh nút. Mục lục nằm dưới, cuộn xuống mới thấy -->
+    <div class="ks-man">
     <div class="ks-dau">
       <button type="button" class="ks-dong" aria-label="Đóng, về kệ sách"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button>
       <div class="nhan" data-b-so></div>
@@ -162,10 +164,15 @@
     </div>
     <p class="ks-trong" data-b-trong hidden>Bài viết đang được chuẩn bị</p>
     <div class="ks-nut">
-      <a class="n1" href="#" data-b-vao>Vào góc nhìn</a>
-      <a class="n2" href="#" data-b-bai-moi>Bài sắp đăng</a>
+      <a class="n1" href="#" data-b-bai-moi hidden>Bài mới nhất</a>
+      <button type="button" class="n1" data-b-sap hidden>Bài sắp đăng</button>
       <button type="button" class="n3" data-b-ke>Góc nhìn kế</button>
     </div>
+    </div>
+    <section class="muc-luc" data-muc-luc hidden aria-labelledby="ml-tieu-de">
+      <h2 class="nhan" id="ml-tieu-de">Mục lục</h2>
+      <ol data-ml></ol>
+    </section>
   </section>
 </main>
 

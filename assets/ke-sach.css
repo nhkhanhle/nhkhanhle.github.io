@@ -113,7 +113,10 @@
 .ks-trong{margin-top:calc(var(--cao) * .8 + 44px);text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-size:19px;color:var(--b-chu)}
 
 .ks-bang{--sw:min(clamp(150px,calc((100vw - 200px) / 2),470px),calc((100svh - 70px - 276px) / 1.45));
-  position:absolute;z-index:5;inset:0;display:flex;flex-direction:column;align-items:center;padding:16px 32px 20px;opacity:0;transition:opacity .5s ease}
+  position:relative;z-index:5;padding:0 32px;opacity:0;transition:opacity .5s ease}
+/* Màn đầu của bảng cao đúng một màn hình: tên, diễn giải, sổ, thanh nút. Mục lục nằm dưới màn này (Khánh thêm 28/09) */
+.ks-man{display:flex;flex-direction:column;align-items:center;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);padding:16px 0 20px}
+.ks-bang .muc-luc{width:min(100%,1056px);margin:40px auto 0;padding-bottom:88px}
 .ks-bang.hien{opacity:1;transition-delay:.25s}
 .ks-bang:focus{outline:0}
 .ks-dau{flex:none;position:relative;width:min(100%,calc(var(--sw) * 2));min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
@@ -122,8 +125,8 @@
 .ks-dong svg{width:17px;height:17px;fill:currentColor}
 .ks-dong:hover{background:var(--navy);color:var(--cat);border-color:var(--navy);transform:rotate(90deg)}
 .ks-dong:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
-.ks-bang .nhan{font-size:10.5px;letter-spacing:.26em;color:var(--b-nhan)}
-.ks-bang h2{margin-top:1px;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:clamp(24px,2.3vw,31px);line-height:1.15;letter-spacing:-.01em;color:var(--b-ten)}
+.ks-dau .nhan{font-size:10.5px;letter-spacing:.26em;color:var(--b-nhan)}
+.ks-dau h2{margin-top:1px;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:clamp(24px,2.3vw,31px);line-height:1.15;letter-spacing:-.01em;color:var(--b-ten)}
 /* Đoạn diễn giải góc nhìn (Khánh giữ lại 28/09): nằm dưới tên, trên sổ, tối đa hai dòng trên máy tính */
 .ks-mo-ta{flex:none;width:max-content;max-width:min(760px,calc(100vw - 64px));margin-top:6px;font-size:14.5px;line-height:1.6;color:var(--b-chu);text-wrap:balance}
 /* Quyển sổ trong trang chủ: cỡ trang theo --sw để nằm trọn màn đầu cùng hàng tên và thanh nút; hiện sau khi bìa sách mở */
@@ -136,7 +139,7 @@
 .ks .st-mui{color:var(--b-manh)}
 .ks .st-duoi{display:none}
 /* Thanh nút ở đáy bảng */
-.ks-nut{flex:none;display:flex;gap:8px;width:min(100%,560px);margin-top:auto;padding:7px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 10px 26px -12px rgba(47,59,74,.25)}
+.ks-nut{flex:none;display:flex;gap:8px;width:min(100%,400px);margin-top:auto;padding:7px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 10px 26px -12px rgba(47,59,74,.25)}
 .ks-nut a,.ks-nut button{flex:1;min-width:0;display:grid;place-items:center;height:50px;padding:2px 14px 0;border:0;border-radius:999px;cursor:pointer;text-decoration:none;white-space:nowrap;
   font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:15.5px;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
 .ks-nut .n1{background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;box-shadow:0 8px 16px -8px rgba(47,59,74,.5)}
@@ -170,10 +173,12 @@
   .ks-mui::before{width:44px}
   .ks-mui::after{width:6px;height:6px;margin:-3px 0 0 -3px}
   /* Điện thoại: bảng nằm trong dòng chảy, sổ lệch khung như ở trang góc nhìn (trang phải rộng 68% màn hình), hai nút lật dưới sổ */
-  .ks-bang{position:relative;inset:auto;padding:14px 22px 22px;min-height:calc(100svh - 70px)}
+  .ks-bang{padding:0 22px}
+  .ks-man{padding:14px 0 22px}
+  .ks-bang .muc-luc{margin-top:24px;padding-bottom:64px}
   .ks-dau{min-height:46px}
   .ks-dau .ks-dong{width:42px;height:42px}
-  .ks-bang h2{font-size:clamp(22px,6.4vw,27px)}
+  .ks-dau h2{font-size:clamp(22px,6.4vw,27px)}
   .ks-dau .nhan,.ks-dau h2{max-width:calc(100% - 104px)}
   .ks-mo-ta{width:auto;max-width:none;margin-top:12px;font-size:14.5px;line-height:1.65;text-wrap:pretty}
   .ks .st-san{overflow:visible;overflow-y:clip;overflow-x:visible;padding-top:16px;height:calc(var(--h) * var(--zoom) + 52px)}

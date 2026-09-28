@@ -16,6 +16,9 @@
   function so(n){return (n<10?'0':'')+n}
   function ngayVN(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+' · '+m[2]+' · '+m[1]:''}
   function q(s,g){return (g||document).querySelector(s)}
+  /* Bài đã viết xong là bài có trang riêng. Bài còn trỏ về trang chờ dang-thuc-hien.html thì coi là chưa viết:
+     không có liên kết "Đọc bài", thay bằng dòng ghi ngày đăng (Khánh đổi 28/09, bỏ bước qua trang chờ). */
+  function daViet(b){return !!(b&&b.duongDan&&!/dang-thuc-hien\.html/.test(b.duongDan))}
 
   /* ---------- Mặt trang ---------- */
   function trangHinh(b,goc){
@@ -37,9 +40,16 @@
     p.appendChild(tao('span','tr-nhom',b.nhom||'Bài viết'));
     p.appendChild(tao('h3','tr-ten',b.tieuDe));
     if(b.tomTat)p.appendChild(tao('p','tr-tom',b.tomTat));
-    var m=[]; if(b.ngay)m.push((sap?'Sắp đăng · ':'')+ngayVN(b.ngay).replace(/ · /g,'/')); if(b.phutDoc)m.push(b.phutDoc+' phút đọc');
-    p.appendChild(tao('span','tr-meta',m.join(' · ')));
-    if(b.duongDan){var a=tao('a','tr-doc','Đọc bài →');a.href=goc+b.duongDan;a.tabIndex=-1;p.appendChild(a)}
+    var ngay=b.ngay?ngayVN(b.ngay).replace(/ · /g,'/'):'', m=[];
+    if(daViet(b)){
+      if(ngay)m.push((sap?'Sắp đăng · ':'')+ngay); if(b.phutDoc)m.push(b.phutDoc+' phút đọc');
+      p.appendChild(tao('span','tr-meta',m.join(' · ')));
+      var a=tao('a','tr-doc','Đọc bài →');a.href=goc+b.duongDan;a.tabIndex=-1;p.appendChild(a);
+    } else {
+      if(b.phutDoc)m.push(b.phutDoc+' phút đọc');
+      if(m.length)p.appendChild(tao('span','tr-meta',m.join(' · ')));
+      p.appendChild(tao('span','tr-cho',sap&&ngay?'Sắp đăng '+ngay:'Bài đang được viết'));
+    }
     return p;
   }
 
@@ -102,7 +112,7 @@
       if(dem)dem.textContent='Bài '+so(hien+1)+' / '+so(n);
       muiTruoc.forEach(function(m){m.disabled=hien<=0}); muiSau.forEach(function(m){m.disabled=hien>=n-1});
       if(bao)bao.textContent='Bài '+(hien+1)+' trên '+n+': '+b.tieuDe;
-      if(docNgoai){docNgoai.hidden=!b.duongDan;if(b.duongDan)docNgoai.href=goc+b.duongDan}
+      if(docNgoai){docNgoai.hidden=!daViet(b);if(daViet(b))docNgoai.href=goc+b.duongDan}
       [].forEach.call(document.querySelectorAll('[data-ml] .ml-dong'),function(x,i){x.setAttribute('aria-current',i===hien?'true':'false')});
       veKinh();
     }
@@ -248,6 +258,9 @@
 
     datZoom(1);
     xep();
+    /* Cho trang ngoài lật sổ tới một bài (thanh nút ở trang chủ) */
+    window.SoTay.den=function(i){if(!chay)den(i)};
+    window.SoTay.daViet=daViet;
   }
   window.SoTay={ve:ve};
 })();
