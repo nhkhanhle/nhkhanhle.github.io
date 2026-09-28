@@ -69,7 +69,27 @@
     li.style.setProperty('--my',((r.top-k.top+r.height/2)-(li.offsetTop+li.offsetHeight/2)).toFixed(1)+'px');
     li.style.setProperty('--ms',(r.height/li.offsetHeight).toFixed(4));
   }
-  function moSach(i){
+  /* ---------- Địa chỉ trang theo quyển sổ đang mở (Khánh chọn 28/09) ----------
+     Mở sổ thì địa chỉ thành #<mã góc nhìn>, ví dụ #tam-ly-hoc: gửi đường dẫn đó thì người nhận vào thẳng quyển sổ.
+     Mở bằng tay thì thêm một bước lịch sử, nên nút quay lại của trình duyệt đóng sổ; "Góc nhìn kế" chỉ thay địa chỉ. */
+  var coLS=!!(window.history&&history.pushState);
+  function maTuDiaChi(){
+    var m=''; try{m=decodeURIComponent(location.hash.slice(1))}catch(e){}
+    for(var k=0;k<n;k++)if(o[k].getAttribute('data-ma')===m)return k;
+    return -1;
+  }
+  function ghiDiaChi(kieu){
+    if(!coLS)return;
+    var ma=o[hien].getAttribute('data-ma'), dc=location.pathname+location.search;
+    if(kieu==='mo')history.pushState({ks:ma},'',dc+'#'+ma);
+    else history.replaceState({ks:ma},'',dc+'#'+ma);
+  }
+  function xoaDiaChi(){
+    if(!coLS)return;
+    if(history.state&&history.state.ks)history.back();   /* bước do trang thêm lúc mở: lùi lại, popstate thấy sổ đã đóng */
+    else if(location.hash)history.replaceState(null,'',location.pathname+location.search);   /* vào thẳng từ đường dẫn */
+  }
+  function moSach(i,tuLS){
     clearTimeout(henAn);
     bang.hidden=false; bang.classList.remove('nhanh');
     mo=true; hien=i; ks.classList.add('mo'); ve(); dien(); doCho();
@@ -78,9 +98,11 @@
     /* Bảng giờ dài hơn một màn (có mục lục bên dưới): đưa đầu khu sách về sát dưới menu nếu đang lệch */
     if(Math.abs(ks.getBoundingClientRect().top-64)>48)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'});
     nutDong.focus({preventScroll:true});
+    if(!tuLS)ghiDiaChi('mo');
   }
-  function dongSach(){
+  function dongSach(tuLS){
     if(!mo)return;
+    if(tuLS!==true)xoaDiaChi();
     mo=false; ks.classList.remove('mo','rong'); bang.classList.remove('hien'); ve();
     o.forEach(function(li){li.querySelector('.sach').setAttribute('aria-expanded','false')});
     henAn=setTimeout(function(){bang.hidden=true},giam?0:520);
@@ -89,12 +111,19 @@
     o[hien].querySelector('.sach').focus({preventScroll:true});
   }
   /* Đổi sang góc nhìn kế khi sổ đang mở: sổ mờ đi, dựng lại, rồi hiện ra */
-  function doiSo(i){
+  function doiSo(i,tuLS){
     bang.classList.add('doi','nhanh');
     den(i); doCho();
     void bang.offsetWidth; bang.classList.remove('doi');
+    if(!tuLS)ghiDiaChi('doi');
   }
   addEventListener('resize',function(){if(mo)doCho()});
+  /* Nút quay lại, tiến tới của trình duyệt */
+  addEventListener('popstate',function(){
+    var k=maTuDiaChi();
+    if(k>=0){if(!mo)moSach(k,true); else if(k!==hien)doiSo(k,true)}
+    else if(mo)dongSach(true);
+  });
 
   o.forEach(function(li,i){
     var a=li.querySelector('.sach');
@@ -108,7 +137,7 @@
     a.addEventListener('keydown',function(ev){if(ev.key===' '){ev.preventDefault();a.click()}});
     a.addEventListener('dragstart',function(ev){ev.preventDefault()});
   });
-  nutDong.addEventListener('click',dongSach);
+  nutDong.addEventListener('click',function(){dongSach()});
   bang.querySelector('[data-b-ke]').addEventListener('click',function(){doiSo(hien+1);if(ks.getBoundingClientRect().top<-40)ks.scrollIntoView({behavior:giam?'auto':'smooth',block:'start'})});
   bang.querySelector('[data-b-sap]').addEventListener('click',function(){if(viTriSap>=0&&window.SoTay&&window.SoTay.den)window.SoTay.den(viTriSap)});
   document.addEventListener('keydown',function(ev){
@@ -116,6 +145,9 @@
     var tim=document.querySelector('.lop-tim'); if(tim&&!tim.hidden)return;
     dongSach();
   });
+  /* Vào thẳng từ đường dẫn có #<mã góc nhìn>: mở sẵn quyển sổ đó */
+  var k0=maTuDiaChi();
+  if(k0>=0)requestAnimationFrame(function(){moSach(k0,true)});
 
   /* ---------- Xoay: hai nút, phím trái phải, vuốt ---------- */
   ks.querySelector('.ks-lui').addEventListener('click',function(){den(hien-1)});
@@ -138,20 +170,19 @@
   /* ---------- Máy có chuột: tự xoay khi rê vào dàn sách, ánh sáng phép thuật khi lại gần hình trên bìa ---------- */
   var coChuot=window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches;
   if(coChuot){
-    /* Lớp ánh sáng của từng cuốn: quầng, tia, 12 hạt lấp lánh rải quanh hình */
-    o.forEach(function(li){
-      var a=li.querySelector('.sach'), p=tao('span','phep'), h='<b class="hao"></b><b class="tia"></b>';
-      for(var k=0;k<12;k++){
-        var g=(k/12+Math.random()*.06)*Math.PI*2, r=26+Math.random()*30, t=(1.5+Math.random()*1.4).toFixed(2);
-        h+='<i style="--x:calc(var(--rong) * '+(Math.cos(g)*r/100).toFixed(3)+');--y:calc(var(--rong) * '+(Math.sin(g)*r/100).toFixed(3)+');--c:'+Math.round(7+Math.random()*9)+'px;--t:'+t+'s;--d:-'+(Math.random()*t).toFixed(2)+'s"></i>';
-      }
-      p.setAttribute('aria-hidden','true'); p.innerHTML=h; a.appendChild(p);
+    /* Lớp hào quang của từng cuốn, mỗi góc nhìn một kiểu (assets/hao-quang.js, phương án A + D Khánh chọn 28/09) */
+    o.forEach(function(li,i){
+      if(!window.HaoQuang)return;
+      var a=li.querySelector('.sach'), p=tao('span','phep');
+      p.setAttribute('aria-hidden','true'); p.innerHTML=window.HaoQuang.ve(i+1,'pq'+i); a.appendChild(p);
     });
+    /* Tâm và cỡ hình trên bìa: hào quang đặt đúng tâm hình, rộng theo cỡ hình (--hs) */
     function datTam(){
       o.forEach(function(li){
-        var a=li.querySelector('.sach'), hh=li.querySelector('.bia-hinh'); if(!a.offsetWidth)return;
+        var a=li.querySelector('.sach'), hh=li.querySelector('.bia-hinh'), sv=hh.querySelector('svg'); if(!a.offsetWidth)return;
         a.style.setProperty('--hx',((hh.offsetLeft+hh.offsetWidth/2)/a.offsetWidth*100).toFixed(1)+'%');
         a.style.setProperty('--hy',((hh.offsetTop+hh.offsetHeight/2)/a.offsetHeight*100).toFixed(1)+'%');
+        if(sv)a.style.setProperty('--hs',Math.min(sv.clientWidth,sv.clientHeight).toFixed(1)+'px');
       });
     }
     datTam(); addEventListener('resize',datTam);
