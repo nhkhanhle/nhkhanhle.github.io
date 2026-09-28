@@ -158,7 +158,10 @@
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(datTam);
 
     var trongDan=false, ganMax=0, cho=false, cx=0, cy=0, henXoay=null, henDau=null;
-    function tatSang(){ganMax=0;o.forEach(function(li){var a=li.querySelector('.sach');a.style.setProperty('--gan','0');a.classList.remove('phep-bat')})}
+    /* Cuốn đang được chọn bằng bàn phím (Tab, phím mũi tên) cũng tỏa sáng hết mức, như khi chuột nằm trên hình (Khánh thêm 28/09) */
+    function ganPhim(a){return !mo&&document.activeElement===a&&a.matches(':focus-visible')?1:0}
+    function datSang(a,gan){a.style.setProperty('--gan',gan.toFixed(3));a.classList.toggle('phep-bat',gan>.08);if(gan>ganMax)ganMax=gan}
+    function tatSang(){ganMax=0;o.forEach(function(li){var a=li.querySelector('.sach');datSang(a,ganPhim(a))})}
     function doGan(){
       cho=false;
       if(mo){tatSang();return}
@@ -170,11 +173,11 @@
           var d=Math.hypot(cx-(r.left+r.width/2),cy-(r.top+r.height/2));
           gan=Math.max(0,Math.min(1,1-(d-W*.2)/(W*.5)));
         }
-        a.style.setProperty('--gan',gan.toFixed(3));
-        a.classList.toggle('phep-bat',gan>.08);
-        if(gan>ganMax)ganMax=gan;
+        datSang(a,Math.max(gan,ganPhim(a)));
       });
     }
+    ks.addEventListener('focusin',function(ev){if(ev.target.classList&&ev.target.classList.contains('sach'))tatSang()});
+    ks.addEventListener('focusout',function(ev){if(ev.target.classList&&ev.target.classList.contains('sach'))setTimeout(tatSang,0)});
     /* Dàn sách là dải ngang chứa năm cuốn đang hiện; chuột nằm trong dải thì sách tự xoay */
     function trongDai(){
       var k=ks.getBoundingClientRect(), li=o[hien], tren=k.top+li.offsetTop-10, duoi=tren+li.offsetHeight*1.22+10;
