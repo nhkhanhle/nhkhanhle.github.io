@@ -1,0 +1,190 @@
+/* Trang Góc nhìn, cũng là trang chủ (28/09/2026). Bố cục học từ mẫu "Bestsellers Book Showcase" của ThreeUI:
+   một chữ serif nghiêng cỡ rất lớn đứng sau, ba cuốn sách xòe phía trước (cuốn giữa đứng thẳng, hai cuốn bên nghiêng),
+   bấm sách thì sách mở ra thành quyển sổ lật được ngay tại chỗ (chính khối sổ của trang góc nhìn), thanh nút ở đáy, lá rơi chậm.
+   Chỉ học bố cục và chuyển động; chữ, hình, mã đều của trang này. Sáu góc nhìn xoay qua ba chỗ bằng hai nút trái phải.
+   Khánh chọn tông sáng ngày 28/09 (nền giấy, bìa navy); tông tối đã thử và bỏ.
+   Bẫy 3D đã biết: không đặt opacity hay filter dưới 1 lên khối đang mở 3D; các lớp giấy cách nhau ít nhất 2px. */
+
+/* --dinh0: mép trên hàng sách tính từ đỉnh chữ lớn; --duoi: chỗ cho hai nút; --le: khoảng đệm để cả cụm nằm giữa màn đầu khi màn hình cao */
+.ks{--fs:clamp(120px,17.5vw,310px);--dinh0:calc(var(--fs) * .85 + 6px);--duoi:116px;
+  --cao:clamp(330px,min(calc(100svh - 70px - var(--dinh0) - var(--duoi)),46vw),520px);--rong:calc(var(--cao) / 1.45);
+  --le:max(0px,calc((100svh - 70px - var(--dinh0) - var(--cao) - var(--duoi)) / 2));--dinh:calc(var(--dinh0) + var(--le));
+  --chu-lon:#8D7B5B;--bia1:#3B4859;--bia2:#26303C;--bia-chu:#F1EADD;--bia-diem:#B6A383;--bia-chu-nho:#D8CCB5;--bia-vien:rgba(216,204,181,.22);
+  --chi1:rgba(216,204,181,.42);--chi2:rgba(216,204,181,.2);--chi-thoi:#2D3745;--bia-sau:#222B36;
+  --b-ten:var(--cat-dam);--b-chu:var(--nhat);--b-manh:var(--muc);--b-ke:rgba(47,59,74,.14);--b-nhan:var(--cat-dam);
+  --bong:rgba(47,59,74,.34);--la:var(--cat);
+  position:relative;z-index:1;min-height:calc(100vh - 70px);min-height:calc(100svh - 70px);overflow:hidden;overflow:clip;scroll-margin-top:58px}
+
+/* ---------- Chữ lớn phía sau ---------- */
+.ks-chu-lon{position:absolute;left:0;right:0;top:var(--le);z-index:0;margin:0;padding-top:.13em;text-align:center;white-space:nowrap;
+  font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500;font-size:var(--fs);line-height:1;letter-spacing:-.045em;
+  color:var(--chu-lon);pointer-events:none;transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* ---------- Không có JavaScript: sáu cuốn xếp lưới, diễn giải nằm dưới từng cuốn ---------- */
+.ks-san{position:relative;z-index:1;padding-top:calc(var(--dinh) + 24px)}
+.ks-hang{list-style:none;display:grid;grid-template-columns:repeat(3,var(--rong));justify-content:center;gap:40px 36px;padding:0 24px 72px}
+.ks-dien-giai{margin-top:18px;font-size:14.5px;line-height:1.7;color:var(--b-chu)}
+.ks-mui,.ks-la{display:none}
+
+/* ---------- Cuốn sách ---------- */
+.sach{position:relative;display:block;width:var(--rong);height:var(--cao);text-decoration:none;color:var(--bia-chu);border-radius:5px 12px 12px 5px;transform-style:preserve-3d;-webkit-tap-highlight-color:transparent}
+.sach:focus{outline:0}
+.sach:focus-visible .bia{outline:2px solid var(--cat-dam);outline-offset:6px}
+.sach>span{position:absolute;inset:0;border-radius:inherit}
+.bong-sach{inset:6% -4% -5% 4%!important;background:var(--bong);filter:blur(26px);transform:translateZ(-2px);opacity:.85}
+.bia-sau{background:var(--bia-sau);transform:translateZ(0)}
+/* Ruột sách: 5 tờ, mỗi tờ thò ra mép phải thêm một chút để thấy bề dày giấy khi sách còn gấp */
+.ruot i{position:absolute;top:5px;bottom:5px;left:3px;right:calc(var(--k) * -1.6px + 2px);border-radius:2px 5px 5px 2px;
+  background:linear-gradient(90deg,#E6DDCD 0%,#F7F2E8 8%,#F3EDE1 92%,#D9CFBC 100%);box-shadow:inset 0 0 0 1px rgba(95,82,64,.16);
+  transform-origin:left center;transform:translateZ(calc(14px - var(--k) * 2px));transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.bia{display:flex!important;flex-direction:column;align-items:center;text-align:center;padding:12.5% 11% 11%;overflow:hidden;
+  background:var(--van-giay),linear-gradient(160deg,var(--bia1) 0%,var(--bia2) 100%);box-shadow:inset 0 0 0 1px var(--bia-vien);
+  transform-origin:left center;transform:translateZ(16px);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.bia::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4.5%;background:linear-gradient(90deg,rgba(0,0,0,.26),rgba(255,255,255,.07) 60%,rgba(0,0,0,.1))}
+.bia .khung-chi{position:absolute;inset:4.2% 4.2% 4.2% 7%;border:1px solid var(--chi1);border-radius:9px;pointer-events:none}
+.bia .khung-chi::before{content:"";position:absolute;inset:3px;border:1px solid var(--chi2);border-radius:6px}
+.bia .khung-chi i{position:absolute;width:7px;height:7px;border:1px solid var(--chi1);background:var(--chi-thoi);transform:rotate(45deg)}
+.bia .khung-chi i:nth-child(1){left:50%;top:-4px;margin-left:-4px}
+.bia .khung-chi i:nth-child(2){left:50%;bottom:-4px;margin-left:-4px}
+.bia .khung-chi i:nth-child(3){top:50%;left:-4px;margin-top:-4px}
+.bia .khung-chi i:nth-child(4){top:50%;right:-4px;margin-top:-4px}
+.bia-nhan{position:relative;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:calc(var(--rong) * .031 + 1px);letter-spacing:.3em;text-transform:uppercase;color:var(--bia-chu-nho);padding-left:.3em}
+.bia-ten{position:relative;margin-top:.5em;font-family:"Playfair Display",serif;font-weight:500;font-size:calc(var(--rong) * .108);line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+.bia-hinh{position:relative;flex:1;display:grid;place-items:center;width:60%;min-height:0;color:var(--bia-diem)}
+.bia-hinh svg{width:100%;height:auto;max-height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.bia-chan{position:relative;width:74%;padding-top:.9em;border-top:1px solid var(--chi1);font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:calc(var(--rong) * .029 + 1px);letter-spacing:.28em;text-transform:uppercase;color:var(--bia-chu-nho)}
+.bia-chan b{font-weight:600}
+
+/* ---------- Có JavaScript: ba cuốn xòe, xoay qua sáu ---------- */
+.js .ks-san{position:absolute;inset:0;padding:0;outline:0}
+.js .ks-hang{display:block;padding:0;position:absolute;inset:0}
+.js .ks-dien-giai{display:none}
+.js .ks-o{position:absolute;left:50%;top:var(--dinh);width:var(--rong);height:var(--cao);margin-left:calc(var(--rong) / -2);perspective:1700px;
+  transition:transform .85s cubic-bezier(.2,.7,.2,1),opacity .5s ease;will-change:transform}
+.js .ks-o[data-vt="0"]{z-index:3}
+.js .ks-o[data-vt="-1"]{z-index:2;transform:translate(calc(var(--rong) * -.97),calc(var(--cao) * .075)) rotate(-7deg) scale(.95)}
+.js .ks-o[data-vt="1"]{z-index:2;transform:translate(calc(var(--rong) * .97),calc(var(--cao) * .075)) rotate(7deg) scale(.95)}
+.js .ks-o[data-vt="-2"]{z-index:1;transform:translate(calc(var(--rong) * -1.8),calc(var(--cao) * .24)) rotate(-15deg) scale(.88);opacity:0;pointer-events:none}
+.js .ks-o[data-vt="2"]{z-index:1;transform:translate(calc(var(--rong) * 1.8),calc(var(--cao) * .24)) rotate(15deg) scale(.88);opacity:0;pointer-events:none}
+.js .ks-o[data-vt="3"]{z-index:0;transform:translateY(calc(var(--cao) * .1)) scale(.8);opacity:0;pointer-events:none}
+.js .sach{transition:transform .9s cubic-bezier(.2,.7,.2,1),translate .4s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover) and (pointer:fine){
+  .js .ks:not(.mo) .ks-o[data-vt="0"] .sach:hover{translate:0 -12px}
+  .js .ks:not(.mo) .ks-o:not([data-vt="0"]) .sach:hover{translate:0 -8px}
+}
+/* Cuốn giữa thở nhẹ cho màn đầu có sức sống */
+@keyframes sach-tho{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(prefers-reduced-motion:no-preference){.js .ks:not(.mo) .ks-hang{animation:sach-tho 7s ease-in-out infinite}}
+
+/* Hai nút trái phải: cùng kiểu nút tròn giấy nhám có vòng chỉ của vòng thẻ cũ */
+.js .ks-mui{display:flex;align-items:center;position:absolute;left:50%;top:calc(var(--dinh) + var(--cao) + 30px);transform:translateX(-50%);z-index:5;transition:opacity .4s,visibility 0s}
+.ks-mui::before{content:"";width:64px;height:1px;background:rgba(95,82,64,.4);order:1}
+.ks-mui::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:var(--cat);transform:rotate(45deg)}
+.ks-mui .ks-lui{order:0}.ks-mui .ks-toi{order:2}
+.ks-mui button{position:relative;width:52px;height:52px;border-radius:50%;border:1px solid rgba(95,82,64,.35);background:var(--van-giay),var(--to-giay);color:var(--muc);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 8px 16px -8px rgba(47,59,74,.35);transition:background .3s,color .3s,border-color .3s,box-shadow .3s}
+.ks-mui button::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(95,82,64,.35);transition:border-color .3s,transform .6s}
+.ks-mui svg{width:18px;height:18px;fill:currentColor;transition:transform .3s}
+.ks-mui .ks-lui svg{transform:rotate(90deg)}
+.ks-mui .ks-toi svg{transform:rotate(-90deg)}
+.ks-mui button:hover{background:var(--navy);color:var(--cat);border-color:var(--navy)}
+.ks-mui button:hover::before{border-color:rgba(182,163,131,.55);transform:rotate(45deg)}
+.ks-mui .ks-lui:hover svg{transform:rotate(90deg) translateY(3px)}
+.ks-mui .ks-toi:hover svg{transform:rotate(-90deg) translateY(3px)}
+.ks-mui button:active{transform:scale(.96)}
+.ks-mui button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+
+/* ---------- Mở sách (28/09, lần 2): sách dời tới đúng chỗ trang phải của quyển sổ, bìa mở ra rồi nhường chỗ cho sổ ----------
+   Quyển sổ là chính khối sổ của trang góc nhìn (assets/so-tay.css, assets/so-tay.js), trang đứng 1:1.45 như bìa sách.
+   --mx, --my, --ms do assets/ke-sach.js đo rồi đặt lên cuốn đang chọn. Bảng không mang transform để phép đo đúng. */
+.ks.mo .ks-chu-lon{opacity:0;transform:translateY(-24px)}
+/* visibility:hidden để hai nút đã khuất không còn nhận con trỏ bàn phím */
+.ks.mo .ks-mui{opacity:0;pointer-events:none;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+.js .ks.mo .ks-o:not(.chon){opacity:0;pointer-events:none}
+.js .ks.mo .ks-o.chon{z-index:6;opacity:0;pointer-events:none;transform:translate(var(--mx,0px),var(--my,0px)) scale(var(--ms,1));
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .35s ease .8s}
+.ks.mo .ks-o.chon .bia{transform:translateZ(16px) rotateY(-84deg);transition:transform .65s cubic-bezier(.5,0,.75,.4) .4s}
+.ks.mo .ks-o.chon .bong-sach{opacity:0}
+.bong-sach{transition:opacity .5s}
+/* Góc nhìn chưa có bài nào: không có sổ, sách mở bìa đứng trên dòng báo */
+.js .ks.mo.rong .ks-o.chon{opacity:1;transform:translate(0,calc(92px - var(--dinh))) scale(.8);transform-origin:50% 0;transition:transform .85s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.ks.mo.rong .ks-o.chon .bia{transform:translateZ(16px) rotateY(-34deg);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.ks.mo.rong .ks-o.chon .ruot i{transform:translateZ(calc(14px - var(--k) * 2px)) rotateY(calc(-29deg + var(--k) * 5deg))}
+.ks-trong{margin-top:calc(var(--cao) * .8 + 44px);text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-size:19px;color:var(--b-chu)}
+
+.ks-bang{--sw:min(clamp(150px,calc((100vw - 200px) / 2),470px),calc((100svh - 70px - 276px) / 1.45));
+  position:absolute;z-index:5;inset:0;display:flex;flex-direction:column;align-items:center;padding:16px 32px 20px;opacity:0;transition:opacity .5s ease}
+.ks-bang.hien{opacity:1;transition-delay:.25s}
+.ks-bang:focus{outline:0}
+.ks-dau{flex:none;position:relative;width:min(100%,calc(var(--sw) * 2));min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ks-dong{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid rgba(95,82,64,.4);background:transparent;color:var(--b-manh);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .4s}
+.ks-dau .ks-dong{position:absolute;left:0;top:2px}
+.ks-dong svg{width:17px;height:17px;fill:currentColor}
+.ks-dong:hover{background:var(--navy);color:var(--cat);border-color:var(--navy);transform:rotate(90deg)}
+.ks-dong:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+.ks-bang .nhan{font-size:10.5px;letter-spacing:.26em;color:var(--b-nhan)}
+.ks-bang h2{margin-top:1px;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:clamp(24px,2.3vw,31px);line-height:1.15;letter-spacing:-.01em;color:var(--b-ten)}
+/* Đoạn diễn giải góc nhìn (Khánh giữ lại 28/09): nằm dưới tên, trên sổ, tối đa hai dòng trên máy tính */
+.ks-mo-ta{flex:none;width:max-content;max-width:min(760px,calc(100vw - 64px));margin-top:6px;font-size:14.5px;line-height:1.6;color:var(--b-chu);text-wrap:balance}
+/* Quyển sổ trong trang chủ: cỡ trang theo --sw để nằm trọn màn đầu cùng hàng tên và thanh nút; hiện sau khi bìa sách mở */
+.ks .so-tay{flex:none;opacity:0;transition:opacity .45s ease}
+.ks-bang.hien .so-tay{opacity:1;transition-delay:.85s}
+.ks-bang.hien.nhanh .so-tay{transition-delay:.1s}
+.ks-bang.doi .so-tay{opacity:0;transition:none}
+@media(min-width:641px){.ks .so-tay{--w:var(--sw)}}
+.ks .st-san{padding-top:12px;height:calc(var(--h) * var(--zoom) + 44px)}
+.ks .st-mui{color:var(--b-manh)}
+.ks .st-duoi{display:none}
+/* Thanh nút ở đáy bảng */
+.ks-nut{flex:none;display:flex;gap:8px;width:min(100%,560px);margin-top:auto;padding:7px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 10px 26px -12px rgba(47,59,74,.25)}
+.ks-nut a,.ks-nut button{flex:1;min-width:0;display:grid;place-items:center;height:50px;padding:2px 14px 0;border:0;border-radius:999px;cursor:pointer;text-decoration:none;white-space:nowrap;
+  font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:15.5px;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+.ks-nut .n1{background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;box-shadow:0 8px 16px -8px rgba(47,59,74,.5)}
+.ks-nut .n2{background:var(--cat);color:var(--navy)}
+.ks-nut .n3{background:transparent;color:var(--b-manh);box-shadow:inset 0 0 0 1px rgba(95,82,64,.35)}
+.ks-nut a:hover,.ks-nut button:hover{transform:translateY(-2px)}
+.ks-nut a:focus-visible,.ks-nut button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
+
+/* ---------- Lá rơi ---------- */
+.js .ks-la{display:block;position:absolute;inset:0;z-index:7;overflow:hidden;pointer-events:none}
+.ks-la i{position:absolute;top:-44px;left:var(--x);width:var(--c);animation:la-roi var(--t) linear var(--d) infinite}
+.ks-la svg{display:block;width:100%;height:auto;overflow:visible;fill:none;stroke:var(--la);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;opacity:.85;animation:la-dao calc(var(--t) / 3.4) ease-in-out var(--d) infinite alternate}
+@keyframes la-roi{to{transform:translateY(calc(100svh + 90px))}}
+@keyframes la-dao{from{transform:translateX(-30px) rotate(-38deg)}to{transform:translateX(30px) rotate(64deg)}}
+
+/* ---------- Khổ hẹp ---------- */
+@media(max-width:900px){
+  .ks{--cao:clamp(300px,min(calc(100svh - 70px - var(--dinh0) - var(--duoi)),62vw),480px)}
+  .ks-hang{grid-template-columns:repeat(2,var(--rong))}
+}
+@media(max-width:640px){
+  .ks{--fs:27vw;--dinh0:calc(var(--fs) * .9 + 26px);--duoi:104px;--cao:clamp(300px,min(calc(100svh - 70px - var(--dinh0) - var(--duoi)),101vw),440px)}
+  .ks-chu-lon{padding-top:.3em}
+  .ks-hang{grid-template-columns:var(--rong)}
+  .js .ks-o[data-vt="-1"]{transform:translate(calc(var(--rong) * -.84),calc(var(--cao) * .06)) rotate(-6deg) scale(.93)}
+  .js .ks-o[data-vt="1"]{transform:translate(calc(var(--rong) * .84),calc(var(--cao) * .06)) rotate(6deg) scale(.93)}
+  .js .ks-mui{top:calc(var(--dinh) + var(--cao) + 26px)}
+  .ks-mui button{width:40px;height:40px}
+  .ks-mui button::before{inset:3px}
+  .ks-mui svg{width:15px;height:15px}
+  .ks-mui::before{width:44px}
+  .ks-mui::after{width:6px;height:6px;margin:-3px 0 0 -3px}
+  /* Điện thoại: bảng nằm trong dòng chảy, sổ lệch khung như ở trang góc nhìn (trang phải rộng 68% màn hình), hai nút lật dưới sổ */
+  .ks-bang{position:relative;inset:auto;padding:14px 22px 22px;min-height:calc(100svh - 70px)}
+  .ks-dau{min-height:46px}
+  .ks-dau .ks-dong{width:42px;height:42px}
+  .ks-bang h2{font-size:clamp(22px,6.4vw,27px)}
+  .ks-dau .nhan,.ks-dau h2{max-width:calc(100% - 104px)}
+  .ks-mo-ta{width:auto;max-width:none;margin-top:12px;font-size:14.5px;line-height:1.65;text-wrap:pretty}
+  .ks .st-san{overflow:visible;overflow-y:clip;overflow-x:visible;padding-top:16px;height:calc(var(--h) * var(--zoom) + 52px)}
+  .ks .st-duoi{display:flex;width:100%;max-width:none;margin-top:0;padding-top:12px;border-top-color:var(--b-ke)}
+  .ks .st-dem{color:var(--b-nhan)}
+  .ks-nut{position:sticky;bottom:14px;margin-top:18px;background:rgba(249,244,236,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .ks-nut{gap:6px;padding:6px}
+  .ks-nut a,.ks-nut button{height:46px;padding:2px 8px 0;font-size:14px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ks *,.ks{transition:none!important;animation:none!important}
+  .js .ks-la{display:none}
+}

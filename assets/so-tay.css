@@ -28,11 +28,12 @@
 .so-tay-trang .trong{background:rgba(251,250,247,.6)}
 
 /* ---------- Quyển sổ ---------- */
-/* Sổ vẽ lớn (Khánh đổi 25/09): trang ngang tỉ lệ cao/rộng .8, mỗi trang rộng tới 560px.
+/* Sổ dạng đứng (Khánh đổi 28/09): trang cao gấp 1.45 bề ngang, bằng tỉ lệ bìa sách ở trang chủ, mỗi trang rộng tới 470px.
+   Trước đó (25/09) là trang ngang tỉ lệ .8, rộng tới 560px.
    Khu vực sổ nới ra gần hết bề ngang màn hình để hai mũi tên vẫn nằm ngoài mép sổ. */
 /* Cả đầu trang, sổ và hàng điều khiển nằm trọn một màn hình: bề ngang trang sổ còn bị chặn theo chiều cao màn hình
-   (chừa 360px cho menu, đầu trang, hàng điều khiển). */
-.so-tay{--zoom:1;--w:min(clamp(150px,calc((100vw - 200px) / 2),560px),calc((100svh - 430px) / .8));--ty:.8;--h:calc(var(--w) * var(--ty));position:relative;width:min(1300px,calc(100vw - 32px));left:50%;transform:translateX(-50%)}
+   (chừa 290px cho menu, đầu trang, hàng điều khiển; dòng gợi ý nằm dưới mép màn hình). */
+.so-tay{--zoom:1;--w:min(clamp(150px,calc((100vw - 200px) / 2),470px),calc((100svh - 290px) / 1.45));--ty:1.45;--h:calc(var(--w) * var(--ty));position:relative;width:min(1300px,calc(100vw - 32px));left:50%;transform:translateX(-50%)}
 .st-san{position:relative;height:calc(var(--h) * var(--zoom) + 90px);padding-top:30px;overflow:hidden;overflow:clip;outline:0}
 .st-san:focus-visible .st-so{outline:2px solid var(--cat-dam);outline-offset:10px}
 .st-so{position:relative;width:calc(var(--w) * 2);height:var(--h);margin:0 auto;perspective:2600px;container-type:inline-size;
@@ -183,7 +184,10 @@
    sổ nằm giữa với khoảng trống trên dưới; mục lục bị đẩy xuống dưới, cuộn mới thấy.
    Bề ngang trang sổ chừa 430px chiều cao cho menu, đầu trang, hàng điều khiển và khoảng trống. */
 @media(min-width:641px){
-  .so-tay-trang .so-tay{min-height:calc(100svh - 200px);display:flex;flex-direction:column;justify-content:center;padding:clamp(20px,5svh,56px) 0}
+  .so-tay-trang .so-tay{min-height:calc(100svh - 200px);display:flex;flex-direction:column;justify-content:center;padding:0}
+  /* Sổ dạng đứng (28/09) cao hơn sổ ngang: thu khoảng đệm trên đầu trang và quanh sổ để hàng điều khiển vẫn nằm trong màn đầu */
+  .so-tay-trang .dau-so{padding-top:14px}
+  .so-tay-trang .st-san{padding-top:10px;height:calc(var(--h) * var(--zoom) + 42px)}
   .so-tay-trang .noi-dung{padding-top:0}
   .so-tay-trang .muc-luc{margin-top:72px}
 }
@@ -200,13 +204,13 @@
 .st-lat button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
 
 /* Điện thoại (Khánh chỉnh 25/09, lần 2): trang phải rộng ra, trang trái lùi một phần ra ngoài mép trái màn hình
-   như quyển sổ đặt lệch khung. Trang rộng 68% bề ngang màn hình, cao 1.25 bề ngang trang; mép phải sổ cách mép màn hình 16px.
+   như quyển sổ đặt lệch khung. Trang rộng 68% bề ngang màn hình, cao 1.45 bề ngang trang (28/09, trước là 1.25); mép phải sổ cách mép màn hình 16px.
    --l: phần trang trái còn thấy; hình bài và dấu ngày dời vào phần đó.
    Khoảng trống trên dưới sổ rộng ra; bỏ dòng hướng dẫn, nút "Đọc bài này" (trong trang vẫn có "Đọc bài →") và nút phóng to,
    thay bằng hai nút lật trái phải. */
 @media(max-width:640px){
   /* Bề ngang trang làm tròn xuống bội số 8px: mỗi trang ghép từ 8 dải, dải lẻ điểm ảnh hở khe lộ chữ trang bên dưới */
-  .so-tay{--w:calc((100vw - 16px) * .68);--ty:1.25;--l:calc(100vw - 16px - var(--w))}
+  .so-tay{--w:calc((100vw - 16px) * .68);--ty:1.45;--l:calc(100vw - 16px - var(--w))}
   @supports(width:round(down,10px,8px)){.so-tay{--w:round(down,calc((100vw - 16px) * .68),8px)}}
   .so-tay-trang .so-tay{padding:40px 0 48px}
   .so-tay-trang .st-san{overflow:visible;overflow-y:clip;overflow-x:visible}
