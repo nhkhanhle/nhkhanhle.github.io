@@ -44,7 +44,6 @@
   var vungSo=bang.querySelector('[data-so-tay]'), bangTrong=bang.querySelector('[data-b-trong]'), viTriSap=-1;
   function dien(){
     var li=o[hien], ma=li.getAttribute('data-ma'), ds=baiCua(ma);
-    bang.querySelector('[data-b-so]').textContent='Góc nhìn '+so(hien+1)+' / '+so(n);
     bang.querySelector('[data-b-ten]').textContent=li.querySelector('.bia-ten').textContent;
     bang.querySelector('[data-b-mo]').textContent=li.querySelector('.ks-dien-giai').textContent;
     ks.classList.toggle('rong',!ds.length);

@@ -48,8 +48,8 @@
 .bia .khung-chi i:nth-child(2){left:50%;bottom:-4px;margin-left:-4px}
 .bia .khung-chi i:nth-child(3){top:50%;left:-4px;margin-top:-4px}
 .bia .khung-chi i:nth-child(4){top:50%;right:-4px;margin-top:-4px}
-.bia-nhan{position:relative;font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:calc(var(--rong) * .031 + 1px);letter-spacing:.3em;text-transform:uppercase;color:var(--bia-chu-nho);padding-left:.3em}
-.bia-ten{position:relative;margin-top:.5em;font-family:"Playfair Display",serif;font-weight:500;font-size:calc(var(--rong) * .108);line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+/* Bìa không còn nhãn "Góc nhìn · 01" (Khánh bỏ 28/09): chỉ tên góc nhìn, hình và số bài viết */
+.bia-ten{position:relative;margin-top:.35em;font-family:"Playfair Display",serif;font-weight:500;font-size:calc(var(--rong) * .108);line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
 .bia-hinh{position:relative;flex:1;display:grid;place-items:center;width:60%;min-height:0;color:var(--bia-diem)}
 .bia-hinh svg{width:100%;height:auto;max-height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .bia-chan{position:relative;width:74%;padding-top:.9em;border-top:1px solid var(--chi1);font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:calc(var(--rong) * .029 + 1px);letter-spacing:.28em;text-transform:uppercase;color:var(--bia-chu-nho)}
@@ -190,8 +190,9 @@
 .ks-dong:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
 .ks-dau .nhan{font-size:10.5px;letter-spacing:.26em;color:var(--b-nhan)}
 .ks-dau h2{margin-top:1px;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:clamp(24px,2.3vw,31px);line-height:1.15;letter-spacing:-.01em;color:var(--b-ten)}
-/* Đoạn diễn giải góc nhìn (Khánh giữ lại 28/09): nằm dưới tên, trên sổ, tối đa hai dòng trên máy tính */
-.ks-mo-ta{flex:none;width:max-content;max-width:min(760px,calc(100vw - 64px));margin-top:6px;font-size:14.5px;line-height:1.6;color:var(--b-chu);text-wrap:balance}
+/* Đoạn diễn giải góc nhìn (Khánh giữ lại 28/09): nằm dưới tên, trên sổ, tối đa hai dòng trên máy tính.
+   Cách tên 20px để dòng đầu luôn nằm dưới nút đóng tròn (bỏ dòng "Góc nhìn 02 / 06" ngày 28/09 nên tên dời lên sát nút) */
+.ks-mo-ta{flex:none;width:max-content;max-width:min(760px,calc(100vw - 64px));margin-top:20px;font-size:14.5px;line-height:1.6;color:var(--b-chu);text-wrap:balance}
 /* Quyển sổ trong trang chủ: cỡ trang theo --sw để nằm trọn màn đầu cùng hàng tên và thanh nút; hiện sau khi bìa sách mở */
 .ks .so-tay{flex:none;opacity:0;transition:opacity .45s ease}
 .ks-bang.hien .so-tay{opacity:1;transition-delay:.85s}
@@ -243,7 +244,8 @@
   .ks-dau .ks-dong{width:42px;height:42px}
   .ks-dau h2{font-size:clamp(22px,6.4vw,27px)}
   .ks-dau .nhan,.ks-dau h2{max-width:calc(100% - 104px)}
-  .ks-mo-ta{width:auto;max-width:none;margin-top:12px;font-size:14.5px;line-height:1.65;text-wrap:pretty}
+  /* Đoạn diễn giải bắt đầu dưới nút đóng tròn (bỏ dòng "Góc nhìn 02 / 06" ngày 28/09 nên tên dời lên sát nút) */
+  .ks-mo-ta{width:auto;max-width:none;margin-top:24px;font-size:14.5px;line-height:1.65;text-wrap:pretty}
   .ks .st-san{overflow:visible;overflow-y:clip;overflow-x:visible;padding-top:16px;height:calc(var(--h) * var(--zoom) + 52px)}
   .ks .st-duoi{display:flex;width:100%;max-width:none;margin-top:0;padding-top:12px;border-top-color:var(--b-ke)}
   .ks .st-dem{color:var(--b-nhan)}
