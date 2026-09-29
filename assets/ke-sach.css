@@ -73,10 +73,10 @@
   .js .ks:not(.mo) .ks-o[data-vt="0"] .sach:hover{translate:0 -12px}
   .js .ks:not(.mo) .ks-o:not([data-vt="0"]) .sach:hover{translate:0 -8px}
 }
-/* Tự xoay khi rảnh (Khánh chọn phương án A ngày 28/09): 4.5 giây một nấc theo chiều kim đồng hồ nhìn từ trên xuống,
-   mỗi nấc trôi êm 1.2 giây, tăng tốc và hãm đều hai đầu. Dừng khi chuột, tay, bàn phím chạm kệ (assets/ke-sach.js).
+/* Tự xoay khi rảnh (Khánh chọn phương án A ngày 28/09): 3 giây một nấc theo chiều kim đồng hồ nhìn từ trên xuống,
+   mỗi nấc trôi êm 0.9 giây (tăng tốc 29/09), tăng tốc và hãm đều hai đầu. Dừng khi chuột, tay, bàn phím chạm kệ (assets/ke-sach.js).
    Bấm nút, phím, vuốt thì dùng nhịp .85 giây mặc định. */
-.js .ks.tu-xoay:not(.mo) .ks-o{transition:transform 1.2s cubic-bezier(.45,0,.25,1),opacity .9s ease}
+.js .ks.tu-xoay:not(.mo) .ks-o{transition:transform .9s cubic-bezier(.45,0,.25,1),opacity .7s ease}
 
 /* ---------- Hào quang sáu góc nhìn (Khánh chọn phương án A + D ngày 28/09) ----------
    Chuột lại gần hình trên bìa (hoặc chọn cuốn bằng bàn phím) thì --gan của cuốn đó tăng từ 0 tới 1 (assets/ke-sach.js đo khoảng cách).

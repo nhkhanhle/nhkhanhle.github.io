@@ -170,11 +170,11 @@
 
   /* ---------- Tự xoay khi rảnh (Khánh chọn phương án A ngày 28/09) ----------
      Vào trang là kệ tự xoay theo chiều kim đồng hồ nhìn từ trên xuống (hàng trước trôi từ phải sang trái), cả trên điện thoại:
-     4.5 giây một nấc, mỗi nấc trôi êm 1.2 giây. Dừng ngay khi có người chạm vào kệ, rồi xoay lại sau khi họ rời ra:
+     3 giây một nấc, mỗi nấc trôi êm 0.9 giây (Khánh tăng tốc ngày 29/09, trước là 4.5 và 1.2 giây). Dừng ngay khi có người chạm vào kệ, rồi xoay lại sau khi họ rời ra:
        chuột nằm trong dải dàn sách (xoay lại sau 3 giây), tay chạm kệ (sau 5 giây), chọn sách hay nút bằng bàn phím (sau 3 giây),
        sổ đang mở, kệ khuất quá nửa màn hình, tab bị ẩn. Máy bật giảm chuyển động thì không tự xoay.
      Không nghe sự kiện cuộn: kệ khuất hay hiện đo bằng IntersectionObserver. */
-  var NHIP=4500, CHO_LAI=3000, lyDo={}, henBuoc=null, keThay=true;
+  var NHIP=3000, CHO_LAI=3000, lyDo={}, henBuoc=null, keThay=true;
   function dangDung(){for(var k in lyDo)if(lyDo[k])return true;return mo||!keThay||document.hidden||giam}
   function lenLich(tre){
     clearTimeout(henBuoc); henBuoc=null;
