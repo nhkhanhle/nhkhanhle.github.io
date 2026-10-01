@@ -33,11 +33,12 @@
 </nav>
 
 <header class="dau-trang">
+  <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
   <div class="khung pd-dau">
     <div>
       <div class="nhan">Thư viện sách</div>
       <h1>Phòng đọc sách</h1>
-      <p class="mo-ta">Sách tôi đọc đi đọc lại, khóa học tôi đã theo, và hộp phiếu ghi chú tôi viết cho chính mình. Rút một cuốn khỏi kệ để xem vì sao nó đáng dành thời gian.</p>
+      <p class="mo-ta">Sách tôi đọc đi đọc lại, khóa học tôi đã theo, và hộp phiếu ghi chú tôi viết cho chính mình. Rê tay lên gáy để xem bìa; rút một cuốn ra, nó bay sang quyển sổ và kể vì sao đáng dành thời gian.</p>
       <p class="pd-so" data-dem>Đang xếp kệ…</p>
     </div>
     <div>
@@ -55,10 +56,14 @@
     <p class="tv-bao" data-tv-bao>Thư viện đang được xếp dần. Mục có nhãn “Mẫu” là chữ giữ chỗ, sẽ được thay bằng nội dung thật.</p>
     <div class="pd-than">
       <div>
-        <div class="pd-tu" data-tu aria-label="Tủ sách"></div>
+        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ sách"><span class="pd-noc" aria-hidden="true"></span><span class="pd-kinh" aria-hidden="true"></span></div></div>
         <div class="pd-chu-giai" data-chu-giai aria-label="Màu gáy theo góc nhìn"></div>
       </div>
-      <aside class="pd-phieu" data-phieu aria-label="Phiếu đọc" aria-live="polite" tabindex="-1"></aside>
+      <!-- Quyển sổ mở đôi: trang trái là bìa và thông tin, trang phải là vì sao đáng đọc hay nội dung ghi chú -->
+      <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc" aria-live="polite">
+        <div class="so-trai" data-so-trai></div>
+        <div class="so-phai" data-so-phai></div>
+      </aside>
     </div>
   </div>
 </main>
@@ -84,6 +89,7 @@
 
 <script src="thu-vien.js"></script>
 <script src="assets/canh-la.js"></script>
+<script src="assets/phep-thuat-thu-vien.js"></script>
 <script src="assets/thu-vien-sach.js"></script>
 <script src="assets/menu.js"></script>
 <script src="assets/tim-kiem-du-lieu.js"></script>

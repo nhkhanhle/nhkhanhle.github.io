@@ -34,11 +34,12 @@
 </nav>
 
 <header class="dau-trang">
+  <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
   <div class="khung pd-dau">
     <div>
       <div class="nhan">Thư viện luật</div>
       <h1>Phòng đọc luật</h1>
-      <p class="mo-ta">Những văn bản về nhân sự tôi tra hằng ngày, xếp thành chín ngăn theo lĩnh vực. Rút một gáy để mở phiếu đọc, hoặc gõ câu hỏi để tìm thẳng tới điều luật.</p>
+      <p class="mo-ta">Những văn bản về nhân sự tôi tra hằng ngày, xếp thành chín ngăn trong một tủ gỗ cổ. Rê tay lên gáy, cuốn sách xoay ra cho bạn xem bìa; rút ra, nó bay sang quyển sổ bên cạnh.</p>
       <p class="pd-so" data-tc-so>Đang mở tủ văn bản…</p>
     </div>
     <div>
@@ -58,11 +59,13 @@
   <div class="khung">
     <div class="pd-than">
       <div>
-        <div class="pd-tu" data-tu aria-label="Tủ văn bản"></div>
+        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ văn bản"><span class="pd-noc" aria-hidden="true"></span><span class="pd-kinh" aria-hidden="true"></span></div></div>
         <div class="pd-chu-giai" data-chu-giai aria-label="Màu gáy theo loại văn bản"></div>
       </div>
-      <aside class="pd-phieu" data-phieu aria-label="Phiếu đọc">
-        <div class="tc-ket-qua" data-tc-ket-qua aria-live="polite"></div>
+      <!-- Quyển sổ mở đôi: trang trái là phiếu thư viện (bìa, số hiệu, chương), trang phải là mục lục điều, kết quả tìm hay sổ tình huống -->
+      <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc">
+        <div class="so-trai" data-so-trai></div>
+        <div class="so-phai tc-ket-qua" data-tc-ket-qua aria-live="polite"></div>
       </aside>
     </div>
 
@@ -97,6 +100,7 @@
 
 <script src="tinh-huong.js"></script>
 <script src="assets/canh-la.js"></script>
+<script src="assets/phep-thuat-thu-vien.js"></script>
 <script src="assets/thu-vien-luat.js"></script>
 <script src="assets/menu.js"></script>
 <script src="assets/tim-kiem-du-lieu.js"></script>
