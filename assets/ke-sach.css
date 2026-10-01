@@ -205,17 +205,21 @@
 /* Đoạn diễn giải góc nhìn (Khánh giữ lại 28/09): nằm dưới tên, trên sổ, tối đa hai dòng trên máy tính.
    Cách tên 20px để dòng đầu luôn nằm dưới nút đóng tròn (bỏ dòng "Góc nhìn 02 / 06" ngày 28/09 nên tên dời lên sát nút) */
 .ks-mo-ta{flex:none;width:max-content;max-width:min(760px,calc(100vw - 64px));margin-top:20px;font-size:14.5px;line-height:1.6;color:var(--b-chu);text-wrap:balance}
-/* Quyển sổ trong trang chủ: cỡ trang theo --sw để nằm trọn màn đầu cùng hàng tên và thanh nút; hiện sau khi bìa sách mở */
-.ks .so-tay{flex:none;opacity:0;transition:opacity .45s ease}
+/* Quyển sổ trong trang chủ: cỡ trang theo --sw để nằm trọn màn đầu cùng hàng tên và thanh nút; hiện sau khi bìa sách mở.
+   Sổ nằm giữa màn hình, khoảng trống trên và dưới sổ bằng nhau (Khánh chỉnh 01/10): margin tự động chia đều phần còn lại
+   giữa đoạn diễn giải và thanh nút. Bỏ left:50% và translateX(-50%) của so-tay.css: ở đây sổ đã được khung dọc căn giữa,
+   cộng thêm hai luật đó thì sổ trôi sang phải một nửa bề ngang thừa, màn càng rộng càng lệch. */
+.ks .so-tay{flex:none;left:auto;transform:none;margin:auto 0;opacity:0;transition:opacity .45s ease}
 .ks-bang.hien .so-tay{opacity:1;transition-delay:.85s}
 .ks-bang.hien.nhanh .so-tay{transition-delay:.1s}
 .ks-bang.doi .so-tay{opacity:0;transition:none}
 @media(min-width:641px){.ks .so-tay{--w:var(--sw)}}
-.ks .st-san{padding-top:12px;height:calc(var(--h) * var(--zoom) + 44px)}
+/* Đệm 22px trên và 22px dưới trang sổ (chỗ cho bóng sổ), để khoảng hở nhìn thấy hai đầu bằng nhau */
+.ks .st-san{padding-top:22px;height:calc(var(--h) * var(--zoom) + 44px)}
 .ks .st-mui{color:var(--b-manh)}
 .ks .st-duoi{display:none}
 /* Thanh nút ở đáy bảng */
-.ks-nut{flex:none;display:flex;gap:8px;width:min(100%,400px);margin-top:auto;padding:7px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 10px 26px -12px rgba(47,59,74,.25)}
+.ks-nut{flex:none;display:flex;gap:8px;width:min(100%,400px);margin-top:0;padding:7px;border-radius:999px;background:rgba(255,255,255,.42);box-shadow:inset 0 0 0 1px rgba(47,59,74,.08),0 10px 26px -12px rgba(47,59,74,.25)}
 .ks-nut a,.ks-nut button{flex:1;min-width:0;display:grid;place-items:center;height:50px;padding:2px 14px 0;border:0;border-radius:999px;cursor:pointer;text-decoration:none;white-space:nowrap;
   font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:15.5px;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
 .ks-nut .n1{background:linear-gradient(#3B4859,#2F3B4A);color:#F1EADD;box-shadow:0 8px 16px -8px rgba(47,59,74,.5)}
@@ -258,12 +262,31 @@
   .ks-dau .nhan,.ks-dau h2{max-width:calc(100% - 104px)}
   /* Đoạn diễn giải bắt đầu dưới nút đóng tròn (bỏ dòng "Góc nhìn 02 / 06" ngày 28/09 nên tên dời lên sát nút) */
   .ks-mo-ta{width:auto;max-width:none;margin-top:24px;font-size:14.5px;line-height:1.65;text-wrap:pretty}
-  .ks .st-san{overflow:visible;overflow-y:clip;overflow-x:visible;padding-top:16px;height:calc(var(--h) * var(--zoom) + 52px)}
-  .ks .st-duoi{display:flex;width:100%;max-width:none;margin-top:0;padding-top:12px;border-top-color:var(--b-ke)}
-  .ks .st-dem{color:var(--b-nhan)}
-  .ks-nut{position:sticky;bottom:14px;margin-top:18px;background:rgba(249,244,236,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  /* Điện thoại (Khánh chỉnh 01/10): giữ sổ lệch khung, nhưng cả tên, diễn giải, sổ, hàng lật và thanh nút nằm trọn một màn hình.
+     Trang sổ rộng 68% bề ngang như trang góc nhìn, máy thấp thì co theo chiều cao; --cp là phần chiều cao dành cho
+     menu, tên, diễn giải tới năm dòng, thanh nút và khoảng đệm. Bề ngang vẫn làm tròn xuống bội số 8px (8 dải mỗi tờ).
+     Sàn 160px: hẹp hơn thì chữ trên trang bị cắt; máy rất thấp (cỡ iPhone SE đời đầu) nên cuộn thêm một chút. */
+  .ks .so-tay{--cp:380px;--w:max(160px,min(calc((100vw - 16px) * .68),calc((100svh - var(--cp)) / 1.45)))}
+  @supports(width:round(down,10px,8px)){.ks .so-tay{--w:max(160px,round(down,min(calc((100vw - 16px) * .68),calc((100svh - var(--cp)) / 1.45)),8px))}}
+  .ks .st-san{overflow:visible;overflow-y:clip;overflow-x:visible;padding-top:14px;height:calc(var(--h) * var(--zoom) + 28px)}
+  /* Sổ hẹp hơn khung thì nằm giữa; rộng hơn khung thì mép phải sổ vẫn cách mép màn hình 16px, trang trái lùi ra ngoài như cũ */
+  .ks .st-so{margin-left:min(calc(100vw - 32px - var(--w) * 2),calc((100vw - 32px - var(--w) * 2) / 2))}
+  /* Hai nút lật trang dời xuống hai đầu thanh nút cho đỡ một hàng (01/10); số bài đã có trên trang sổ nên ẩn dòng đếm */
+  .ks-man{position:relative}
+  .ks .so-tay{position:static}
+  .ks .st-duoi{position:absolute;left:0;right:0;bottom:31px;display:block;max-width:none;margin:0;padding:0;border:0;pointer-events:none}
+  .ks .st-dem{display:none}
+  .ks .st-lat{justify-content:space-between}
+  .ks .st-lat button{pointer-events:auto}
+  /* Thanh nút nằm ngay dưới hàng lật, không dính đáy màn hình nữa nên không đè lên sổ (01/10) */
+  .ks-nut{width:calc(100% - 104px);margin-top:0;background:rgba(249,244,236,.92)}
   .ks-nut{gap:6px;padding:6px}
   .ks-nut a,.ks-nut button{height:46px;padding:2px 8px 0;font-size:14px}
+}
+/* Điện thoại hẹp (dưới 360px): thanh nút nằm giữa hai nút lật nên chữ nhỏ lại để "Bài sắp đăng" không bị cụt */
+@media(max-width:360px){
+  .ks-nut{width:calc(100% - 96px)}
+  .ks-nut a,.ks-nut button{padding:2px 3px 0;font-size:13px}
 }
 
 @media(prefers-reduced-motion:reduce){

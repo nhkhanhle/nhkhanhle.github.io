@@ -5,12 +5,12 @@
    Tờ giấy cắt thành N dải dọc lồng nhau; khi lật, mỗi dải gập thêm một góc nhỏ nên tờ giấy cong như giấy thật.
    Nội dung mỗi mặt được chép vào từng dải rồi dịch trái cho đúng phần của dải đó.
    Chép nhiều lần nên bản trong sổ ẩn khỏi trình đọc màn hình; nội dung đọc được nằm ở mục lục và dòng thông báo.
-   Gọi: window.SoTay.ve(danhSachBai, gocDuongDan). */
+   Gọi: window.SoTay.ve(danhSachBai, gocDuongDan).
+   Kính lúp soi trang đã bỏ ngày 01/10 theo ý Khánh. */
 (function(){
   var N=8, GAP_MAX=9, NHAC=9, CUON=0;   /* NHAC: độ nhấc trang bên trái. CUON (cong theo dải lúc nằm yên) để 0: dải lệch nhau làm đứt hình */
   var _=0;                /* số dải mỗi tờ, góc gập tối đa mỗi dải (độ) */
   var MUC_ZOOM=[.8,1,1.25,1.5];
-  var soiMoi=null, daGanResize=false;
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function tao(tag,cls,chu){var e=document.createElement(tag);if(cls)e.className=cls;if(chu!=null)e.textContent=chu;return e}
   function so(n){return (n<10?'0':'')+n}
@@ -70,8 +70,8 @@
 
   function ve(danh,goc){
     var vung=q('[data-so-tay]'); if(!vung)return;
-    var so_=q('[data-st-so]',vung), san=q('[data-st-san]',vung), kinh=q('[data-st-kinh]',vung),
-        kinhNoi=q('[data-st-kinh-noi]',vung), bao=q('[data-st-bao]',vung), dem=q('[data-st-dem]',vung),
+    var so_=q('[data-st-so]',vung), san=q('[data-st-san]',vung),
+        bao=q('[data-st-bao]',vung), dem=q('[data-st-dem]',vung),
         muiTruoc=[].slice.call(vung.querySelectorAll('[data-st-truoc]')), muiSau=[].slice.call(vung.querySelectorAll('[data-st-sau]')),
         docNgoai=q('[data-st-doc]',vung), zTru=q('[data-st-zoom="-"]',vung), zCong=q('[data-st-zoom="+"]',vung), zChu=q('[data-st-zoom-chu]',vung);
     var n=danh.length;
@@ -114,7 +114,6 @@
       if(bao)bao.textContent='Bài '+(hien+1)+' trên '+n+': '+b.tieuDe;
       if(docNgoai){docNgoai.hidden=!daViet(b);if(daViet(b))docNgoai.href=goc+b.duongDan}
       [].forEach.call(document.querySelectorAll('[data-ml] .ml-dong'),function(x,i){x.setAttribute('aria-current',i===hien?'true':'false')});
-      veKinh();
     }
 
     /* Hoạt ảnh lật một tờ, p0 tới p1 */
@@ -184,56 +183,9 @@
       if(zChu)zChu.textContent=Math.round(z*100)+'%';
       var i=MUC_ZOOM.indexOf(z);
       if(zTru)zTru.disabled=i<=0; if(zCong)zCong.disabled=i>=MUC_ZOOM.length-1;
-      veKinh();
     }
     if(zTru)zTru.onclick=function(){var i=MUC_ZOOM.indexOf(z);if(i>0)datZoom(MUC_ZOOM[i-1])};
     if(zCong)zCong.onclick=function(){var i=MUC_ZOOM.indexOf(z);if(i<MUC_ZOOM.length-1)datZoom(MUC_ZOOM[i+1])};
-
-    /* Kính lúp: kéo trong khung sổ; trong kính là bản chép cặp trang đang mở, phóng 2 lần */
-    var PHONG=2;
-    function veKinh(){
-      if(!kinh||!kinhNoi)return;
-      kinhNoi.innerHTML='';
-      var ban=tao('div','kinh-so');
-      var trai=tao('div','nen nen-trai'), phai=tao('div','nen nen-phai');
-      trai.appendChild(trangHinh(danh[hien],goc)); phai.appendChild(trangChu(danh[hien],hien,n,goc,sap(danh[hien])));
-      ban.appendChild(trai); ban.appendChild(phai); ban.appendChild(tao('span','gay'));
-      kinhNoi.appendChild(ban);
-      soiKinh();
-    }
-    function soiKinh(){
-      if(!kinh||!kinhNoi.firstChild)return;
-      var ban=kinhNoi.firstChild, r=so_.getBoundingClientRect(), k=kinh.getBoundingClientRect();
-      var W=so_.offsetWidth, H=so_.offsetHeight, R=k.width/2;
-      ban.style.width=W+'px'; ban.style.height=H+'px';
-      var u=(k.left+R-r.left)/r.width*W, v=(k.top+R-r.top)/r.height*H, M=PHONG*z;
-      ban.style.transform='translate('+(R-u*M)+'px,'+(R-v*M)+'px) scale('+M+')';
-    }
-    if(kinh){
-      var kk=null;
-      function datViTri(x,y){
-        var s=san.getBoundingClientRect(), k=kinh.offsetWidth;
-        x=Math.max(-k*.3,Math.min(s.width-k*.7,x)); y=Math.max(-k*.3,Math.min(s.height-k*.7,y));
-        kinh.style.left=x+'px'; kinh.style.top=y+'px'; kinh.style.right='auto'; kinh.style.bottom='auto';
-        soiKinh();
-      }
-      kinh.onpointerdown=function(ev){
-        if(ev.button!==0)return; ev.stopPropagation(); ev.preventDefault();
-        var s=san.getBoundingClientRect(), b=kinh.getBoundingClientRect();
-        kk={dx:ev.clientX-b.left,dy:ev.clientY-b.top,sx:s.left,sy:s.top};
-        kinh.setPointerCapture(ev.pointerId); kinh.classList.add('dang-keo');
-      };
-      kinh.onpointermove=function(ev){if(kk)datViTri(ev.clientX-kk.sx-kk.dx,ev.clientY-kk.sy-kk.dy)};
-      kinh.onpointerup=kinh.onpointercancel=function(){kk=null;kinh.classList.remove('dang-keo')};
-      kinh.onkeydown=function(ev){
-        var m={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[ev.key]; if(!m)return;
-        ev.preventDefault();
-        datViTri(kinh.offsetLeft+m[0],kinh.offsetTop+m[1]);
-      };
-      /* Gắn một lần: lọc nhóm gọi ve() lại nhiều lần, chỉ cần soi theo lần vẽ mới nhất */
-      soiMoi=soiKinh;
-      if(!daGanResize){daGanResize=true;addEventListener('resize',function(){soiMoi&&soiMoi()})}
-    }
 
     /* Mục lục: bấm dòng là sổ lật tới bài đó */
     var ml=q('[data-ml]');
