@@ -1,65 +1,29 @@
-/* Trang Tra cứu pháp luật lao động (tra-cuu-luat.html), body có class tra-cuu-trang giay-cu. Dựng 27/09/2026.
-   Bố cục: đầu trang giữa với ô tìm lớn trên tờ giấy và các câu hỏi gợi ý; bên dưới hai cột:
-   trái là tủ văn bản (9 nhóm, mỗi nhóm liệt kê văn bản), phải là kết quả tìm, hoặc mục lục một văn bản đang duyệt,
-   hoặc tình huống thường gặp khi chưa gõ gì. Mỗi kết quả là một tờ giấy: tên văn bản, Điều N, đoạn trích tô sáng, nút đọc cả điều và chép trích dẫn. */
-.tra-cuu-trang .nav,.tra-cuu-trang .dau-trang,.tra-cuu-trang .noi-dung,.tra-cuu-trang footer{position:relative;z-index:1}
-.tra-cuu-trang .nav{z-index:20}
-.tra-cuu-trang .dau-trang{background:transparent;color:var(--muc);padding:40px 0 0;text-align:center;overflow:visible}
-.tra-cuu-trang .dau-trang .kien-truc{display:none}
-.tra-cuu-trang .dau-trang h1{margin-top:10px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(32px,3.4vw,46px);line-height:1.1;letter-spacing:-.01em;color:var(--muc)}
-.tra-cuu-trang .dau-trang .mo-ta{margin:12px auto 0;max-width:640px;color:var(--nhat);font-size:16px;line-height:1.7}
-.tc-so{margin-top:10px;font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam)}
-.tra-cuu-trang .noi-dung{padding:26px 0 96px;overflow-x:clip}
-
+/* Thư viện luật (thu-vien-luat.html), body có class phong-doc giay-cu. Khung phòng đọc (tủ, gáy, phiếu) ở assets/phong-doc.css.
+   File này giữ phần tra cứu dựng 27/09 (trước ở tra-cuu.css): ô tìm, câu gợi ý, thẻ điều luật, mục lục văn bản, tình huống,
+   đã chỉnh cho vừa phiếu đọc rộng 440px bên phải tủ (01/10/2026). */
 /* Ô tìm trên tờ giấy */
-.tc-tim{max-width:820px;margin:0 auto;background:var(--van-giay),var(--to-giay);border-radius:var(--bo-the);box-shadow:0 24px 44px rgba(47,59,74,.13),inset 0 0 0 1px rgba(110,95,70,.12);padding:8px 8px 8px 22px;display:flex;align-items:center;gap:14px}
+.tc-tim{margin:0;background:var(--van-giay),var(--to-giay);border-radius:var(--bo-the);box-shadow:0 24px 44px rgba(47,59,74,.13),inset 0 0 0 1px rgba(110,95,70,.12);padding:8px 8px 8px 22px;display:flex;align-items:center;gap:14px}
 .tc-tim svg{width:20px;height:20px;flex:none;fill:var(--cat-dam)}
 .tc-tim input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:17px;color:var(--muc);padding:12px 0}
 .tc-tim input::placeholder{color:#7A8290}
 .tc-tim button{flex:none;font-family:"Josefin Sans",sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding:14px 20px 12px;border:0;border-radius:var(--bo-nut);background:var(--navy);color:#F1EADD;cursor:pointer;transition:background .25s}
 .tc-tim button:hover{background:#3B4859}
 .tc-tim button:focus-visible,.tc-tim input:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
-.tc-pham-vi{display:none;align-items:center;gap:8px;justify-content:center;margin-top:14px;font-size:13.5px;color:var(--nhat)}
+.tc-pham-vi{display:none;align-items:center;gap:8px;margin-top:12px;font-size:13.5px;color:var(--nhat)}
 .tc-pham-vi.hien{display:flex}
 .tc-pham-vi b{font-weight:500;color:var(--muc)}
 .tc-pham-vi button{border:1px solid rgba(95,82,64,.35);background:transparent;border-radius:999px;width:26px;height:26px;cursor:pointer;color:var(--cat-dam);font-size:15px;line-height:1}
-.tc-goi-y{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.tc-goi-y{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .tc-goi-y span{font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--nhat);align-self:center;margin-right:4px}
 .tc-goi-y button{font-size:13.5px;padding:7px 14px;border-radius:999px;border:1px solid rgba(47,59,74,.18);background:transparent;color:var(--nhat);cursor:pointer;transition:border-color .25s,color .25s,background .25s}
 .tc-goi-y button:hover{border-color:var(--cat-dam);color:var(--muc);background:var(--to-giay)}
 .tc-goi-y button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
-.tc-trang-thai{margin-top:12px;text-align:center;font-size:13px;color:var(--cat-dam);min-height:20px}
-
-/* Hai cột */
-.tc-than{display:grid;grid-template-columns:300px minmax(0,1fr);gap:48px;align-items:start;margin-top:44px}
-/* Tủ văn bản */
-.tc-tu{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
-.tc-tu>summary{list-style:none;cursor:pointer;display:none}
-.tc-tu .nhan{font-size:11.5px}
-.tc-nhom{border-top:1px solid rgba(47,59,74,.12)}
-.tc-nhom summary{list-style:none;display:block}
-.tc-nhom summary::-webkit-details-marker{display:none}
-.tc-nhom:first-of-type{margin-top:12px}
-.tc-nhom summary>button{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;gap:10px;align-items:baseline;width:100%;padding:13px 4px;border:0;background:none;text-align:left;cursor:pointer;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:14.5px;font-weight:500;color:var(--muc)}
-.tc-nhom summary>button small{font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--cat-dam)}
-.tc-nhom summary>button i{font-style:normal;color:var(--cat-dam);transition:transform .3s}
-.tc-nhom[open] summary>button i{transform:rotate(45deg)}
-.tc-nhom summary>button:hover{color:var(--cat-dam)}
-.tc-nhom summary>button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:-2px}
-.tc-nhom ul{list-style:none;padding:0 0 10px}
-.tc-nhom[open] ul{display:block}
-.tc-nhom:not([open]) ul{display:none}
-.tc-nhom li a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:7px 8px;border-radius:var(--bo-nut);text-decoration:none;color:var(--nhat);font-size:13.5px;line-height:1.45;transition:background .2s,color .2s}
-.tc-nhom li a b{display:block;font-weight:400;color:var(--muc)}
-.tc-nhom li a small{font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:11.5px;color:var(--cat-dam);white-space:nowrap}
-.tc-nhom li a:hover{background:rgba(249,244,236,.8)}
-.tc-nhom li a[aria-current="true"]{background:var(--to-giay);box-shadow:inset 0 0 0 1px rgba(95,82,64,.25)}
-.tc-nhom li a:focus-visible{outline:2px solid var(--cat-dam);outline-offset:-2px}
+.tc-trang-thai{margin-top:8px;font-size:13px;color:var(--cat-dam);min-height:20px}
 
 /* Cột phải */
 .tc-ket-qua{min-width:0}
-.tc-dem{font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam);margin-bottom:16px}
-.tc-trong{padding:56px 32px;border-radius:var(--bo-the);border:1px dashed rgba(95,82,64,.4);text-align:center;color:var(--nhat);font-size:15px}
+.tc-dem{font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam);margin-bottom:14px}
+.tc-trong{padding:36px 24px;border-radius:var(--bo-the);border:1px dashed rgba(95,82,64,.4);text-align:center;color:var(--nhat);font-size:15px}
 /* Thẻ điều luật */
 .tc-dieu{background:var(--van-giay),var(--to-giay);border-radius:var(--bo-the);box-shadow:0 18px 36px rgba(47,59,74,.11),inset 0 0 0 1px rgba(110,95,70,.12);padding:24px 28px 22px;margin-bottom:18px}
 .tc-dieu .vb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam)}
@@ -104,7 +68,18 @@
 .tc-th .dan button{font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid rgba(95,82,64,.35);background:transparent;color:var(--muc);cursor:pointer;transition:background .2s}
 .tc-th .dan button:hover{background:var(--navy);color:#F1EADD;border-color:var(--navy)}
 .tc-th .dan button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
-.tv-mau{display:inline-block;margin-left:8px;padding:2px 8px 1px;border-radius:999px;border:1px dashed rgba(95,82,64,.5);font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam);vertical-align:middle}
+/* Trong phiếu đọc (440px): thẻ điều và tình huống gọn hơn, nằm trên nền giấy của phiếu */
+.pd-phieu .tc-dieu{background:#FBF8F2;box-shadow:inset 0 0 0 1px rgba(110,95,70,.16);padding:18px 18px 16px;margin-bottom:12px}
+.pd-phieu .tc-dieu h3{font-size:18px}
+.pd-phieu .tc-dieu .tc-trich{font-size:14px;line-height:1.7}
+.pd-phieu .tc-dieu .than p{font-size:14.5px;line-height:1.75}
+.pd-phieu .tc-th{grid-template-columns:1fr;gap:12px;margin-top:14px}
+.pd-phieu .tc-th article{background:#FBF8F2;box-shadow:inset 0 0 0 1px rgba(110,95,70,.16);padding:16px 18px 15px}
+.pd-phieu .tc-th h3{font-size:17px}
+.pd-phieu .tc-chuong{margin-top:12px}
+.pd-phieu .tc-dong{grid-template-columns:64px minmax(0,1fr) 18px;gap:10px;font-size:14px;padding:10px 4px}
+.pd-phieu .tc-muc-chuong{scroll-margin-top:8px}
+.pd-phieu .pd-muc.tc-dem{margin:16px 0 12px}
 /* Ô trợ lý AI, chỉ hiện khi có địa chỉ máy chủ */
 .tc-ai{display:none;margin-top:22px;background:var(--van-giay),linear-gradient(160deg,#3B4859,#26303C);color:#F1EADD;border-radius:var(--bo-the);padding:22px 26px}
 .tc-ai.hien{display:block}
@@ -114,15 +89,6 @@
 .tc-ai button:hover{background:var(--cat);color:var(--navy);border-color:var(--cat)}
 .tc-luu-y{margin-top:36px;padding-top:18px;border-top:1px solid rgba(47,59,74,.12);font-size:13px;line-height:1.7;color:var(--nhat)}
 
-@media(max-width:900px){
-  .tc-than{grid-template-columns:1fr;gap:28px}
-  .tc-tu{position:static;max-height:none;overflow:visible;padding:0}
-  .tc-tu>summary{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-radius:var(--bo-nut);background:var(--to-giay);box-shadow:inset 0 0 0 1px rgba(95,82,64,.2);font-size:14px;font-weight:500;color:var(--muc)}
-  .tc-tu>summary::after{content:"+";color:var(--cat-dam);font-size:18px}
-  .tc-tu[open]>summary::after{content:"−"}
-  .tc-tu>.nhan{display:none}
-  .tc-th{grid-template-columns:1fr}
-}
 @media(max-width:640px){
   .tc-tim{padding:6px 6px 6px 16px;gap:10px}
   .tc-tim input{font-size:15px}
@@ -130,4 +96,3 @@
   .tc-dieu{padding:20px 18px 18px}
   .tc-dong{grid-template-columns:56px minmax(0,1fr) 20px;gap:10px}
 }
-@media(prefers-reduced-motion:reduce){.tc-nhom summary>button i{transition:none}}

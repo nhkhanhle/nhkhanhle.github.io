@@ -51,19 +51,14 @@ for m in re.finditer(r'(?:<section[^>]*\sid="([^"]+)"[^>]*>|<div[^>]*\sid="([^"]
                 'mo':chu[:170]+('…' if len(chu)>170 else ''),
                 'duongDan':'ve-toi.html#'+ma,'chu':ten+' '+chu})
 
-# ---------- Trang Thư viện (27/09): một mục cho cả trang; các mục trong kệ nằm trong thu-vien.js, chưa đưa vào tìm kiếm ----------
-if os.path.exists('thu-vien.html'):
-    s = io.open('thu-vien.html', encoding='utf-8').read()
+# ---------- Thư viện luật và Thư viện sách (tách 01/10/2026, phòng đọc): mỗi trang một mục; văn bản, sách, ghi chú dựng bằng JS nên chưa vào tìm kiếm ----------
+for p, nhan in [('thu-vien-luat.html','Thư viện luật'),('thu-vien-sach.html','Thư viện sách')]:
+    if not os.path.exists(p): continue
+    s = io.open(p, encoding='utf-8').read()
     ten = bochu(re.search(r'<h1>(.*?)</h1>', s, re.S).group(1))
     mo = bochu(re.search(r'<meta name="description" content="([^"]*)"', s).group(1))
-    than = bochu(re.search(r'<main[^>]*>(.*?)</main>', s, re.S).group(1))
-    muc.append({'loai':'Thư viện','nhan':'Thư viện','tieuDe':ten,'mo':mo,'duongDan':'thu-vien.html','chu':ten+' '+mo+' '+than})
-
-if os.path.exists('tra-cuu-luat.html'):
-    s = io.open('tra-cuu-luat.html', encoding='utf-8').read()
-    ten = bochu(re.search(r'<h1>(.*?)</h1>', s, re.S).group(1))
-    mo = bochu(re.search(r'<meta name="description" content="([^"]*)"', s).group(1))
-    muc.append({'loai':'Thư viện','nhan':'Thư viện · Kệ 1','tieuDe':ten,'mo':mo,'duongDan':'tra-cuu-luat.html','chu':ten+' '+mo})
+    gt = bochu(re.search(r'<p class="mo-ta">(.*?)</p>', s, re.S).group(1))
+    muc.append({'loai':'Thư viện','nhan':nhan,'tieuDe':ten,'mo':mo,'duongDan':p,'chu':nhan+' '+ten+' '+mo+' '+gt})
 
 ra = ('/* Dữ liệu cho ô tìm kiếm. File này do scripts dựng lại, đừng sửa tay.\n'
       '   Dựng lại sau mỗi lần đổi chữ trên trang. */\n'

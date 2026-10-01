@@ -1,4 +1,4 @@
-/* Tình huống thường gặp cho trang Tra cứu pháp luật lao động (tra-cuu-luat.html) và kệ 1 trang Thư viện.
+/* Sổ tình huống cho trang Thư viện luật (thu-vien-luat.html): hiện ở phiếu đọc khi chưa tìm, chưa mở văn bản nào.
    Khánh soạn: mỗi tình huống là một câu hỏi người làm nhân sự hay gặp, câu trả lời ngắn theo cách hiểu của Khánh,
    và danh sách điều luật để người đọc mở nguyên văn. Mục có mau:true là chữ giữ chỗ do Bông Bí đặt.
    dan: vb là mã file văn bản (tên file .md trong contexts, không đuôi), dieu là số điều. */

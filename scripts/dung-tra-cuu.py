@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Dựng dữ liệu cho trang Tra cứu pháp luật lao động (tra-cuu-luat.html) từ thư mục contexts của dự án Labor Relations.
+"""Dựng dữ liệu cho trang Thư viện luật (thu-vien-luat.html, trước là tra-cuu-luat.html) từ thư mục contexts của dự án Labor Relations.
 Chạy lại mỗi khi Khánh thêm hoặc thay văn bản trong contexts:  python3 scripts/dung-tra-cuu.py
 
 Đọc: các nhóm nhân sự cốt lõi trong NHOM (tên thư mục trong contexts). Mỗi file .md là một văn bản, tách theo "Điều N."
