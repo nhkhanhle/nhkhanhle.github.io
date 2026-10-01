@@ -32,39 +32,28 @@
   </div>
 </nav>
 
-<header class="dau-trang">
-  <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
-  <div class="khung pd-dau">
-    <div>
-      <div class="nhan">Thư viện sách</div>
-      <h1>Phòng đọc sách</h1>
-      <p class="mo-ta">Sách tôi đọc đi đọc lại, khóa học tôi đã theo, và hộp phiếu ghi chú tôi viết cho chính mình. Rê tay lên gáy để xem bìa; rút một cuốn ra, nó bay sang quyển sổ và kể vì sao đáng dành thời gian.</p>
-      <p class="pd-so" data-dem>Đang xếp kệ…</p>
-    </div>
-    <div>
-      <label class="pd-loc">
-        <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
-        <input type="search" data-loc placeholder="Tìm tên sách, tác giả, ghi chú" aria-label="Tìm trong thư viện sách" autocomplete="off">
-      </label>
-      <p class="pd-loc-dem" data-loc-dem aria-live="polite"></p>
-    </div>
-  </div>
-</header>
-
 <main class="noi-dung">
   <div class="khung">
-    <p class="tv-bao" data-tv-bao>Thư viện đang được xếp dần. Mục có nhãn “Mẫu” là chữ giữ chỗ, sẽ được thay bằng nội dung thật.</p>
+    <!-- Khánh chỉnh 01/10, đồng bộ với Thư viện luật: bỏ đầu trang; chữ "Thư viện" vàng đậm chìm sau tủ; ô tìm nằm trên sổ một mặt; "Đọc thêm" mở lớn ra giữa màn hình. -->
+    <h1 class="pd-an">Thư viện sách</h1>
+    <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
     <div class="pd-than">
-      <div>
-        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ sách"><span class="pd-noc" aria-hidden="true"></span><span class="pd-kinh" aria-hidden="true"></span></div></div>
+      <div class="pd-cot-trai">
+        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ sách"><span class="pd-noc" aria-hidden="true"></span></div></div>
         <div class="pd-chu-giai" data-chu-giai aria-label="Màu gáy theo góc nhìn"></div>
       </div>
-      <!-- Quyển sổ mở đôi: trang trái là bìa và thông tin, trang phải là vì sao đáng đọc hay nội dung ghi chú -->
-      <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc" aria-live="polite">
-        <div class="so-trai" data-so-trai></div>
-        <div class="so-phai" data-so-phai></div>
-      </aside>
+      <div class="pd-cot-phai">
+        <label class="pd-loc">
+          <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <input type="search" data-loc placeholder="Tìm tên sách, tác giả, ghi chú" aria-label="Tìm trong thư viện sách" autocomplete="off">
+        </label>
+        <p class="pd-loc-dem" data-loc-dem aria-live="polite"></p>
+        <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc" aria-live="polite">
+          <div class="so-trai" data-so-trai></div>
+        </aside>
+      </div>
     </div>
+    <p class="tv-bao" data-tv-bao>Thư viện đang được xếp dần. Mục có nhãn “Mẫu” là chữ giữ chỗ, sẽ được thay bằng nội dung thật.</p>
   </div>
 </main>
 

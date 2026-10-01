@@ -55,10 +55,10 @@ for m in re.finditer(r'(?:<section[^>]*\sid="([^"]+)"[^>]*>|<div[^>]*\sid="([^"]
 for p, nhan in [('thu-vien-luat.html','Thư viện luật'),('thu-vien-sach.html','Thư viện sách')]:
     if not os.path.exists(p): continue
     s = io.open(p, encoding='utf-8').read()
-    ten = bochu(re.search(r'<h1>(.*?)</h1>', s, re.S).group(1))
+    # 01/10: hai trang bỏ đầu trang, h1 ẩn mang tên trang, không còn câu dẫn; lấy mô tả từ meta description
+    ten = bochu(re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S).group(1))
     mo = bochu(re.search(r'<meta name="description" content="([^"]*)"', s).group(1))
-    gt = bochu(re.search(r'<p class="mo-ta">(.*?)</p>', s, re.S).group(1))
-    muc.append({'loai':'Thư viện','nhan':nhan,'tieuDe':ten,'mo':mo,'duongDan':p,'chu':nhan+' '+ten+' '+mo+' '+gt})
+    muc.append({'loai':'Thư viện','nhan':nhan,'tieuDe':ten,'mo':mo,'duongDan':p,'chu':nhan+' '+ten+' '+mo})
 
 ra = ('/* Dữ liệu cho ô tìm kiếm. File này do scripts dựng lại, đừng sửa tay.\n'
       '   Dựng lại sau mỗi lần đổi chữ trên trang. */\n'

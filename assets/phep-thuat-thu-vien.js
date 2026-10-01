@@ -5,7 +5,10 @@
    Máy bật giảm chuyển động: không đom đóm, bìa không bay, chữ hiện ngay. Điện thoại (dưới 900px) không có bầy đom đóm.
    4. Xếp hàng: chia các cuốn của một ngăn thành từng hàng không xuống dòng, mỗi hàng chừa sẵn chỗ để một gáy mở ra thành bìa
       (các cuốn phía sau dịt ra mà không rớt xuống hàng dưới). Xếp lại khi đổi bề ngang cửa sổ.
-   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang} */
+   5. Sổ mở lớn (Khánh chọn 01/10): "Đọc thêm" mở quyển sổ hai trang ra giữa màn hình, nền tối mờ phía sau.
+      moLon(trai, phai, nutGoc) đổ hai trang và mở; Esc, nút ×, bấm ra ngoài thì đóng và trả con trỏ về nút đã bấm.
+      xemPhai(true|false): trên điện thoại chỉ hiện một trang, chuyển giữa mục lục và nội dung.
+   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang, moLon, dongLon, xemPhai} */
 (function(){
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function R(a,b){return a+Math.random()*(b-a)}
@@ -88,5 +91,43 @@
   function xepHang(ngan,nuts){var o={ngan:ngan,nuts:nuts,w:0,hang:[]};dsXep.push(o);xep(o);return o}
   addEventListener('resize',function(){clearTimeout(henXep);henXep=setTimeout(function(){dsXep.forEach(xep);vayVe()},150)});
 
-  window.PhongDoc={dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,xepHang:xepHang,giam:giam};
+  /* ---------- Sổ mở lớn ---------- */
+  var lon=null, soLon=null, mTrai=null, mPhai=null, nutVe=null;
+  function dungLon(){
+    if(lon)return;
+    lon=tao('div','pd-mo-lon'); lon.setAttribute('aria-hidden','true');
+    var nen=tao('div','pd-mo-nen'); nen.addEventListener('click',dongLon); lon.appendChild(nen);
+    soLon=tao('div','pd-mo-so'); soLon.setAttribute('role','dialog'); soLon.setAttribute('aria-modal','true'); soLon.setAttribute('aria-label','Sổ đọc mở lớn'); soLon.tabIndex=-1;
+    var d=tao('button','pd-mo-dong'); d.type='button'; d.textContent='×'; d.setAttribute('aria-label','Đóng sổ'); d.addEventListener('click',dongLon); soLon.appendChild(d);
+    mTrai=tao('div','mo-trai'); mPhai=tao('div','mo-phai'); soLon.appendChild(mTrai); soLon.appendChild(mPhai);
+    lon.appendChild(soLon); document.body.appendChild(lon);
+    document.addEventListener('keydown',function(e){
+      if(!lon.classList.contains('mo'))return;
+      if(e.key==='Escape'){e.preventDefault();dongLon();return}
+      /* Giữ con trỏ bàn phím trong sổ */
+      if(e.key==='Tab'){
+        var ds=[].filter.call(soLon.querySelectorAll('button,a[href],input'),function(x){return x.offsetParent!==null&&!x.disabled});
+        if(!ds.length)return;
+        if(e.shiftKey&&document.activeElement===ds[0]){e.preventDefault();ds[ds.length-1].focus()}
+        else if(!e.shiftKey&&document.activeElement===ds[ds.length-1]){e.preventDefault();ds[0].focus()}
+      }
+    });
+  }
+  function moLon(trai,phai,nut){
+    dungLon();
+    mTrai.innerHTML=''; mPhai.innerHTML=''; mTrai.appendChild(trai); mPhai.appendChild(phai);
+    mTrai.scrollTop=0; mPhai.scrollTop=0; xemPhai(false);
+    nutVe=nut||document.activeElement;
+    lon.setAttribute('aria-hidden','false'); lon.classList.add('mo'); document.body.classList.add('pd-khoa');
+    setTimeout(function(){var d=soLon.querySelector('.pd-mo-dong');if(d)d.focus({preventScroll:true})},giam?0:60);
+    return {trai:mTrai,phai:mPhai};
+  }
+  function dongLon(){
+    if(!lon||!lon.classList.contains('mo'))return;
+    lon.classList.remove('mo'); lon.setAttribute('aria-hidden','true'); document.body.classList.remove('pd-khoa');
+    if(nutVe&&nutVe.focus)nutVe.focus({preventScroll:true});
+  }
+  function xemPhai(co){if(soLon){soLon.classList.toggle('xem-phai',!!co);if(co)mPhai.scrollTop=0}}
+
+  window.PhongDoc={dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,xepHang:xepHang,moLon:moLon,dongLon:dongLon,xemPhai:xemPhai,giam:giam};
 })();

@@ -33,40 +33,30 @@
   </div>
 </nav>
 
-<header class="dau-trang">
-  <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
-  <div class="khung pd-dau">
-    <div>
-      <div class="nhan">Thư viện luật</div>
-      <h1>Phòng đọc luật</h1>
-      <p class="mo-ta">Những văn bản về nhân sự tôi tra hằng ngày, xếp thành chín ngăn trong một tủ gỗ cổ. Rê tay lên gáy, cuốn sách xoay ra cho bạn xem bìa; rút ra, nó bay sang quyển sổ bên cạnh.</p>
-      <p class="pd-so" data-tc-so>Đang mở tủ văn bản…</p>
-    </div>
-    <div>
-      <div class="tc-tim" role="search">
-        <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
-        <input type="search" data-tc-tim placeholder="Ví dụ: thử việc tối đa bao lâu" aria-label="Tìm điều luật" autocomplete="off">
-        <button type="button" data-tc-nut>Tìm</button>
-      </div>
-      <p class="tc-pham-vi" data-tc-pham-vi>Đang tìm trong <b></b> <button type="button" aria-label="Bỏ giới hạn, tìm trong mọi văn bản">×</button></p>
-      <div class="tc-goi-y" data-tc-goi-y><span>Thử tìm</span><button type="button">thử việc</button><button type="button">làm thêm giờ</button><button type="button">nghỉ thai sản</button><button type="button">điều 35</button></div>
-      <p class="tc-trang-thai" data-tc-trang-thai aria-live="polite"></p>
-    </div>
-  </div>
-</header>
-
 <main class="noi-dung">
   <div class="khung">
+    <!-- Khánh chỉnh 01/10: bỏ đầu trang (nhãn, tên, câu dẫn, dòng đếm) và dòng "Thử tìm"; chữ "Thư viện" vàng đậm chìm sau tủ như "Góc nhìn" ở trang chủ;
+         ô tìm nằm trên quyển sổ; sổ còn một mặt, "Đọc thêm" mở văn bản lớn ra giữa màn hình. h1 ẩn để trình đọc màn hình và máy tìm kiếm vẫn biết tên trang. -->
+    <h1 class="pd-an">Thư viện luật</h1>
+    <p class="pd-chu-lon" aria-hidden="true">Thư viện</p>
     <div class="pd-than">
-      <div>
-        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ văn bản"><span class="pd-noc" aria-hidden="true"></span><span class="pd-kinh" aria-hidden="true"></span></div></div>
+      <div class="pd-cot-trai">
+        <div class="pd-san"><div class="pd-tu" data-tu aria-label="Tủ văn bản"><span class="pd-noc" aria-hidden="true"></span></div></div>
         <div class="pd-chu-giai" data-chu-giai aria-label="Màu gáy theo loại văn bản"></div>
       </div>
-      <!-- Quyển sổ mở đôi: trang trái là phiếu thư viện (bìa, số hiệu, chương), trang phải là mục lục điều, kết quả tìm hay sổ tình huống -->
-      <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc">
-        <div class="so-trai" data-so-trai></div>
-        <div class="so-phai tc-ket-qua" data-tc-ket-qua aria-live="polite"></div>
-      </aside>
+      <div class="pd-cot-phai">
+        <div class="tc-tim" role="search">
+          <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <input type="search" data-tc-tim placeholder="Tìm điều luật, ví dụ: thử việc" aria-label="Tìm điều luật" autocomplete="off">
+          <button type="button" data-tc-nut>Tìm</button>
+        </div>
+        <p class="tc-pham-vi" data-tc-pham-vi>Đang tìm trong <b></b> <button type="button" aria-label="Bỏ giới hạn, tìm trong mọi văn bản">×</button></p>
+        <p class="tc-trang-thai" data-tc-trang-thai aria-live="polite"></p>
+        <!-- Quyển sổ một mặt: phiếu văn bản, kết quả tìm hay sổ tình huống -->
+        <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc">
+          <div class="so-trai tc-ket-qua" data-so-trai data-tc-ket-qua aria-live="polite"></div>
+        </aside>
+      </div>
     </div>
 
     <div class="tc-ai" data-tc-ai>

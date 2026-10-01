@@ -1,12 +1,13 @@
 /* Thư viện sách (thu-vien-sach.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026). Dữ liệu ở thu-vien.js.
    Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy, rê chuột hay đang mở thì gáy xoay
    chính diện thành bìa và các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
-   Bấm một cuốn: bìa bay sang trang trái của sổ (assets/phep-thuat-thu-vien.js); trang trái là bìa lớn và thông tin, trang phải là vì sao đáng đọc.
-   Bấm phiếu ghi chú: trang trái là ngày, nhãn, tóm tắt; trang phải là nội dung. Ô tìm làm mờ những mục không khớp. */
+   Bấm một cuốn: bìa bay sang quyển sổ một mặt (assets/phep-thuat-thu-vien.js): bìa lớn và thông tin; "Đọc thêm" mở sổ lớn giữa màn hình
+   (trái: bìa và thông tin, phải: vì sao đáng đọc). Phiếu ghi chú: sổ một mặt là ngày, nhãn, tóm tắt; "Đọc thêm" mở nội dung.
+   Khánh chỉnh 01/10, đồng bộ với Thư viện luật. Ô tìm nằm trên sổ, làm mờ những mục không khớp. */
 (function(){
   var D=window.THU_VIEN||{}, sach=D.sach||[], ghi=(D.ghiChu||[]).slice().sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')}), PD=window.PhongDoc||null;
-  var tu=document.querySelector('[data-tu]'), so=document.querySelector('[data-phieu]'), soTrai=document.querySelector('[data-so-trai]'), soPhai=document.querySelector('[data-so-phai]');
-  if(!tu||!so||!soTrai||!soPhai)return;
+  var tu=document.querySelector('[data-tu]'), so=document.querySelector('[data-phieu]'), soTrai=document.querySelector('[data-so-trai]');
+  if(!tu||!so||!soTrai)return;
   function q(s,g){return (g||document).querySelector(s)}
   function tao(tag,cls,chu){var e=document.createElement(tag);if(cls)e.className=cls;if(chu!=null)e.textContent=chu;return e}
   function ngayVN(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:(s||'')}
@@ -41,7 +42,8 @@
     return d;
   }
   function veDauSo(cuon){
-    if(getComputedStyle(so).position==='sticky'){soTrai.scrollTop=0;soPhai.scrollTop=0;return}
+    soTrai.scrollTop=0;
+    if(getComputedStyle(so.parentNode).position==='sticky')return;
     if(!cuon)return;
     var y=so.getBoundingClientRect().top; if(y<0||y>innerHeight*.6)window.scrollTo({top:y+window.scrollY-84,behavior:PD&&PD.giam?'auto':'smooth'});
   }
@@ -53,21 +55,37 @@
   function doan(cha,chu){
     var v=tao('div','pd-van'); (chu||'').split(/\n\s*\n/).forEach(function(p){if(p.trim())v.appendChild(tao('p',null,p.trim()))}); cha.appendChild(v); return v;
   }
+  /* Nút "Đọc thêm" cuối trang sổ */
+  function nutDocThem(nhan,moLon){
+    var b=tao('button','pd-doc-them'); b.type='button'; b.appendChild(tao('span',null,'Đọc thêm')); var i=tao('i',null,'→'); i.setAttribute('aria-hidden','true'); b.appendChild(i);
+    b.setAttribute('aria-label','Đọc thêm: '+nhan); b.addEventListener('click',function(){moLon(b)}); return b;
+  }
   function phieuSach(m,nut,cuon){
     var khoa=m.loai==='Khóa học', moi=dangChon!==nut; chon(nut);
     soTrai.innerHTML='';
     soTrai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m,true));
     var biaLon=veBia(m,true); biaLon.classList.add('sang'); soTrai.appendChild(biaLon);
     var dl=bang(soTrai,[[khoa?'Nơi dạy':'Tác giả',m.tacGia],[khoa?'Nơi học':'Xuất bản',m.noi],['Năm',m.nam,true],['Góc nhìn',m.nhom]]);
-    soPhai.innerHTML='';
-    soPhai.appendChild(dauTrang('Vì sao đáng '+(khoa?'học':'đọc'),m.ten||'',null,false));
-    var noi=tao('div','so-noi'); soPhai.appendChild(noi);
-    if(m.viSao)doan(noi,m.viSao); else noi.appendChild(tao('p','pd-goi','Khánh chưa viết vì sao đáng '+(khoa?'học':'đọc')+' cuốn này.'));
-    if(m.lienKet){var a=tao('a','pd-lien',khoa?'Xem khóa học ↗':'Xem sách ↗');a.href=m.lienKet;a.target='_blank';a.rel='noopener';noi.appendChild(a)}
+    soTrai.appendChild(nutDocThem('vì sao đáng '+(khoa?'học ':'đọc ')+(m.ten||''),function(b){docSach(m,b)}));
     veDauSo(cuon);
     var tuBia=nut&&nut.querySelector('.bia');
-    function xong(){soTrai.classList.remove('cho-bay');if(PD){PD.vietMuc(dl);PD.vietMuc(noi)}}
+    function xong(){soTrai.classList.remove('cho-bay');if(PD)PD.vietMuc(dl)}
     if(PD&&moi&&tuBia&&cuon){soTrai.classList.add('cho-bay');PD.baySach(tuBia,biaLon,veBia(m,false),xong)}else xong();
+  }
+  /* Sổ lớn của một cuốn: trái là bìa và thông tin, phải là vì sao đáng đọc */
+  function docSach(m,nutGoc){
+    if(!PD)return;
+    var khoa=m.loai==='Khóa học', trai=tao('div'), phai=tao('div','mo-dieu');
+    trai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m,false));
+    trai.appendChild(veBia(m,true));
+    bang(trai,[[khoa?'Nơi dạy':'Tác giả',m.tacGia],[khoa?'Nơi học':'Xuất bản',m.noi],['Năm',m.nam,true],['Góc nhìn',m.nhom]]);
+    var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Vì sao đáng '+(khoa?'học':'đọc'))); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
+    doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
+    var ve=tao('button','mo-ve','← Bìa'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
+    phai.appendChild(dauTrang('Vì sao đáng '+(khoa?'học':'đọc'),m.ten||'',null,false));
+    var van=m.viSao?doan(phai,m.viSao):phai.appendChild(tao('p','pd-goi','Khánh chưa viết vì sao đáng '+(khoa?'học':'đọc')+' cuốn này.'));
+    if(m.lienKet){var a=tao('a','pd-lien',khoa?'Xem khóa học ↗':'Xem sách ↗');a.href=m.lienKet;a.target='_blank';a.rel='noopener';phai.appendChild(a)}
+    PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
   }
   function phieuGhi(m,nut,cuon){
     chon(nut);
@@ -75,23 +93,32 @@
     soTrai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m,true));
     var dl=bang(soTrai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
     if(m.tomTat)soTrai.appendChild(tao('p','pd-goi',m.tomTat));
-    var ve=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú'); ve.type='button'; ve.style.marginTop='18px';
+    soTrai.appendChild(nutDocThem('ghi chú '+(m.tieuDe||''),function(b){docGhi(m,b)}));
+    var ve=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú'); ve.type='button'; ve.style.marginTop='14px';
     ve.addEventListener('click',function(){phieuDsGhi(true)}); soTrai.appendChild(ve);
-    soPhai.innerHTML='';
-    soPhai.appendChild(dauTrang('Ghi chú',ngayVN(m.ngay),null,false));
-    var noi=tao('div','so-noi'); soPhai.appendChild(noi); doan(noi,m.noiDung);
     veDauSo(cuon);
-    if(PD){PD.vietMuc(dl);PD.vietMuc(noi)}
+    if(PD)PD.vietMuc(dl);
+  }
+  /* Sổ lớn của một ghi chú: trái là ngày, nhãn, tóm tắt; phải là nội dung */
+  function docGhi(m,nutGoc){
+    if(!PD)return;
+    var trai=tao('div'), phai=tao('div','mo-dieu');
+    trai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m,false));
+    bang(trai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
+    if(m.tomTat)trai.appendChild(tao('p','pd-goi',m.tomTat));
+    var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Nội dung')); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
+    doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
+    var ve=tao('button','mo-ve','← Phiếu'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
+    phai.appendChild(dauTrang('Ghi chú · '+ngayVN(m.ngay),m.tieuDe||'',null,false));
+    var van=doan(phai,m.noiDung);
+    PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
   }
   function phieuDsGhi(cuon){
     chon(null);
     soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
     soTrai.appendChild(dauTrang('Hộp phiếu ghi chú','Tất cả ghi chú',null,false));
-    soTrai.appendChild(tao('p','pd-goi','Ghi chú là bài ngắn kiểu sổ tay: một khái niệm, một cách làm, một điều rút ra sau một việc cụ thể. Bấm một dòng để đọc.'));
-    bang(soTrai,[['Số phiếu',String(ghi.length),true],['Mới nhất',ghi.length?ngayVN(ghi[0].ngay):'']]);
-    soPhai.innerHTML='';
-    soPhai.appendChild(dauTrang('Danh sách',ghi.length+' ghi chú',null,false));
-    if(!ghi.length){soPhai.appendChild(tao('p','pd-goi','Hộp phiếu đang được xếp.'));return}
+    soTrai.appendChild(tao('p','pd-goi','Bài ngắn kiểu sổ tay: một khái niệm, một cách làm, một điều rút ra sau một việc cụ thể. Bấm một dòng để mở phiếu.'));
+    if(!ghi.length){soTrai.appendChild(tao('p','pd-goi','Hộp phiếu đang được xếp.'));return}
     var ul=tao('ul','pd-ds so-noi');
     ghi.forEach(function(m,i){
       var li=tao('li'), b=tao('button'); b.type='button';
@@ -101,7 +128,7 @@
       b.addEventListener('click',function(){phieuGhi(m,theGhi[i]||null,true)});
       li.appendChild(b); ul.appendChild(li);
     });
-    soPhai.appendChild(ul); veDauSo(cuon); if(PD)PD.vietMuc(ul);
+    soTrai.appendChild(ul); veDauSo(cuon); if(PD)PD.vietMuc(ul);
   }
 
   /* ---------- Tủ ---------- */

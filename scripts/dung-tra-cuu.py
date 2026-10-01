@@ -30,11 +30,22 @@ def bo_dau(s):
     return ''.join(c for c in s if unicodedata.category(c) != 'Mn')
 
 def sach(md):
-    """Bỏ ký hiệu markdown, giữ chữ thuần."""
+    """Bỏ ký hiệu markdown, giữ chữ thuần.
+    01/10/2026 (Khánh báo Điều 7a VBHN 22/VBHN-VPQH): văn bản hợp nhất chuyển từ Word mang dấu chú thích cuối trang
+    dạng [<span class="underline">\\[16\\]</span>](#_ftn16), số mũ <sup>5</sup>, thẻ bảng <table><tr><td>, dấu ** lẻ và ký tự thoát \\[.
+    Bỏ dấu chú thích và số mũ, bỏ mọi thẻ HTML (chữ trong ô bảng giữ lại, mỗi ô một dòng), gỡ ký tự thoát, bỏ ** lẻ."""
+    md = re.sub(r'\[(?:\s*<[^>]+>)*\s*\\?\[\d+\\?\]\s*(?:<[^>]+>\s*)*\]\(#\\?_ftn(?:ref)?\d+\)', '', md)
+    md = re.sub(r'<sup>\s*\d+\s*</sup>', '', md)
+    md = re.sub(r'<[a-zA-Z/][^>]*>', ' ', md)
+    md = md.replace('&nbsp;', ' ').replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+    md = md.replace('\\[', '[').replace('\\]', ']')
+    md = re.sub(r'\[[\s*]*\[\s*\d+\s*\][\s*]*\]\(#\\?_ftn(?:ref)?\d+\)', '', md)   # lượt hai: chú thích có khoảng trắng, sau khi đã bỏ thẻ; có thể bọc dấu * nghiêng; dấu gạch dưới có thể còn ký tự thoát (#\_ftn)
+    md = re.sub(r'\[[\s*]*\d+[\s*]*\]\(#\\?_ftn(?:ref)?\d+\)', '', md)   # dấu trỏ ngược trong phần chú thích cuối văn bản: [ 1 ](#_ftnref1)
     md = re.sub(r'\[\[[^\]]*\]\]', '', md)
     md = md.replace('\\.', '.').replace('\\-', '-').replace('\\_', '_').replace('\\*', '*')
     md = re.sub(r'\*\*(.*?)\*\*', r'\1', md)
     md = re.sub(r'(?<!\*)\*(?!\*)([^*\n]+)\*(?!\*)', r'\1', md)
+    md = md.replace('**', '')
     md = re.sub(r'^\s*#+\s*', '', md, flags=re.M)
     md = re.sub(r'[ \t]+', ' ', md)
     return md.strip()
