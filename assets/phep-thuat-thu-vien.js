@@ -3,7 +3,9 @@
    2. Đom đóm: 18 con lượn chậm khắp màn hình; một bầy 6 con kéo tới cuốn đang rê chuột, và ở lại quanh cuốn đang chọn.
    3. Mực phát sáng: khối chữ vừa vẽ xong hiện dần từ trái sang phải như đang viết (lớp .viet, mỗi dòng trễ thêm một chút).
    Máy bật giảm chuyển động: không đom đóm, bìa không bay, chữ hiện ngay. Điện thoại (dưới 900px) không có bầy đom đóm.
-   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom} */
+   4. Xếp hàng: chia các cuốn của một ngăn thành từng hàng không xuống dòng, mỗi hàng chừa sẵn chỗ để một gáy mở ra thành bìa
+      (các cuốn phía sau dịt ra mà không rớt xuống hàng dưới). Xếp lại khi đổi bề ngang cửa sổ.
+   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang} */
 (function(){
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function R(a,b){return a+Math.random()*(b-a)}
@@ -68,5 +70,23 @@
     addEventListener('resize',vayVe);
   }
 
-  window.PhongDoc={dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,giam:giam};
+  /* ---------- Xếp hàng ----------
+     ngan: phần tử ngăn (đã nằm trong trang); nuts: các nút theo thứ tự; mỗi nút có data-r là bề ngang lúc đứng gáy.
+     Bìa mở rộng 128px nên mỗi hàng chừa 100px (gáy mỏng nhất 30px); khổ rộng chừa 190px để một cuốn đang mở và một cuốn đang rê cùng hàng vẫn vừa. */
+  var dsXep=[], MO=128, GAP=4, henXep=null;
+  function xep(o){
+    var W=o.ngan.clientWidth; if(!W||W===o.w)return; o.w=W;
+    var du=W>=500?190:100, han=W-du, hang=[], cur=null, dai=0;
+    o.nuts.forEach(function(n){
+      var r=+n.getAttribute('data-r')||n.offsetWidth;
+      if(!cur||(cur.length&&dai+GAP+r>han)){cur=[];hang.push(cur);dai=0}else if(cur.length)dai+=GAP;
+      cur.push(n); dai+=r;
+    });
+    o.hang.forEach(function(h){h.remove()}); o.hang=[];
+    hang.forEach(function(ds){var h=document.createElement('div');h.className='pd-hang';ds.forEach(function(n){h.appendChild(n)});o.ngan.appendChild(h);o.hang.push(h)});
+  }
+  function xepHang(ngan,nuts){var o={ngan:ngan,nuts:nuts,w:0,hang:[]};dsXep.push(o);xep(o);return o}
+  addEventListener('resize',function(){clearTimeout(henXep);henXep=setTimeout(function(){dsXep.forEach(xep);vayVe()},150)});
+
+  window.PhongDoc={dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,xepHang:xepHang,giam:giam};
 })();

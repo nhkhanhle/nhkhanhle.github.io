@@ -1,5 +1,6 @@
 /* Thư viện sách (thu-vien-sach.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026). Dữ liệu ở thu-vien.js.
-   Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy, rê chuột thì gáy xoay ra thành bìa.
+   Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy, rê chuột hay đang mở thì gáy xoay
+   chính diện thành bìa và các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
    Bấm một cuốn: bìa bay sang trang trái của sổ (assets/phep-thuat-thu-vien.js); trang trái là bìa lớn và thông tin, trang phải là vì sao đáng đọc.
    Bấm phiếu ghi chú: trang trái là ngày, nhãn, tóm tắt; trang phải là nội dung. Ô tìm làm mờ những mục không khớp. */
 (function(){
@@ -104,18 +105,26 @@
   }
 
   /* ---------- Tủ ---------- */
-  function ngan(ten,ghiChu){
+  function ngan(ten,ghiChu,hop){
     var n=tao('section','pd-ngan'); n.setAttribute('aria-label','Ngăn '+ten);
     var d=tao('div','pd-ngan-ten'); d.appendChild(tao('h2',null,ten)); d.appendChild(tao('span',null,ghiChu)); n.appendChild(d);
-    var h=tao('div','pd-hang'); n.appendChild(h); tu.appendChild(n); return h;
+    tu.appendChild(n);
+    if(hop){var h=tao('div','pd-hang'); n.appendChild(h); return h}
+    return n;
+  }
+  /* Xếp các nút của một ngăn thành hàng; ngăn trống thì một hàng có dòng báo */
+  function xep(n,nuts,trong){
+    if(!nuts.length){var h=tao('div','pd-hang');h.appendChild(tao('p','pd-trong',trong));n.appendChild(h);return}
+    if(PD)PD.xepHang(n,nuts); else{var h2=tao('div','pd-hang');h2.style.flexWrap='wrap';nuts.forEach(function(x){h2.appendChild(x)});n.appendChild(h2)}
   }
   var muc=[], demTho=0;
   function nutBia(m){
-    var nut=tao('button','bia-dung'); nut.appendChild(veBia(m,false)); return nut;
+    var nut=tao('button','bia-dung'); nut.setAttribute('data-r',146); nut.appendChild(veBia(m,false)); return nut;
   }
   function nutGay(m){
     var k=bam(m.ten||''), khoa=m.loai==='Khóa học', dai=(m.ten||'').length>14;
-    var nut=tao('button','gay'); nut.style.setProperty('--r',(dai?44:(khoa?36:40))+k%10+'px'); nut.style.setProperty('--h',(khoa?148:156)+k%24+'px'); nut.style.setProperty('--m',mau(m)[0]);
+    var r=(dai?44:(khoa?36:40))+k%10;
+    var nut=tao('button','gay'); nut.style.setProperty('--r',r+'px'); nut.setAttribute('data-r',r); nut.style.setProperty('--h',(khoa?148:156)+k%24+'px'); nut.style.setProperty('--m',mau(m)[0]);
     var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
     than.appendChild(tao('b',dai?'hai':null,m.ten||'')); than.appendChild(tao('small',null,m.nam||(khoa?'KHÓA':'SÁCH'))); khoi.appendChild(than);
     var mat=veBia(m,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
@@ -129,14 +138,12 @@
     return nut;
   }
   var dangDoc=dsSach.filter(function(m){return m.dangDoc})[0]||null;
-  var h1=ngan('Sách',dsSach.length+' cuốn');
-  dsSach.forEach(function(m){h1.appendChild(gan(m===dangDoc?nutBia(m):nutGay(m),m))});
-  if(!dsSach.length)h1.appendChild(tao('p','pd-trong','Ngăn này đang được xếp.'));
-  var h2=ngan('Khóa học',dsKhoa.length+' khóa');
-  dsKhoa.forEach(function(m,i){h2.appendChild(gan(i===0?nutBia(m):nutGay(m),m))});
-  if(!dsKhoa.length)h2.appendChild(tao('p','pd-trong','Ngăn này đang được xếp.'));
+  var n1=ngan('Sách',dsSach.length+' cuốn');
+  xep(n1,dsSach.map(function(m){return gan(m===dangDoc?nutBia(m):nutGay(m),m)}),'Ngăn này đang được xếp.');
+  var n2=ngan('Khóa học',dsKhoa.length+' khóa');
+  xep(n2,dsKhoa.map(function(m){return gan(nutGay(m),m)}),'Ngăn này đang được xếp.');
   /* Hộp phiếu: bốn ghi chú mới nhất cắm trong hộp, mới nhất ở trước; nút xem cả hộp ở đầu ngăn */
-  var h3=ngan('Hộp phiếu ghi chú',ghi.length+' phiếu'); h3.parentNode.id='ghi-chu'; h3.classList.add('pd-hang-hop');
+  var h3=ngan('Hộp phiếu ghi chú',ghi.length+' phiếu',true); h3.parentNode.id='ghi-chu'; h3.classList.add('pd-hang-hop');
   var hop=tao('div','pd-hop'), theGhi=[], bon=ghi.slice(0,4), n=bon.length;
   bon.forEach(function(m,i){
     var k=n-1-i, b=tao('button','pd-the-ghi'); b.type='button'; b.setAttribute('aria-pressed','false'); b.style.setProperty('--k',k);

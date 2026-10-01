@@ -1,7 +1,7 @@
 /* Thư viện luật (thu-vien-luat.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026).
    Gộp trang Tra cứu pháp luật lao động dựng 27/09: tìm, duyệt văn bản, tình huống, địa chỉ ?q=&vb= giữ nguyên.
-   Tủ 9 ngăn: văn bản gốc (Bộ luật, Luật) dựng mặt bìa; văn bản khác là gáy dày theo số điều, màu và cao theo loại,
-     rê chuột thì gáy xoay ra thành bìa (mặt bìa dựng sẵn trong gáy).
+   Tủ 9 ngăn, mọi văn bản là gáy (Khánh đổi 01/10: văn bản gốc cũng đứng gáy): dày theo số điều, màu và cao theo loại;
+     rê chuột, chọn bằng bàn phím hay đang mở thì gáy xoay chính diện thành bìa, các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
    Bấm một cuốn: bìa bay sang trang trái của sổ (assets/phep-thuat-thu-vien.js); trang trái là phiếu thư viện (bìa lớn, số hiệu,
      ngày, chương), trang phải là danh sách điều lật từng trang 14 điều, hoặc kết quả tìm lật 6 điều một trang, hoặc sổ tình huống.
    Dữ liệu: tra-cuu/du-lieu/muc-luc.json (tải ngay) và tra-cuu/du-lieu/<nhóm>.json (toàn văn, tải khi cần, giữ trong bộ nhớ).
@@ -85,26 +85,24 @@
     mucLuc.nhom.forEach(function(n){
       var ngan=tao('section','pd-ngan'); ngan.setAttribute('aria-label','Ngăn '+n.ten);
       var dau=tao('div','pd-ngan-ten'); dau.appendChild(tao('h2',null,n.ten)); dau.appendChild(tao('span',null,n.soVanBan+' văn bản · '+n.soDieu+' điều')); ngan.appendChild(dau);
-      var hang=tao('div','pd-hang');
+      var nuts=[];
       n.vanBan.forEach(function(v){
-        var l=loaiCua(v), k=bam(v.id), nut;
-        if(laGoc(v)){
-          nut=tao('button','bia-dung'); nut.appendChild(veBia(v,false));
-        }else{
-          var cg=chuGay(v), dai=cg.length>12;
-          nut=tao('button','gay'+(v.soDieu<10&&!dai?' mong':''));
-          nut.style.setProperty('--r',Math.round(Math.min(54,Math.max(dai?40:30,22+Math.sqrt(v.soDieu||1)*2.4)))+'px');
-          nut.style.setProperty('--h',(l.h+k%7)+'px'); nut.style.setProperty('--m',l.m);
-          var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
-          than.appendChild(tao('b',dai?'hai':null,cg)); than.appendChild(tao('small',null,String(v.soDieu||''))); khoi.appendChild(than);
-          var mat=veBia(v,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
-        }
+        var l=loaiCua(v), k=bam(v.id), cg=chuGay(v), dai=cg.length>12, goc=laGoc(v);
+        var nut=tao('button','gay'+(v.soDieu<10&&!dai&&!goc?' mong':''));
+        /* Văn bản gốc dày hơn một chút để vẫn nổi trên hàng */
+        var r=Math.round(Math.min(56,Math.max(goc?48:(dai?40:30),22+Math.sqrt(v.soDieu||1)*2.4)));
+        nut.style.setProperty('--r',r+'px'); nut.setAttribute('data-r',r);
+        nut.style.setProperty('--h',(l.h+k%7)+'px'); nut.style.setProperty('--m',l.m);
+        var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
+        than.appendChild(tao('b',dai?'hai':null,cg)); than.appendChild(tao('small',null,String(v.soDieu||''))); khoi.appendChild(than);
+        var mat=veBia(v,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
         nut.type='button'; nut.setAttribute('aria-pressed','false'); nut.style.setProperty('--d',(-(dem++)*.7%7).toFixed(1)+'s');
         nut.setAttribute('aria-label',tenDay(v)+', '+(v.soHieu||'')+', '+v.soDieu+' điều');
         nut.addEventListener('click',function(){if(hien.vb===v.id&&!hien.q)boPhamVi();else moVanBan(v.id,null,nut)});
-        hang.appendChild(nut); nutCua[v.id]=nut;
+        nuts.push(nut); nutCua[v.id]=nut;
       });
-      ngan.appendChild(hang); tu.appendChild(ngan);
+      tu.appendChild(ngan);
+      if(PD)PD.xepHang(ngan,nuts); else{var hang=tao('div','pd-hang');hang.style.flexWrap='wrap';nuts.forEach(function(x){hang.appendChild(x)});ngan.appendChild(hang)}
     });
     var cg=q('[data-chu-giai]');
     if(cg)LOAI.forEach(function(l){var sp=tao('span'),i=tao('i');i.style.setProperty('--m',l.m);sp.appendChild(i);sp.appendChild(document.createTextNode(l.ten));cg.appendChild(sp)});
