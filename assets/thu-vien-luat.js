@@ -8,7 +8,10 @@
      (Khánh chỉnh 01/10: sổ còn một mặt, ô tìm nằm trên sổ, bỏ đầu trang). Chưa chọn cuốn nào: sổ tình huống; đang tìm: kết quả lật 5 điều một trang.
    Dữ liệu: tra-cuu/du-lieu/muc-luc.json (tải ngay) và tra-cuu/du-lieu/<nhóm>.json (toàn văn, tải khi cần, giữ trong bộ nhớ).
    Tìm: bỏ dấu, tách từ, bỏ từ dừng; điểm = từ khớp trong tiêu đề ×6, trong thân ×1 (tối đa 5 mỗi từ), đủ mọi từ +10, nguyên cụm +8.
-   Gõ "điều 35" thì mở thẳng điều 35. */
+   Gõ "điều 35" thì mở thẳng điều 35.
+   Thân điều (02/10, Khánh yêu cầu dạng cho người đọc): script dựng dữ liệu đã bỏ ký hiệu markdown, HTML và đánh dấu đầu dòng:
+     ␞ hàng bảng (ô cách bằng ␟, ␝ ngay sau là hàng tiêu đề), ␛ mục Nơi nhận, ␜ chức vụ người ký, ␚ tên người ký. veThan() dựng lại thành
+     đoạn, bảng kẻ ô, khối Nơi nhận và chữ ký canh phải. Địa chỉ file nhóm mang ?v=<phienBan> để trình duyệt không giữ bản cũ. */
 (function(){
   var GOC=window.TRA_CUU_GOC||'', PD=window.PhongDoc||null;
   function q(s,g){return (g||document).querySelector(s)}
@@ -24,16 +27,54 @@
   function baoTrangThai(t){if(trangThai)trangThai.textContent=t||''}
 
   /* ---------- Tải dữ liệu ---------- */
-  function taiJSON(u){return fetch(GOC+u,{cache:'force-cache'}).then(function(r){if(!r.ok)throw new Error(u);return r.json()})}
+  /* Mục lục luôn hỏi lại máy chủ (no-cache: trùng thì dùng bản đã có); file nhóm gắn phiên bản nên giữ trong bộ nhớ đệm được */
+  function taiJSON(u,giu){return fetch(GOC+u,{cache:giu?'force-cache':'no-cache'}).then(function(r){if(!r.ok)throw new Error(u);return r.json()})}
   function taiNhom(ma){
     if(DL[ma])return Promise.resolve(DL[ma]);
     if(dangTai[ma])return dangTai[ma];
     var n=mucLuc.nhom.filter(function(x){return x.ma===ma})[0];
-    dangTai[ma]=taiJSON(n.tep).then(function(d){
-      Object.keys(d).forEach(function(id){d[id].forEach(function(x){x._vb=id;x._t=boDau(x.tieuDe);x._b=boDau(x.than)})});
+    dangTai[ma]=taiJSON(n.tep+(mucLuc.phienBan?'?v='+mucLuc.phienBan:''),true).then(function(d){
+      Object.keys(d).forEach(function(id){d[id].forEach(function(x){x._vb=id;x._t=boDau(x.tieuDe);x._tron=chuTron(x.than);x._b=boDau(x._tron)})});
       DL[ma]=d; return d;
     });
     return dangTai[ma];
+  }
+  /* ---------- Thân điều: đoạn, bảng, Nơi nhận, chữ ký ---------- */
+  var DB='\u241E', OB='\u241F', DT='\u241D', NN='\u241B', CV='\u241C', TK='\u241A';
+  /* Chữ trơn của thân (để trích đoạn, tìm, gửi trợ lý): bỏ Nơi nhận, chữ ký; hàng bảng thành ô cách nhau bằng dấu chấm giữa */
+  function chuTron(than){
+    return (than||'').split('\n').filter(function(d){var c=d.charAt(0);return c!==NN&&c!==CV&&c!==TK}).map(function(d){
+      return d.charAt(0)===DB?d.replace(DB,'').replace(DT,'').split(OB).filter(function(x){return x.trim()}).join(' · '):d}).join('\n');
+  }
+  function veThan(cha,than,tokens){
+    var ds=(than||'').split('\n'), i=0;
+    while(i<ds.length){
+      var d=ds[i], c=d.charAt(0);
+      if(!d.trim()){i++;continue}
+      if(c===DB){
+        var boc=tao('div','tc-bang-cuon'), bang=tao('table','tc-bang'), dau=null, than_=tao('tbody');
+        boc.setAttribute('tabindex','0'); boc.setAttribute('role','region'); boc.setAttribute('aria-label','Bảng trong điều luật');
+        while(i<ds.length&&ds[i].charAt(0)===DB){
+          var h=ds[i].slice(1), laDau=h.charAt(0)===DT; if(laDau)h=h.slice(1);
+          var tr=tao('tr');
+          h.split(OB).forEach(function(o){var td=tao(laDau?'th':'td');if(o.trim().length<=2&&o.trim())td.className='tc-o-ngan';td.innerHTML=toSang(o,tokens);tr.appendChild(td)});
+          if(laDau&&!than_.children.length){if(!dau){dau=tao('thead');bang.appendChild(dau)}dau.appendChild(tr)}else than_.appendChild(tr);
+          i++;
+        }
+        bang.appendChild(than_); boc.appendChild(bang); cha.appendChild(boc); continue;
+      }
+      if(c===NN||c===CV||c===TK){
+        var ky=tao('div','tc-ky'), nhan=null, ten=null;
+        while(i<ds.length&&[NN,CV,TK].indexOf(ds[i].charAt(0))>=0){
+          var x=ds[i], k=x.charAt(0), chu=x.slice(1);
+          if(k===NN){if(!nhan){nhan=tao('div','tc-noi-nhan');nhan.appendChild(tao('span','tc-noi-nhan-nhan','Nơi nhận:'));nhan.appendChild(tao('ul'));ky.insertBefore(nhan,ky.firstChild)}nhan.lastChild.appendChild(tao('li',null,chu))}
+          else{if(!ten){ten=tao('div','tc-ky-ten');ky.appendChild(ten)}ten.appendChild(tao('span',k===TK?'tc-ky-nguoi':null,chu))}
+          i++;
+        }
+        cha.appendChild(ky); continue;
+      }
+      var p=tao('p'); p.innerHTML=toSang(d,tokens); cha.appendChild(p); i++;
+    }
   }
   function cacDieu(ma){var d=DL[ma]||{},ra=[];Object.keys(d).forEach(function(id){ra=ra.concat(d[id])});return ra}
 
@@ -168,8 +209,8 @@
     var v=VB[x._vb], the=tao('article','tc-dieu');
     var vb=tao('div','vb'); vb.appendChild(tao('span',null,v.tenNgan)); vb.appendChild(tao('span','sh',v.soHieu)); if(x.chuong)vb.appendChild(tao('span','ch',x.chuong)); the.appendChild(vb);
     var h=tao('h3'); if(x.so){h.appendChild(tao('span','so so-vang','Điều '+x.so+'. '))} h.appendChild(document.createTextNode(x.tieuDe||(x.so?'':'Toàn văn'))); the.appendChild(h);
-    var trich=tao('p','tc-trich'); trich.innerHTML=toSang(doanTrich(x.than,tokens),tokens); the.appendChild(trich);
-    var than=tao('div','than'); (x.than||'').split('\n').forEach(function(p){if(p.trim()){var e=tao('p');e.innerHTML=toSang(p,tokens);than.appendChild(e)}}); the.appendChild(than);
+    var trich=tao('p','tc-trich'); trich.innerHTML=toSang(doanTrich(x._tron,tokens),tokens); the.appendChild(trich);
+    var than=tao('div','than'); veThan(than,x.than,tokens); the.appendChild(than);
     var hang=tao('div','hang');
     var nutDoc=tao('button',null,'Đọc cả điều'); nutDoc.type='button';
     nutDoc.addEventListener('click',function(){the.classList.toggle('mo');nutDoc.textContent=the.classList.contains('mo')?'Thu gọn':'Đọc cả điều'});
@@ -303,7 +344,7 @@
       ds.forEach(function(x,i){
         if(x.chuong&&x.chuong!==chuongCu){chuongCu=x.chuong;ul.appendChild(tao('li','mo-chuong',x.chuong))}
         var li=tao('li'), b=tao('button'); b.type='button';
-        b.appendChild(tao('span',null,x.so?'Điều '+x.so:'')); b.appendChild(tao('span',null,x.tieuDe||(x.than||'').slice(0,90)));
+        b.appendChild(tao('span',null,x.so?'Điều '+x.so:'')); b.appendChild(tao('span',null,x.tieuDe||(x._tron||'').slice(0,90)));
         b.addEventListener('click',function(){chon(i,true)}); li.appendChild(b); ul.appendChild(li); nuts.push(b);
       });
       vung.appendChild(ul);
@@ -313,7 +354,7 @@
         phai.innerHTML='';
         var ve=tao('button','mo-ve','← Mục lục'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false);nuts[i].focus({preventScroll:true})}); phai.appendChild(ve);
         phai.appendChild(dauTrang(v.tenNgan+(x.chuong?' · '+x.chuong.split(' · ')[0]:''),(x.so?'Điều '+x.so+'. ':'')+(x.tieuDe||'Toàn văn'),null));
-        var van=tao('div','pd-van'); (x.than||'').split('\n').forEach(function(t){if(t.trim())van.appendChild(tao('p',null,t))}); phai.appendChild(van);
+        var van=tao('div','pd-van'); veThan(van,x.than,null); phai.appendChild(van);
         var hang=tao('div','mo-dieu-hang');
         var lui=tao('button',null,'← Điều trước'); lui.type='button'; lui.disabled=i<=0; lui.addEventListener('click',function(){chon(i-1,false)});
         var chep=tao('button',null,'Chép trích dẫn'); chep.type='button'; chep.addEventListener('click',function(){chepTrich(x,v,chep)});
@@ -390,7 +431,7 @@
       var cau=oTim.value.trim(); if(!cau){oTim.focus();return}
       var tl=q('p',ai); tl.textContent='Đang hỏi…';
       var danh=[]; mucLuc.nhom.forEach(function(n){danh=danh.concat(cacDieu(n.ma))});
-      var kq=timTrong(danh,cau).ds.slice(0,5).map(function(x){return {vanBan:VB[x._vb].tenNgan,dieu:x.so,tieuDe:x.tieuDe,than:x.than.slice(0,3000)}});
+      var kq=timTrong(danh,cau).ds.slice(0,5).map(function(x){return {vanBan:VB[x._vb].tenNgan,dieu:x.so,tieuDe:x.tieuDe,than:(x._tron||'').slice(0,3000)}});
       fetch(window.TRO_LY_AI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cauHoi:cau,nguCanh:kq})})
         .then(function(r){return r.json()}).then(function(d){tl.textContent=d.traLoi||'Trợ lý chưa trả lời được.'},function(){tl.textContent='Không nối được với trợ lý.'});
     });
