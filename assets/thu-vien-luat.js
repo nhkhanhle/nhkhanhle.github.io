@@ -71,11 +71,12 @@
   }
   /* Năm ghi dưới gáy: năm có hiệu lực, không có thì năm ký, không có nữa thì năm trong số hiệu */
   function namGay(v){var m=/^(\d{4})/.exec(v.hieuLuc||v.ngayKy||'');if(m)return m[1];var p=(v.soHieu||'').split('/');return /^\d{4}$/.test(p[1]||'')?p[1]:''}
-  /* Một bìa (Khánh đổi 02/10): chỉ hình ngăn và tên; nhãn loại, năm, số hiệu, số điều đã bỏ. Tên quá 3 dòng thì CSS cắt bằng dấu ba chấm,
+  /* Một bìa (Khánh đổi 02/10): hình ngăn, tên canh giữa, năm hiệu lực dưới tên; nhãn loại, số hiệu, số điều đã bỏ. Tên quá 3 dòng thì CSS cắt bằng dấu ba chấm,
      tên đầy đủ vẫn ở nhãn đọc màn hình của gáy và dòng dưới tên trong sổ. lon: bìa trong sổ (chữ to hơn do CSS). */
   function veBia(v,lon){
     var l=loaiCua(v), b=tao('span','bia bia-luat'+(lon?' so-bia':'')); b.style.setProperty('--m2',l.m2); b.style.setProperty('--m3',l.m3);
     b.appendChild(hinhNgan(v._nhom)); b.appendChild(tao('b',null,tenDay(v)));
+    if(namGay(v))b.appendChild(tao('small','hieu-luc',namGay(v)));   /* năm có hiệu lực dưới tên (Khánh thêm 02/10), cùng số với dưới gáy */
     return b;
   }
   /* Chữ trên gáy (Khánh đổi 02/10): loại viết đủ và số, "Nghị định 145", "Thông tư 10", "Văn bản hợp nhất 6";
@@ -90,7 +91,6 @@
   }
   var nutCua={};
   function dungTu(){
-    var dem=0;
     mucLuc.nhom.forEach(function(n){
       var ngan=tao('section','pd-ngan'); ngan.setAttribute('aria-label','Ngăn '+n.ten);
       var dau=tao('div','pd-ngan-ten'); dau.appendChild(tao('h2',null,n.ten)); ngan.appendChild(dau);   /* dòng đếm văn bản, điều đã bỏ (Khánh 02/10) */
@@ -105,7 +105,7 @@
         var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
         than.appendChild(tao('b',dai?'hai':null,cg)); than.appendChild(tao('small',null,namGay(v))); khoi.appendChild(than);
         var mat=veBia(v,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
-        nut.type='button'; nut.setAttribute('aria-pressed','false'); nut.style.setProperty('--d',(-(dem++)*.7%7).toFixed(1)+'s');
+        nut.type='button'; nut.setAttribute('aria-pressed','false');
         nut.setAttribute('aria-label',tenDay(v)+', '+(v.soHieu||'')+', '+v.soDieu+' điều');
         nut.addEventListener('click',function(){if(hien.vb===v.id&&!hien.q)boPhamVi();else moVanBan(v.id,null,nut)});
         nuts.push(nut); nutCua[v.id]=nut;

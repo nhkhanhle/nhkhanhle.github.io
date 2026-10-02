@@ -146,7 +146,7 @@
     if(!nuts.length){var h=tao('div','pd-hang');h.appendChild(tao('p','pd-trong',trong));n.appendChild(h);return}
     if(PD)PD.xepHang(n,nuts); else{var h2=tao('div','pd-hang');h2.style.flexWrap='wrap';nuts.forEach(function(x){h2.appendChild(x)});n.appendChild(h2)}
   }
-  var muc=[], demTho=0;
+  var muc=[];
   function nutBia(m){
     var nut=tao('button','bia-dung'); nut.setAttribute('data-r',146); nut.appendChild(veBia(m,false)); return nut;
   }
@@ -161,7 +161,7 @@
     return nut;
   }
   function gan(nut,m){
-    nut.type='button'; nut.setAttribute('aria-pressed','false'); nut.style.setProperty('--d',(-(demTho++)*.7%7).toFixed(1)+'s');
+    nut.type='button'; nut.setAttribute('aria-pressed','false');
     nut.setAttribute('aria-label',(m.loai||'Sách')+': '+(m.ten||'')+(m.tacGia?', '+m.tacGia:''));
     nut.addEventListener('click',function(){phieuSach(m,nut,true)});
     cacNut.push(nut); muc.push({nut:nut,chu:boDau([m.ten,m.tacGia,m.noi,m.nhom,m.viSao,m.loai].join(' '))});
