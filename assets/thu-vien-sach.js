@@ -1,5 +1,6 @@
 /* Thư viện sách (thu-vien-sach.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026). Dữ liệu ở thu-vien.js.
-   Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy, rê chuột hay đang mở thì gáy xoay
+   Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy cao bằng nhau, dày theo số trang (trang trong thu-vien.js,
+   Khánh đổi 02/10), rê chuột hay đang mở thì gáy xoay
    chính diện thành bìa và các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
    Bấm một cuốn: bìa bay sang quyển sổ một mặt (assets/phep-thuat-thu-vien.js): bìa lớn và thông tin; "Đọc thêm" mở sổ lớn giữa màn hình
    (trái: bìa và thông tin, phải: vì sao đáng đọc). Phiếu ghi chú: sổ một mặt là ngày, nhãn, tóm tắt; "Đọc thêm" mở nội dung.
@@ -35,10 +36,10 @@
   /* ---------- Sổ ---------- */
   var dangChon=null, cacNut=[];
   function chon(nut){dangChon=nut;cacNut.forEach(function(b){b.setAttribute('aria-pressed',b===nut?'true':'false')});if(PD)PD.chon(nut)}
-  function dauTrang(nhan,ten,m,sap){
+  /* Đầu trang sổ: nhãn, tên (dấu sáp đỏ "nk" bên phải đã bỏ, Khánh 02/10) */
+  function dauTrang(nhan,ten,m){
     var d=tao('div','so-dau'), t=tao('div'); t.appendChild(tao('p','nhan',nhan));
     var h=tao('h2',null,ten); if(m)nhanMau(h,m); t.appendChild(h); d.appendChild(t);
-    if(sap){var ph=tao('div','so-dau-phai'),mc=tao('span','dau-sap','nk');mc.setAttribute('aria-hidden','true');ph.appendChild(mc);d.appendChild(ph)}
     return d;
   }
   function veDauSo(cuon){
@@ -63,7 +64,7 @@
   function phieuSach(m,nut,cuon){
     var khoa=m.loai==='Khóa học', moi=dangChon!==nut; chon(nut);
     soTrai.innerHTML='';
-    soTrai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m,true));
+    soTrai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m));
     var biaLon=veBia(m,true); biaLon.classList.add('sang'); soTrai.appendChild(biaLon);
     var dl=bang(soTrai,[[khoa?'Nơi dạy':'Tác giả',m.tacGia],[khoa?'Nơi học':'Xuất bản',m.noi],['Năm',m.nam,true],['Góc nhìn',m.nhom]]);
     soTrai.appendChild(nutDocThem('vì sao đáng '+(khoa?'học ':'đọc ')+(m.ten||''),function(b){docSach(m,b)}));
@@ -76,13 +77,13 @@
   function docSach(m,nutGoc){
     if(!PD)return;
     var khoa=m.loai==='Khóa học', trai=tao('div'), phai=tao('div','mo-dieu');
-    trai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m,false));
+    trai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m));
     trai.appendChild(veBia(m,true));
     bang(trai,[[khoa?'Nơi dạy':'Tác giả',m.tacGia],[khoa?'Nơi học':'Xuất bản',m.noi],['Năm',m.nam,true],['Góc nhìn',m.nhom]]);
     var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Vì sao đáng '+(khoa?'học':'đọc'))); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
     doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
     var ve=tao('button','mo-ve','← Bìa'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
-    phai.appendChild(dauTrang('Vì sao đáng '+(khoa?'học':'đọc'),m.ten||'',null,false));
+    phai.appendChild(dauTrang('Vì sao đáng '+(khoa?'học':'đọc'),m.ten||'',null));
     var van=m.viSao?doan(phai,m.viSao):phai.appendChild(tao('p','pd-goi','Khánh chưa viết vì sao đáng '+(khoa?'học':'đọc')+' cuốn này.'));
     if(m.lienKet){var a=tao('a','pd-lien',khoa?'Xem khóa học ↗':'Xem sách ↗');a.href=m.lienKet;a.target='_blank';a.rel='noopener';phai.appendChild(a)}
     PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
@@ -90,7 +91,7 @@
   function phieuGhi(m,nut,cuon){
     chon(nut);
     soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m,true));
+    soTrai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m));
     var dl=bang(soTrai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
     if(m.tomTat)soTrai.appendChild(tao('p','pd-goi',m.tomTat));
     soTrai.appendChild(nutDocThem('ghi chú '+(m.tieuDe||''),function(b){docGhi(m,b)}));
@@ -103,20 +104,20 @@
   function docGhi(m,nutGoc){
     if(!PD)return;
     var trai=tao('div'), phai=tao('div','mo-dieu');
-    trai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m,false));
+    trai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m));
     bang(trai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
     if(m.tomTat)trai.appendChild(tao('p','pd-goi',m.tomTat));
     var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Nội dung')); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
     doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
     var ve=tao('button','mo-ve','← Phiếu'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
-    phai.appendChild(dauTrang('Ghi chú · '+ngayVN(m.ngay),m.tieuDe||'',null,false));
+    phai.appendChild(dauTrang('Ghi chú · '+ngayVN(m.ngay),m.tieuDe||'',null));
     var van=doan(phai,m.noiDung);
     PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
   }
   function phieuDsGhi(cuon){
     chon(null);
     soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Hộp phiếu ghi chú','Tất cả ghi chú',null,false));
+    soTrai.appendChild(dauTrang('Hộp phiếu ghi chú','Tất cả ghi chú',null));
     soTrai.appendChild(tao('p','pd-goi','Bài ngắn kiểu sổ tay: một khái niệm, một cách làm, một điều rút ra sau một việc cụ thể. Bấm một dòng để mở phiếu.'));
     if(!ghi.length){soTrai.appendChild(tao('p','pd-goi','Hộp phiếu đang được xếp.'));return}
     var ul=tao('ul','pd-ds so-noi');
@@ -132,9 +133,10 @@
   }
 
   /* ---------- Tủ ---------- */
-  function ngan(ten,ghiChu,hop){
+  /* Đầu ngăn chỉ còn tên (dòng đếm cuốn, khóa, phiếu đã bỏ, Khánh 02/10) */
+  function ngan(ten,hop){
     var n=tao('section','pd-ngan'); n.setAttribute('aria-label','Ngăn '+ten);
-    var d=tao('div','pd-ngan-ten'); d.appendChild(tao('h2',null,ten)); d.appendChild(tao('span',null,ghiChu)); n.appendChild(d);
+    var d=tao('div','pd-ngan-ten'); d.appendChild(tao('h2',null,ten)); n.appendChild(d);
     tu.appendChild(n);
     if(hop){var h=tao('div','pd-hang'); n.appendChild(h); return h}
     return n;
@@ -148,10 +150,11 @@
   function nutBia(m){
     var nut=tao('button','bia-dung'); nut.setAttribute('data-r',146); nut.appendChild(veBia(m,false)); return nut;
   }
+  /* Gáy cao 176px như gáy luật; dày theo căn bậc hai số trang (trang: 200 trang ≈ 38px, 500 ≈ 47px, 900 ≈ 55px), không ghi số trang thì 40px, khóa học 36px */
   function nutGay(m){
-    var k=bam(m.ten||''), khoa=m.loai==='Khóa học', dai=(m.ten||'').length>14;
-    var r=(dai?44:(khoa?36:40))+k%10;
-    var nut=tao('button','gay'); nut.style.setProperty('--r',r+'px'); nut.setAttribute('data-r',r); nut.style.setProperty('--h',(khoa?148:156)+k%24+'px'); nut.style.setProperty('--m',mau(m)[0]);
+    var khoa=m.loai==='Khóa học', dai=(m.ten||'').length>16, tr=+m.trang||0;
+    var r=tr?Math.round(Math.min(56,Math.max(dai?40:30,22+Math.sqrt(tr)*1.1))):(dai?44:(khoa?36:40));
+    var nut=tao('button','gay'); nut.style.setProperty('--r',r+'px'); nut.setAttribute('data-r',r); nut.style.setProperty('--h','176px'); nut.style.setProperty('--m',mau(m)[0]);
     var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
     than.appendChild(tao('b',dai?'hai':null,m.ten||'')); than.appendChild(tao('small',null,m.nam||(khoa?'KHÓA':'SÁCH'))); khoi.appendChild(than);
     var mat=veBia(m,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
@@ -165,12 +168,12 @@
     return nut;
   }
   var dangDoc=dsSach.filter(function(m){return m.dangDoc})[0]||null;
-  var n1=ngan('Sách',dsSach.length+' cuốn');
+  var n1=ngan('Sách');
   xep(n1,dsSach.map(function(m){return gan(m===dangDoc?nutBia(m):nutGay(m),m)}),'Ngăn này đang được xếp.');
-  var n2=ngan('Khóa học',dsKhoa.length+' khóa');
+  var n2=ngan('Khóa học');
   xep(n2,dsKhoa.map(function(m){return gan(nutGay(m),m)}),'Ngăn này đang được xếp.');
   /* Hộp phiếu: bốn ghi chú mới nhất cắm trong hộp, mới nhất ở trước; nút xem cả hộp ở đầu ngăn */
-  var h3=ngan('Hộp phiếu ghi chú',ghi.length+' phiếu',true); h3.parentNode.id='ghi-chu'; h3.classList.add('pd-hang-hop');
+  var h3=ngan('Hộp phiếu ghi chú',true); h3.parentNode.id='ghi-chu'; h3.classList.add('pd-hang-hop');
   var hop=tao('div','pd-hop'), theGhi=[], bon=ghi.slice(0,4), n=bon.length;
   bon.forEach(function(m,i){
     var k=n-1-i, b=tao('button','pd-the-ghi'); b.type='button'; b.setAttribute('aria-pressed','false'); b.style.setProperty('--k',k);
@@ -182,7 +185,7 @@
   });
   var than=tao('div','pd-than-hop'); than.appendChild(tao('span',null,'GHI CHÚ')); hop.appendChild(than);
   h3.appendChild(hop);
-  if(ghi.length){var tc=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú');tc.type='button';tc.addEventListener('click',function(){phieuDsGhi(true)});var dauNgan=h3.previousElementSibling;dauNgan.replaceChild(tc,dauNgan.lastChild)}
+  if(ghi.length){var tc=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú');tc.type='button';tc.addEventListener('click',function(){phieuDsGhi(true)});h3.previousElementSibling.appendChild(tc)}
   /* Chú giải màu: chỉ các góc nhìn đang có trên kệ */
   var cg=q('[data-chu-giai]'), daCo={};
   if(cg)sach.forEach(function(m){var t=MAU[m.nhom]?m.nhom:'Chủ đề khác';if(daCo[t])return;daCo[t]=1;var sp=tao('span'),i=tao('i');i.style.setProperty('--m',mau(m)[0]);sp.appendChild(i);sp.appendChild(document.createTextNode(t));cg.appendChild(sp)});

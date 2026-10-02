@@ -1,6 +1,7 @@
 /* Thư viện luật (thu-vien-luat.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026).
    Gộp trang Tra cứu pháp luật lao động dựng 27/09: tìm, duyệt văn bản, tình huống, địa chỉ ?q=&vb= giữ nguyên.
-   Tủ 9 ngăn, mọi văn bản là gáy (Khánh đổi 01/10: văn bản gốc cũng đứng gáy): dày theo số điều, màu và cao theo loại;
+   Tủ 9 ngăn, mọi văn bản là gáy (Khánh đổi 01/10: văn bản gốc cũng đứng gáy): cao bằng nhau, dày theo số điều, màu theo loại;
+     chữ gáy là loại và số ("Nghị định 145", "Thông tư 10") hay tên luật ("Luật việc làm"), dưới là năm hiệu lực (Khánh đổi 02/10);
      rê chuột, chọn bằng bàn phím hay đang mở thì gáy xoay chính diện thành bìa, các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
    Bấm một cuốn: bìa bay sang quyển sổ một mặt bên phải (assets/phep-thuat-thu-vien.js); trang sổ là phiếu thư viện (bìa lớn, số hiệu,
      ngày, số điều); "Đọc thêm" cuối trang mở sổ lớn giữa màn hình: trái là mục lục điều theo chương, phải là nguyên văn điều đang chọn
@@ -37,19 +38,19 @@
   function cacDieu(ma){var d=DL[ma]||{},ra=[];Object.keys(d).forEach(function(id){ra=ra.concat(d[id])});return ra}
 
   /* ---------- Bìa và gáy ---------- */
-  /* Màu, chiều cao gáy theo loại văn bản; --m2, --m3 là hai đầu dải màu trên bìa */
+  /* Màu gáy theo loại văn bản; --m2, --m3 là hai đầu dải màu trên bìa. Mọi gáy cao bằng nhau (CAO), chỉ dày mỏng theo số điều (Khánh đổi 02/10) */
+  var CAO=176;
   var LOAI=[
-    {ten:'Bộ luật, Luật',khop:['Bộ luật','Luật'],m:'#2F3B4A',m2:'#3B4859',m3:'#26303C',h:174},
-    {ten:'Văn bản hợp nhất',khop:['Văn bản hợp nhất'],m:'#4A5868',m2:'#56657A',m3:'#3A4552',h:166},
-    {ten:'Nghị định',khop:['Nghị định'],m:'#5E6B5A',m2:'#6A7866',m3:'#46523F',h:160},
-    {ten:'Nghị quyết',khop:['Nghị quyết'],m:'#6B3F43',m2:'#7A4A4F',m3:'#4F2C30',h:152},
-    {ten:'Thông tư',khop:['Thông tư'],m:'#8A5A44',m2:'#9A6650',m3:'#6B4232',h:146},
-    {ten:'Quyết định',khop:['Quyết định'],m:'#7A6A4F',m2:'#8A7A5E',m3:'#5F5240',h:140},
-    {ten:'Hướng dẫn, văn bản khác',khop:[],m:'#5F5240',m2:'#6E6150',m3:'#4A3F30',h:132}
+    {ten:'Bộ luật, Luật',khop:['Bộ luật','Luật'],m:'#2F3B4A',m2:'#3B4859',m3:'#26303C'},
+    {ten:'Văn bản hợp nhất',khop:['Văn bản hợp nhất'],m:'#4A5868',m2:'#56657A',m3:'#3A4552'},
+    {ten:'Nghị định',khop:['Nghị định'],m:'#5E6B5A',m2:'#6A7866',m3:'#46523F'},
+    {ten:'Nghị quyết',khop:['Nghị quyết'],m:'#6B3F43',m2:'#7A4A4F',m3:'#4F2C30'},
+    {ten:'Thông tư',khop:['Thông tư'],m:'#8A5A44',m2:'#9A6650',m3:'#6B4232'},
+    {ten:'Quyết định',khop:['Quyết định'],m:'#7A6A4F',m2:'#8A7A5E',m3:'#5F5240'},
+    {ten:'Hướng dẫn, văn bản khác',khop:[],m:'#5F5240',m2:'#6E6150',m3:'#4A3F30'}
   ];
   function loaiCua(v){for(var i=0;i<LOAI.length-1;i++)if(LOAI[i].khop.indexOf(v.loai)>=0)return LOAI[i];return LOAI[LOAI.length-1]}
   function laGoc(v){return v.loai==='Bộ luật'||v.loai==='Luật'}
-  function bam(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%997;return h}
   /* Hình nét cho từng ngăn, cùng họ với hình trên bìa 6 cuốn trang chủ (khung 0 tới 100) */
   var HINH={
     'lao-dong':'<path d="M50 16v68M32 84h36M18 28h64"/><circle cx="50" cy="13" r="3"/><path d="M18 28 8 54M18 28l10 26M82 28 72 54M82 28l10 26"/><path d="M5 54h26a13 9 0 0 1-26 0zM69 54h26a13 9 0 0 1-26 0z"/>',
@@ -63,39 +64,46 @@
     'di-nuoc-ngoai':'<path d="M14 66 84 34M40 54l-6 22 10-4 10-18M58 46 44 24l10 2 20 18"/><path d="M20 82h60"/>'
   };
   function hinhNgan(ma){var s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 100 100');s.setAttribute('aria-hidden','true');s.innerHTML=HINH[ma]||HINH['lao-dong'];return s}
-  function tenDay(v){return laGoc(v)?(v.loai+' '+(v.ten||'')).trim():(v.ten?(v.loai?v.loai+' ':'')+v.ten:(v.tenNgan||v.soHieu))}
-  function nam(v){var m=/^(\d{4})/.exec(v.ngayKy||'');return m?m[1]:''}
-  /* Một bìa: nhãn loại, năm, hình ngăn, tên, dòng số hiệu và số điều. lon: bìa trong sổ (chữ to hơn do CSS) */
+  /* Tên đầy đủ: luật thì "Bộ luật Lao động", "Luật bảo hiểm xã hội" (tên trong dữ liệu đã có chữ Luật thì không ghép thêm, sửa 02/10: trước ra "Luật Luật bảo hiểm xã hội") */
+  function tenDay(v){
+    if(laGoc(v)){var t=(v.ten||'').trim();return /^(bộ )?luật\b/i.test(t)?t.charAt(0).toUpperCase()+t.slice(1):(v.loai+' '+t).trim()}
+    return v.ten?(v.loai?v.loai+' ':'')+v.ten:(v.tenNgan||v.soHieu);
+  }
+  /* Năm ghi dưới gáy: năm có hiệu lực, không có thì năm ký, không có nữa thì năm trong số hiệu */
+  function namGay(v){var m=/^(\d{4})/.exec(v.hieuLuc||v.ngayKy||'');if(m)return m[1];var p=(v.soHieu||'').split('/');return /^\d{4}$/.test(p[1]||'')?p[1]:''}
+  /* Một bìa (Khánh đổi 02/10): chỉ hình ngăn và tên; nhãn loại, năm, số hiệu, số điều đã bỏ. Tên quá 3 dòng thì CSS cắt bằng dấu ba chấm,
+     tên đầy đủ vẫn ở nhãn đọc màn hình của gáy và dòng dưới tên trong sổ. lon: bìa trong sổ (chữ to hơn do CSS). */
   function veBia(v,lon){
-    var l=loaiCua(v), b=tao('span','bia'+(lon?' so-bia':'')); b.style.setProperty('--m2',l.m2); b.style.setProperty('--m3',l.m3);
-    b.appendChild(tao('span','nhan',v.loai||'Văn bản')); if(nam(v))b.appendChild(tao('span','nam',nam(v)));
+    var l=loaiCua(v), b=tao('span','bia bia-luat'+(lon?' so-bia':'')); b.style.setProperty('--m2',l.m2); b.style.setProperty('--m3',l.m3);
     b.appendChild(hinhNgan(v._nhom)); b.appendChild(tao('b',null,tenDay(v)));
-    b.appendChild(tao('small',null,(v.soHieu||'')+(v.soDieu?' · '+v.soDieu+' ĐIỀU':'')));
     return b;
   }
-  /* Chữ trên gáy: viết tắt loại và số, năm; tên đầy đủ nằm ở mặt bìa và nhãn đọc màn hình */
-  var TAT={'Nghị định':'NĐ','Thông tư':'TT','Quyết định':'QĐ','Nghị quyết':'NQ','Hướng dẫn':'HD','Văn bản hợp nhất':'VBHN'};
+  /* Chữ trên gáy (Khánh đổi 02/10): loại viết đủ và số, "Nghị định 145", "Thông tư 10", "Văn bản hợp nhất 6";
+     luật ghi tên, "Luật việc làm", "Bộ luật Lao động"; tên luật quá dài (luật sửa đổi nhiều luật) thì "Luật 97/2025".
+     Văn bản thiếu loại trong dữ liệu thì đoán loại từ đuôi số hiệu (QD, TT, ND...). Tên đầy đủ nằm ở mặt bìa và nhãn đọc màn hình. */
+  var LOAI_TU_SO={QD:'Quyết định',TT:'Thông tư',ND:'Nghị định',NQ:'Nghị quyết',HD:'Hướng dẫn',VBHN:'Văn bản hợp nhất'};
+  function loaiGay(v){if(v.loai)return v.loai;var m=/\/([A-Z]+)-/.exec(boDau(v.soHieu||'').toUpperCase());return (m&&LOAI_TU_SO[m[1]])||'Văn bản'}
   function chuGay(v){
-    if(laGoc(v))return (v.tenNgan||v.soHieu).replace(v.soHieu,'').trim();
-    var p=(v.soHieu||v.tenNgan||'').split('/'), s=/^\d{4}$/.test(p[1]||'')?p[0]+'/'+p[1]:p[0];
-    return (TAT[v.loai]?TAT[v.loai]+' ':'')+s;
+    var p=(v.soHieu||'').split('/'), so=p[0]||v.tenNgan||'';
+    if(laGoc(v)){var t=tenDay(v);return t.length<=30?t:v.loai+' '+so+(/^\d{4}$/.test(p[1]||'')?'/'+p[1]:'')}
+    return loaiGay(v)+' '+so;
   }
   var nutCua={};
   function dungTu(){
     var dem=0;
     mucLuc.nhom.forEach(function(n){
       var ngan=tao('section','pd-ngan'); ngan.setAttribute('aria-label','Ngăn '+n.ten);
-      var dau=tao('div','pd-ngan-ten'); dau.appendChild(tao('h2',null,n.ten)); dau.appendChild(tao('span',null,n.soVanBan+' văn bản · '+n.soDieu+' điều')); ngan.appendChild(dau);
+      var dau=tao('div','pd-ngan-ten'); dau.appendChild(tao('h2',null,n.ten)); ngan.appendChild(dau);   /* dòng đếm văn bản, điều đã bỏ (Khánh 02/10) */
       var nuts=[];
       n.vanBan.forEach(function(v){
-        var l=loaiCua(v), k=bam(v.id), cg=chuGay(v), dai=cg.length>12, goc=laGoc(v);
-        var nut=tao('button','gay'+(v.soDieu<10&&!dai&&!goc?' mong':''));
-        /* Văn bản gốc dày hơn một chút để vẫn nổi trên hàng */
-        var r=Math.round(Math.min(56,Math.max(goc?48:(dai?40:30),22+Math.sqrt(v.soDieu||1)*2.4)));
+        var l=loaiCua(v), cg=chuGay(v), dai=cg.length>16;
+        var nut=tao('button','gay'+(v.soDieu<10&&!dai?' mong':''));
+        /* Dày theo căn bậc hai số điều, 30 tới 56px; chữ gáy dài xuống hai cột thì tối thiểu 40px */
+        var r=Math.round(Math.min(56,Math.max(dai?40:30,22+Math.sqrt(v.soDieu||1)*2.4)));
         nut.style.setProperty('--r',r+'px'); nut.setAttribute('data-r',r);
-        nut.style.setProperty('--h',(l.h+k%7)+'px'); nut.style.setProperty('--m',l.m);
+        nut.style.setProperty('--h',CAO+'px'); nut.style.setProperty('--m',l.m);
         var khoi=tao('span','gay-khoi'), than=tao('span','gay-than');
-        than.appendChild(tao('b',dai?'hai':null,cg)); than.appendChild(tao('small',null,String(v.soDieu||''))); khoi.appendChild(than);
+        than.appendChild(tao('b',dai?'hai':null,cg)); than.appendChild(tao('small',null,namGay(v))); khoi.appendChild(than);
         var mat=veBia(v,false); mat.classList.add('gay-bia'); khoi.appendChild(mat); nut.appendChild(khoi);
         nut.type='button'; nut.setAttribute('aria-pressed','false'); nut.style.setProperty('--d',(-(dem++)*.7%7).toFixed(1)+'s');
         nut.setAttribute('aria-label',tenDay(v)+', '+(v.soHieu||'')+', '+v.soDieu+' điều');
@@ -115,13 +123,13 @@
   }
 
   /* ---------- Trang sổ: đầu trang, lật trang, cuộn ---------- */
-  function dauTrang(nhan,ten,dong,sap){
+  /* Đầu trang sổ: nhãn, tên, nút đóng (dấu sáp đỏ "nk" bên phải đã bỏ, Khánh 02/10) */
+  function dauTrang(nhan,ten,dong){
     var d=tao('div','so-dau'), t=tao('div');
     t.appendChild(tao('p','nhan',nhan)); t.appendChild(tao('h2',null,ten)); d.appendChild(t);
-    if(dong||sap){
+    if(dong){
       var ph=tao('div','so-dau-phai');
-      if(dong){var b=tao('button','pd-dong','×');b.type='button';b.setAttribute('aria-label','Đóng, về sổ tình huống');b.addEventListener('click',dong);ph.appendChild(b)}
-      if(sap){var m=tao('span','dau-sap','nk');m.setAttribute('aria-hidden','true');ph.appendChild(m)}
+      var b=tao('button','pd-dong','×');b.type='button';b.setAttribute('aria-label','Đóng, về sổ tình huống');b.addEventListener('click',dong);ph.appendChild(b);
       d.appendChild(ph);
     }
     return d;
@@ -228,7 +236,7 @@
     if(!cau){if(hien.vb)moVanBan(hien.vb);else hienMacDinh();return}
     var id=++lanTim, nhomCan=hien.vb?[VB[hien.vb]._nhom]:mucLuc.nhom.map(function(n){return n.ma});
     soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Kết quả tìm','“'+cau+'”',function(){oTim.value='';tim('',true);oTim.focus()},false));
+    soTrai.appendChild(dauTrang('Kết quả tìm','“'+cau+'”',function(){oTim.value='';tim('',true);oTim.focus()}));
     var dem=tao('p','pd-muc'); soTrai.appendChild(dem);
     soTrai.appendChild(tao('p','pd-goi',hien.vb?'Đang tìm trong riêng '+VB[hien.vb].tenNgan+'.':'Tìm trong cả '+mucLuc.tongVanBan+' văn bản. “Mở văn bản” để xem cả cuốn.'));
     var vung=tao('div'); soTrai.appendChild(vung);
@@ -258,7 +266,7 @@
     phamVi.classList.add('hien'); q('b',phamVi).textContent=v.tenNgan; oTim.placeholder='Tìm trong '+v.tenNgan+'…';
     var nhom=mucLuc.nhom.filter(function(x){return x.ma===v._nhom})[0];
     soTrai.innerHTML='';
-    soTrai.appendChild(dauTrang('Ngăn '+(nhom?nhom.ten:''),laGoc(v)?tenDay(v):v.tenNgan,boPhamVi,true));
+    soTrai.appendChild(dauTrang('Ngăn '+(nhom?nhom.ten:''),laGoc(v)?tenDay(v):v.tenNgan,boPhamVi));
     if(!laGoc(v)&&v.ten)soTrai.appendChild(tao('p','pd-goi',tenDay(v)));
     var biaLon=veBia(v,true); biaLon.classList.add('sang'); soTrai.appendChild(biaLon);
     var dl=tao('dl','pd-the');
@@ -280,7 +288,7 @@
   function docVanBan(v,soDieu,nut){
     if(!PD)return;
     var trai=tao('div'), phai=tao('div','mo-dieu');
-    trai.appendChild(dauTrang(v.loai||'Văn bản',laGoc(v)?tenDay(v):v.tenNgan,null,false));
+    trai.appendChild(dauTrang(v.loai||'Văn bản',laGoc(v)?tenDay(v):v.tenNgan,null));
     if(!laGoc(v)&&v.ten)trai.appendChild(tao('p','pd-goi',tenDay(v)));
     var dl=tao('dl','pd-the');
     [['Số hiệu',v.soHieu],['Hiệu lực',ngayVN(v.hieuLuc)],['Gồm',v.soDieu+' điều']].forEach(function(r){if(!r[1])return;dl.appendChild(tao('dt',null,r[0]));var dd=tao('dd');dd.appendChild(tao('span','so-vang',r[1]));dl.appendChild(dd)});
@@ -304,7 +312,7 @@
         nuts.forEach(function(b,k){b.setAttribute('aria-current',k===i?'true':'false')});
         phai.innerHTML='';
         var ve=tao('button','mo-ve','← Mục lục'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false);nuts[i].focus({preventScroll:true})}); phai.appendChild(ve);
-        phai.appendChild(dauTrang(v.tenNgan+(x.chuong?' · '+x.chuong.split(' · ')[0]:''),(x.so?'Điều '+x.so+'. ':'')+(x.tieuDe||'Toàn văn'),null,false));
+        phai.appendChild(dauTrang(v.tenNgan+(x.chuong?' · '+x.chuong.split(' · ')[0]:''),(x.so?'Điều '+x.so+'. ':'')+(x.tieuDe||'Toàn văn'),null));
         var van=tao('div','pd-van'); (x.than||'').split('\n').forEach(function(t){if(t.trim())van.appendChild(tao('p',null,t))}); phai.appendChild(van);
         var hang=tao('div','mo-dieu-hang');
         var lui=tao('button',null,'← Điều trước'); lui.type='button'; lui.disabled=i<=0; lui.addEventListener('click',function(){chon(i-1,false)});
@@ -331,7 +339,7 @@
   function hienMacDinh(){
     var th=window.TINH_HUONG||[];
     soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Sổ tình huống','Câu hỏi người làm nhân sự hay gặp',null,false));
+    soTrai.appendChild(dauTrang('Sổ tình huống','Câu hỏi người làm nhân sự hay gặp',null));
     var dl=tao('dl','pd-the');
     [['Ngăn',mucLuc.nhom.length],['Văn bản',mucLuc.tongVanBan],['Điều',mucLuc.tongDieu],['Cập nhật',ngayVN(mucLuc.capNhat)]].forEach(function(r){dl.appendChild(tao('dt',null,r[0]));var dd=tao('dd');dd.appendChild(tao('span','so-vang',String(r[1])));dl.appendChild(dd)});
     soTrai.appendChild(dl);
