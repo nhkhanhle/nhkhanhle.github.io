@@ -116,8 +116,20 @@
 .tc-ai p{margin-top:10px;font-size:15px;line-height:1.75;color:rgba(241,234,221,.85);white-space:pre-line}
 .tc-ai button{margin-top:12px;font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:10px 16px 8px;border:1px solid rgba(216,204,181,.4);background:transparent;color:#F1EADD;border-radius:var(--bo-nut);cursor:pointer}
 .tc-ai button:hover{background:var(--cat);color:var(--navy);border-color:var(--cat)}
-.tc-luu-y{margin-top:36px;padding-top:18px;border-top:1px solid rgba(47,59,74,.12);font-size:13px;line-height:1.7;color:var(--nhat)}
+/* Phiếu lưu ý ghim ở chân tủ (Khánh chọn phương án B 03/10): giấy kem cùng chất nhãn ngăn, ghim Phosphor PushPin vàng cát, nghiêng nhẹ,
+   ghim ngay dưới mép tủ bên phải (không đè nhãn ngăn cuối). Rê chuột: phiếu đứng thẳng, nhô lên. Điện thoại: rộng hết tủ, nằm ngay dưới tủ để không đè nhãn ngăn cuối. */
+.tc-phieu-luu-y{display:block;position:relative;z-index:40;width:min(420px,72%);margin:-4px 30px 0 auto;padding:20px 22px 16px 24px;border-radius:3px;
+  background:var(--van-giay),#F9F4EC;box-shadow:inset 0 0 0 1px rgba(95,82,64,.3),0 14px 26px -12px rgba(38,48,60,.45),0 2px 4px rgba(38,48,60,.12);
+  transform:rotate(-1.6deg);transform-origin:50% 0;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.tc-phieu-luu-y:hover{transform:rotate(0) translateY(-4px);box-shadow:inset 0 0 0 1px rgba(95,82,64,.3),0 22px 34px -14px rgba(38,48,60,.5),0 2px 4px rgba(38,48,60,.12)}
+.tc-phieu-luu-y .ghim{position:absolute;left:50%;top:-11px;width:22px;height:22px;margin-left:-11px;fill:#8E7B5A;filter:drop-shadow(0 2px 2px rgba(38,48,60,.35))}
+.tc-phieu-luu-y b{display:block;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam)}
+.tc-phieu-luu-y p{margin-top:7px;font-size:12.5px;line-height:1.65;color:#3B4552}
 
+@media(max-width:900px){
+  .tc-phieu-luu-y{width:calc(100% - 20px);margin:14px 10px 0}
+}
+@media(prefers-reduced-motion:reduce){.tc-phieu-luu-y{transition:none}}
 @media(max-width:640px){
   .tc-tim{padding:6px 6px 6px 16px;gap:10px}
   .tc-tim input{font-size:15px}

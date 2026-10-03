@@ -154,8 +154,6 @@
       tu.appendChild(ngan);
       if(PD)PD.xepHang(ngan,nuts); else{var hang=tao('div','pd-hang');hang.style.flexWrap='wrap';nuts.forEach(function(x){hang.appendChild(x)});ngan.appendChild(hang)}
     });
-    var cg=q('[data-chu-giai]');
-    if(cg)LOAI.forEach(function(l){var sp=tao('span'),i=tao('i');i.style.setProperty('--m',l.m);sp.appendChild(i);sp.appendChild(document.createTextNode(l.ten));cg.appendChild(sp)});
     if(PD)PD.nghe(tu);
   }
   function danhDauTu(id){

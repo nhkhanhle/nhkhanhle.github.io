@@ -63,13 +63,15 @@
 .pd-ngan{--o:200px;padding-top:14px}
 .pd-ngan:has(.pd-hang-hop){--o:184px}
 .pd-ngan-ten{position:absolute;left:18px;right:18px;top:calc(var(--o) + 9px);z-index:30;display:flex;justify-content:space-between;align-items:center;margin:0;padding:0;pointer-events:none}
-.pd-ngan-ten h2{position:relative;overflow:hidden;height:24px;padding:0 16px;border-radius:3px;line-height:24px;white-space:nowrap;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#2F3B4A;
+.pd-ngan-ten h2{position:relative;overflow:hidden;max-width:100%;min-height:24px;padding:5px 16px;border-radius:3px;line-height:14px;text-wrap:balance;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#2F3B4A;
   background:radial-gradient(circle at 7.5px 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),radial-gradient(circle at calc(100% - 7.5px) 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),var(--van-giay),#F9F4EC;   /* hai đinh vàng vẽ bằng nền */
   box-shadow:inset 0 0 0 1px rgba(95,82,64,.42),0 2px 5px rgba(38,48,60,.35)}
 /* Vệt sáng lướt ngang mặt nhãn khi rê vào ngăn */
 .pd-ngan-ten h2::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,250,230,.55) 50%,transparent 70%);transform:translateX(-120%);opacity:0;pointer-events:none}
 .pd-ngan:hover .pd-ngan-ten h2::after,.pd-ngan:focus-within .pd-ngan-ten h2::after{animation:pd-loe 1.1s ease-out .15s both}
 @keyframes pd-loe{0%{transform:translateX(-120%);opacity:0}15%{opacity:1}100%{transform:translateX(120%);opacity:0}}
+/* Nhãn dài hơn chỗ trên ván kệ (điện thoại) thì xuống hai dòng thay vì bị cắt (sửa 03/10); điện thoại giãn chữ hẹp lại để đa số nhãn vẫn một dòng */
+@media(max-width:640px){.pd-ngan-ten h2{letter-spacing:.14em;padding:5px 14px}}
 .pd-ngan-ten .pd-tat-ca{pointer-events:auto;padding:5px 11px 3px;border-radius:999px;border:0;background:var(--to-giay);box-shadow:inset 0 0 0 1px rgba(95,82,64,.35)}
 /* Hàng sách: ô cao --o (gáy 176px + chỗ nhô khi chọn), ván kệ dày 14px ở đáy mỗi hàng; bóng tối nhẹ ở lưng tủ. Không xuống dòng: JS chia sẵn hàng (xepHang).
    Hộp phiếu ghi chú (pd-hang-hop) không qua JS nên vẫn cho xuống dòng. */
