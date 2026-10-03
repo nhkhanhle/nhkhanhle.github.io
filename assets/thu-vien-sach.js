@@ -189,7 +189,7 @@
   /* Chú giải màu: chỉ các góc nhìn đang có trên kệ */
   var cg=q('[data-chu-giai]'), daCo={};
   if(cg)sach.forEach(function(m){var t=MAU[m.nhom]?m.nhom:'Chủ đề khác';if(daCo[t])return;daCo[t]=1;var sp=tao('span'),i=tao('i');i.style.setProperty('--m',mau(m)[0]);sp.appendChild(i);sp.appendChild(document.createTextNode(t));cg.appendChild(sp)});
-  if(PD){PD.dom();PD.nghe(tu)}
+  if(PD){PD.dom();PD.nghe(tu);PD.datDen(tu)}   /* ba thanh đèn mỗi ngăn như tủ luật (Khánh 03/10) */
 
   /* ---------- Ô tìm: làm mờ mục không khớp ---------- */
   var oLoc=q('[data-loc]'), locDem=q('[data-loc-dem]');

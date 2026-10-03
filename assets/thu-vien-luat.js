@@ -154,25 +154,8 @@
       tu.appendChild(ngan);
       if(PD)PD.xepHang(ngan,nuts); else{var hang=tao('div','pd-hang');hang.style.flexWrap='wrap';nuts.forEach(function(x){hang.appendChild(x)});ngan.appendChild(hang)}
     });
-    if(PD)PD.nghe(tu);
-    datDen();
+    if(PD){PD.nghe(tu);PD.datDen(tu)}   /* ba thanh đèn mỗi ngăn (03/10) */
   }
-  /* ---------- Đèn ngăn (Khánh chọn 03/10): ba thanh đèn đồng gắn sát mép dưới ván kệ phía trên mỗi ngăn, không dây, hắt sáng xuống gáy ----------
-     Rải đều trên phần có sách của hàng đầu (ít nhất 45% bề ngang ngăn, khổ hẹp 75%). Nhãn ngăn trên nằm ngay chỗ gắn đèn (ngăn trên chỉ một hàng)
-     thì dời dải đèn sang phải nhãn; không đủ chỗ thì để nguyên, nhãn đứng trước đèn. Tính lại khi đổi bề ngang (sau khi xepHang chia lại hàng). */
-  function datDen(){
-    [].forEach.call(tu.querySelectorAll('.pd-ngan'),function(n,k){
-      var cu=n.querySelector('.tl-den-ngan'); if(cu)cu.remove();
-      var c=tao('div','tl-den-ngan'); c.setAttribute('aria-hidden','true'); n.insertBefore(c,n.firstChild);
-      var R=n.getBoundingClientRect(), C=c.getBoundingClientRect(), W=n.clientWidth, hang=n.querySelector('.pd-hang'), gs=hang?hang.children:[];
-      var tr=gs.length?gs[0].getBoundingClientRect().left-R.left:18, ph=gs.length?gs[gs.length-1].getBoundingClientRect().right-R.left:W-18;
-      var bw=matchMedia('(max-width:900px)').matches?44:68, can=3*(bw+16);   /* bề ngang thanh đèn theo CSS (68px, từ 900px trở xuống 44px); can: dải tối thiểu để ba thanh không sát nhau */
-      [].forEach.call(tu.querySelectorAll('.pd-ngan-ten h2'),function(h){var r=h.getBoundingClientRect();if(r.bottom>C.top-4&&r.top<C.top+30){var moi=r.right-R.left+16;if(W-18-moi>=can)tr=Math.max(tr,moi)}});
-      var rong=Math.max(ph-tr,W*(W<500?.75:.45),can); if(tr+rong>W-18){rong=Math.max(W-18-tr,Math.min(can,W-36));tr=Math.min(tr,W-18-rong)}
-      for(var i=0;i<3;i++){var d=tao('span','tl-den');d.style.left=(tr+rong*(2*i+1)/6)+'px';d.style.setProperty('--tre',(-(k*1.3+i*1.7)%5).toFixed(1)+'s');d.appendChild(tao('i'));c.appendChild(d)}
-    });
-  }
-  var henDen=null; addEventListener('resize',function(){clearTimeout(henDen);henDen=setTimeout(function(){if(tu.querySelector('.pd-ngan'))datDen()},260)});
   function danhDauTu(id){
     Object.keys(nutCua).forEach(function(k){nutCua[k].setAttribute('aria-pressed',k===id?'true':'false')});
     if(PD)PD.chon(id?nutCua[id]:null);

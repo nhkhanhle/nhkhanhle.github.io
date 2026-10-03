@@ -8,7 +8,8 @@
    5. Sổ mở lớn (Khánh chọn 01/10): "Đọc thêm" mở quyển sổ hai trang ra giữa màn hình, nền tối mờ phía sau.
       moLon(trai, phai, nutGoc) đổ hai trang và mở; Esc, nút ×, bấm ra ngoài thì đóng và trả con trỏ về nút đã bấm.
       xemPhai(true|false): trên điện thoại chỉ hiện một trang, chuyển giữa mục lục và nội dung.
-   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang, moLon, dongLon, xemPhai} */
+   6. Đèn ngăn (Khánh chọn 03/10): datDen(tu) gắn ba thanh đèn đồng sát mép dưới ván kệ trên mỗi ngăn, ở 1/6, 3/6, 5/6 bề ngang; CSS lo bật tắt.
+   Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang, moLon, dongLon, xemPhai, datDen} */
 (function(){
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function R(a,b){return a+Math.random()*(b-a)}
@@ -129,5 +130,16 @@
   }
   function xemPhai(co){if(soLon){soLon.classList.toggle('xem-phai',!!co);if(co)mPhai.scrollTop=0}}
 
-  window.PhongDoc={dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,xepHang:xepHang,moLon:moLon,dongLon:dongLon,xemPhai:xemPhai,giam:giam};
+  /* ---------- Đèn ngăn: ba thanh mỗi ngăn, chia đều bề ngang (vị trí theo %, không cần tính lại khi đổi khổ) ---------- */
+  function datDen(tu){
+    if(!tu)return;
+    [].forEach.call(tu.querySelectorAll('.pd-ngan'),function(n){
+      if(n.querySelector('.tl-den-ngan'))return;
+      var c=tao('div','tl-den-ngan'); c.setAttribute('aria-hidden','true');
+      for(var i=0;i<3;i++){var d=tao('span','tl-den');d.style.left=((2*i+1)/6*100).toFixed(3)+'%';d.appendChild(tao('i'));c.appendChild(d)}
+      n.insertBefore(c,n.firstChild);
+    });
+  }
+
+  window.PhongDoc={datDen:datDen,dom:dom,baySach:baySach,vayQuanh:vayQuanh,vayVe:vayVe,chon:chon,vietMuc:vietMuc,nghe:nghe,xepHang:xepHang,moLon:moLon,dongLon:dongLon,xemPhai:xemPhai,giam:giam};
 })();
