@@ -93,6 +93,31 @@
 .pd-so-tay .tc-chuong{margin-top:12px}
 .pd-so-tay .tc-muc-chuong{scroll-margin-top:8px}
 .pd-so-tay .pd-muc.tc-dem{margin:16px 0 12px}
+/* ---------- Nóc tủ và đèn ngăn (Khánh chọn 03/10: phào gỗ + huy hiệu cân, đèn thanh đồng sát ván) ----------
+   Phào ba lớp: mũ phào nhô rộng, dải răng cưa gỗ, rồi nóc cũ. Phào cao thêm 24px nên tủ hạ xuống 24px (sàn đệm trên 42px) để chữ "Thư viện"
+   vẫn bị che 35%. Huy hiệu tròn navy viền chỉ vàng cát đôi (cùng kiểu bìa sách), khắc cân công lý Phosphor Scales màu kem; rê chuột vào tủ thì vệt sáng lướt qua.
+   Đèn: mỗi ngăn ba thanh đồng ngắn gắn sát mép dưới ván kệ trên, như đèn rọi trong tủ trưng bày, hắt dải sáng ấm xuống gáy, thở chậm lệch nhịp;
+   rê chuột vào ngăn thì đèn ngăn đó sáng hẳn. Vị trí do datDen() trong thu-vien-luat.js tính. */
+.phong-doc .pd-san{padding-top:42px}
+.tl-phao{position:absolute;left:-14px;right:-14px;top:-40px;height:26px;z-index:2;pointer-events:none}
+.tl-phao::before{content:"";position:absolute;left:-6px;right:-6px;top:0;height:9px;border-radius:4px 4px 2px 2px;background:linear-gradient(#EADFC9,#CDB998 60%,#A48D66);box-shadow:0 4px 6px -3px rgba(60,45,25,.45)}
+.tl-phao::after{content:"";position:absolute;left:6px;right:6px;top:9px;height:15px;
+  background:repeating-linear-gradient(90deg,#C9B794 0 9px,#A8916A 9px 10px,#BBA77F 10px 14px,#A8916A 14px 15px),linear-gradient(#D8C9A9,#B9A57F);background-blend-mode:multiply;
+  box-shadow:inset 0 2px 3px -1px rgba(60,45,25,.4),inset 0 -1px 0 rgba(255,255,255,.25)}
+.tl-huy{position:absolute;left:50%;top:-62px;z-index:3;width:56px;height:56px;margin-left:-28px;border-radius:50%;overflow:hidden;pointer-events:none;
+  background:radial-gradient(circle at 35% 30%,#45546A,#2F3B4A 55%,#26303C);box-shadow:0 0 0 3px #CDB998,0 0 0 4px #8E7B5A,0 6px 12px -4px rgba(38,48,60,.55)}
+.tl-huy::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(216,204,181,.55)}
+.tl-huy svg{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-15px 0 0 -14px;fill:#F1EADD}
+.tl-huy::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,246,220,.6) 50%,transparent 70%);transform:translateX(-130%)}
+.pd-tu:hover .tl-huy::after{animation:tl-loe 1.2s ease-out both}
+@keyframes tl-loe{to{transform:translateX(130%)}}
+.tl-den-ngan{position:absolute;left:0;right:0;top:-24px;height:0;z-index:26;pointer-events:none}
+.tl-den{position:absolute;top:0;width:68px;height:9px;margin-left:-34px;border-radius:0 0 5px 5px;background:linear-gradient(#E6D6B0,#B49F76 55%,#8E7B5A);box-shadow:0 2px 3px rgba(38,48,60,.35)}
+.tl-den::after{content:"";position:absolute;left:6px;right:6px;bottom:-1px;height:2px;border-radius:2px;background:#FFF6DE;box-shadow:0 0 8px 3px rgba(255,226,162,.9)}
+.tl-den i{position:absolute;left:-36px;top:9px;width:140px;height:160px;pointer-events:none;background:linear-gradient(rgba(255,236,190,.5),rgba(255,236,190,0));clip-path:polygon(26% 0,74% 0,100% 100%,0 100%);animation:tl-tho 5s ease-in-out var(--tre,0s) infinite}
+@keyframes tl-tho{0%,100%{opacity:.7}50%{opacity:1}}
+.pd-ngan:hover .tl-den i{animation:none;opacity:1;filter:brightness(1.2)}
+
 /* Thân điều dạng cho người đọc (02/10): bảng kẻ ô, khối Nơi nhận và chữ ký cuối văn bản (veThan trong thu-vien-luat.js) */
 .tc-bang-cuon{overflow-x:auto;margin:14px 0 4px;border-radius:6px;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(95,82,64,.24);scrollbar-width:thin}
 .tc-bang-cuon:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
@@ -128,8 +153,11 @@
 
 @media(max-width:900px){
   .tc-phieu-luu-y{width:calc(100% - 20px);margin:14px 10px 0}
+  .phong-doc .pd-san{padding-top:50px}
+  .tl-den{width:44px;margin-left:-22px}
+  .tl-den i{left:-38px;width:120px}
 }
-@media(prefers-reduced-motion:reduce){.tc-phieu-luu-y{transition:none}}
+@media(prefers-reduced-motion:reduce){.tc-phieu-luu-y{transition:none}.tl-den i,.tl-huy::after{animation:none!important}}
 @media(max-width:640px){
   .tc-tim{padding:6px 6px 6px 16px;gap:10px}
   .tc-tim input{font-size:15px}
