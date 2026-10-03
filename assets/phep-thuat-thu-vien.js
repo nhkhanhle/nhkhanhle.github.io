@@ -8,7 +8,8 @@
    5. Sổ mở lớn (Khánh chọn 01/10): "Đọc thêm" mở quyển sổ hai trang ra giữa màn hình, nền tối mờ phía sau.
       moLon(trai, phai, nutGoc) đổ hai trang và mở; Esc, nút ×, bấm ra ngoài thì đóng và trả con trỏ về nút đã bấm.
       xemPhai(true|false): trên điện thoại chỉ hiện một trang, chuyển giữa mục lục và nội dung.
-   6. Đèn ngăn (Khánh chọn 03/10): datDen(tu) gắn ba thanh đèn đồng sát mép dưới ván kệ trên mỗi ngăn, ở 1/6, 3/6, 5/6 bề ngang; CSS lo bật tắt.
+   6. Đèn ngăn (Khánh chọn 03/10): datDen(tu) gắn ba thanh đèn đồng sát mép dưới ván kệ trên mỗi ngăn, ở 1/6, 3/6, 5/6 bề ngang,
+      mỗi thanh kèm chùm sáng, quầng nóng, vũng sáng và chín hạt bụi; CSS lo bật tắt và chập chờn lúc bật.
    Mọi hình vẽ (bìa) do trang gọi tự tạo; file này chỉ lo di chuyển. Gọi: window.PhongDoc.{baySach, vayQuanh, vayVe, vietMuc, dom, xepHang, moLon, dongLon, xemPhai, datDen} */
 (function(){
   var giam=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -136,7 +137,13 @@
     [].forEach.call(tu.querySelectorAll('.pd-ngan'),function(n){
       if(n.querySelector('.tl-den-ngan'))return;
       var c=tao('div','tl-den-ngan'); c.setAttribute('aria-hidden','true');
-      for(var i=0;i<3;i++){var d=tao('span','tl-den');d.style.left=((2*i+1)/6*100).toFixed(3)+'%';d.appendChild(tao('i'));c.appendChild(d)}
+      for(var i=0;i<3;i++){
+        var d=tao('span','tl-den'); d.style.left=((2*i+1)/6*100).toFixed(3)+'%';
+        ['tl-chum','tl-nong','tl-vung'].forEach(function(k){d.appendChild(tao('b',k))});
+        var bui=tao('b','tl-bui');   /* chín hạt bụi, vị trí và nhịp ngẫu nhiên */
+        for(var h=0;h<9;h++){var u=tao('u');u.style.cssText='--x:'+R(8,92).toFixed(0)+'%;--y:'+R(4,96).toFixed(0)+'%;--dx:'+R(-14,14).toFixed(0)+'px;--dy:'+R(-22,10).toFixed(0)+'px;--t:'+R(5,9).toFixed(1)+'s;--tre:-'+R(0,9).toFixed(1)+'s';bui.appendChild(u)}
+        d.appendChild(bui); c.appendChild(d);
+      }
       n.insertBefore(c,n.firstChild);
     });
   }
