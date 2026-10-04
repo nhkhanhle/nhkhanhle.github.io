@@ -49,17 +49,18 @@
         <!-- Chú giải màu gáy theo loại văn bản đã bỏ (Khánh 03/10): gáy đã ghi rõ loại và số -->
       </div>
       <div class="pd-cot-phai">
+        <!-- Quyển sổ một mặt ở trên: phiếu văn bản, kết quả tìm hay sổ tình huống; ô tìm ở dưới sổ -->
+        <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc">
+          <div class="so-trai tc-ket-qua" data-so-trai data-tc-ket-qua aria-live="polite"></div>
+        </aside>
+        <!-- Ô tìm dời xuống dưới quyển sổ (Khánh 03/10) -->
         <div class="tc-tim" role="search">
           <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
-          <input type="search" data-tc-tim placeholder="Tìm điều luật, ví dụ: thử việc" aria-label="Tìm điều luật" autocomplete="off">
+          <input type="search" data-tc-tim placeholder="Tìm điều luật, nghị định, thông tư,..." aria-label="Tìm điều luật" autocomplete="off">
           <button type="button" data-tc-nut>Tìm</button>
         </div>
         <p class="tc-pham-vi" data-tc-pham-vi>Đang tìm trong <b></b> <button type="button" aria-label="Bỏ giới hạn, tìm trong mọi văn bản">×</button></p>
         <p class="tc-trang-thai" data-tc-trang-thai aria-live="polite"></p>
-        <!-- Quyển sổ một mặt: phiếu văn bản, kết quả tìm hay sổ tình huống -->
-        <aside class="pd-so-tay" data-phieu aria-label="Sổ đọc">
-          <div class="so-trai tc-ket-qua" data-so-trai data-tc-ket-qua aria-live="polite"></div>
-        </aside>
       </div>
     </div>
 

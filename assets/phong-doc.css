@@ -166,14 +166,14 @@
    Bình thường đèn tắt (thanh đồng, vạch đèn xỉn, không có ánh sáng); rê chuột vào ngăn hay chọn sách trong ngăn bằng bàn phím thì đèn ngăn đó bật. Thanh đèn do PhongDoc.datDen (phep-thuat-thu-vien.js) gắn vào từng ngăn. */
 .tl-den-ngan{position:absolute;left:0;right:0;top:-24px;height:0;z-index:26;pointer-events:none}
 .tl-den{position:absolute;top:0;width:68px;height:9px;margin-left:-34px;border-radius:0 0 5px 5px;background:linear-gradient(#E6D6B0,#B49F76 55%,#8E7B5A);box-shadow:0 2px 3px rgba(38,48,60,.35)}
-.tl-den::after{content:"";position:absolute;left:6px;right:6px;bottom:-1px;height:2px;border-radius:2px;background:#CDBB98;transition:background .4s,box-shadow .4s}
+.tl-den::after{content:"";position:absolute;left:6px;right:6px;bottom:-1px;height:2px;border-radius:2px;background:#CDBB98;transition:background .15s,box-shadow .15s}
 .pd-ngan:hover .tl-den::after,.pd-ngan:focus-within .tl-den::after{background:#FFF6DE;box-shadow:0 0 8px 3px rgba(255,226,162,.9)}
 /* Ánh đèn (Khánh chọn 03/10: chùm sáng mềm A kết hợp bụi sáng, bật đèn như thật C; phủ rộng hơn):
    chùm sáng rộng 300px mép nhòe, sáng đậm sát thanh đèn rồi nhạt dần, ba chùm của một ngăn chồng lên nhau thành một mảng sáng liền;
    quầng nóng nhỏ ngay dưới thanh; vũng sáng bầu dục rộng trên ván kệ dưới hàng (ván ở 238px tính từ mép trên khung đèn);
-   bụi li ti lơ lửng bay chậm trong chùm sáng. Lúc bật: vạch đèn và ánh sáng chập chờn .8 giây như bóng vừa nóng lên, màu ấm dần
-   từ vàng cam sang vàng trắng. Các lớp sáng nằm dưới thanh đèn (z-index -1 trong khung đèn). */
-.tl-den>b{position:absolute;z-index:-1;pointer-events:none;opacity:0;transition:opacity .6s ease}
+   bụi li ti lơ lửng bay chậm trong chùm sáng. Rê chuột vào là đèn sáng luôn, rời ra là tắt (Khánh 03/10 bỏ chập chờn và ấm dần lúc bật).
+   Các lớp sáng nằm dưới thanh đèn (z-index -1 trong khung đèn). */
+.tl-den>b{position:absolute;z-index:-1;pointer-events:none;opacity:0;transition:opacity .15s ease}   /* bật tắt ngay theo chuột (Khánh 03/10, bỏ chập chờn) */
 .tl-chum{left:-116px;top:6px;width:300px;height:236px;filter:blur(6px)}
 .tl-chum::before{content:"";position:absolute;inset:0;clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);
   background:radial-gradient(ellipse 54% 100% at 50% 0,rgba(255,242,212,.9),rgba(255,236,196,.46) 36%,rgba(255,230,185,.15) 72%,rgba(255,230,185,0) 100%)}
@@ -182,11 +182,7 @@
 .tl-bui{left:-56px;top:18px;width:180px;height:206px}
 .tl-bui u{position:absolute;left:var(--x);top:var(--y);width:2px;height:2px;border-radius:50%;background:#FFF8E8;box-shadow:0 0 3px 1px rgba(255,236,196,.8);opacity:0}
 .pd-ngan:hover .tl-den>b,.pd-ngan:focus-within .tl-den>b{opacity:1}
-.pd-ngan:hover .tl-chum,.pd-ngan:focus-within .tl-chum,.pd-ngan:hover .tl-vung,.pd-ngan:focus-within .tl-vung{animation:tl-bat .8s steps(1,end) both,tl-am-dan 1.6s ease-out both}
-.pd-ngan:hover .tl-den::after,.pd-ngan:focus-within .tl-den::after{animation:tl-bat .8s steps(1,end) both}
 .pd-ngan:hover .tl-bui u,.pd-ngan:focus-within .tl-bui u{animation:tl-bui var(--t) ease-in-out var(--tre) infinite}
-@keyframes tl-bat{0%{opacity:0}10%{opacity:.7}18%{opacity:.15}30%{opacity:.95}38%{opacity:.45}55%{opacity:1}100%{opacity:1}}
-@keyframes tl-am-dan{from{filter:blur(6px) sepia(.6) saturate(1.6)}to{filter:blur(6px) sepia(0) saturate(1)}}
 @keyframes tl-bui{0%{transform:translate(0,0);opacity:0}20%{opacity:.9}50%{transform:translate(var(--dx),var(--dy));opacity:.5}80%{opacity:.85}100%{transform:translate(0,0);opacity:0}}
 
 /* Chú giải màu gáy, nằm dưới tủ */
