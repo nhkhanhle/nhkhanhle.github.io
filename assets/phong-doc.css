@@ -34,6 +34,9 @@
 .pd-cot-phai>.tc-tim,.pd-cot-phai>.pd-loc{flex:none}
 .pd-cot-phai .tc-pham-vi{align-self:flex-start;margin-top:10px;padding:5px 6px 5px 14px;border-radius:999px;background:rgba(249,244,236,.94);box-shadow:inset 0 0 0 1px rgba(95,82,64,.16)}   /* nền giấy vì dòng này nằm đè lên chữ lớn */
 .pd-cot-phai .tc-trang-thai,.pd-cot-phai .pd-loc-dem{flex:none;min-height:0;margin:6px 0 0;font-size:12.5px}
+/* Thứ tự cột phải (Khánh 03/10 tủ luật, 05/10 tủ sách): máy tính sổ ở trên, ô tìm ở dưới; điện thoại ô tìm lên trên sổ (xem khối 900px) */
+.pd-cot-phai .pd-so-tay{margin-top:0}
+.pd-cot-phai .pd-so-tay+.tc-tim,.pd-cot-phai .pd-so-tay+.pd-loc{flex:none;margin-top:14px}
 
 /* ---------- Tủ cổ ba chiều ---------- */
 .pd-san{padding:18px 0 30px}
@@ -61,7 +64,6 @@
    Rê chuột vào ngăn (cửa kính mở) hay chọn sách bằng bàn phím: một vệt sáng lướt ngang mặt giấy. Dòng đếm văn bản, điều đã bỏ 02/10.
    Ngăn biết --o để đặt biển đúng ván kệ; ngăn hộp phiếu (hàng thấp 184px) lấy --o riêng. Nút "Xem cả N ghi chú" (thư viện sách) nằm cùng ván kệ, mép phải. */
 .pd-ngan{--o:200px;padding-top:14px}
-.pd-ngan:has(.pd-hang-hop){--o:184px}
 .pd-ngan-ten{position:absolute;left:18px;right:18px;top:calc(var(--o) + 9px);z-index:30;display:flex;justify-content:space-between;align-items:center;margin:0;padding:0;pointer-events:none}
 .pd-ngan-ten h2{position:relative;overflow:hidden;max-width:100%;min-height:24px;padding:5px 16px;border-radius:3px;line-height:14px;text-wrap:balance;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#2F3B4A;
   background:radial-gradient(circle at 7.5px 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),radial-gradient(circle at calc(100% - 7.5px) 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),var(--van-giay),#F9F4EC;   /* hai đinh vàng vẽ bằng nền */
@@ -72,12 +74,10 @@
 @keyframes pd-loe{0%{transform:translateX(-120%);opacity:0}15%{opacity:1}100%{transform:translateX(120%);opacity:0}}
 /* Nhãn dài hơn chỗ trên ván kệ (điện thoại) thì xuống hai dòng thay vì bị cắt (sửa 03/10); điện thoại giãn chữ hẹp lại để đa số nhãn vẫn một dòng */
 @media(max-width:640px){.pd-ngan-ten h2{letter-spacing:.14em;padding:5px 14px}}
-.pd-ngan-ten .pd-tat-ca{pointer-events:auto;padding:5px 11px 3px;border-radius:999px;border:0;background:var(--to-giay);box-shadow:inset 0 0 0 1px rgba(95,82,64,.35)}
 /* Hàng sách: ô cao --o (gáy 176px + chỗ nhô khi chọn), ván kệ dày 14px ở đáy mỗi hàng; bóng tối nhẹ ở lưng tủ. Không xuống dòng: JS chia sẵn hàng (xepHang).
-   Hộp phiếu ghi chú (pd-hang-hop) không qua JS nên vẫn cho xuống dòng. */
+*/
 .pd-hang{--o:200px;display:flex;flex-wrap:nowrap;align-items:flex-end;column-gap:4px;row-gap:14px;min-height:calc(var(--o) + 14px);margin:0 -12px;padding:0 12px 14px;
   background:repeating-linear-gradient(to bottom,transparent 0 var(--o),#E6DAC3 var(--o),#CDBB98 calc(var(--o) + 3px),#BCA884 calc(var(--o) + 10px),#A48D66 calc(var(--o) + 14px))}
-.pd-hang.pd-hang-hop{flex-wrap:wrap}
 .pd-trong{align-self:center;padding:0 10px;font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--nhat)}
 /* Sách thở lệch nhịp (gợn sóng) đã bỏ theo ý Khánh 02/10 */
 
@@ -108,7 +108,7 @@
 .gay[aria-pressed="true"] .gay-bia,.gay:hover .gay-bia{box-shadow:inset 5px 0 0 rgba(0,0,0,.22),0 0 0 2px rgba(216,204,181,.8),0 0 36px rgba(255,236,190,.8),16px 18px 30px -16px rgba(38,48,60,.6)}
 .gay:focus-visible{outline:0}
 .gay:focus-visible .gay-than{outline:2px solid var(--cat-dam);outline-offset:3px}
-.gay.mo-nhat,.bia-dung.mo-nhat,.pd-the-ghi.mo-nhat{opacity:.25}
+.gay.mo-nhat,.bia-dung.mo-nhat{opacity:.25}
 
 /* Bìa sách: cùng kiểu bìa 6 cuốn trang chủ (navy, khung chỉ đôi, hình nét, tên). Dùng cho bìa dựng trong tủ, mặt bìa của gáy, bìa trong sổ, bìa bay.
    Khánh 02/10: tên và dòng dưới tên canh giữa ở cả hai thư viện, khối chữ nằm giữa khoảng trống dưới hình (margin auto trên và dưới) */
@@ -315,21 +315,6 @@ body.pd-khoa{overflow:hidden}
 @keyframes pd-vay{0%{transform:translate(var(--x1),var(--y1));opacity:0}25%{opacity:1}50%{transform:translate(var(--x2),var(--y2));opacity:1}75%{opacity:.6}100%{transform:translate(var(--x1),var(--y1));opacity:0}}
 
 /* ---------- Riêng Thư viện sách ---------- */
-.pd-hang.pd-hang-hop{--o:184px}
-.pd-hop{position:relative;flex:none;align-self:flex-end;width:min(100%,340px);height:var(--o)}
-.pd-than-hop{position:absolute;left:0;right:0;bottom:0;height:70px;border-radius:5px;background:linear-gradient(#B9A37C,#A48D66);box-shadow:inset 0 2px 0 rgba(255,255,255,.25),0 12px 18px -10px rgba(60,45,25,.5);pointer-events:none;z-index:5}
-.pd-than-hop span{position:absolute;left:50%;top:18px;width:124px;margin-left:-62px;height:32px;border-radius:3px;background:#E9DFC9;box-shadow:inset 0 0 0 2px #8E7B5A;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-align:center;line-height:33px;color:var(--cat-dam)}
-.pd-the-ghi{position:absolute;bottom:34px;left:calc(14px + var(--k) * 16px);width:calc(100% - 84px);height:100px;padding:12px 14px;border:0;border-radius:6px 6px 0 0;cursor:pointer;text-align:left;
-  background:var(--to-giay);box-shadow:inset 0 0 0 1px rgba(95,82,64,.22);transform:translateY(calc(var(--k) * 8px - 8px)) rotate(calc(var(--k) * .6deg - 1.5deg));transition:transform .3s cubic-bezier(.2,.7,.2,1),opacity .3s;z-index:calc(1 + var(--k))}
-.pd-the-ghi i{position:absolute;top:-17px;left:calc(8px + var(--k) * 58px);height:18px;padding:0 9px;border-radius:5px 5px 0 0;background:var(--to-giay);box-shadow:inset 0 1px 0 rgba(95,82,64,.22),inset 1px 0 0 rgba(95,82,64,.22),inset -1px 0 0 rgba(95,82,64,.22);font-style:normal;font-family:"Josefin Sans",sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.12em;line-height:19px;text-transform:uppercase;color:var(--cat-dam);white-space:nowrap}
-.pd-the-ghi small{display:block;font-size:11px;color:var(--nhat)}
-.pd-the-ghi b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:3px;font-family:"Playfair Display",serif;font-weight:500;font-size:13.5px;line-height:1.3;color:var(--muc)}
-.pd-the-ghi:hover{transform:translateY(calc(var(--k) * 8px - 20px)) rotate(0deg)}
-.pd-the-ghi[aria-pressed="true"]{transform:translateY(calc(var(--k) * 8px - 24px)) rotate(0deg);box-shadow:inset 0 0 0 1px rgba(95,82,64,.22),0 0 0 2px rgba(182,163,131,.8),0 0 24px rgba(255,236,190,.7)}
-.pd-the-ghi:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
-.pd-tat-ca{flex:none;margin:0;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-dam);background:none;border:0;border-bottom:1px solid rgba(122,106,79,.45);padding:0 0 3px;cursor:pointer}
-.pd-tat-ca:hover{border-color:var(--cat-dam)}
-.pd-tat-ca:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
 /* Ô lọc sách, ghi chú */
 .pd-loc{display:flex;align-items:center;gap:12px;background:var(--van-giay),var(--to-giay);border-radius:999px;box-shadow:0 18px 36px -20px rgba(47,59,74,.4),inset 0 0 0 1px rgba(110,95,70,.14);padding:6px 6px 6px 20px}
 .pd-loc svg{width:18px;height:18px;flex:none;fill:var(--cat-dam)}
@@ -349,6 +334,12 @@ body.pd-khoa{overflow:hidden}
   .pd-than{grid-template-columns:minmax(0,1fr);gap:24px}
   /* Ô tìm và sổ nằm trên tủ, không đứng yên; trang trái gọn: bìa nhỏ bên phải, thông tin bên trái */
   .pd-cot-phai{order:-1;position:static;height:auto;max-height:none}
+  /* Điện thoại (Khánh 05/10): ô tìm và dòng trạng thái lên trên sổ */
+  .pd-cot-phai>.tc-tim,.pd-cot-phai>.pd-loc{order:-3}
+  .pd-cot-phai .pd-so-tay+.tc-tim,.pd-cot-phai .pd-so-tay+.pd-loc{margin-top:0}
+  .pd-cot-phai>.tc-pham-vi,.pd-cot-phai>.pd-loc-dem{order:-2}
+  .pd-cot-phai>.tc-trang-thai{order:-1}
+  .pd-cot-phai .pd-so-tay{margin-top:10px}
   .pd-so-tay{flex:none;overflow:visible;scroll-margin-top:84px}
   .so-trai{overflow:visible}
   .so-trai .so-bia{width:110px;height:156px;margin:12px 0 4px 14px;padding:10px;float:right}
@@ -383,13 +374,12 @@ body.pd-khoa{overflow:hidden}
   .pd-the{grid-template-columns:78px minmax(0,1fr)}
   .bia-dung{width:118px;margin:0 6px 0 2px}
   .bia-dung .bia{width:112px;height:162px}
-  .pd-hop{width:100%}
   .pd-dom i:nth-child(n+10){display:none}
 }
 @media(prefers-reduced-motion:reduce){
 .phong-doc .gay{transition:none}
   .pd-mo-lon,.pd-mo-so{transition:none!important}
-  .phong-doc .pd-hang>*,.gay-khoi,.bia-dung .bia,.pd-the-ghi,.so-noi,.pd-bay,.pd-bay-dom,.pd-ngan-ten h2::after,.so-vang,.so-bia,.pd-ngan::before,.pd-ngan::after,.gay[aria-pressed="true"] .gay-bia b,.bia-dung[aria-pressed="true"] .bia b,.so-trai .bia.sang b{animation:none!important;transition:none!important}
+  .phong-doc .pd-hang>*,.gay-khoi,.bia-dung .bia,.so-noi,.pd-bay,.pd-bay-dom,.pd-ngan-ten h2::after,.so-vang,.so-bia,.pd-ngan::before,.pd-ngan::after,.gay[aria-pressed="true"] .gay-bia b,.bia-dung[aria-pressed="true"] .bia b,.so-trai .bia.sang b{animation:none!important;transition:none!important}
   .pd-dom,.pd-bay-dom{display:none}
   .tl-huy::after{animation:none!important}
   .tl-den>b,.tl-den::after{animation:none!important;transition:none!important}

@@ -94,10 +94,6 @@
 .pd-so-tay .tc-chuong{margin-top:12px}
 .pd-so-tay .tc-muc-chuong{scroll-margin-top:8px}
 .pd-so-tay .pd-muc.tc-dem{margin:16px 0 12px}
-/* Cột phải tủ luật (Khánh 03/10): sổ ở trên, ô tìm ở dưới sổ */
-.pd-cot-phai .pd-so-tay{margin-top:0}
-.pd-cot-phai .pd-so-tay+.tc-tim{flex:none;margin-top:14px}
-
 /* Thân điều dạng cho người đọc (02/10): bảng kẻ ô, khối Nơi nhận và chữ ký cuối văn bản (veThan trong thu-vien-luat.js) */
 .tc-bang-cuon{overflow-x:auto;margin:14px 0 4px;border-radius:6px;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(95,82,64,.24);scrollbar-width:thin}
 .tc-bang-cuon:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}

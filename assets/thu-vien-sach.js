@@ -1,19 +1,17 @@
 /* Thư viện sách (thu-vien-sach.html): phòng đọc phương án A, kệ "tủ cổ ba chiều", hiệu ứng B + C (Khánh chọn 01/10/2026). Dữ liệu ở thu-vien.js.
-   Tủ ba ngăn: Sách, Khóa học, Hộp phiếu ghi chú. Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy cao bằng nhau, dày theo số trang (trang trong thu-vien.js,
+   Tủ hai ngăn: Sách, Khóa học (Hộp phiếu ghi chú và dữ liệu ghi chú đã bỏ, Khánh 05/10). Cuốn dangDoc:true dựng mặt bìa; cuốn khác là gáy cao bằng nhau, dày theo số trang (trang trong thu-vien.js,
    Khánh đổi 02/10), rê chuột hay đang mở thì gáy xoay
    chính diện thành bìa và các cuốn phía sau dịt ra (PhongDoc.xepHang chia hàng).
    Bấm một cuốn: bìa bay sang quyển sổ một mặt (assets/phep-thuat-thu-vien.js): bìa lớn và thông tin; "Đọc thêm" mở sổ lớn giữa màn hình
-   (trái: bìa và thông tin, phải: vì sao đáng đọc). Phiếu ghi chú: sổ một mặt là ngày, nhãn, tóm tắt; "Đọc thêm" mở nội dung.
-   Khánh chỉnh 01/10, đồng bộ với Thư viện luật. Ô tìm nằm trên sổ, làm mờ những mục không khớp. */
+   (trái: bìa và thông tin, phải: vì sao đáng đọc).
+   Khánh chỉnh 01/10, đồng bộ với Thư viện luật. Ô tìm nằm dưới sổ (Khánh 05/10; điện thoại ở trên sổ), làm mờ những mục không khớp. */
 (function(){
-  var D=window.THU_VIEN||{}, sach=D.sach||[], ghi=(D.ghiChu||[]).slice().sort(function(a,b){return (b.ngay||'').localeCompare(a.ngay||'')}), PD=window.PhongDoc||null;
+  var D=window.THU_VIEN||{}, sach=D.sach||[], PD=window.PhongDoc||null;
   var tu=document.querySelector('[data-tu]'), so=document.querySelector('[data-phieu]'), soTrai=document.querySelector('[data-so-trai]');
   if(!tu||!so||!soTrai)return;
   function q(s,g){return (g||document).querySelector(s)}
   function tao(tag,cls,chu){var e=document.createElement(tag);if(cls)e.className=cls;if(chu!=null)e.textContent=chu;return e}
-  function ngayVN(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:(s||'')}
   function boDau(s){return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase()}
-  function bam(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%997;return h}
   function nhanMau(cha,m){if(m.mau)cha.appendChild(tao('span','tv-mau','Mẫu'))}
 
   /* Màu theo góc nhìn (cùng sáu góc nhìn ở trang chủ); nhóm khác dùng màu cát đậm. Hình trên bìa theo góc nhìn, cùng nét với bìa trang chủ */
@@ -28,10 +26,9 @@
     return b;
   }
 
-  /* Đếm lên đầu trang; dòng báo khi còn chữ giữ chỗ */
+  /* Dòng báo khi còn chữ giữ chỗ */
   var dsSach=sach.filter(function(m){return m.loai!=='Khóa học'}), dsKhoa=sach.filter(function(m){return m.loai==='Khóa học'});
-  var dem=q('[data-dem]'); if(dem)dem.textContent=dsSach.length+' cuốn sách · '+dsKhoa.length+' khóa học · '+ghi.length+' ghi chú';
-  if(sach.concat(ghi).some(function(m){return m.mau})){var bao=q('[data-tv-bao]');if(bao)bao.classList.add('hien')}
+  if(sach.some(function(m){return m.mau})){var bao=q('[data-tv-bao]');if(bao)bao.classList.add('hien')}
 
   /* ---------- Sổ ---------- */
   var dangChon=null, cacNut=[];
@@ -88,57 +85,13 @@
     if(m.lienKet){var a=tao('a','pd-lien',khoa?'Xem khóa học ↗':'Xem sách ↗');a.href=m.lienKet;a.target='_blank';a.rel='noopener';phai.appendChild(a)}
     PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
   }
-  function phieuGhi(m,nut,cuon){
-    chon(nut);
-    soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m));
-    var dl=bang(soTrai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
-    if(m.tomTat)soTrai.appendChild(tao('p','pd-goi',m.tomTat));
-    soTrai.appendChild(nutDocThem('ghi chú '+(m.tieuDe||''),function(b){docGhi(m,b)}));
-    var ve=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú'); ve.type='button'; ve.style.marginTop='14px';
-    ve.addEventListener('click',function(){phieuDsGhi(true)}); soTrai.appendChild(ve);
-    veDauSo(cuon);
-    if(PD)PD.vietMuc(dl);
-  }
-  /* Sổ lớn của một ghi chú: trái là ngày, nhãn, tóm tắt; phải là nội dung */
-  function docGhi(m,nutGoc){
-    if(!PD)return;
-    var trai=tao('div'), phai=tao('div','mo-dieu');
-    trai.appendChild(dauTrang('Phiếu ghi chú',m.tieuDe||'',m));
-    bang(trai,[['Ngày',ngayVN(m.ngay),true],['Nhãn',(m.the||[]).join(', ')]]);
-    if(m.tomTat)trai.appendChild(tao('p','pd-goi',m.tomTat));
-    var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Nội dung')); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
-    doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
-    var ve=tao('button','mo-ve','← Phiếu'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
-    phai.appendChild(dauTrang('Ghi chú · '+ngayVN(m.ngay),m.tieuDe||'',null));
-    var van=doan(phai,m.noiDung);
-    PD.moLon(trai,phai,nutGoc); PD.vietMuc(van);
-  }
-  function phieuDsGhi(cuon){
-    chon(null);
-    soTrai.innerHTML=''; soTrai.classList.remove('cho-bay');
-    soTrai.appendChild(dauTrang('Hộp phiếu ghi chú','Tất cả ghi chú',null));
-    soTrai.appendChild(tao('p','pd-goi','Bài ngắn kiểu sổ tay: một khái niệm, một cách làm, một điều rút ra sau một việc cụ thể. Bấm một dòng để mở phiếu.'));
-    if(!ghi.length){soTrai.appendChild(tao('p','pd-goi','Hộp phiếu đang được xếp.'));return}
-    var ul=tao('ul','pd-ds so-noi');
-    ghi.forEach(function(m,i){
-      var li=tao('li'), b=tao('button'); b.type='button';
-      b.appendChild(tao('small',null,ngayVN(m.ngay)+(m.the&&m.the.length?' · '+m.the.join(', '):'')));
-      var t=tao('b',null,m.tieuDe||''); nhanMau(t,m); b.appendChild(t);
-      if(m.tomTat)b.appendChild(tao('span',null,m.tomTat));
-      b.addEventListener('click',function(){phieuGhi(m,theGhi[i]||null,true)});
-      li.appendChild(b); ul.appendChild(li);
-    });
-    soTrai.appendChild(ul); veDauSo(cuon); if(PD)PD.vietMuc(ul);
-  }
 
   /* ---------- Tủ ---------- */
-  /* Đầu ngăn chỉ còn tên (dòng đếm cuốn, khóa, phiếu đã bỏ, Khánh 02/10) */
-  function ngan(ten,hop){
+  /* Đầu ngăn chỉ còn tên (dòng đếm cuốn, khóa đã bỏ, Khánh 02/10) */
+  function ngan(ten){
     var n=tao('section','pd-ngan'); n.setAttribute('aria-label','Ngăn '+ten);
     var d=tao('div','pd-ngan-ten'); d.appendChild(tao('h2',null,ten)); n.appendChild(d);
     tu.appendChild(n);
-    if(hop){var h=tao('div','pd-hang'); n.appendChild(h); return h}
     return n;
   }
   /* Xếp các nút của một ngăn thành hàng; ngăn trống thì một hàng có dòng báo */
@@ -172,23 +125,7 @@
   xep(n1,dsSach.map(function(m){return gan(m===dangDoc?nutBia(m):nutGay(m),m)}),'Ngăn này đang được xếp.');
   var n2=ngan('Khóa học');
   xep(n2,dsKhoa.map(function(m){return gan(nutGay(m),m)}),'Ngăn này đang được xếp.');
-  /* Hộp phiếu: bốn ghi chú mới nhất cắm trong hộp, mới nhất ở trước; nút xem cả hộp ở đầu ngăn */
-  var h3=ngan('Hộp phiếu ghi chú',true); h3.parentNode.id='ghi-chu'; h3.classList.add('pd-hang-hop');
-  var hop=tao('div','pd-hop'), theGhi=[], bon=ghi.slice(0,4), n=bon.length;
-  bon.forEach(function(m,i){
-    var k=n-1-i, b=tao('button','pd-the-ghi'); b.type='button'; b.setAttribute('aria-pressed','false'); b.style.setProperty('--k',k);
-    b.appendChild(tao('i',null,(m.the&&m.the[0])||ngayVN(m.ngay).slice(3)));
-    b.appendChild(tao('small',null,ngayVN(m.ngay))); b.appendChild(tao('b',null,m.tieuDe||''));
-    b.setAttribute('aria-label','Ghi chú '+ngayVN(m.ngay)+': '+(m.tieuDe||''));
-    b.addEventListener('click',function(){phieuGhi(m,b,true)});
-    hop.appendChild(b); theGhi[i]=b; cacNut.push(b); muc.push({nut:b,chu:boDau([m.tieuDe,m.tomTat,(m.the||[]).join(' '),m.noiDung].join(' '))});
-  });
-  var than=tao('div','pd-than-hop'); than.appendChild(tao('span',null,'GHI CHÚ')); hop.appendChild(than);
-  h3.appendChild(hop);
-  if(ghi.length){var tc=tao('button','pd-tat-ca','Xem cả '+ghi.length+' ghi chú');tc.type='button';tc.addEventListener('click',function(){phieuDsGhi(true)});h3.previousElementSibling.appendChild(tc)}
-  /* Chú giải màu: chỉ các góc nhìn đang có trên kệ */
-  var cg=q('[data-chu-giai]'), daCo={};
-  if(cg)sach.forEach(function(m){var t=MAU[m.nhom]?m.nhom:'Chủ đề khác';if(daCo[t])return;daCo[t]=1;var sp=tao('span'),i=tao('i');i.style.setProperty('--m',mau(m)[0]);sp.appendChild(i);sp.appendChild(document.createTextNode(t));cg.appendChild(sp)});
+  /* Chú giải màu dưới tủ đã bỏ (Khánh 05/10) */
   if(PD){PD.dom();PD.nghe(tu);PD.datDen(tu)}   /* ba thanh đèn mỗi ngăn như tủ luật (Khánh 03/10) */
 
   /* ---------- Ô tìm: làm mờ mục không khớp ---------- */
@@ -199,10 +136,8 @@
     if(locDem)locDem.textContent=tu_.length?(thay?'Thấy '+thay+' mục khớp, các mục khác mờ đi.':'Chưa có mục nào khớp.'):'';
   });
 
-  /* ---------- Sổ mặc định: cuốn đang đọc, hoặc cuốn đầu; vào thẳng #ghi-chu thì mở hộp phiếu ---------- */
-  if(location.hash==='#ghi-chu'&&ghi.length)phieuDsGhi(false);
-  else if(dangDoc)phieuSach(dangDoc,cacNut[dsSach.indexOf(dangDoc)],false);
+  /* ---------- Sổ mặc định: cuốn đang đọc, hoặc cuốn đầu ---------- */
+  if(dangDoc)phieuSach(dangDoc,cacNut[dsSach.indexOf(dangDoc)],false);
   else if(sach.length)phieuSach(dsSach[0]||dsKhoa[0],cacNut[0],false);
-  else if(ghi.length)phieuDsGhi(false);
-  else{soTrai.appendChild(tao('p','pd-goi','Kệ đang được xếp. Sách và ghi chú sẽ lên dần.'))}
+  else{soTrai.appendChild(tao('p','pd-goi','Kệ đang được xếp. Sách và khóa học sẽ lên dần.'))}
 })();
