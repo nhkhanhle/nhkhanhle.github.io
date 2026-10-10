@@ -311,7 +311,7 @@
     var dl=tao('dl','pd-the');
     [['Số hiệu',v.soHieu,true],['Tên ngắn',v.tenNgan],['Ngày ký',ngayVN(v.ngayKy)],['Hiệu lực',ngayVN(v.hieuLuc),true],['Gồm',v.soDieu+' điều'+(v.chuong&&v.chuong.length>1?' · '+v.chuong.length+' chương':''),true]].forEach(function(r){if(!r[1])return;dl.appendChild(tao('dt',null,r[0]));var dd=tao('dd');if(r[2]){dd.appendChild(tao('span','so-vang',r[1]))}else dd.textContent=r[1];dl.appendChild(dd)});
     soTrai.appendChild(dl);
-    var them=tao('button','pd-doc-them'); them.type='button'; them.appendChild(tao('span',null,'Đọc thêm')); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); them.appendChild(mt);
+    var them=tao('button','pd-doc-them'); them.type='button'; them.appendChild(tao('span',null,'Đọc thêm'));
     them.setAttribute('aria-label','Đọc thêm: mở toàn văn '+v.tenNgan);
     them.addEventListener('click',function(){docVanBan(v,null,them)});
     soTrai.appendChild(them);
@@ -350,13 +350,13 @@
         var x=ds[i]; if(!x)return;
         nuts.forEach(function(b,k){b.setAttribute('aria-current',k===i?'true':'false')});
         phai.innerHTML='';
-        var ve=tao('button','mo-ve','← Mục lục'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false);nuts[i].focus({preventScroll:true})}); phai.appendChild(ve);
+        var ve=tao('button','mo-ve','Mục lục'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false);nuts[i].focus({preventScroll:true})}); phai.appendChild(ve);
         phai.appendChild(dauTrang(v.tenNgan+(x.chuong?' · '+x.chuong.split(' · ')[0]:''),(x.so?'Điều '+x.so+'. ':'')+(x.tieuDe||'Toàn văn'),null));
         var van=tao('div','pd-van'); veThan(van,x.than,null); phai.appendChild(van);
         var hang=tao('div','mo-dieu-hang');
-        var lui=tao('button',null,'← Điều trước'); lui.type='button'; lui.disabled=i<=0; lui.addEventListener('click',function(){chon(i-1,false)});
+        var lui=tao('button',null,'Điều trước'); lui.type='button'; lui.disabled=i<=0; lui.addEventListener('click',function(){chon(i-1,false)});
         var chep=tao('button',null,'Chép trích dẫn'); chep.type='button'; chep.addEventListener('click',function(){chepTrich(x,v,chep)});
-        var toi=tao('button',null,'Điều sau →'); toi.type='button'; toi.disabled=i>=ds.length-1; toi.addEventListener('click',function(){chon(i+1,false)});
+        var toi=tao('button',null,'Điều sau'); toi.type='button'; toi.disabled=i>=ds.length-1; toi.addEventListener('click',function(){chon(i+1,false)});
         hang.appendChild(lui); hang.appendChild(chep); hang.appendChild(toi); phai.appendChild(hang);
         o.phai.scrollTop=0; PD.vietMuc(van);
         if(diToi)PD.xemPhai(true);

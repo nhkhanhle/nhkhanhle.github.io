@@ -24,7 +24,7 @@
 /* Dòng báo còn chữ giữ chỗ (mục mau:true trong dữ liệu) */
 .tv-bao{display:none;position:relative;z-index:1;margin:30px 0 0;padding:12px 18px;border-radius:var(--bo-nut);border:1px dashed rgba(95,82,64,.45);background:rgba(249,244,236,.6);color:var(--cat-dam);font-size:14px;text-align:center}
 .tv-bao.hien{display:block}
-.tv-mau{display:inline-block;margin-left:8px;padding:2px 8px 1px;border-radius:999px;border:1px dashed rgba(95,82,64,.5);font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam);vertical-align:middle}
+.tv-mau{display:inline-block;margin-left:8px;padding:2px 8px 1px;border-radius:999px;border:1px dashed rgba(95,82,64,.5);font-family:"Be Vietnam Pro",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:0.112em;text-transform:uppercase;color:var(--cat-dam);vertical-align:middle}
 
 /* ---------- Thân: tủ trái, sổ phải ---------- */
 .pd-than{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:36px;align-items:start}
@@ -60,12 +60,12 @@
 @keyframes pd-cua-phai{0%{transform:translateX(0);opacity:0}12%{opacity:1}100%{transform:translateX(62%);opacity:0}}
 .pd-ngan+.pd-ngan{margin-top:24px}
 /* Bảng hiệu ngăn (Khánh chọn phương án A "biển gắn ván kệ" 02/10; đồng chìm vào kệ, men navy thử rồi Khánh chốt giấy kem A2):
-   tấm nhãn giấy kem có vân, viền mảnh vàng cát đậm, bắt hai đinh vàng, gắn trên mặt ván kệ của hàng đầu ngăn, ngay dưới sách; chữ Josefin in hoa navy.
+   tấm nhãn giấy kem có vân, viền mảnh vàng cát đậm, bắt hai đinh vàng, gắn trên mặt ván kệ của hàng đầu ngăn, ngay dưới sách; chữ Be Vietnam Pro in hoa navy.
    Rê chuột vào ngăn (cửa kính mở) hay chọn sách bằng bàn phím: một vệt sáng lướt ngang mặt giấy. Dòng đếm văn bản, điều đã bỏ 02/10.
    Ngăn biết --o để đặt biển đúng ván kệ; ngăn hộp phiếu (hàng thấp 184px) lấy --o riêng. Nút "Xem cả N ghi chú" (thư viện sách) nằm cùng ván kệ, mép phải. */
 .pd-ngan{--o:200px;padding-top:14px}
 .pd-ngan-ten{position:absolute;left:18px;right:18px;top:calc(var(--o) + 9px);z-index:30;display:flex;justify-content:space-between;align-items:center;margin:0;padding:0;pointer-events:none}
-.pd-ngan-ten h2{position:relative;overflow:hidden;max-width:100%;min-height:24px;padding:5px 16px;border-radius:3px;line-height:14px;text-wrap:balance;font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#2F3B4A;
+.pd-ngan-ten h2{position:relative;overflow:hidden;max-width:100%;min-height:24px;padding:5px 16px;border-radius:3px;line-height:14px;text-wrap:balance;font-family:"Be Vietnam Pro",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:0.136em;text-transform:uppercase;color:#2F3B4A;
   background:radial-gradient(circle at 7.5px 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),radial-gradient(circle at calc(100% - 7.5px) 50%,#F5EAD0 0,#8E7B5A 1.6px,rgba(60,45,25,.45) 2.6px,transparent 3.6px),var(--van-giay),#F9F4EC;   /* hai đinh vàng vẽ bằng nền */
   box-shadow:inset 0 0 0 1px rgba(95,82,64,.42),0 2px 5px rgba(38,48,60,.35)}
 /* Vệt sáng lướt ngang mặt nhãn khi rê vào ngăn */
@@ -94,7 +94,7 @@
 .gay-than::after{bottom:26px}
 .gay-than b{flex:1;min-height:0;margin-top:6px;writing-mode:vertical-rl;font-family:"Playfair Display",serif;font-weight:500;font-size:14px;line-height:1.05;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gay-than b.hai{white-space:normal;text-overflow:clip;text-align:center;line-height:1.1;font-size:12.5px}
-.gay-than small{margin-top:10px;font-family:"Josefin Sans",sans-serif;font-size:9px;letter-spacing:.08em;color:var(--cat-nhat,#D8CCB5)}
+.gay-than small{margin-top:10px;font-family:"Be Vietnam Pro",sans-serif;font-size:9px;letter-spacing:0.05em;color:var(--cat-nhat,#D8CCB5);font-weight:600}
 .gay.mong{--r:30px}
 .gay.mong .gay-than b{font-size:12px}
 .gay.mong .gay-than b.hai{font-size:11px}
@@ -120,7 +120,7 @@
 .bia .nam{position:absolute;right:11px;top:10px;font-family:"Playfair Display",serif;font-variant-numeric:lining-nums;font-size:11px;color:var(--cat-nhat)}
 .bia svg{display:block;width:38%;height:auto;margin:10% auto 0;stroke:var(--cat-nhat);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .bia b{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;margin-top:auto;font-family:"Playfair Display",serif;font-weight:500;font-size:14px;line-height:1.12}
-.bia small{margin-top:4px;margin-bottom:auto;font-size:9px;color:var(--cat-nhat);font-family:"Josefin Sans",sans-serif;letter-spacing:.08em;line-height:1.4}
+.bia small{margin-top:4px;margin-bottom:auto;font-size:9px;color:var(--cat-nhat);font-family:"Be Vietnam Pro",sans-serif;letter-spacing:0.05em;line-height:1.4;font-weight:600}
 .bia b:last-child{margin-bottom:auto}
 /* Bìa luật (Khánh đổi 02/10): chỉ còn hình ngăn và tên, không nhãn loại, năm, số hiệu; tên dài quá 3 dòng thì cắt bằng dấu ba chấm
    (Khánh chốt 02/10 sau khi thử co chữ cho trọn tên: tên 400 chữ thành khối chữ li ti) */
@@ -200,10 +200,8 @@
 /* Đọc thêm: dòng cuối trang sổ, mở văn bản lớn ra giữa màn hình */
 /* Dính ở đáy trang sổ khi phiếu dài hơn trang, để luôn thấy (bù đúng 18px đệm dưới của trang) */
 .pd-doc-them{position:sticky;bottom:-18px;z-index:3;display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:18px;padding:13px 2px 18px;background:#F7F2E8;box-shadow:0 -10px 14px -8px rgba(247,242,232,.95);border:0;border-top:1px solid rgba(47,59,74,.14);cursor:pointer;
-  font-family:"Josefin Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam);text-align:left}
-.pd-doc-them i{font-style:normal;font-size:15px;letter-spacing:0;transition:transform .25s}
+  font-family:"Be Vietnam Pro",sans-serif;font-size:11px;font-weight:600;letter-spacing:0.136em;text-transform:uppercase;color:var(--cat-dam);text-align:left}
 .pd-doc-them:hover{color:var(--muc)}
-.pd-doc-them:hover i{transform:translateX(4px)}
 .pd-doc-them:focus-visible{outline:2px solid var(--cat-dam);outline-offset:3px}
 /* Đầu trang sổ: nhãn, tên, nút đóng (dấu sáp đỏ "nk" đã bỏ 02/10) */
 .so-dau{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:12px;border-bottom:1.5px solid var(--muc)}
@@ -224,12 +222,12 @@
 /* Dòng thông tin như phiếu thư viện */
 .pd-the{display:grid;grid-template-columns:84px minmax(0,1fr);margin-top:4px;font-size:13px;line-height:1.5}
 .pd-the dt,.pd-the dd{padding:7px 0 6px;border-bottom:1px solid rgba(47,59,74,.09)}
-.pd-the dt{font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--nhat);padding-top:9px}
+.pd-the dt{font-family:"Be Vietnam Pro",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:0.099em;text-transform:uppercase;color:var(--nhat);padding-top:9px}
 .pd-the dd{color:var(--muc)}
-.pd-muc{margin-top:18px;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cat-dam)}
+.pd-muc{margin-top:18px;font-family:"Be Vietnam Pro",sans-serif;font-size:10px;font-weight:600;letter-spacing:0.136em;text-transform:uppercase;color:var(--cat-dam)}
 .pd-van p{margin-top:9px;font-size:14px;line-height:1.72;color:#3B4552}
 .pd-van p:first-child{margin-top:8px}
-.pd-lien{display:inline-block;margin-top:14px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-dam);text-decoration:none;border-bottom:1px solid rgba(122,106,79,.45);padding-bottom:3px}
+.pd-lien{display:inline-block;margin-top:14px;font-family:"Be Vietnam Pro",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:0.124em;text-transform:uppercase;color:var(--cat-dam);text-decoration:none;border-bottom:1px solid rgba(122,106,79,.45);padding-bottom:3px}
 .pd-lien:hover{border-color:var(--cat-dam)}
 .pd-goi{margin-top:12px;font-size:13px;line-height:1.65;color:var(--nhat)}
 /* Mực phát sáng: số then chốt ánh vàng và thở; chữ hiện dần như đang viết (lớp .viet đặt lên khối vừa vẽ) */
@@ -243,7 +241,7 @@
 .so-lat button:hover:not(:disabled){background:var(--navy);border-color:var(--navy);color:#F1EADD}
 .so-lat button:disabled{opacity:.3;cursor:default}
 .so-lat button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:2px}
-.so-lat span{font-family:"Josefin Sans",sans-serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--nhat)}
+.so-lat span{font-family:"Be Vietnam Pro",sans-serif;font-size:10.5px;letter-spacing:0.112em;text-transform:uppercase;color:var(--nhat);font-weight:600}
 .so-noi{transform-origin:0 50%}
 .so-noi.lat-toi{animation:pd-lat-toi .5s cubic-bezier(.2,.7,.2,1)}
 .so-noi.lat-lui{animation:pd-lat-lui .5s cubic-bezier(.2,.7,.2,1)}
@@ -253,13 +251,13 @@
 .pd-ds{list-style:none;margin-top:8px}
 .pd-ds li+li{border-top:1px solid rgba(47,59,74,.09)}
 .pd-ds button{display:block;width:100%;padding:11px 4px;border:0;background:none;text-align:left;cursor:pointer;font:inherit;color:var(--muc)}
-.pd-ds button small{font-family:"Josefin Sans",sans-serif;font-size:10px;letter-spacing:.12em;color:var(--cat-dam)}
+.pd-ds button small{font-family:"Be Vietnam Pro",sans-serif;font-size:10px;letter-spacing:0.074em;color:var(--cat-dam);font-weight:600}
 .pd-ds button b{display:block;margin-top:3px;font-family:"Playfair Display",serif;font-weight:500;font-size:15.5px;line-height:1.3}
 .pd-ds button span{display:block;margin-top:3px;font-size:13px;line-height:1.55;color:var(--nhat)}
 .pd-ds button:hover b{color:var(--cat-dam)}
 .pd-ds button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:-2px}
 .pd-nhan-ghi{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.pd-nhan-ghi span{font-family:"Josefin Sans",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(95,82,64,.3);color:var(--cat-dam)}
+.pd-nhan-ghi span{font-family:"Be Vietnam Pro",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:0.087em;text-transform:uppercase;padding:4px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(95,82,64,.3);color:var(--cat-dam)}
 
 /* ---------- Sổ mở lớn giữa màn hình (PhongDoc.moLon) ----------
    Nền tối mờ phía sau; quyển sổ hai trang rộng tới 1080px: trang trái là mục lục hay bìa, trang phải là nội dung.
@@ -287,12 +285,12 @@
 .mo-ds button[aria-current="true"]{background:var(--navy);color:#F1EADD}
 .mo-ds button[aria-current="true"] span:first-child{color:var(--cat)}
 .mo-ds button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:-2px}
-.mo-chuong{margin:16px 0 4px;font-family:"Josefin Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cat-dam)}
+.mo-chuong{margin:16px 0 4px;font-family:"Be Vietnam Pro",sans-serif;font-size:10px;font-weight:600;letter-spacing:0.124em;text-transform:uppercase;color:var(--cat-dam)}
 /* Nguyên văn một điều ở trang phải */
 .mo-dieu h3{margin-top:14px;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(22px,2.2vw,28px);line-height:1.25;color:var(--muc)}
 .mo-dieu .pd-van p{font-size:15.5px;line-height:1.8;white-space:pre-line}
 .mo-dieu-hang{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:22px;padding-top:14px;border-top:1px solid rgba(47,59,74,.12)}
-.mo-dieu-hang button{font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam);background:none;border:0;border-bottom:1px solid rgba(122,106,79,.4);padding:0 0 3px;cursor:pointer}
+.mo-dieu-hang button{font-family:"Be Vietnam Pro",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:0.112em;text-transform:uppercase;color:var(--cat-dam);background:none;border:0;border-bottom:1px solid rgba(122,106,79,.4);padding:0 0 3px;cursor:pointer}
 .mo-dieu-hang button:disabled{opacity:.3;cursor:default}
 .mo-dieu-hang button:focus-visible{outline:2px solid var(--cat-dam);outline-offset:4px}
 .mo-trai .so-bia{margin-top:22px}
@@ -367,7 +365,7 @@ body.pd-khoa{overflow:hidden}
   .pd-mo-so.xem-phai .mo-phai{display:block}
   .mo-trai,.mo-phai{padding:22px 18px 26px;box-shadow:none}
   .mo-ve-phai{display:flex}
-  .mo-ve{display:inline-block;margin-bottom:12px;font-family:"Josefin Sans",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cat-dam);background:none;border:0;border-bottom:1px solid rgba(122,106,79,.4);padding:0 0 3px;cursor:pointer}
+  .mo-ve{display:inline-block;margin-bottom:12px;font-family:"Be Vietnam Pro",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:0.112em;text-transform:uppercase;color:var(--cat-dam);background:none;border:0;border-bottom:1px solid rgba(122,106,79,.4);padding:0 0 3px;cursor:pointer}
 }
 @media(max-width:640px){
   .pd-hang{--o:200px;column-gap:3px}

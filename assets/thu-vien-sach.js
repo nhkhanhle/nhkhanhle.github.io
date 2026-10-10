@@ -55,7 +55,7 @@
   }
   /* Nút "Đọc thêm" cuối trang sổ */
   function nutDocThem(nhan,moLon){
-    var b=tao('button','pd-doc-them'); b.type='button'; b.appendChild(tao('span',null,'Đọc thêm')); var i=tao('i',null,'→'); i.setAttribute('aria-hidden','true'); b.appendChild(i);
+    var b=tao('button','pd-doc-them'); b.type='button'; b.appendChild(tao('span',null,'Đọc thêm'));
     b.setAttribute('aria-label','Đọc thêm: '+nhan); b.addEventListener('click',function(){moLon(b)}); return b;
   }
   function phieuSach(m,nut,cuon){
@@ -77,9 +77,9 @@
     trai.appendChild(dauTrang(khoa?'Khóa học':'Sách',m.ten||'',m));
     trai.appendChild(veBia(m,true));
     bang(trai,[[khoa?'Nơi dạy':'Tác giả',m.tacGia],[khoa?'Nơi học':'Xuất bản',m.noi],['Năm',m.nam,true],['Góc nhìn',m.nhom]]);
-    var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Vì sao đáng '+(khoa?'học':'đọc'))); var mt=tao('i',null,'→'); mt.setAttribute('aria-hidden','true'); doc.appendChild(mt);
+    var doc=tao('button','pd-doc-them'); doc.type='button'; doc.appendChild(tao('span',null,'Vì sao đáng '+(khoa?'học':'đọc')));
     doc.classList.add('mo-ve-phai'); doc.addEventListener('click',function(){PD.xemPhai(true)}); trai.appendChild(doc);
-    var ve=tao('button','mo-ve','← Bìa'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
+    var ve=tao('button','mo-ve','Bìa'); ve.type='button'; ve.addEventListener('click',function(){PD.xemPhai(false)}); phai.appendChild(ve);
     phai.appendChild(dauTrang('Vì sao đáng '+(khoa?'học':'đọc'),m.ten||'',null));
     var van=m.viSao?doan(phai,m.viSao):phai.appendChild(tao('p','pd-goi','Khánh chưa viết vì sao đáng '+(khoa?'học':'đọc')+' cuốn này.'));
     if(m.lienKet){var a=tao('a','pd-lien',khoa?'Xem khóa học ↗':'Xem sách ↗');a.href=m.lienKet;a.target='_blank';a.rel='noopener';phai.appendChild(a)}

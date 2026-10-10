@@ -44,7 +44,7 @@
     if(daViet(b)){
       if(ngay)m.push((sap?'Sắp đăng · ':'')+ngay); if(b.phutDoc)m.push(b.phutDoc+' phút đọc');
       p.appendChild(tao('span','tr-meta',m.join(' · ')));
-      var a=tao('a','tr-doc','Đọc bài →');a.href=goc+b.duongDan;a.tabIndex=-1;p.appendChild(a);
+      var a=tao('a','tr-doc','Đọc bài');a.href=goc+b.duongDan;a.tabIndex=-1;p.appendChild(a);
     } else {
       if(b.phutDoc)m.push(b.phutDoc+' phút đọc');
       if(m.length)p.appendChild(tao('span','tr-meta',m.join(' · ')));

@@ -52,7 +52,7 @@
 .bia-ten{position:relative;margin-top:.35em;font-family:"Playfair Display",serif;font-weight:500;font-size:calc(var(--rong) * .108);line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
 .bia-hinh{position:relative;flex:1;display:grid;place-items:center;width:60%;min-height:0;color:var(--bia-diem)}
 .bia-hinh svg{width:100%;height:auto;max-height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.bia-chan{position:relative;width:74%;padding-top:.9em;border-top:1px solid var(--chi1);font-family:"Josefin Sans",sans-serif;font-weight:600;font-size:calc(var(--rong) * .029 + 1px);letter-spacing:.28em;text-transform:uppercase;color:var(--bia-chu-nho)}
+.bia-chan{position:relative;width:74%;padding-top:.9em;border-top:1px solid var(--chi1);font-family:"Be Vietnam Pro",sans-serif;font-weight:600;font-size:calc(var(--rong) * .029 + 1px);letter-spacing:0.174em;text-transform:uppercase;color:var(--bia-chu-nho)}
 .bia-chan b{font-weight:600}
 
 /* ---------- Có JavaScript: ba cuốn xòe, xoay qua sáu ---------- */
